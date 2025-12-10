@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Guías prácticas · Herramientas FECCCOOEx</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f7f7f7;
+      color: #222;
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 24px;
+      background: #d60000;
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    }
+    header img {
+      height: 52px;
+    }
+    header .titles h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    header .titles p {
+      margin: 2px 0 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 24px auto 40px;
+      padding: 0 16px;
+    }
+
+    .block {
+      background: #fff;
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .block:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    }
+    .block h2 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+      color: #d60000;
+    }
+    .block p {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      color: #444;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+      font-size: 0.85rem;
+    }
+    .tag {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #ffe5e5;
+      color: #6b0000;
+    }
+
+    footer {
+      font-size: 0.75rem;
+      text-align: center;
+      padding: 12px;
+      color: #444;
+      border-top: 1px solid #e0e0e0;
+      background: #fafafa;
+    }
+    footer img {
+      height: 22px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="img/feccooex.png" alt="FECCOOEx">
+    <div class="titles">
+      <h1>Guías prácticas</h1>
+      <p>Orientaciones breves sobre temas clave de la acción sindical en educación</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="block">
+      <h2>Descripción de la sección</h2>
+      <p>
+        En este espacio se recopilarán guías prácticas sobre cuestiones habituales en los centros educativos:
+        jornada, permisos, ratios, salud laboral, convivencia, inclusión, etc.
+      </p>
+      <p>
+        Las guías tendrán un formato breve y claro, para ser utilizadas por delegados y delegadas, así como por el
+        conjunto del profesorado.
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Bloques temáticos previstos</h2>
+      <p>Algunos posibles apartados dentro de esta sección:</p>
+      <ul style="margin: 6px 0 0 18px; font-size:0.9rem;">
+        <li>Jornada y horarios lectivos / complementarios</li>
+        <li>Permisos y licencias</li>
+        <li>Prevención de riesgos laborales y salud laboral</li>
+        <li>Convivencia escolar y clima de centro</li>
+        <li>Educación especial, inclusión y atención a la diversidad</li>
+        <li>Digitalización, teletrabajo y uso de plataformas</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">Jornada</span>
+        <span class="tag">Permisos</span>
+        <span class="tag">PRL</span>
+        <span class="tag">Convivencia</span>
+        <span class="tag">Inclusión</span>
+        <span class="tag">Digitalización</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
+    Este contenido se distribuye bajo licencia <strong>Creative Commons BY-ND 4.0</strong>, permitiendo compartir sin modificaciones y con atribución.
+  </footer>
+
+</body>
+</html>

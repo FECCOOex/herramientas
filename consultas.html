@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Consultas sindicales · Herramientas FECCCOOEx</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f7f7f7;
+      color: #222;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 24px;
+      background: #d60000;
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    }
+    header img { height: 52px; }
+    header .titles h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    header .titles p {
+      margin: 2px 0 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 24px auto 40px;
+      padding: 0 16px;
+    }
+
+    .block {
+      background: #fff;
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .block:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    }
+    .block h2 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+      color: #d60000;
+    }
+    .block p {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 7px 8px;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+    button {
+      align-self: flex-start;
+      padding: 7px 14px;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      border: none;
+      background: #d60000;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    button:hover {
+      background: #b40000;
+    }
+
+    .note {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    footer {
+      font-size: 0.75rem;
+      text-align: center;
+      padding: 12px;
+      color: #444;
+      border-top: 1px solid #e0e0e0;
+      background: #fafafa;
+    }
+    footer img {
+      height: 22px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="img/feccooex.png" alt="FECCOOEx">
+    <div class="titles">
+      <h1>Consultas sindicales</h1>
+      <p>Canal para plantear dudas sobre condiciones laborales y normativa</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="block">
+      <h2>Envío de consultas</h2>
+      <p>
+        A través de este formulario se pueden plantear consultas relacionadas con la situación laboral en los centros
+        educativos, dudas sobre la normativa o cuestiones organizativas.
+      </p>
+
+      <!-- Sustituye "tu_correo@ccoo.es" por el correo real de recepción -->
+      <form action="mailto:tu_correo@ccoo.es" method="post" enctype="text/plain">
+        <label for="nombre">Nombre (opcional)</label>
+        <input type="text" id="nombre" name="Nombre" />
+
+        <label for="correo">Correo electrónico de contacto</label>
+        <input type="email" id="correo" name="Correo" required />
+
+        <label for="centro">Centro de trabajo</label>
+        <input type="text" id="centro" name="Centro" />
+
+        <label for="tema">Tema principal</label>
+        <select id="tema" name="Tema">
+          <option value="">Selecciona un tema</option>
+          <option value="Jornada y horarios">Jornada y horarios</option>
+          <option value="Permisos y licencias">Permisos y licencias</option>
+          <option value="Retribuciones">Retribuciones</option>
+          <option value="Plantillas y organización de centro">Plantillas y organización de centro</option>
+          <option value="Prevención de riesgos laborales">Prevención de riesgos laborales</option>
+          <option value="Otro">Otro</option>
+        </select>
+
+        <label for="consulta">Describe tu consulta</label>
+        <textarea id="consulta" name="Consulta" required></textarea>
+
+        <button type="submit">Enviar consulta</button>
+      </form>
+
+      <p class="note">
+        No incluyas datos especialmente sensibles o clínicos. Este canal sirve para derivar tu consulta a la Federación
+        de Enseñanza de CCOO Extremadura y facilitar una primera orientación.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
+    Este contenido se distribuye bajo licencia <strong>Creative Commons BY-ND 4.0</strong>, permitiendo compartir sin modificaciones y con atribución.
+  </footer>
+
+</body>
+</html>
