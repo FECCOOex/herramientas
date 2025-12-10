@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Chat en línea · Herramientas FECCCOOEx</title>
+  <title>Chat público · Herramientas FECCOOEx</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -48,22 +48,13 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.06);
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
-    .block:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-    }
+
     .block h2 {
       margin: 0 0 8px;
       font-size: 1.25rem;
       color: #d60000;
     }
-    .block p {
-      margin: 0 0 8px;
-      font-size: 0.95rem;
-      color: #444;
-    }
 
-    /* Botón volver */
     .btn-volver {
       display: inline-block;
       padding: 6px 12px;
@@ -77,24 +68,20 @@
       text-decoration: none;
       margin-top: 6px;
     }
-    .btn-volver:hover {
-      background: #b40000;
-    }
+    .btn-volver:hover { background: #b40000; }
 
     /* Layout chat */
     .layout {
       display: grid;
-      grid-template-columns: 1fr 1.4fr;
+      grid-template-columns: 1.1fr 1.3fr;
       gap: 16px;
     }
     @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
+      .layout { grid-template-columns: 1fr; }
     }
 
-    /* Contenedor visual del chat */
-    .chat-container {
+    /* Contenedor del chat público */
+    .chat-publico-container {
       border-radius: 8px;
       border: 1px solid #ddd;
       height: 450px;
@@ -104,139 +91,181 @@
       background: #fafafa;
     }
 
-    /* Si no hay aún proveedor, mostramos un "placeholder" */
-    .chat-placeholder {
+    .chat-mensajes {
       flex: 1;
+      padding: 10px 12px;
+      overflow-y: auto;
+      background: #fdfdfd;
+    }
+
+    .chat-mensaje {
+      margin-bottom: 8px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      font-size: 0.85rem;
+    }
+    .chat-mensaje .autor {
+      font-weight: 600;
+      color: #d60000;
+      margin-bottom: 2px;
+    }
+    .chat-mensaje .texto { color: #333; }
+    .chat-mensaje .hora {
+      margin-top: 2px;
+      font-size: 0.7rem;
+      color: #777;
+      text-align: right;
+    }
+
+    .chat-form {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-      font-size: 0.9rem;
-      color: #555;
-      text-align: center;
-    }
-    .chat-placeholder strong {
-      color: #d60000;
+      padding: 8px 10px;
+      border-top: 1px solid #ddd;
+      background: #f5f5f5;
+      gap: 6px;
     }
 
-    footer {
-      font-size: 0.75rem;
-      text-align: center;
-      padding: 12px;
-      color: #444;
-      border-top: 1px solid #e0e0e0;
-      background: #fafafa;
+    .chat-form-row {
+      display: flex; gap: 6px;
     }
-    footer img {
-      height: 22px;
-      vertical-align: middle;
-      margin-right: 6px;
+
+    .chat-form input,
+    .chat-form textarea {
+      font-family: inherit;
+      font-size: 0.85rem;
+      padding: 6px 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      outline: none;
     }
+    .chat-form button {
+      padding: 6px 12px;
+      background: #d60000;
+      color: #fff;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .chat-form button:hover { background: #b40000; }
+
   </style>
 </head>
-<body>
 
+<body>
   <header>
     <img src="img/feccooex.png" alt="FECCOOEx">
     <div class="titles">
-      <h1>Chat en línea</h1>
-      <p>Ayuda instantánea sin salir del portal de herramientas</p>
+      <h1>Chat público</h1>
+      <p>Consultas y respuestas visibles para toda la comunidad</p>
     </div>
   </header>
 
   <main>
-    <!-- Bloque de descripción + botón volver -->
     <section class="block">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;">
+      <div style="display:flex; justify-content:space-between; flex-wrap:wrap;">
         <div>
-          <h2>Ayuda en tiempo real</h2>
+          <h2>¿Cómo funciona?</h2>
           <p>
-            Este espacio está diseñado para que puedas recibir ayuda inmediata: resolver dudas, orientar trámites
-            y acompañar a las personas sin que tengan que salir del sitio.
-          </p>
-          <p style="font-size:0.9rem; color:#555;">
-            Aquí puede integrarse un chat atendido por delegados y delegadas sindicales o un asistente automático
-            basado en IA, según la opción técnica que se utilice.
+            Aquí puedes escribir dudas o comentarios, y ver en tiempo real las preguntas y respuestas
+            de toda la comunidad y de FECCOO Enseñanza Extremadura.
           </p>
         </div>
-        <div style="text-align:right;">
-          <button class="btn-volver" onclick="window.location.href='index.html'">
-            Volver a la portada
-          </button>
-        </div>
+        <button class="btn-volver" onclick="location.href='index.html'">Volver</button>
       </div>
     </section>
 
-    <!-- Bloque con el chat -->
     <section class="block">
-      <h2>Chat en vivo</h2>
-      <div class="layout">
-        <!-- Columna izquierda: explicación técnica/política -->
-        <div>
-          <p style="font-size:0.9rem;">
-            El chat en vivo permite:
-          </p>
-          <ul style="margin:6px 0 0 18px; font-size:0.9rem;">
-            <li>Responder preguntas rápidas sobre normativa, horarios, permisos, etc.</li>
-            <li>Acompañar en situaciones urgentes sin necesidad de correo o cita previa.</li>
-            <li>Canalizar consultas más complejas hacia las personas responsables adecuadas.</li>
-          </ul>
-          <p style="margin-top:10px; font-size:0.85rem; color:#555;">
-            Técnicamente, este espacio se conecta con un servicio de chat externo:
-          </p>
-          <ul style="margin:4px 0 0 18px; font-size:0.85rem; color:#555;">
-            <li>Puede ser un chat atendido por personas (delegadas y delegados).</li>
-            <li>O un asistente automático apoyado en IA que responda a preguntas frecuentes.</li>
-          </ul>
-          <p style="margin-top:8px; font-size:0.85rem; color:#777;">
-            Cuando dispongáis del servicio elegido, bastará con pegar el código de integración en este archivo
-            (en la zona indicada en el código fuente, dentro del contenedor del chat).
-          </p>
-        </div>
+      <h2>Chat público en tiempo real</h2>
 
-        <!-- Columna derecha: contenedor del chat real -->
-        <div>
-          <div class="chat-container">
-            <!-- AQUÍ IRÁ EL CHAT REAL -->
-            <div id="chat-widget" class="chat-placeholder">
-              <p><strong>Área de chat en vivo</strong></p>
-              <p style="margin-top:6px;">
-                Cuando se integre el servicio de chat, aparecerá aquí la ventana de conversación en tiempo real.
-              </p>
-              <p style="margin-top:8px; font-size:0.8rem; color:#777; max-width:280px;">
-                En el código de esta página (archivo <code>chat.html</code>), busca
-                <code>&lt;div id="chat-widget"&gt;</code> y pega dentro el script o iframe proporcionado por el
-                servicio de chat que decidáis usar.
-              </p>
-            </div>
+      <div class="chat-publico-container">
+        <div id="mensajes" class="chat-mensajes"></div>
+
+        <form id="form-chat" class="chat-form">
+          <div class="chat-form-row">
+            <input id="nombre" placeholder="Tu nombre o alias (opcional)" />
           </div>
-        </div>
+          <textarea id="texto" placeholder="Escribe tu mensaje..." maxlength="500"></textarea>
+          <button>Enviar mensaje</button>
+        </form>
       </div>
+
     </section>
   </main>
 
-  <footer>
-    <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
-    Este contenido se distribuye bajo licencia <strong>Creative Commons BY-ND 4.0</strong>, permitiendo compartir sin modificaciones y con atribución.
+  <footer style="text-align:center; font-size:0.75rem; padding:12px;">
+    <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" height="22">
+    Licencia Creative Commons BY-ND 4.0
   </footer>
 
-  <!--
-    CUANDO TENGÁIS EL SERVICIO DE CHAT (HUMANO O IA), PEGAR AQUÍ EL CÓDIGO QUE OS DEN.
-    NORMALMENTE SERÁ ALGO COMO:
+  <!-- FIREBASE + FIRESTORE -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      query,
+      orderBy,
+      serverTimestamp,
+      onSnapshot
+    } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-    <script src="https://.../widget.js"></script>
+    /* 🔐 CONFIGURACIÓN DE TU PROYECTO (enmascarado en esta copia) */
+    const firebaseConfig = {
+      apiKey: "AIzaSyD*****************72OY",
+      authDomain: "feccooex-chat.firebaseapp.com",
+      projectId: "feccooex-chat",
+      storageBucket: "feccooex-chat.firebasestorage.app",
+      messagingSenderId: "3237367*****",
+      appId: "1:323736709612:web:e7a23fb29************"
+    };
 
-    O BIEN UN <iframe> DENTRO DEL DIV #chat-widget.
+    /* 🚀 Inicializar Firebase y Firestore */
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const mensajesRef = collection(db, "mensajes_publicos");
 
-    EJEMPLO DE ESTRUCTURA:
+    /* 🟢 Escuchar mensajes en tiempo real */
+    const mensajesDiv = document.getElementById("mensajes");
+    const form = document.getElementById("form-chat");
+    const inputNombre = document.getElementById("nombre");
+    const inputTexto = document.getElementById("texto");
 
-    <script>
-      // Ejemplo ficticio: sustituir por el script real del proveedor
-      // ProveedorChat.init({ containerId: 'chat-widget', ... });
-    </script>
-  -->
+    onSnapshot(query(mensajesRef, orderBy("timestamp", "asc")), (snapshot) => {
+      mensajesDiv.innerHTML = "";
+      snapshot.forEach(doc => {
+        const m = doc.data();
+        const div = document.createElement("div");
+        div.className = "chat-mensaje";
+        const hora = m.timestamp?.toDate().toLocaleTimeString("es-ES", { hour: "2-digit", minute:"2-digit" }) || "";
+        div.innerHTML = `
+          <div class="autor">${m.nombre || "Anónimo"}</div>
+          <div class="texto">${m.texto}</div>
+          <div class="hora">${hora}</div>
+        `;
+        mensajesDiv.appendChild(div);
+      });
+      mensajesDiv.scrollTop = mensajesDiv.scrollHeight;
+    });
+
+    /* 📝 Enviar mensajes */
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const nombre = inputNombre.value.trim() || "Anónimo";
+      const texto = inputTexto.value.trim();
+      if (!texto) return;
+      await addDoc(mensajesRef, {
+        nombre,
+        texto,
+        timestamp: serverTimestamp()
+      });
+      inputTexto.value = "";
+    });
+  </script>
+
 </body>
 </html>
-
-
