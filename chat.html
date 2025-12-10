@@ -57,8 +57,22 @@
       font-size: 1.25rem;
       color: #d60000;
     }
+    .block p {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      color: #444;
+    }
 
-    .btn-volver {
+    /* Botón volver y moderación */
+    .top-actions {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:flex-start;
+      justify-content:flex-end;
+    }
+    .btn-volver,
+    .btn-moderacion {
       display: inline-block;
       padding: 6px 12px;
       font-size: 0.9rem;
@@ -71,11 +85,48 @@
       text-decoration: none;
       margin-top: 6px;
     }
-    .btn-volver:hover {
+    .btn-volver:hover,
+    .btn-moderacion:hover {
       background: #b40000;
     }
+    .btn-moderacion {
+      background:#555;
+    }
+    .btn-moderacion:hover {
+      background:#333;
+    }
 
-    /* CHAT VISUAL */
+    /* Layout */
+    .layout {
+      display: grid;
+      grid-template-columns: 1.1fr 1.3fr;
+      gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Aviso / normas */
+    .rules-box {
+      border-left: 4px solid #d60000;
+      background:#fff5f5;
+      padding:10px 12px;
+      font-size:0.85rem;
+      color:#444;
+      border-radius:6px;
+      margin-top:8px;
+    }
+
+    /* Contador de usuarios */
+    .contador-usuarios {
+      font-size:0.85rem;
+      color:#555;
+      margin:6px 0 12px;
+    }
+
+    /* Contenedor del chat público */
     .chat-publico-container {
       border-radius: 8px;
       border: 1px solid #ddd;
@@ -100,12 +151,14 @@
       background: #fff;
       box-shadow: 0 1px 2px rgba(0,0,0,0.05);
       font-size: 0.85rem;
+      position:relative;
     }
     .chat-mensaje .autor {
       font-weight: 600;
       color: #d60000;
       margin-bottom: 2px;
     }
+    .chat-mensaje .texto { color: #333; }
     .chat-mensaje .hora {
       margin-top: 2px;
       font-size: 0.7rem;
@@ -113,7 +166,7 @@
       text-align: right;
     }
 
-    /* Mensajes oficiales */
+    /* Mensajes oficiales FECCOOEx */
     .chat-mensaje.oficial {
       border-left: 4px solid #d60000;
       background: #fff5f5;
@@ -123,6 +176,28 @@
       font-weight: 400;
       font-size: 0.75rem;
       color: #b00000;
+    }
+
+    /* Botón eliminar (solo visible en modo moderación) */
+    .btn-eliminar {
+      position:absolute;
+      top:4px;
+      right:4px;
+      font-size:0.7rem;
+      border:none;
+      border-radius:3px;
+      padding:2px 6px;
+      cursor:pointer;
+      background:#ccc;
+      color:#222;
+      display:none;
+    }
+    body.modo-admin .btn-eliminar {
+      display:inline-block;
+    }
+    .btn-eliminar:hover {
+      background:#a00;
+      color:#fff;
     }
 
     .chat-form {
@@ -140,27 +215,45 @@
       padding: 6px 8px;
       border-radius: 4px;
       border: 1px solid #ccc;
+      outline: none;
+    }
+    .chat-form textarea {
+      resize: vertical;
+      min-height: 60px;
+      max-height: 120px;
+    }
+    .chat-form input:focus,
+    .chat-form textarea:focus {
+      border-color: #d60000;
+      box-shadow: 0 0 0 1px rgba(214,0,0,0.15);
     }
     .chat-form button {
       align-self: flex-end;
       padding: 6px 12px;
-      background: #d60000;
-      color: #fff;
+      font-size: 0.85rem;
       border-radius: 4px;
       border: none;
-      font-weight: 600;
       cursor: pointer;
+      font-weight: 600;
+      background: #d60000;
+      color: #fff;
     }
     .chat-form button:hover {
       background: #b40000;
     }
 
     footer {
-      text-align: center;
       font-size: 0.75rem;
+      text-align: center;
       padding: 12px;
-      border-top: 1px solid #ddd;
+      color: #444;
+      border-top: 1px solid #e0e0e0;
       background: #fafafa;
+    }
+    footer img {
+      height: 22px;
+      vertical-align: middle;
+      margin-right: 6px;
     }
   </style>
 </head>
@@ -175,42 +268,75 @@
   </header>
 
   <main>
+    <!-- Bloque de descripción + botones -->
     <section class="block">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;">
         <div>
           <h2>¿Cómo funciona este chat?</h2>
           <p>
-            Este chat permite plantear dudas breves y ver en tiempo real las
-            preguntas y respuestas de la comunidad y de FECCOO Enseñanza Extremadura.
+            Este chat público permite plantear dudas breves y ver en tiempo real las preguntas y respuestas
+            de la comunidad y de la Federación de Enseñanza de CCOO de Extremadura.
           </p>
+          <div class="rules-box">
+            <strong>Normas básicas:</strong>
+            <ul style="margin:6px 0 0 18px; padding:0;">
+              <li>No compartas datos personales sensibles (salud, direcciones completas, DNI, etc.).</li>
+              <li>Mantén un lenguaje respetuoso y evita descalificaciones personales.</li>
+              <li>
+                Los mensajes de la Federación aparecerán destacados. La organización se reserva el derecho a
+                moderar y eliminar contenidos inapropiados.
+              </li>
+            </ul>
+          </div>
         </div>
-        <button class="btn-volver" onclick="location.href='index.html'">
-          Volver a la portada
-        </button>
+
+        <div class="top-actions">
+          <button class="btn-moderacion" id="btn-moderacion" type="button">
+            Activar moderación
+          </button>
+          <button class="btn-volver" onclick="window.location.href='index.html'">
+            Volver a la portada
+          </button>
+        </div>
       </div>
     </section>
 
+    <!-- Bloque con el chat -->
     <section class="block">
       <h2>Chat público en tiempo real</h2>
+      <p id="contador-usuarios" class="contador-usuarios">
+        Personas conectadas ahora: —
+      </p>
 
       <div class="chat-publico-container">
-        <div id="mensajes" class="chat-mensajes"></div>
+        <div id="mensajes" class="chat-mensajes">
+          <!-- Mensajes por JavaScript -->
+        </div>
 
         <form id="form-chat" class="chat-form">
-          <input id="nombre" placeholder="Tu nombre o alias (opcional)" />
-          <textarea id="texto" placeholder="Escribe tu mensaje..." maxlength="500"></textarea>
-          <button>Enviar mensaje</button>
+          <input
+            type="text"
+            id="nombre"
+            placeholder="Tu nombre o alias (opcional)"
+            maxlength="50"
+          />
+          <textarea
+            id="texto"
+            placeholder="Escribe tu mensaje (máx. 500 caracteres)..."
+            maxlength="500"
+          ></textarea>
+          <button type="submit">Enviar mensaje</button>
         </form>
       </div>
     </section>
   </main>
 
   <footer>
-    <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" height="22">
-    Licencia Creative Commons BY-ND 4.0
+    <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
+    Este contenido se distribuye bajo licencia <strong>Creative Commons BY-ND 4.0</strong>, permitiendo compartir sin modificaciones y con atribución.
   </footer>
 
-  <!-- FIREBASE + FIRESTORE -->
+  <!-- Firebase + Firestore + presencia -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
     import {
@@ -220,10 +346,13 @@
       query,
       orderBy,
       serverTimestamp,
-      onSnapshot
+      onSnapshot,
+      doc,
+      setDoc,
+      deleteDoc
     } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-    /* 🔐 TU CONFIGURACIÓN REAL (NO ENMASCARADA AQUÍ, PERO SÍ EN EL CHAT) */
+    /* Configuración real de tu proyecto Firebase */
     const firebaseConfig = {
       apiKey: "AIzaSyDU1o7NEtPCWz6M0Q2gToZE97qmtSP72OY",
       authDomain: "feccooex-chat.firebaseapp.com",
@@ -236,16 +365,40 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    // Colección de mensajes
     const mensajesRef = collection(db, "mensajes_publicos_feccooex");
+    // Colección para presencia (usuarios conectados)
+    const presenciaRef = collection(db, "presencia_chat_feccooex");
 
     const mensajesDiv = document.getElementById("mensajes");
     const form = document.getElementById("form-chat");
     const inputNombre = document.getElementById("nombre");
     const inputTexto = document.getElementById("texto");
+    const contadorUsuarios = document.getElementById("contador-usuarios");
+    const btnModeracion = document.getElementById("btn-moderacion");
 
+    // Antispam sencillo
     let ultimoEnvioMs = 0;
 
-    /* 🔄 ESCUCHAR MENSAJES EN TIEMPO REAL */
+    // Modo moderación local (solo en este navegador)
+    const ADMIN_CODE = "FECCOOEX2024"; // puedes cambiar este código
+    let esAdmin = false;
+
+    function activarModeracion() {
+      const intento = prompt("Introduce el código de moderación:");
+      if (!intento) return;
+      if (intento === ADMIN_CODE) {
+        esAdmin = true;
+        document.body.classList.add("modo-admin");
+        alert("Modo moderación activado. Ahora puedes eliminar mensajes.");
+      } else {
+        alert("Código incorrecto.");
+      }
+    }
+
+    btnModeracion.addEventListener("click", activarModeracion);
+
+    /* Escuchar mensajes en tiempo real */
     onSnapshot(query(mensajesRef, orderBy("timestamp", "asc")), (snapshot) => {
       mensajesDiv.innerHTML = "";
 
@@ -253,6 +406,7 @@
         const m = docSnap.data();
         const nombre = m.nombre || "Anónimo";
         const texto = m.texto || "";
+        const idMensaje = docSnap.id;
 
         const esOficial =
           /ccoo|feccooex|federaci.n|fe ense/gi.test(nombre);
@@ -266,7 +420,10 @@
           fechaTexto =
             d.toLocaleDateString("es-ES") +
             " · " +
-            d.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+            d.toLocaleTimeString("es-ES", {
+              hour: "2-digit",
+              minute: "2-digit"
+            });
         }
 
         div.innerHTML = `
@@ -275,13 +432,30 @@
           <div class="hora">${fechaTexto}</div>
         `;
 
+        // Botón de eliminar (visible solo en modo moderación)
+        const btnDel = document.createElement("button");
+        btnDel.className = "btn-eliminar";
+        btnDel.textContent = "✕";
+        btnDel.title = "Eliminar mensaje";
+        btnDel.addEventListener("click", async () => {
+          if (!esAdmin) return;
+          const ok = confirm("¿Eliminar este mensaje?");
+          if (!ok) return;
+          try {
+            await deleteDoc(doc(mensajesRef, idMensaje));
+          } catch (err) {
+            alert("No se ha podido eliminar el mensaje.");
+          }
+        });
+
+        div.appendChild(btnDel);
         mensajesDiv.appendChild(div);
       });
 
       mensajesDiv.scrollTop = mensajesDiv.scrollHeight;
     });
 
-    /* 📨 ENVIAR MENSAJE + ANTISPAM */
+    /* Enviar mensaje */
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -290,7 +464,6 @@
       if (!texto) return;
 
       const ahora = Date.now();
-
       if (ahora - ultimoEnvioMs < 5000) {
         alert("Espera unos segundos antes de enviar otro mensaje.");
         return;
@@ -302,12 +475,64 @@
           texto,
           timestamp: serverTimestamp()
         });
-
         ultimoEnvioMs = ahora;
         inputTexto.value = "";
       } catch (err) {
         alert("No se ha podido enviar el mensaje.");
       }
+    });
+
+    /* Presencia: contador de usuarios conectados */
+    const presenceId =
+      (self.crypto && crypto.randomUUID && crypto.randomUUID()) ||
+      (Date.now() + "_" + Math.random().toString(16).slice(2));
+
+    const presenciaDocRef = doc(presenciaRef, presenceId);
+
+    async function actualizarPresencia() {
+      try {
+        await setDoc(
+          presenciaDocRef,
+          { lastActive: serverTimestamp() },
+          { merge: true }
+        );
+      } catch (err) {
+        // silencio, no es crítico
+      }
+    }
+
+    // Actualiza presencia al cargar y cada 25s
+    actualizarPresencia();
+    const presenceInterval = setInterval(actualizarPresencia, 25000);
+
+    // Escuchar cambios en la colección de presencia
+    onSnapshot(presenciaRef, (snapshot) => {
+      const ahora = Date.now();
+      let activos = 0;
+
+      snapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        if (!data.lastActive) return;
+        const t = data.lastActive.toDate().getTime();
+        if (ahora - t < 60000) {
+          activos++;
+        }
+      });
+
+      if (activos === 0) {
+        contadorUsuarios.textContent = "Personas conectadas ahora: 0";
+      } else if (activos === 1) {
+        contadorUsuarios.textContent = "Personas conectadas ahora: 1";
+      } else {
+        contadorUsuarios.textContent =
+          "Personas conectadas ahora: " + activos;
+      }
+    });
+
+    // Intentar limpiar presencia al cerrar
+    window.addEventListener("beforeunload", () => {
+      clearInterval(presenceInterval);
+      deleteDoc(presenciaDocRef).catch(() => {});
     });
   </script>
 </body>
