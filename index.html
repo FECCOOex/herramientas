@@ -61,13 +61,51 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.25);
     }
 
-    /* MAIN GRID */
+    /* MAIN */
     main {
       max-width: 1300px;
       margin: 26px auto 40px;
       padding: 0 16px 40px;
     }
 
+    /* Banner explicativo */
+    .intro-banner {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      border: 1px solid #e1e4ea;
+      box-shadow: 0 2px 6px rgba(15,23,42,0.08);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .intro-text h2 {
+      margin: 0 0 4px;
+      font-size: 1.1rem;
+      color: #d60000;
+    }
+
+    .intro-text p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #444;
+    }
+
+    .intro-pill {
+      font-size: 0.8rem;
+      background: #fee2e2;
+      color: #b91c1c;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #fecaca;
+      white-space: nowrap;
+    }
+
+    /* GRID */
     .grid {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -92,21 +130,21 @@
       }
     }
 
-    /* TARJETAS */
+    /* TARJETAS (estilo más horizontal/compacto) */
     .card {
       background: #fff;
-      border-radius: 12px;
-      padding: 14px;
+      border-radius: 10px;
+      padding: 12px;
       border: 1px solid #e1e4ea;
-      box-shadow: 0 3px 8px rgba(15,23,42,0.10);
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.10);
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
       display: flex;
       flex-direction: column;
     }
 
     .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 24px rgba(15,23,42,0.20);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.18);
       border-color: #d60000;
     }
 
@@ -117,47 +155,49 @@
     }
 
     .card-header img {
-      height: 26px;
+      height: 24px;
     }
 
     .card-header h2 {
-      font-size: 1.05rem;
+      font-size: 1.0rem;
       margin: 0;
       color: #d60000;
     }
 
     .card-image {
       width: 100%;
-      border-radius: 8px;
-      margin: 10px 0 8px;
+      border-radius: 6px;
+      margin: 6px 0;
+      max-height: 80px;
+      object-fit: contain;
     }
 
     .card p {
       flex-grow: 1;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: #444;
-      margin: 0 0 4px;
+      margin: 0 0 2px;
     }
 
     .btn {
       display: inline-block;
-      margin-top: 8px;
-      padding: 8px 10px;
+      margin-top: 6px;
+      padding: 7px 9px;
       text-align: center;
-      border-radius: 999px;
-      font-size: 0.9rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
       font-weight: 600;
       background: #d60000;
       color: #fff;
       text-decoration: none;
-      transition: background 0.2s, transform 0.15s ease, box-shadow 0.15s ease;
-      box-shadow: 0 2px 6px rgba(214,0,0,0.3);
+      transition: background 0.15s, transform 0.12s ease, box-shadow 0.12s ease;
+      box-shadow: 0 2px 5px rgba(214,0,0,0.3);
     }
 
     .btn:hover {
       background: #b40000;
       transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(180,0,0,0.35);
+      box-shadow: 0 4px 9px rgba(180,0,0,0.35);
     }
 
     /* FOOTER INSTITUCIONAL */
@@ -285,11 +325,28 @@
     </nav>
   </header>
 
-  <!-- GRID PRINCIPAL -->
+  <!-- CONTENIDO PRINCIPAL -->
   <main>
+
+    <!-- Banner explicativo -->
+    <section class="intro-banner">
+      <div class="intro-text">
+        <h2>Elige la herramienta que necesitas</h2>
+        <p>
+          Consulta centros educativos, normativa, calendario escolar, recursos sindicales
+          y canales de contacto. Todas las herramientas están pensadas para facilitar
+          el trabajo diario en los centros y la acción sindical.
+        </p>
+      </div>
+      <div class="intro-pill">
+        Herramientas en continuo desarrollo · FECCOOEx
+      </div>
+    </section>
+
+    <!-- GRID PRINCIPAL -->
     <div class="grid">
 
-      <!-- CENTROS -->
+      <!-- 1. CENTROS -->
       <article class="card">
         <div class="card-header">
           <img src="img/herramientas.png" alt="icono">
@@ -300,7 +357,7 @@
         <a class="btn" href="centros.html">Abrir herramienta</a>
       </article>
 
-      <!-- NORMATIVA -->
+      <!-- 2. NORMATIVA -->
       <article class="card">
         <div class="card-header">
           <img src="img/herramientas.png" alt="icono">
@@ -311,7 +368,7 @@
         <a class="btn" href="normativa.html">Abrir herramienta</a>
       </article>
 
-      <!-- CALENDARIO -->
+      <!-- 3. CALENDARIO -->
       <article class="card">
         <div class="card-header">
           <img src="img/herramientas.png" alt="icono">
@@ -322,62 +379,7 @@
         <a class="btn" href="calendario.html">Abrir herramienta</a>
       </article>
 
-      <!-- PUBLICACIONES -->
-      <article class="card">
-        <div class="card-header">
-          <img src="img/herramientas.png" alt="icono">
-          <h2>Publicaciones</h2>
-        </div>
-        <img class="card-image" src="img/tarjetas/publicaciones.png" alt="Publicaciones">
-        <p>Acceso a documentos, informes y boletines de la Federación de Enseñanza.</p>
-        <a class="btn" href="publicaciones.html">Abrir herramienta</a>
-      </article>
-
-      <!-- CALCULADORA -->
-      <article class="card">
-        <div class="card-header">
-          <img src="img/herramientas.png" alt="icono">
-          <h2>Calculadora docente</h2>
-        </div>
-        <img class="card-image" src="img/tarjetas/calculadora.png" alt="Calculadora">
-        <p>Herramienta para cálculos rápidos: horas lectivas, cupos, reducciones y más.</p>
-        <a class="btn" href="calculadora.html">Abrir herramienta</a>
-      </article>
-
-      <!-- GUÍAS -->
-      <article class="card">
-        <div class="card-header">
-          <img src="img/herramientas.png" alt="icono">
-          <h2>Guías sindicales</h2>
-        </div>
-        <img class="card-image" src="img/tarjetas/guias.png" alt="Guías">
-        <p>Guías breves para delegados, claustros y equipos directivos.</p>
-        <a class="btn" href="guias.html">Abrir herramienta</a>
-      </article>
-
-      <!-- AFILIACIÓN -->
-      <article class="card">
-        <div class="card-header">
-          <img src="img/herramientas.png" alt="icono">
-          <h2>Afiliación</h2>
-        </div>
-        <img class="card-image" src="img/tarjetas/afiliacion.png" alt="Afiliación">
-        <p>Información para afiliarse a FECCOOEx y ventajas para la afiliación.</p>
-        <a class="btn" href="afiliacion.html">Abrir herramienta</a>
-      </article>
-
-      <!-- CONTACTOS -->
-      <article class="card">
-        <div class="card-header">
-          <img src="img/herramientas.png" alt="icono">
-          <h2>Contactos</h2>
-        </div>
-        <img class="card-image" src="img/tarjetas/contactos.png" alt="Contactos">
-        <p>Contactos de la Federación, delegados/as de zona, asesoría jurídica y más.</p>
-        <a class="btn" href="contactos.html">Abrir herramienta</a>
-      </article>
-
-      <!-- CONSULTAS -->
+      <!-- 4. CONSULTAS -->
       <article class="card">
         <div class="card-header">
           <img src="img/herramientas.png" alt="icono">
@@ -388,7 +390,7 @@
         <a class="btn" href="consultas.html">Abrir herramienta</a>
       </article>
 
-      <!-- CHAT -->
+      <!-- 5. CHAT -->
       <article class="card">
         <div class="card-header">
           <img src="img/herramientas.png" alt="icono">
@@ -397,6 +399,61 @@
         <img class="card-image" src="img/tarjetas/chats.png" alt="Chat">
         <p>Chat público para resolver dudas rápidas en directo.</p>
         <a class="btn" href="chat.html">Abrir herramienta</a>
+      </article>
+
+      <!-- 6. GUÍAS -->
+      <article class="card">
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Guías sindicales</h2>
+        </div>
+        <img class="card-image" src="img/tarjetas/guias.png" alt="Guías">
+        <p>Guías breves para delegados/as, claustros y equipos directivos.</p>
+        <a class="btn" href="guias.html">Abrir herramienta</a>
+      </article>
+
+      <!-- 7. PUBLICACIONES -->
+      <article class="card">
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Publicaciones</h2>
+        </div>
+        <img class="card-image" src="img/tarjetas/publicaciones.png" alt="Publicaciones">
+        <p>Acceso a documentos, informes y boletines de la Federación de Enseñanza.</p>
+        <a class="btn" href="publicaciones.html">Abrir herramienta</a>
+      </article>
+
+      <!-- 8. CALCULADORA -->
+      <article class="card">
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Calculadora docente</h2>
+        </div>
+        <img class="card-image" src="img/tarjetas/calculadora.png" alt="Calculadora">
+        <p>Herramienta para cálculos rápidos: horas lectivas, cupos, reducciones y más.</p>
+        <a class="btn" href="calculadora.html">Abrir herramienta</a>
+      </article>
+
+      <!-- 9. CONTACTOS -->
+      <article class="card">
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Contactos</h2>
+        </div>
+        <img class="card-image" src="img/tarjetas/contactos.png" alt="Contactos">
+        <p>Contactos de la Federación, delegados/as de zona, asesoría jurídica y más.</p>
+        <a class="btn" href="contactos.html">Abrir herramienta</a>
+      </article>
+
+      <!-- 10. AFILIACIÓN -->
+      <article class="card">
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Afiliación</h2>
+        </div>
+        <img class="card-image" src="img/tarjetas/afiliacion.png" alt="Afiliación">
+        <p>Información para afiliarse a FECCOOEx y ventajas para la afiliación.</p>
+        <a class="btn" href="afiliacion.html">Abrir herramienta</a>
       </article>
 
     </div>
