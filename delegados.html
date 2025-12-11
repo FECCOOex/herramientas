@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Área de delegados/as · Herramientas FECCOOEx</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f7f7f7;
+      color: #222;
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 24px;
+      background: #d60000;
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    }
+    header img { height: 52px; }
+    header .titles h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    header .titles p {
+      margin: 2px 0 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 24px auto 40px;
+      padding: 0 16px;
+    }
+
+    .block {
+      background: #fff;
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .block:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    }
+    .block h2 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+      color: #d60000;
+    }
+    .block p {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    .btn-volver {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      background: #d60000;
+      color: #fff;
+      text-decoration: none;
+      margin-top: 6px;
+    }
+    .btn-volver:hover {
+      background: #b40000;
+    }
+
+    /* Tarjetas pack */
+    .packs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+    }
+    @media (max-width: 900px) {
+      .packs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pack-card {
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      background: #fff;
+      padding: 12px 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    .pack-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.14);
+    }
+    .pack-card h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      color: #c10000;
+    }
+    .pack-card p {
+      margin: 0 0 6px;
+      font-size: 0.86rem;
+      color:#444;
+    }
+    .pack-card ul {
+      margin: 4px 0 6px 18px;
+      padding: 0;
+      font-size:0.85rem;
+      color:#333;
+    }
+    .pack-chip {
+      display:inline-block;
+      font-size:0.7rem;
+      padding:2px 6px;
+      border-radius:999px;
+      background:#fff5f5;
+      color:#b00000;
+      border:1px solid #f0b0b0;
+      margin-bottom:4px;
+    }
+
+    /* Bloque de login */
+    #bloque-login {
+      max-width: 450px;
+      margin: 0 auto 18px;
+      text-align:left;
+    }
+    .login-inner {
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      background:#fff;
+      padding: 16px 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .login-inner h2 {
+      margin:0 0 8px;
+      font-size:1.2rem;
+      color:#d60000;
+    }
+    .login-inner label {
+      display:block;
+      font-size:0.85rem;
+      font-weight:600;
+      margin-bottom:4px;
+      color:#555;
+    }
+    .login-inner input {
+      width:100%;
+      padding:6px 8px;
+      border-radius:4px;
+      border:1px solid #ccc;
+      font-size:0.9rem;
+      margin-bottom:8px;
+      font-family:inherit;
+      outline:none;
+    }
+    .login-inner input:focus {
+      border-color:#d60000;
+      box-shadow:0 0 0 1px rgba(214,0,0,0.15);
+    }
+    .login-inner button {
+      display:inline-block;
+      padding:6px 12px;
+      border-radius:4px;
+      border:none;
+      background:#d60000;
+      color:#fff;
+      font-weight:600;
+      font-size:0.9rem;
+      cursor:pointer;
+    }
+    .login-inner button:hover {
+      background:#b40000;
+    }
+    .login-note {
+      font-size:0.8rem;
+      color:#666;
+      margin-top:6px;
+    }
+    .login-error {
+      font-size:0.8rem;
+      color:#b00000;
+      margin-top:4px;
+      min-height:1em;
+    }
+
+    /* Área delegados ocultable */
+    #area-delegados {
+      display:none;
+    }
+    body.delegados-ok #area-delegados {
+      display:block;
+    }
+    body.delegados-ok #bloque-login {
+      display:none;
+    }
+
+    footer {
+      font-size: 0.75rem;
+      text-align: center;
+      padding: 12px;
+      color: #444;
+      border-top: 1px solid #e0e0e0;
+      background: #fafafa;
+    }
+    footer img {
+      height: 22px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="img/feccooex.png" alt="FECCOOEx">
+    <div class="titles">
+      <h1>Área de delegados y delegadas</h1>
+      <p>Acceso interno a packs normativos para la acción sindical</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- Bloque introductorio -->
+    <section class="block">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;">
+        <div>
+          <h2>Uso interno sindical</h2>
+          <p>
+            Esta sección reúne resúmenes y selecciones de normativa pensadas para apoyar
+            la acción sindical de la Federación de Enseñanza de CCOO de Extremadura.
+          </p>
+          <p style="font-size:0.9rem; color:#555;">
+            El acceso está limitado a delegados y delegadas. Los contenidos aquí organizados se basan en normativa
+            pública, pero la selección, síntesis y orientaciones están pensadas para uso sindical interno
+            (reuniones con equipos directivos, claustros, negociación y asesoría en centros).
+          </p>
+        </div>
+        <div>
+          <button class="btn-volver" onclick="window.location.href='index.html'">
+            Volver a la portada
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bloque de login -->
+    <section id="bloque-login">
+      <div class="login-inner">
+        <h2>Acceso área de delegados/as</h2>
+        <p style="font-size:0.9rem; color:#444;">
+          Introduce el código facilitado por la Federación de Enseñanza de CCOO de Extremadura.
+        </p>
+        <label for="codigo-acceso">Código de acceso</label>
+        <input type="password" id="codigo-acceso" autocomplete="off" />
+        <button id="btn-acceder" type="button">Acceder</button>
+        <div class="login-error" id="login-error"></div>
+        <p class="login-note">
+          Este acceso no sustituye a un sistema de autenticación completo. No compartas el código en canales públicos.
+        </p>
+      </div>
+    </section>
+
+    <!-- Área interna para delegados/as -->
+    <section id="area-delegados">
+      <section class="block">
+        <h2>Packs normativos destacados</h2>
+        <p>
+          A continuación se presentan packs temáticos de normativa. Cada pack agrupa una selección mínima de normas clave,
+          referencias complementarias y pistas de uso sindical para reuniones, asesoría y acción en los centros.
+        </p>
+      </section>
+
+      <section class="block">
+        <div class="packs-grid">
+          <!-- PACK 1: Atención a la diversidad -->
+          <article class="pack-card">
+            <div class="pack-chip">Pack 1 · Atención a la diversidad y NEAE</div>
+            <h3>Atención a la diversidad y necesidades específicas de apoyo educativo</h3>
+            <p>
+              Marco autonómico para organizar medidas ordinarias y específicas, dictámenes, adaptaciones y
+              coordinación entre docentes, orientación y servicios externos.
+            </p>
+            <p><strong>Normativa clave (Extremadura):</strong></p>
+            <ul>
+              <li><strong>Decreto 228/2014</strong>: respuesta educativa a la diversidad del alumnado.</li>
+              <li><strong>Instrucción 2/2015 SGE</strong>: procedimientos, documentación y circuitos.</li>
+            </ul>
+            <p><strong>Normativa de referencia estatal y europea:</strong></p>
+            <ul>
+              <li>Leyes LOE/LOMLOE: principios de inclusión y atención a la diversidad.</li>
+              <li>Recomendaciones europeas sobre educación inclusiva y equidad.</li>
+            </ul>
+            <p><strong>Uso sindical sugerido:</strong></p>
+            <ul>
+              <li>Revisar si el centro dispone de Plan de Atención a la Diversidad actualizado.</li>
+              <li>Comprobar que las medidas específicas (ACNEAE, compensatoria, etc.) tienen respaldo documental.</li>
+              <li>Exigir tiempos reales de coordinación y seguimiento de casos en claustro y equipos docentes.</li>
+            </ul>
+          </article>
+
+          <!-- PACK 2: Evaluación -->
+          <article class="pack-card">
+            <div class="pack-chip">Pack 2 · Evaluación, promoción y titulación</div>
+            <h3>Evaluación, promoción y titulación en Infantil, Primaria, ESO y Bachillerato</h3>
+            <p>
+              Conjunto de normas que regulan la evaluación continua, los criterios de promoción y
+              las condiciones de titulación tras la LOMLOE.
+            </p>
+            <p><strong>Normativa clave (estatal):</strong></p>
+            <ul>
+              <li><strong>Real Decreto 217/2022</strong>: evaluación en Primaria, ESO y Bachillerato.</li>
+              <li><strong>Real Decreto 984/2021</strong>: marco general de evaluación y promoción.</li>
+            </ul>
+            <p><strong>Normativa autonómica (Extremadura):</strong></p>
+            <ul>
+              <li><strong>Orden de 9 de diciembre de 2022</strong>: evaluación en Infantil, Primaria, ESO y Bachillerato.</li>
+            </ul>
+            <p><strong>Uso sindical sugerido:</strong></p>
+            <ul>
+              <li>Aclarar en los centros la diferencia entre criterios de evaluación y calificación.</li>
+              <li>Recordar que la repetición es una medida excepcional y no puede usarse como castigo.</li>
+              <li>Apoyar reclamaciones del alumnado y familias basadas en criterios publicados y conocidos.</li>
+            </ul>
+          </article>
+
+          <!-- PACK 3: Igualdad -->
+          <article class="pack-card">
+            <div class="pack-chip">Pack 3 · Igualdad y diversidad</div>
+            <h3>Igualdad de género, diversidad LGBTI y coeducación</h3>
+            <p>
+              Marco normativo para integrar la igualdad de género, la diversidad afectivo-sexual
+              y la no discriminación en los centros educativos.
+            </p>
+            <p><strong>Normativa clave (Extremadura):</strong></p>
+            <ul>
+              <li><strong>Ley 12/2015</strong> de igualdad social LGBTI.</li>
+              <li><strong>Plan de Igualdad de Género 2020–2024</strong> en el ámbito educativo.</li>
+              <li><strong>Instrucción 4/2021</strong> sobre Planes de Igualdad de Género de centro.</li>
+            </ul>
+            <p><strong>Normativa estatal:</strong></p>
+            <ul>
+              <li><strong>LO 3/2007</strong> para la igualdad efectiva de mujeres y hombres.</li>
+              <li>LOE/LOMLOE: principios de igualdad y no discriminación.</li>
+            </ul>
+            <p><strong>Uso sindical sugerido:</strong></p>
+            <ul>
+              <li>Revisar si el centro dispone de Plan de Igualdad y si se está aplicando.</li>
+              <li>Introducir la perspectiva de género en la convivencia, el currículo y la orientación académica.</li>
+              <li>Actuar ante situaciones de discriminación o LGTBIfobia citando la normativa específica.</li>
+            </ul>
+          </article>
+
+          <!-- PACK 4: Convivencia -->
+          <article class="pack-card">
+            <div class="pack-chip">Pack 4 · Convivencia escolar y acoso</div>
+            <h3>Convivencia escolar, acoso y ciberacoso</h3>
+            <p>
+              Normas y planes que regulan la convivencia, los derechos y deberes del alumnado,
+              y los protocolos frente al acoso escolar en Extremadura.
+            </p>
+            <p><strong>Normativa clave (Extremadura):</strong></p>
+            <ul>
+              <li><strong>Decreto 50/2007</strong>: derechos y deberes del alumnado y convivencia.</li>
+              <li><strong>Plan Regional de Convivencia Escolar</strong>.</li>
+              <li><strong>Protocolo de acoso y ciberacoso</strong> en centros educativos.</li>
+              <li><strong>Decreto 28/2007</strong> de creación del Observatorio de la Convivencia.</li>
+            </ul>
+            <p><strong>Uso sindical sugerido:</strong></p>
+            <ul>
+              <li>Comprobar que el centro tiene Plan de Convivencia actualizado y conocido por el claustro.</li>
+              <li>Exigir la activación del protocolo de acoso cuando se dan los requisitos.</li>
+              <li>Promover el uso de medidas educativas y restaurativas frente a sanciones meramente punitivas.</li>
+            </ul>
+          </article>
+
+          <!-- PACK 5: Formación Profesional -->
+          <article class="pack-card">
+            <div class="pack-chip">Pack 5 · Formación Profesional</div>
+            <h3>Formación Profesional, sistema integrado y FP dual</h3>
+            <p>
+              Normativa básica para la nueva Formación Profesional, la acreditación de competencias
+              y el despliegue de la FP dual, con impacto directo en plantillas y organización de los ciclos.
+            </p>
+            <p><strong>Normativa clave (estatal):</strong></p>
+            <ul>
+              <li><strong>LO 3/2022</strong> de ordenación e integración de la Formación Profesional.</li>
+              <li><strong>Órdenes EFD/657 y 659/2024</strong> sobre currículo de ciclos de grado medio y superior.</li>
+            </ul>
+            <p><strong>Normativa de referencia autonómica:</strong></p>
+            <ul>
+              <li>Decretos y órdenes autonómicos que regulan la implantación de ciclos y proyectos de FP dual.</li>
+            </ul>
+            <p><strong>Uso sindical sugerido:</strong></p>
+            <ul>
+              <li>Vigilar las condiciones del alumnado en FP dual y la relación con las empresas colaboradoras.</li>
+              <li>Analizar la carga de trabajo del profesorado en la tutoría y coordinación de dual.</li>
+              <li>Defender la oferta pública de FP frente a externalizaciones o privatizaciones encubiertas.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
+    Este contenido se distribuye bajo licencia <strong>Creative Commons BY-ND 4.0</strong>, permitiendo compartir sin modificaciones y con atribución.
+  </footer>
+
+  <script>
+    // Código de acceso "blando" (no es seguridad fuerte, solo barrera práctica)
+    const ACCESS_CODE = "DELEGADOS2024"; // cámbialo si quieres
+    const STORAGE_KEY = "feccooex_delegados_ok";
+
+    const inputCodigo = document.getElementById('codigo-acceso');
+    const btnAcceder  = document.getElementById('btn-acceder');
+    const errorBox    = document.getElementById('login-error');
+
+    // Si ya se accedió correctamente en este navegador, no volver a pedir código
+    if (localStorage.getItem(STORAGE_KEY) === "true") {
+      document.body.classList.add('delegados-ok');
+    }
+
+    btnAcceder.addEventListener('click', intentarAcceso);
+    inputCodigo.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        intentarAcceso();
+      }
+    });
+
+    function intentarAcceso() {
+      const valor = (inputCodigo.value || "").trim();
+      if (!valor) {
+        errorBox.textContent = "Introduce el código de acceso.";
+        return;
+      }
+      if (valor === ACCESS_CODE) {
+        document.body.classList.add('delegados-ok');
+        localStorage.setItem(STORAGE_KEY, "true");
+        errorBox.textContent = "";
+        inputCodigo.value = "";
+      } else {
+        errorBox.textContent = "Código incorrecto. Verifica el código facilitado por la Federación.";
+      }
+    }
+  </script>
+</body>
+</html>
