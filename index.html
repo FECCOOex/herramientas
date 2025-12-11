@@ -2,10 +2,12 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Herramientas FECCCOOEx</title>
+  <title>Herramientas FECCOOEx</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -13,347 +15,296 @@
       color: #222;
     }
 
-    /* HEADER mejorado */
+    /* HEADER */
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      padding: 12px 24px;
-      background: linear-gradient(90deg, #d60000, #ff5252);
-      color: white;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+      padding: 14px 24px;
+      background: #d60000;
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.25);
     }
-    header .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+
     header img {
-      height: 50px;
+      height: 52px;
     }
-    header .titles h1 {
+
+    .titles h1 {
       margin: 0;
-      font-size: 1.5rem;
-      font-weight: 750;
-      letter-spacing: 0.02em;
+      font-size: 1.6rem;
+      font-weight: 700;
     }
-    header .titles p {
+
+    .titles p {
       margin: 2px 0 0;
       font-size: 0.9rem;
       opacity: 0.95;
     }
-    header .tagline {
-      font-size: 0.85rem;
-      opacity: 0.9;
-      text-align: right;
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 6px 10px;
+      border: 1px solid rgba(255,255,255,0.7);
+      border-radius: 4px;
+      transition: 0.2s ease;
     }
 
-    /* MAIN */
+    nav a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* MAIN GRID */
     main {
-      max-width: 1500px;
-      margin: 22px auto 40px;
+      max-width: 1300px;
+      margin: 30px auto;
       padding: 0 16px;
-      animation: fadeIn 0.35s ease-out;
-    }
-    .intro {
-      margin-bottom: 16px;
     }
 
-    /* TARJETAS EN 5 COLUMNAS */
-    .cards {
+    .grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 18px;
-      margin-top: 16px;
     }
 
-    /* Responsive */
-    @media (max-width: 1400px) {
-      .cards { grid-template-columns: repeat(4, 1fr); }
-    }
     @media (max-width: 1100px) {
-      .cards { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 850px) {
-      .cards { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 580px) {
-      .cards { grid-template-columns: 1fr; }
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
-    /* TARJETAS + ANIMACIÓN */
+    @media (max-width: 700px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* TARJETAS */
     .card {
-      background: white;
-      border-radius: 8px;
-      padding: 16px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      background: #fff;
+      border-radius: 10px;
+      padding: 14px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.10);
+      transition: transform .15s ease, box-shadow .15s ease;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      height: 340px;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, translate 0.18s ease-out;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top left, rgba(255,255,255,0.4), transparent 55%);
-      opacity: 0;
-      transition: opacity 0.18s ease-out;
-      pointer-events: none;
     }
 
     .card:hover {
-      transform: translateY(-3px) scale(1.015);
-      box-shadow: 0 10px 18px rgba(0,0,0,0.18);
-    }
-    .card:hover::before {
-      opacity: 1;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.18);
     }
 
     .card-header {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-    .card-header img {
-      height: 28px;
+      gap: 8px;
     }
 
-    .card h2 {
+    .card-header img {
+      height: 26px;
+    }
+
+    .card-header h2 {
+      font-size: 1.1rem;
       margin: 0;
-      font-size: 1.05rem;
       color: #d60000;
     }
 
     .card-image {
       width: 100%;
-      height: 140px;
-      margin: 6px 0 10px 0;
-      object-fit: contain;
+      border-radius: 6px;
+      margin: 10px 0;
     }
 
     .card p {
+      flex-grow: 1;
       font-size: 0.9rem;
       color: #444;
-      margin: 0;
     }
 
-    .card a.btn {
-      margin-top: 12px;
-      padding: 6px 11px;
-      background: #d60000;
-      color: white;
-      text-decoration: none;
+    .btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 8px 10px;
+      text-align: center;
+      border-radius: 6px;
       font-size: 0.9rem;
       font-weight: 600;
-      border-radius: 4px;
-      align-self: flex-start;
-      border: none;
-      transition: background 0.15s ease-out, transform 0.15s ease-out;
-    }
-    .card a.btn:hover {
-      background: #b40000;
-      transform: translateY(-1px);
+      background: #d60000;
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.2s;
     }
 
-    /* FOOTER */
+    .btn:hover {
+      background: #b40000;
+    }
+
     footer {
       font-size: 0.75rem;
       text-align: center;
       padding: 12px;
+      margin-top: 20px;
       color: #444;
-      border-top: 1px solid #e0e0e0;
       background: #fafafa;
+      border-top: 1px solid #e0e0e0;
     }
+
     footer img {
       height: 22px;
       vertical-align: middle;
       margin-right: 6px;
-    }
-
-    /* Animación general de entrada */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
+  <!-- HEADER CON ENLACE A ÁREA DELEGADOS -->
   <header>
-    <div class="brand">
-      <img src="img/feccooex.png" alt="FECCOOEx" />
+    <div style="display:flex; align-items:center; gap:16px;">
+      <img src="img/feccooex.png" alt="FECCOOEx">
       <div class="titles">
-        <h1>Herramientas FECCCOOEx</h1>
-        <p>Federación de Enseñanza de CCOO Extremadura</p>
+        <h1>Herramientas FECCOOEx</h1>
+        <p>Recursos públicos y sindicales para la comunidad educativa</p>
       </div>
     </div>
-    <div class="tagline">
-      Recursos para la acción sindical<br>
-      en centros educativos de Extremadura
-    </div>
+
+    <nav>
+      <a href="delegados.html">Área delegados/as</a>
+    </nav>
   </header>
 
-  <!-- MAIN -->
+  <!-- GRID PRINCIPAL -->
   <main>
+    <div class="grid">
 
-    <section class="intro">
-      <h2>Bienvenida</h2>
-      <p>Este portal reúne herramientas sindicales para profesionales de la educación en Extremadura.</p>
-    </section>
-
-    <section class="cards">
-
-      <!-- 1. Centros -->
+      <!-- CENTROS -->
       <article class="card">
-        <div>
-          <div class="card-header">
-            <img src="img/herramientas.png" alt="Icono centros">
-            <h2>Centros de trabajo</h2>
-          </div>
-          <img class="card-image" src="img/tarjetas/centros.png" alt="Centros" />
-          <p>Localiza centros por municipio, zona, etapa y horario.</p>
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Centros educativos</h2>
         </div>
+        <img class="card-image" src="img/tarjetas/centros.png" alt="Centros">
+        <p>Consulta interactiva de todos los centros educativos de Extremadura con mapa, filtros y buscador.</p>
         <a class="btn" href="centros.html">Abrir herramienta</a>
       </article>
 
-      <!-- 2. Normativa -->
+      <!-- NORMATIVA -->
       <article class="card">
-        <div>
-          <div class="card-header">
-            <img src="img/herramientas.png" alt="Icono normativa">
-            <h2>Normativa por temática</h2>
-          </div>
-          <img class="card-image" src="img/tarjetas/normativa.png" alt="Normativa" />
-          <p>Consulta normativa estatal y autonómica por temas clave.</p>
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Normativa</h2>
         </div>
-        <a class="btn" href="normativa.html">(En construcción)</a>
+        <img class="card-image" src="img/tarjetas/normativa.png" alt="Normativa">
+        <p>Buscador de leyes, decretos, órdenes e instrucciones por niveles, temática y palabras clave.</p>
+        <a class="btn" href="normativa.html">Abrir herramienta</a>
       </article>
 
-      <!-- 3. Calendario -->
+      <!-- CALENDARIO -->
       <article class="card">
-        <div>
-          <div class="card-header">
-            <img src="img/herramientas.png" alt="Icono calendario">
-            <h2>Calendario laboral</h2>
-          </div>
-          <img class="card-image" src="img/tarjetas/calendario.png" alt="Calendario" />
-          <p>Festivos, plazos y fechas del curso escolar.</p>
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Calendario escolar</h2>
         </div>
-        <a class="btn" href="calendario.html">(En construcción)</a>
+        <img class="card-image" src="img/tarjetas/calendario.png" alt="Calendario">
+        <p>Calendario escolar interactivo con festivos, eventos y periodos lectivos.</p>
+        <a class="btn" href="calendario.html">Abrir herramienta</a>
       </article>
 
-      <!-- 4. Publicaciones -->
+      <!-- PUBLICACIONES -->
       <article class="card">
-        <div>
-          <div class="card-header">
-            <img src="img/herramientas.png" alt="Icono publicaciones">
-            <h2>Publicaciones sindicales</h2>
-          </div>
-          <img class="card-image" src="img/tarjetas/publicaciones.png" alt="Publicaciones" />
-          <p>Comunicados, informes y documentación sindical.</p>
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Publicaciones</h2>
         </div>
-        <a class="btn" href="publicaciones.html">(En construcción)</a>
+        <img class="card-image" src="img/tarjetas/publicaciones.png" alt="Publicaciones">
+        <p>Acceso a documentos, informes y boletines de la Federación de Enseñanza.</p>
+        <a class="btn" href="publicaciones.html">Abrir herramienta</a>
       </article>
 
-      <!-- 5. Calculadoras -->
+      <!-- CALCULADORA -->
       <article class="card">
-        <div>
-          <div class="card-header">
-            <img src="img/herramientas.png" alt="Icono calculadoras">
-            <h2>Calculadoras prácticas</h2>
-          </div>
-          <img class="card-image" src="img/tarjetas/calculadora.png" alt="Calculadoras" />
-          <p>Vacaciones, antigüedad y retribuciones orientativas.</p>
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Calculadora docente</h2>
         </div>
-        <a class="btn" href="calculadoras.html">(En construcción)</a>
+        <img class="card-image" src="img/tarjetas/calculadora.png" alt="Calculadora">
+        <p>Herramienta para cálculos rápidos: horas lectivas, cupos, reducciones y más.</p>
+        <a class="btn" href="calculadora.html">Abrir herramienta</a>
       </article>
 
-      <!-- 6. Guías -->
+      <!-- GUÍAS -->
       <article class="card">
-        <div>
-          <div class="card-header">
-            <img src="img/herramientas.png" alt="Icono guías">
-            <h2>Guías prácticas</h2>
-          </div>
-          <img class="card-image" src="img/tarjetas/guias.png" alt="Guías" />
-          <p>Documentos breves sobre temas esenciales.</p>
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Guías sindicales</h2>
         </div>
-        <a class="btn" href="guias.html">(En construcción)</a>
+        <img class="card-image" src="img/tarjetas/guias.png" alt="Guías">
+        <p>Guías breves para delegados, claustros y equipos directivos.</p>
+        <a class="btn" href="guias.html">Abrir herramienta</a>
       </article>
 
-      <!-- 7. Afiliación -->
+      <!-- AFILIACIÓN -->
       <article class="card">
-        <div>
-          <div class="card-header">
-            <img src="img/herramientas.png" alt="Icono afiliación">
-            <h2>Afiliación</h2>
-          </div>
-          <img class="card-image" src="img/tarjetas/afiliacion.png" alt="Afiliación" />
-          <p>Información sobre afiliación y solicitud online.</p>
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Afiliación</h2>
         </div>
-        <a class="btn" href="afiliacion.html">(En construcción)</a>
+        <img class="card-image" src="img/tarjetas/afiliacion.png" alt="Afiliación">
+        <p>Información para afiliarse a FECCOOEx y ventajas para la afiliación.</p>
+        <a class="btn" href="afiliacion.html">Abrir herramienta</a>
       </article>
 
-      <!-- 8. Contactos -->
+      <!-- CONTACTOS -->
       <article class="card">
-        <div>
-          <div class="card-header">
-            <img src="img/herramientas.png" alt="Icono contactos">
-            <h2>Información de contacto</h2>
-          </div>
-          <img class="card-image" src="img/tarjetas/contactos.png" alt="Contactos" />
-          <p>Contactos de la Federación y delegaciones provinciales.</p>
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Contactos</h2>
         </div>
-        <a class="btn" href="contacto.html">(En construcción)</a>
+        <img class="card-image" src="img/tarjetas/contactos.png" alt="Contactos">
+        <p>Contactos de la Federación, delegados/as de zona, asesoría jurídica y más.</p>
+        <a class="btn" href="contactos.html">Abrir herramienta</a>
       </article>
 
-      <!-- 9. Consultas -->
+      <!-- CONSULTAS -->
       <article class="card">
-        <div>
-          <div class="card-header">
-            <img src="img/herramientas.png" alt="Icono consultas">
-            <h2>Consultas sindicales</h2>
-          </div>
-          <img class="card-image" src="img/tarjetas/consultas.png" alt="Consultas" />
-          <p>Envía dudas sobre condiciones laborales y normativa educativa.</p>
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Consultas</h2>
         </div>
-        <a class="btn" href="consultas.html">(En construcción)</a>
+        <img class="card-image" src="img/tarjetas/consultas.png" alt="Consultas">
+        <p>Canal para enviar consultas formales o incidencias al sindicato.</p>
+        <a class="btn" href="consultas.html">Abrir herramienta</a>
       </article>
 
-     <!-- 10. Chat público -->
-<article class="card">
-  <div>
-    <div class="card-header">
-      <img src="img/herramientas.png" alt="Icono chat">
-      <h2>Chat público</h2>
+      <!-- CHAT -->
+      <article class="card">
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Chat en línea</h2>
+        </div>
+        <img class="card-image" src="img/tarjetas/chats.png" alt="Chat">
+        <p>Chat público para resolver dudas rápidas en directo.</p>
+        <a class="btn" href="chat.html">Abrir herramienta</a>
+      </article>
+
     </div>
-
-    <img class="card-image" src="img/tarjetas/chats.png" alt="Chat público" />
-
-    <p>Chat abierto en tiempo real para consultas rápidas.</p>
-  </div>
-
-  <a class="btn" href="chat.html">Abrir herramienta</a>
-</article>
-
-    </section>
   </main>
 
-  <!-- FOOTER -->
   <footer>
-    <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
-    Este contenido se distribuye bajo licencia <strong>Creative Commons BY-ND 4.0</strong>, permitiendo compartir sin modificaciones y con atribución.
+    <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC">
+    Contenido distribuido bajo licencia Creative Commons BY-ND 4.0.
   </footer>
 
 </body>
 </html>
-
