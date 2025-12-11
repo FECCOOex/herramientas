@@ -2,81 +2,327 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Normativa educativa · FECCCOOEx</title>
+  <title>Normativa por temática · Herramientas FECCOOEx</title>
   <style>
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: system-ui, sans-serif; background: #f7f7f7; color: #222; }
-    header {
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
-      padding: 12px 24px; background: linear-gradient(90deg,#d60000,#ff5252);
-      color: white; box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f7f7f7;
+      color: #222;
     }
-    header .brand { display: flex; align-items: center; gap: 14px; }
-    header img { height: 50px; }
-    header .titles h1 { margin: 0; font-size: 1.4rem; font-weight: 750; }
-    header .titles p { margin: 2px 0 0; font-size: 0.9rem; opacity: 0.95; }
-    header .tagline { font-size: 0.85rem; opacity: 0.9; text-align: right; }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 24px;
+      background: #d60000;
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    }
+    header img { height: 52px; }
+    header .titles h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    header .titles p {
+      margin: 2px 0 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
 
     main {
-      max-width: 1100px; margin: 22px auto 40px; padding: 0 16px;
-      animation: fadeIn 0.35s ease-out;
+      max-width: 1100px;
+      margin: 24px auto 40px;
+      padding: 0 16px;
     }
-    .btn-primary {
-      display: inline-block; margin-bottom: 14px; padding: 6px 11px;
-      background: #d60000; color: #fff; text-decoration: none;
-      font-size: 0.9rem; font-weight: 600; border-radius: 4px;
-      transition: background 0.15s ease-out, transform 0.15s ease-out;
-    }
-    .btn-primary:hover { background: #b40000; transform: translateY(-1px); }
 
-    .panel {
-      background: white; border-radius: 8px; padding: 18px 18px 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08); margin-bottom: 16px;
+    .block {
+      background: #fff;
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
-    .panel h2 { margin-top: 0; color: #d60000; font-size: 1.25rem; }
-    .panel ul { margin-top: 8px; padding-left: 18px; font-size: 0.9rem; }
+    .block:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    }
+    .block h2 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+      color: #d60000;
+    }
+    .block p {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    /* Botón volver */
+    .btn-volver {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      background: #d60000;
+      color: #fff;
+      text-decoration: none;
+      margin-top: 6px;
+    }
+    .btn-volver:hover {
+      background: #b40000;
+    }
+
+    /* Filtros */
+    .filtros-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    @media (max-width: 800px) {
+      .filtros-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .filtro-item label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 3px;
+    }
+
+    .filtro-item select,
+    .filtro-item input {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 0.85rem;
+      font-family: inherit;
+      outline: none;
+    }
+    .filtro-item select:focus,
+    .filtro-item input:focus {
+      border-color: #d60000;
+      box-shadow: 0 0 0 1px rgba(214,0,0,0.15);
+    }
+
+    .nota-filtros {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 6px;
+    }
+
+    /* Resultados */
+    .resultados-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .resultados-header small {
+      font-size:0.8rem;
+      color:#555;
+    }
+
+    .lista-normas {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .tarjeta-norma {
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      background: #fff;
+      padding: 10px 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    .tarjeta-norma:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+
+    .tarjeta-norma h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      color: #c10000;
+    }
+    .tarjeta-meta {
+      font-size: 0.8rem;
+      color: #666;
+      margin-bottom: 4px;
+    }
+    .tarjeta-descripcion {
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+      color:#333;
+    }
+    .tarjeta-keywords {
+      font-size: 0.75rem;
+      color:#777;
+      margin-bottom: 6px;
+    }
+    .tarjeta-keywords span {
+      font-weight:600;
+      color:#555;
+    }
+    .tarjeta-acciones {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .btn-enlace {
+      display:inline-block;
+      padding:5px 10px;
+      border-radius:4px;
+      background:#d60000;
+      color:#fff;
+      font-size:0.8rem;
+      text-decoration:none;
+      font-weight:600;
+    }
+    .btn-enlace:hover {
+      background:#b40000;
+    }
+    .tag-ambito {
+      font-size:0.7rem;
+      padding:2px 6px;
+      border-radius:999px;
+      border:1px solid #ccc;
+      color:#555;
+      background:#fafafa;
+    }
+
+    .sin-resultados {
+      font-size:0.9rem;
+      color:#555;
+      font-style:italic;
+      margin-top:8px;
+    }
 
     footer {
-      font-size: 0.75rem; text-align: center; padding: 12px;
-      color: #444; border-top: 1px solid #e0e0e0; background: #fafafa;
+      font-size: 0.75rem;
+      text-align: center;
+      padding: 12px;
+      color: #444;
+      border-top: 1px solid #e0e0e0;
+      background: #fafafa;
     }
-    footer img { height: 22px; vertical-align: middle; margin-right: 6px; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
+    footer img {
+      height: 22px;
+      vertical-align: middle;
+      margin-right: 6px;
     }
   </style>
 </head>
-<body>
 
+<body>
   <header>
-    <div class="brand">
-      <img src="img/feccooex.png" alt="FECCOOEx" />
-      <div class="titles">
-        <h1>Normativa educativa</h1>
-        <p>Consulta de normas por temática sindical</p>
-      </div>
-    </div>
-    <div class="tagline">
-      Leyes, decretos, órdenes<br>y convenios de referencia
+    <img src="img/feccooex.png" alt="FECCOOEx">
+    <div class="titles">
+      <h1>Normativa por temática</h1>
+      <p>Selección de normas educativas por ámbito, nivel y tipo</p>
     </div>
   </header>
 
   <main>
-    <a class="btn-primary" href="index.html">← Volver a la portada</a>
+    <!-- Bloque de introducción -->
+    <section class="block">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;">
+        <div>
+          <h2>¿Qué encontrarás en esta herramienta?</h2>
+          <p>
+            Este buscador permite localizar normativa relevante para el ámbito educativo
+            filtrando por ámbito (estatal, autonómico, Unión Europea), tipo de norma, temática,
+            nivel educativo y términos de búsqueda.
+          </p>
+          <p style="font-size:0.9rem; color:#555;">
+            La selección no sustituye a la consulta de los boletines oficiales (BOE, DOE, EUR-Lex), pero ofrece
+            un acceso rápido a normas clave para la acción sindical y la práctica docente.
+          </p>
+        </div>
+        <div>
+          <button class="btn-volver" onclick="window.location.href='index.html'">
+            Volver a la portada
+          </button>
+        </div>
+      </div>
+    </section>
 
-    <section class="panel">
-      <h2>En construcción</h2>
-      <p>
-        Esta sección agrupará normativa estatal y autonómica relevante para el ámbito educativo, organizada por
-        temáticas sindicales (jornada, plantillas, salud laboral, retribuciones, etc.).
+    <!-- Bloque de filtros -->
+    <section class="block">
+      <h2>Filtros de búsqueda</h2>
+      <div class="filtros-grid">
+        <div class="filtro-item">
+          <label for="filtro-categoria">Categoría temática</label>
+          <select id="filtro-categoria">
+            <option value="">Todas las categorías</option>
+          </select>
+        </div>
+
+        <div class="filtro-item">
+          <label for="filtro-ambito">Ámbito</label>
+          <select id="filtro-ambito">
+            <option value="">Todos los ámbitos</option>
+          </select>
+        </div>
+
+        <div class="filtro-item">
+          <label for="filtro-tipo">Tipo de norma</label>
+          <select id="filtro-tipo">
+            <option value="">Todos los tipos</option>
+          </select>
+        </div>
+
+        <div class="filtro-item">
+          <label for="filtro-nivel">Nivel educativo</label>
+          <select id="filtro-nivel">
+            <option value="">Todos los niveles</option>
+          </select>
+        </div>
+
+        <div class="filtro-item">
+          <label for="filtro-texto">Texto (título, descripción, palabras clave)</label>
+          <input type="text" id="filtro-texto" placeholder="Ej.: evaluación, convivencia, LOMLOE..." />
+        </div>
+
+        <div class="filtro-item">
+          <label for="filtro-anio">Año (AAAA)</label>
+          <input type="text" id="filtro-anio" placeholder="Ej.: 2020" />
+        </div>
+      </div>
+
+      <p class="nota-filtros">
+        Puedes combinar varios filtros a la vez. El buscador se actualiza automáticamente al cambiar cualquier campo.
       </p>
-      <ul>
-        <li>Clasificación por ámbito: estatal, autonómico, otros.</li>
-        <li>Clasificación por tipo: leyes, decretos, órdenes, convenios, instrucciones.</li>
-        <li>Clasificación por temática: jornada, permisos, ratios, PRL, igualdad, etc.</li>
-      </ul>
+    </section>
+
+    <!-- Bloque de resultados -->
+    <section class="block">
+      <div class="resultados-header">
+        <h2>Resultados</h2>
+        <small id="contador-resultados">Cargando normativa...</small>
+      </div>
+      <div id="lista-normas" class="lista-normas"></div>
+      <p id="mensaje-sin-resultados" class="sin-resultados" style="display:none;">
+        No se han encontrado normas que coincidan con los criterios seleccionados.
+      </p>
     </section>
   </main>
 
@@ -85,5 +331,255 @@
     Este contenido se distribuye bajo licencia <strong>Creative Commons BY-ND 4.0</strong>, permitiendo compartir sin modificaciones y con atribución.
   </footer>
 
+  <!-- Script: carga y filtrado de normativa -->
+  <script>
+    // --- Función sencilla para parsear CSV respetando comillas ---
+    function parseCSV(text) {
+      const rows = [];
+      let current = [];
+      let value = '';
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const c = text[i];
+        const next = text[i + 1];
+
+        if (c === '"' && inQuotes && next === '"') {
+          // Doble comilla dentro de campo
+          value += '"';
+          i++; // saltar la segunda
+        } else if (c === '"') {
+          inQuotes = !inQuotes;
+        } else if (c === ',' && !inQuotes) {
+          current.push(value);
+          value = '';
+        } else if ((c === '\n' || c === '\r') && !inQuotes) {
+          if (value !== '' || current.length > 0) {
+            current.push(value);
+            rows.push(current);
+            current = [];
+            value = '';
+          }
+        } else {
+          value += c;
+        }
+      }
+      if (value !== '' || current.length > 0) {
+        current.push(value);
+        rows.push(current);
+      }
+      return rows;
+    }
+
+    let normas = [];
+
+    const filtroCategoria = document.getElementById('filtro-categoria');
+    const filtroAmbito    = document.getElementById('filtro-ambito');
+    const filtroTipo      = document.getElementById('filtro-tipo');
+    const filtroNivel     = document.getElementById('filtro-nivel');
+    const filtroTexto     = document.getElementById('filtro-texto');
+    const filtroAnio      = document.getElementById('filtro-anio');
+
+    const listaNormas       = document.getElementById('lista-normas');
+    const contadorResultados = document.getElementById('contador-resultados');
+    const mensajeSinResultados = document.getElementById('mensaje-sin-resultados');
+
+    // --- Cargar normativa.csv ---
+    fetch('normativa.csv')
+      .then(resp => {
+        if (!resp.ok) throw new Error('No se pudo cargar normativa.csv');
+        return resp.text();
+      })
+      .then(texto => {
+        const filas = parseCSV(texto).filter(row => row.length > 1);
+        if (filas.length < 2) {
+          contadorResultados.textContent = 'No se ha encontrado contenido en normativa.csv';
+          return;
+        }
+        const cabeceras = filas[0].map(h => h.trim());
+        const datos = filas.slice(1).map(row => {
+          const obj = {};
+          cabeceras.forEach((key, idx) => {
+            obj[key] = (row[idx] || '').trim();
+          });
+          return obj;
+        });
+        normas = datos;
+
+        inicializarFiltros(normas);
+        aplicarFiltros();
+      })
+      .catch(err => {
+        console.error(err);
+        contadorResultados.textContent = 'Error al cargar la normativa.';
+      });
+
+    // --- Rellenar filtros con valores únicos de los datos ---
+    function inicializarFiltros(datos) {
+      const categorias = new Set();
+      const ambitos    = new Set();
+      const tipos      = new Set();
+      const niveles    = new Set();
+
+      datos.forEach(n => {
+        if (n.categoria) categorias.add(n.categoria);
+        if (n.ambito)    ambitos.add(n.ambito);
+        if (n.tipo_norma) tipos.add(n.tipo_norma);
+        if (n.nivel_educativo) {
+          // Puede venir "Primaria, ESO" -> dividir
+          n.nivel_educativo.split(',').forEach(nv => {
+            const limpio = nv.trim();
+            if (limpio) niveles.add(limpio);
+          });
+        }
+      });
+
+      function llenarSelect(select, valores) {
+        const ordenados = Array.from(valores).sort((a,b) => a.localeCompare(b, 'es'));
+        ordenados.forEach(v => {
+          const opt = document.createElement('option');
+          opt.value = v;
+          opt.textContent = v;
+          select.appendChild(opt);
+        });
+      }
+
+      llenarSelect(filtroCategoria, categorias);
+      llenarSelect(filtroAmbito, ambitos);
+      llenarSelect(filtroTipo, tipos);
+      llenarSelect(filtroNivel, niveles);
+
+      // Escuchar cambios
+      filtroCategoria.addEventListener('change', aplicarFiltros);
+      filtroAmbito.addEventListener('change', aplicarFiltros);
+      filtroTipo.addEventListener('change', aplicarFiltros);
+      filtroNivel.addEventListener('change', aplicarFiltros);
+      filtroTexto.addEventListener('input', aplicarFiltros);
+      filtroAnio.addEventListener('input', aplicarFiltros);
+    }
+
+    // --- Aplicar filtros y pintar resultados ---
+    function aplicarFiltros() {
+      if (!normas || normas.length === 0) return;
+
+      const cat   = filtroCategoria.value.trim().toLowerCase();
+      const amb   = filtroAmbito.value.trim().toLowerCase();
+      const tipo  = filtroTipo.value.trim().toLowerCase();
+      const nivel = filtroNivel.value.trim().toLowerCase();
+      const texto = filtroTexto.value.trim().toLowerCase();
+      const anio  = filtroAnio.value.trim();
+
+      const filtradas = normas.filter(n => {
+        // Filtrar por categoría
+        if (cat && (!n.categoria || n.categoria.toLowerCase() !== cat)) {
+          return false;
+        }
+        // Filtrar por ámbito
+        if (amb && (!n.ambito || n.ambito.toLowerCase() !== amb)) {
+          return false;
+        }
+        // Filtrar por tipo de norma
+        if (tipo && (!n.tipo_norma || n.tipo_norma.toLowerCase() !== tipo)) {
+          return false;
+        }
+        // Filtrar por nivel educativo (puede haber varios niveles separados por coma)
+        if (nivel) {
+          const nivelesNorma = (n.nivel_educativo || '')
+            .split(',')
+            .map(x => x.trim().toLowerCase())
+            .filter(x => x);
+          if (!nivelesNorma.includes(nivel)) {
+            return false;
+          }
+        }
+        // Filtrar por año (AAAA) a partir de la fecha
+        if (anio) {
+          const year = (n.fecha || '').substring(0,4);
+          if (year !== anio) {
+            return false;
+          }
+        }
+        // Filtrar por texto libre en título, descripción y palabras clave
+        if (texto) {
+          const blob = [
+            n.titulo || '',
+            n.descripcion || '',
+            n.palabras_clave || ''
+          ].join(' ').toLowerCase();
+          if (!blob.includes(texto)) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+      pintarResultados(filtradas);
+    }
+
+    function pintarResultados(lista) {
+      listaNormas.innerHTML = '';
+
+      if (!lista || lista.length === 0) {
+        contadorResultados.textContent = '0 normas encontradas.';
+        mensajeSinResultados.style.display = 'block';
+        return;
+      }
+
+      mensajeSinResultados.style.display = 'none';
+      contadorResultados.textContent = `${lista.length} norma${lista.length !== 1 ? 's' : ''} encontrada${lista.length !== 1 ? 's' : ''}.`;
+
+      lista.forEach(n => {
+        const card = document.createElement('article');
+        card.className = 'tarjeta-norma';
+
+        const titulo = n.titulo || '(Sin título)';
+        const categoria = n.categoria || '';
+        const ambito = n.ambito || '';
+        const tipo = n.tipo_norma || '';
+        const fecha = n.fecha || '';
+        const nivel = n.nivel_educativo || '';
+        const desc = n.descripcion || '';
+        const palabras = n.palabras_clave || '';
+        const enlace = n.enlace || '';
+
+        const meta1 = [categoria, ambito, tipo].filter(Boolean).join(' · ');
+        const meta2 = [fecha, nivel].filter(Boolean).join(' · ');
+
+        card.innerHTML = `
+          <h3>${titulo}</h3>
+          <div class="tarjeta-meta">${meta1 || ''}</div>
+          <div class="tarjeta-meta">${meta2 || ''}</div>
+          <div class="tarjeta-descripcion">${desc}</div>
+          ${palabras
+            ? `<div class="tarjeta-keywords"><span>Palabras clave:</span> ${palabras}</div>`
+            : ''
+          }
+        `;
+
+        const acciones = document.createElement('div');
+        acciones.className = 'tarjeta-acciones';
+
+        if (enlace) {
+          const a = document.createElement('a');
+          a.href = enlace;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.className = 'btn-enlace';
+          a.textContent = 'Abrir norma (BOE/DOE/UE)';
+          acciones.appendChild(a);
+        }
+
+        if (ambito) {
+          const tag = document.createElement('span');
+          tag.className = 'tag-ambito';
+          tag.textContent = ambito;
+          acciones.appendChild(tag);
+        }
+
+        card.appendChild(acciones);
+        listaNormas.appendChild(card);
+      });
+    }
+  </script>
 </body>
 </html>
