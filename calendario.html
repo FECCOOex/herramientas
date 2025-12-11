@@ -542,7 +542,7 @@
     // Estructura recomendada:
     // calendario_escolar.csv:
     //   curso,fecha,tipo,descripcion,etapas,ambito
-    //   2024-2025,2024-09-10,inicio_clases,Inicio de las clases en Infantil y Primaria,infantil-primaria,Extremadura
+    //   2025-2026,2025-09-10,inicio_clases,Inicio de las actividades lectivas en Educación Infantil y Primaria,infantil-primaria,Extremadura
     //
     // calendario_laboral.csv:
     //   anio,fecha,ambito,descripcion,municipio
@@ -603,11 +603,23 @@
       return porMes;
     }
 
+    // Render de lista por meses, con orden de meses configurable
     function renderListaPorMes(container, porMes, opciones = {}) {
       container.innerHTML = "";
-      const mesesOrdenados = Object.keys(porMes)
+
+      const mesesDisponibles = Object.keys(porMes)
         .map(n => parseInt(n, 10))
-        .sort((a, b) => a - b);
+        .filter(n => !isNaN(n));
+
+      let mesesOrdenados;
+
+      if (opciones.ordenMeses && Array.isArray(opciones.ordenMeses)) {
+        // Respetar el orden personalizado (ej. septiembre→agosto)
+        mesesOrdenados = opciones.ordenMeses.filter(m => mesesDisponibles.includes(m));
+      } else {
+        // Orden natural enero→diciembre
+        mesesOrdenados = mesesDisponibles.sort((a, b) => a - b);
+      }
 
       if (!mesesOrdenados.length) {
         container.innerHTML = '<p class="nota">No hay eventos para los filtros seleccionados.</p>';
@@ -784,11 +796,22 @@
       let eventos = escolarData.filter(r => (r.curso || "").trim() === cursoSel);
 
       if (!mostrarCelebraciones) {
-        eventos = eventos.filter(r => (r.tipo || "").toLowerCase() !== "celebracion" && (r.tipo || "").toLowerCase() !== "celebración");
+        eventos = eventos.filter(r => {
+          const t = (r.tipo || "").toLowerCase();
+          return !(t === "celebracion" || t === "celebración");
+        });
       }
 
       const porMes = agruparPorMes(eventos, "fecha");
-      renderListaPorMes(contLista, porMes, { mostrarEtapas: true });
+
+      // Orden académico: septiembre (8) → octubre (9) → noviembre (10) → diciembre (11)
+      // → enero (0) → febrero (1) → marzo (2) → abril (3) → mayo (4) → junio (5) → julio (6) → agosto (7)
+      const ordenAcademico = [8,9,10,11,0,1,2,3,4,5,6,7];
+
+      renderListaPorMes(contLista, porMes, {
+        mostrarEtapas: true,
+        ordenMeses: ordenAcademico
+      });
 
       if (muniSel) {
         renderFestivosLocales("escolar-festivos-locales", muniSel);
@@ -814,6 +837,8 @@
 
       const eventos = laboralData.filter(r => (r.anio || "").trim() === anioSel);
       const porMes = agruparPorMes(eventos, "fecha");
+
+      // Laboral: orden natural enero→diciembre
       renderListaPorMes(contLista, porMes, { mostrarEtapas: false });
 
       if (muniSel) {
@@ -852,7 +877,6 @@
         poblarSelectAnio();
         poblarSelectMunicipios();
 
-        // Render inicial (sin selección de curso/año) mostrará el mensaje guía
         renderEscolar();
         renderLaboral();
       } catch (e) {
@@ -874,5 +898,7 @@
       document.getElementById("select-municipio-laboral").addEventListener("change", renderLaboral);
     });
   </script>
+
 </body>
 </html>
+
