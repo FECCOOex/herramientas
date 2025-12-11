@@ -68,43 +68,6 @@
       padding: 0 16px 40px;
     }
 
-    /* Banner explicativo */
-    .intro-banner {
-      background: #ffffff;
-      border-radius: 10px;
-      padding: 14px 18px;
-      margin-bottom: 18px;
-      border: 1px solid #e1e4ea;
-      box-shadow: 0 2px 6px rgba(15,23,42,0.08);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .intro-text h2 {
-      margin: 0 0 4px;
-      font-size: 1.1rem;
-      color: #d60000;
-    }
-
-    .intro-text p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: #444;
-    }
-
-    .intro-pill {
-      font-size: 0.8rem;
-      background: #fee2e2;
-      color: #b91c1c;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid #fecaca;
-      white-space: nowrap;
-    }
-
     /* GRID */
     .grid {
       display: grid;
@@ -257,7 +220,7 @@
 
     .footer-logo-row img {
       height: 30px;
-      background: #d60000; /* rojo para que se vea el logo blanco */
+      background: #d60000;
       padding: 3px 6px;
       border-radius: 4px;
     }
@@ -284,10 +247,6 @@
 
     .footer-bottom-left img {
       height: 18px;
-      vertical-align: middle;
-      background:none;
-      padding:0;
-      border-radius:0;
     }
 
     .footer-bottom-right {
@@ -310,7 +269,7 @@
 
 <body>
 
-  <!-- HEADER CON ENLACE A ÁREA DELEGADOS -->
+  <!-- HEADER -->
   <header>
     <div style="display:flex; align-items:center; gap:16px;">
       <img src="img/feccooex.png" alt="FECCOOEx">
@@ -328,22 +287,7 @@
   <!-- CONTENIDO PRINCIPAL -->
   <main>
 
-    <!-- Banner explicativo -->
-    <section class="intro-banner">
-      <div class="intro-text">
-        <h2>Elige la herramienta que necesitas</h2>
-        <p>
-          Consulta centros educativos, normativa, calendario escolar, recursos sindicales
-          y canales de contacto. Todas las herramientas están pensadas para facilitar
-          el trabajo diario en los centros y la acción sindical.
-        </p>
-      </div>
-      <div class="intro-pill">
-        Herramientas en continuo desarrollo · FECCOOEx
-      </div>
-    </section>
-
-    <!-- GRID PRINCIPAL -->
+    <!-- GRID DE TARJETAS -->
     <div class="grid">
 
       <!-- 1. CENTROS -->
@@ -369,15 +313,15 @@
       </article>
 
       <!-- 3. CALENDARIOS -->
-<article class="card">
-  <div class="card-header">
-    <img src="img/herramientas.png" alt="icono">
-    <h2>Calendarios</h2>
-  </div>
-  <img class="card-image" src="img/tarjetas/calendario.png" alt="Calendarios">
-  <p>Calendario escolar, laboral y celebraciones pedagógicas en formato interactivo.</p>
-  <a class="btn" href="calendario.html">Abrir herramienta</a>
-</article>
+      <article class="card">
+        <div class="card-header">
+          <img src="img/herramientas.png" alt="icono">
+          <h2>Calendarios</h2>
+        </div>
+        <img class="card-image" src="img/tarjetas/calendario.png" alt="Calendarios">
+        <p>Calendario escolar, laboral y celebraciones pedagógicas en formato interactivo.</p>
+        <a class="btn" href="calendario.html">Abrir herramienta</a>
+      </article>
 
       <!-- 4. CONSULTAS -->
       <article class="card">
@@ -441,7 +385,7 @@
           <h2>Contactos</h2>
         </div>
         <img class="card-image" src="img/tarjetas/contactos.png" alt="Contactos">
-        <p>Contactos de la Federación, delegados/as de zona, asesoría jurídica y más.</p>
+        <p>Contactos de la Federación, delegados/as de zona y asesoría jurídica.</p>
         <a class="btn" href="contactos.html">Abrir herramienta</a>
       </article>
 
@@ -459,10 +403,9 @@
     </div>
   </main>
 
-  <!-- FOOTER INSTITUCIONAL -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
-      <!-- Columna 1: Identidad -->
       <div class="footer-col">
         <div class="footer-logo-row">
           <img src="img/feccooex.png" alt="FECCOOEx">
@@ -471,33 +414,25 @@
             <span style="font-size:0.8rem;">Herramientas digitales para la acción sindical y la comunidad educativa.</span>
           </div>
         </div>
-        <p>
-          Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo del
-          profesorado y la calidad de la educación en Extremadura.
-        </p>
+        <p>Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo del profesorado y la calidad de la educación en Extremadura.</p>
       </div>
 
-      <!-- Columna 2: Contacto -->
       <div class="footer-col">
         <h3>Contacto</h3>
         <p><strong>Dirección:</strong><br>
-          Avenida Juan Carlos I, nº 47<br>
-          CP 06800 · Mérida (Extremadura)
-        </p>
+        Avenida Juan Carlos I, nº 47<br>
+        CP 06800 · Mérida (Extremadura)</p>
         <p><strong>Teléfono:</strong> 924 330 018</p>
-        <p><strong>Correo:</strong>
-          <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a>
-        </p>
+        <p><strong>Correo:</strong> <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a></p>
       </div>
 
-      <!-- Columna 3: Enlaces rápidos (web y RRSS) -->
       <div class="footer-col">
         <h3>Enlaces rápidos</h3>
-        <p><a href="https://extremadura.fe.ccoo.es/" target="_blank" rel="noopener noreferrer">Web FECCOOExtremadura</a></p>
-        <p><a href="https://www.facebook.com/feccooex" target="_blank" rel="noopener noreferrer">Facebook FECCOOEx</a></p>
-        <p><a href="https://x.com/FECCOOex" target="_blank" rel="noopener noreferrer">X (Twitter) FECCOOEx</a></p>
-        <p><a href="https://www.instagram.com/feccooex" target="_blank" rel="noopener noreferrer">Instagram FECCOOEx</a></p>
-        <p><a href="https://t.me/feccooextremadura" target="_blank" rel="noopener noreferrer">Canal de Telegram FECCOOExtremadura</a></p>
+        <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
+        <p><a href="https://www.facebook.com/feccooex" target="_blank">Facebook FECCOOEx</a></p>
+        <p><a href="https://x.com/FECCOOex" target="_blank">X (Twitter) FECCOOEx</a></p>
+        <p><a href="https://www.instagram.com/feccooex" target="_blank">Instagram FECCOOEx</a></p>
+        <p><a href="https://t.me/feccooextremadura" target="_blank">Canal de Telegram FECCOOExtremadura</a></p>
       </div>
     </div>
 
@@ -512,11 +447,9 @@
     </div>
 
     <script>
-      // Actualizar año automáticamente
       document.getElementById('anio-footer').textContent = new Date().getFullYear();
     </script>
   </footer>
 
 </body>
 </html>
-
