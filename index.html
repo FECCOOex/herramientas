@@ -60,7 +60,7 @@
     main {
       max-width: 1300px;
       margin: 30px auto;
-      padding: 0 16px;
+      padding: 0 16px 40px;
     }
 
     .grid {
@@ -149,20 +149,110 @@
       background: #b40000;
     }
 
+    /* FOOTER INSTITUCIONAL */
     footer {
-      font-size: 0.75rem;
-      text-align: center;
-      padding: 12px;
-      margin-top: 20px;
-      color: #444;
-      background: #fafafa;
-      border-top: 1px solid #e0e0e0;
+      background: #222;
+      color: #f2f2f2;
+      padding: 18px 20px 10px;
+      margin-top: 10px;
+      border-top: 3px solid #d60000;
+      font-size: 0.85rem;
     }
 
-    footer img {
-      height: 22px;
+    .footer-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footer-col h3 {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #ffffff;
+    }
+
+    .footer-col p {
+      margin: 0 0 4px;
+      font-size: 0.82rem;
+      color: #e0e0e0;
+    }
+
+    .footer-col a {
+      color: #ffdddd;
+      text-decoration: none;
+      font-size: 0.82rem;
+    }
+
+    .footer-col a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .footer-logo-row img {
+      height: 30px;
+      background: #fff;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    .footer-bottom {
+      max-width: 1300px;
+      margin: 10px auto 0;
+      border-top: 1px solid #444;
+      padding-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom-left {
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:0.78rem;
+      color:#e0e0e0;
+    }
+
+    .footer-bottom-left img {
+      height: 18px;
       vertical-align: middle;
-      margin-right: 6px;
+      background:none;
+      padding:0;
+      border-radius:0;
+    }
+
+    .footer-bottom-right {
+      font-size:0.78rem;
+      color:#bbbbbb;
+      text-align:right;
+    }
+
+    @media (max-width: 600px) {
+      .footer-bottom {
+        flex-direction: column;
+        align-items:flex-start;
+      }
+      .footer-bottom-right {
+        text-align:left;
+      }
     }
   </style>
 </head>
@@ -301,9 +391,62 @@
     </div>
   </main>
 
+  <!-- FOOTER INSTITUCIONAL -->
   <footer>
-    <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC">
-    Contenido distribuido bajo licencia Creative Commons BY-ND 4.0.
+    <div class="footer-inner">
+      <!-- Columna 1: Identidad -->
+      <div class="footer-col">
+        <div class="footer-logo-row">
+          <img src="img/feccooex.png" alt="FECCOOEx">
+          <div>
+            <strong>Federación de Enseñanza de CCOO de Extremadura</strong><br>
+            <span style="font-size:0.8rem;">Herramientas digitales para la acción sindical y la comunidad educativa.</span>
+          </div>
+        </div>
+        <p>
+          Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo del
+          profesorado y la calidad de la educación en Extremadura.
+        </p>
+      </div>
+
+      <!-- Columna 2: Contacto (ajusta los datos reales) -->
+      <div class="footer-col">
+        <h3>Contacto</h3>
+        <p><strong>Dirección:</strong><br>
+          <!-- TODO: Sustituir por la dirección real de la Federación -->
+          Calle / Avenida XXX, nº XX<br>
+          CP 00000 · Ciudad (Extremadura)
+        </p>
+        <p><strong>Teléfono:</strong> 900 000 000 <!-- Sustituir --></p>
+        <p><strong>Correo:</strong>
+          <a href="mailto:ensenanza@feccooex.es">ensenanza@feccooex.es</a> <!-- Sustituir -->
+        </p>
+      </div>
+
+      <!-- Columna 3: Enlaces rápidos -->
+      <div class="footer-col">
+        <h3>Enlaces rápidos</h3>
+        <p><a href="afiliacion.html">Afiliación a FECCOOEx</a></p>
+        <p><a href="normativa.html">Buscador de normativa educativa</a></p>
+        <p><a href="centros.html">Mapa de centros educativos</a></p>
+        <p><a href="delegados.html">Área de delegados/as</a></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
+        <span>Contenido bajo licencia Creative Commons BY-ND 4.0 (se permite compartir sin modificaciones y con atribución).</span>
+      </div>
+      <div class="footer-bottom-right">
+        © <span id="anio-footer"></span> Federación de Enseñanza de CCOO de Extremadura
+      </div>
+    </div>
+
+    <script>
+      // Actualizar año automáticamente
+      document.getElementById('anio-footer').textContent = new Date().getFullYear();
+    </script>
   </footer>
 
 </body>
