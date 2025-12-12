@@ -3,537 +3,468 @@
 <head>
   <meta charset="UTF-8" />
   <title>Chat público · Herramientas FECCOOEx</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <style>
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
+
+    body{
+      margin:0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f7f7f7;
-      color: #222;
+      background:#f3f4f6;
+      color:#222;
     }
 
     /* HEADER */
-    header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 14px 24px;
-      background: #d60000;
-      color: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.25);
-    }
-    header img { height: 52px; }
-    header .titles h1 {
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
-    header .titles p {
-      margin: 2px 0 0;
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-
-    main {
-      max-width: 1000px;
-      margin: 24px auto 40px;
-      padding: 0 16px;
-    }
-
-    .block {
-      background: #fff;
-      border-radius: 8px;
-      padding: 18px 20px;
-      margin-bottom: 18px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .block:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-    }
-    .block h2 {
-      margin: 0 0 8px;
-      font-size: 1.25rem;
-      color: #d60000;
-    }
-    .block p {
-      margin: 0 0 8px;
-      font-size: 0.95rem;
-      color: #444;
-    }
-
-    /* Botón volver y moderación */
-    .top-actions {
+    header{
       display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      align-items:flex-start;
-      justify-content:flex-end;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 24px;
+      background:#d60000;
+      color:#fff;
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
+      position:sticky;
+      top:0;
+      z-index:10;
     }
-    .btn-volver,
-    .btn-moderacion {
-      display: inline-block;
-      padding: 6px 12px;
-      font-size: 0.9rem;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      background: #d60000;
-      color: #fff;
-      text-decoration: none;
+    header img{ height:52px; }
+
+    .titles h1{
+      margin:0;
+      font-size:1.6rem;
+      font-weight:700;
+    }
+    .titles p{
+      margin:2px 0 0;
+      font-size:0.9rem;
+      opacity:0.95;
+    }
+    nav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      padding:6px 12px;
+      border:1px solid rgba(255,255,255,0.7);
+      border-radius:999px;
+      transition:0.2s ease;
+    }
+    nav a:hover{
+      background:rgba(255,255,255,0.18);
+      transform: translateY(-1px);
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    /* MAIN */
+    main{
+      max-width: 980px;
+      margin: 26px auto 40px;
+      padding: 0 16px 40px;
+    }
+
+    .btn-volver{
+      display:inline-block;
+      margin-bottom:16px;
+      padding:6px 10px;
+      border-radius:6px;
+      background:#d60000;
+      color:#fff;
+      font-size:0.9rem;
+      font-weight:600;
+      text-decoration:none;
+      transition: background 0.15s;
+    }
+    .btn-volver:hover{ background:#b40000; }
+
+    .page-title{
+      margin: 0 0 6px;
+      font-size:1.6rem;
+    }
+    .page-subtitle{
+      margin:0 0 14px;
+      color:#444;
+      font-size:0.95rem;
+    }
+
+    .card{
+      background:#fff;
+      border:1px solid #e1e4ea;
+      border-radius: 12px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.10);
+      padding: 14px 16px 16px;
+      margin-bottom: 14px;
+    }
+
+    .notice{
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      color:#7c2d12;
+      border-radius: 12px;
+      padding: 12px 12px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    }
+    .notice strong{ color:#7c2d12; }
+
+    .notice a{
+      color:#d60000;
+      font-weight:800;
+      text-decoration:none;
+    }
+    .notice a:hover{ text-decoration: underline; }
+
+    /* Chat UI */
+    .chat-wrap{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .chat-top{
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+      align-items:flex-end;
+    }
+
+    .field{
+      display:flex;
+      flex-direction: column;
+      gap:4px;
+      min-width: 220px;
+      flex: 1;
+    }
+
+    label{
+      font-size:0.82rem;
+      font-weight:700;
+      color:#555;
+    }
+
+    input, textarea{
+      width:100%;
+      font-family: inherit;
+      font-size:0.95rem;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border:1px solid #cbd5e1;
+      background:#fff;
+    }
+
+    textarea{
+      min-height: 86px;
+      resize: vertical;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap: wrap;
       margin-top: 6px;
     }
-    .btn-volver:hover,
-    .btn-moderacion:hover {
-      background: #b40000;
-    }
-    .btn-moderacion {
-      background:#555;
-    }
-    .btn-moderacion:hover {
-      background:#333;
-    }
 
-    /* Layout */
-    .layout {
-      display: grid;
-      grid-template-columns: 1.1fr 1.3fr;
-      gap: 16px;
-    }
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Aviso / normas */
-    .rules-box {
-      border-left: 4px solid #d60000;
-      background:#fff5f5;
-      padding:10px 12px;
-      font-size:0.85rem;
-      color:#444;
-      border-radius:6px;
-      margin-top:8px;
-    }
-
-    /* Contador de usuarios */
-    .contador-usuarios {
-      font-size:0.85rem;
-      color:#555;
-      margin:6px 0 12px;
-    }
-
-    /* Contenedor del chat público */
-    .chat-publico-container {
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      height: 450px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      background: #fafafa;
-    }
-
-    .chat-mensajes {
-      flex: 1;
-      padding: 10px 12px;
-      overflow-y: auto;
-      background: #fdfdfd;
-    }
-
-    .chat-mensaje {
-      margin-bottom: 8px;
-      padding: 6px 8px;
-      border-radius: 6px;
-      background: #fff;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-      font-size: 0.85rem;
-      position:relative;
-    }
-    .chat-mensaje .autor {
-      font-weight: 600;
-      color: #d60000;
-      margin-bottom: 2px;
-    }
-    .chat-mensaje .texto { color: #333; }
-    .chat-mensaje .hora {
-      margin-top: 2px;
-      font-size: 0.7rem;
-      color: #777;
-      text-align: right;
-    }
-
-    /* Mensajes oficiales FECCOOEx */
-    .chat-mensaje.oficial {
-      border-left: 4px solid #d60000;
-      background: #fff5f5;
-    }
-    .chat-mensaje.oficial .autor::after {
-      content: " · FECCOOEx";
-      font-weight: 400;
-      font-size: 0.75rem;
-      color: #b00000;
-    }
-
-    /* Botón eliminar (solo visible en modo moderación) */
-    .btn-eliminar {
-      position:absolute;
-      top:4px;
-      right:4px;
-      font-size:0.7rem;
+    .btn{
       border:none;
-      border-radius:3px;
-      padding:2px 6px;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight:800;
       cursor:pointer;
-      background:#ccc;
-      color:#222;
-      display:none;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
     }
-    body.modo-admin .btn-eliminar {
-      display:inline-block;
-    }
-    .btn-eliminar:hover {
-      background:#a00;
+    .btn-primary{
+      background:#d60000;
       color:#fff;
     }
-
-    .chat-form {
-      display: flex;
-      flex-direction: column;
-      padding: 8px 10px;
-      border-top: 1px solid #ddd;
-      background: #f5f5f5;
-      gap: 6px;
+    .btn-primary:hover{
+      background:#b40000;
+      transform: translateY(-1px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.18);
     }
-    .chat-form input,
-    .chat-form textarea {
-      font-family: inherit;
-      font-size: 0.85rem;
-      padding: 6px 8px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      outline: none;
+    .btn-secondary{
+      background:#111827;
+      color:#fff;
     }
-    .chat-form textarea {
-      resize: vertical;
-      min-height: 60px;
-      max-height: 120px;
-    }
-    .chat-form input:focus,
-    .chat-form textarea:focus {
-      border-color: #d60000;
-      box-shadow: 0 0 0 1px rgba(214,0,0,0.15);
-    }
-    .chat-form button {
-      align-self: flex-end;
-      padding: 6px 12px;
-      font-size: 0.85rem;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      background: #d60000;
-      color: #fff;
-    }
-    .chat-form button:hover {
-      background: #b40000;
+    .btn-secondary:hover{
+      transform: translateY(-1px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.18);
     }
 
-    footer {
-      font-size: 0.75rem;
-      text-align: center;
-      padding: 12px;
-      color: #444;
-      border-top: 1px solid #e0e0e0;
-      background: #fafafa;
+    .small{
+      font-size:0.82rem;
+      color:#555;
     }
-    footer img {
-      height: 22px;
-      vertical-align: middle;
-      margin-right: 6px;
+
+    .chat-box{
+      border:1px solid #e5e7eb;
+      border-radius: 12px;
+      background:#fff;
+      padding: 10px 10px;
+      height: 420px;
+      overflow:auto;
+    }
+
+    .msg{
+      border-bottom: 1px dashed #eee;
+      padding: 8px 2px;
+    }
+    .msg:last-child{ border-bottom:none; }
+
+    .msg .meta{
+      display:flex;
+      gap:8px;
+      align-items:baseline;
+      flex-wrap: wrap;
+      margin-bottom: 2px;
+    }
+
+    .msg .name{
+      font-weight: 900;
+      color:#111827;
+    }
+    .msg .tag{
+      font-size:0.75rem;
+      font-weight:800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background:#f3f4f6;
+      color:#374151;
+      border: 1px solid #e5e7eb;
+    }
+    .msg .time{
+      font-size:0.78rem;
+      color:#6b7280;
+    }
+
+    .msg .text{
+      margin:0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size:0.92rem;
+      color:#222;
+      line-height: 1.28rem;
+    }
+
+    /* Footer mínimo (si ya tenéis footer global, lo puedes reemplazar luego) */
+    footer{
+      background:#222;
+      color:#eee;
+      padding: 14px 18px;
+      border-top:3px solid #d60000;
+      font-size:0.8rem;
     }
   </style>
 </head>
 
 <body>
-  <header>
+
+<header>
+  <div style="display:flex; align-items:center; gap:16px;">
     <img src="img/feccooex.png" alt="FECCOOEx">
     <div class="titles">
-      <h1>Chat público</h1>
-      <p>Consultas y respuestas visibles para toda la comunidad</p>
+      <h1>Herramientas FECCOOEx</h1>
+      <p>Recursos públicos y sindicales para la comunidad educativa</p>
     </div>
-  </header>
+  </div>
 
-  <main>
-    <!-- Bloque de descripción + botones -->
-    <section class="block">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;">
-        <div>
-          <h2>¿Cómo funciona este chat?</h2>
-          <p>
-            Este chat público permite plantear dudas breves y ver en tiempo real las preguntas y respuestas
-            de la comunidad y de la Federación de Enseñanza de CCOO de Extremadura.
-          </p>
-          <div class="rules-box">
-            <strong>Normas básicas:</strong>
-            <ul style="margin:6px 0 0 18px; padding:0;">
-              <li>No compartas datos personales sensibles (salud, direcciones completas, DNI, etc.).</li>
-              <li>Mantén un lenguaje respetuoso y evita descalificaciones personales.</li>
-              <li>
-                Los mensajes de la Federación aparecerán destacados. La organización se reserva el derecho a
-                moderar y eliminar contenidos inapropiados.
-              </li>
-            </ul>
-          </div>
+  <nav>
+    <a href="delegados.html">Área delegados/as</a>
+  </nav>
+</header>
+
+<main>
+  <a class="btn-volver" href="index.html">Volver a la portada</a>
+
+  <h1 class="page-title">Chat público</h1>
+  <p class="page-subtitle">
+    Espacio abierto para consultas breves (públicas) y orientación general.
+  </p>
+
+  <!-- Aviso visible -->
+  <div class="notice" style="margin-bottom:14px;">
+    <strong>Importante:</strong> este chat es <strong>público</strong>. Evita datos personales (DNI, teléfono, direcciones, datos de salud, etc.).
+    Las respuestas <strong>no son inmediatas</strong> y dependen de disponibilidad.
+    Si tu consulta es <strong>urgente</strong> o requiere <strong>privacidad</strong>, utiliza
+    <a href="consultas.html">Consultas sindicales</a>.
+  </div>
+
+  <!-- Chat -->
+  <section class="card">
+    <div class="chat-wrap">
+      <div class="chat-top">
+        <div class="field">
+          <label for="nombre">Nombre (visible en el chat)</label>
+          <input id="nombre" type="text" placeholder="Ej.: Tomás" maxlength="40" />
         </div>
 
-        <div class="top-actions">
-          <button class="btn-moderacion" id="btn-moderacion" type="button">
-            Activar moderación
-          </button>
-          <button class="btn-volver" onclick="window.location.href='index.html'">
-            Volver a la portada
-          </button>
+        <div class="field">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" placeholder="Escribe tu mensaje (consulta breve)…" maxlength="800"></textarea>
         </div>
       </div>
-    </section>
 
-    <!-- Bloque con el chat -->
-    <section class="block">
-      <h2>Chat público en tiempo real</h2>
-      <p id="contador-usuarios" class="contador-usuarios">
-        Personas conectadas ahora: —
-      </p>
-
-      <div class="chat-publico-container">
-        <div id="mensajes" class="chat-mensajes">
-          <!-- Mensajes por JavaScript -->
-        </div>
-
-        <form id="form-chat" class="chat-form">
-          <input
-            type="text"
-            id="nombre"
-            placeholder="Tu nombre o alias (opcional)"
-            maxlength="50"
-          />
-          <textarea
-            id="texto"
-            placeholder="Escribe tu mensaje (máx. 500 caracteres)..."
-            maxlength="500"
-          ></textarea>
-          <button type="submit">Enviar mensaje</button>
-        </form>
+      <div class="actions">
+        <button class="btn btn-primary" id="btn-enviar" type="button">Enviar</button>
+        <button class="btn btn-secondary" id="btn-limpiar" type="button">Limpiar</button>
+        <span class="small" id="estado"></span>
       </div>
-    </section>
-  </main>
 
-  <footer>
-    <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
-    Este contenido se distribuye bajo licencia <strong>Creative Commons BY-ND 4.0</strong>, permitiendo compartir sin modificaciones y con atribución.
-  </footer>
+      <div class="chat-box" id="chat-box" aria-live="polite"></div>
+      <div class="small">
+        Consejo: si planteas una duda compleja, indica contexto (centro, etapa, tipo de jornada) sin aportar datos personales.
+      </div>
+    </div>
+  </section>
+</main>
 
-  <!-- Firebase + Firestore + presencia -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-    import {
-      getFirestore,
-      collection,
-      addDoc,
-      query,
-      orderBy,
-      serverTimestamp,
-      onSnapshot,
-      doc,
-      setDoc,
-      deleteDoc
-    } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+<footer>
+  © <span id="anio"></span> Federación de Enseñanza de CCOO de Extremadura · Chat público
+</footer>
 
-    /* Configuración real de tu proyecto Firebase */
-    const firebaseConfig = {
-      apiKey: "AIzaSyDU1o7NEtPCWz6M0Q2gToZE97qmtSP72OY",
-      authDomain: "feccooex-chat.firebaseapp.com",
-      projectId: "feccooex-chat",
-      storageBucket: "feccooex-chat.firebasestorage.app",
-      messagingSenderId: "323736709612",
-      appId: "1:323736709612:web:e7a23fb298a6281882b8c9"
-    };
+<script>
+  document.getElementById("anio").textContent = new Date().getFullYear();
+</script>
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+<!-- Firebase (reemplaza SOLO el bloque firebaseConfig por el tuyo real) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+  import {
+    getFirestore, collection, addDoc, serverTimestamp,
+    query, orderBy, limit, onSnapshot
+  } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-    // Colección de mensajes
-    const mensajesRef = collection(db, "mensajes_publicos_feccooex");
-    // Colección para presencia (usuarios conectados)
-    const presenciaRef = collection(db, "presencia_chat_feccooex");
+  // 🔴 PEGA AQUÍ TU CONFIG REAL (la que ya te funciona)
+  const firebaseConfig = {
+    apiKey: "REEMPLAZA_ESTO",
+    authDomain: "REEMPLAZA_ESTO",
+    projectId: "REEMPLAZA_ESTO",
+    storageBucket: "REEMPLAZA_ESTO",
+    messagingSenderId: "REEMPLAZA_ESTO",
+    appId: "REEMPLAZA_ESTO"
+  };
 
-    const mensajesDiv = document.getElementById("mensajes");
-    const form = document.getElementById("form-chat");
-    const inputNombre = document.getElementById("nombre");
-    const inputTexto = document.getElementById("texto");
-    const contadorUsuarios = document.getElementById("contador-usuarios");
-    const btnModeracion = document.getElementById("btn-moderacion");
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-    // Antispam sencillo
-    let ultimoEnvioMs = 0;
+  const estado = document.getElementById("estado");
+  const chatBox = document.getElementById("chat-box");
+  const inputNombre = document.getElementById("nombre");
+  const inputMensaje = document.getElementById("mensaje");
+  const btnEnviar = document.getElementById("btn-enviar");
+  const btnLimpiar = document.getElementById("btn-limpiar");
 
-    // Modo moderación local (solo en este navegador)
-    const ADMIN_CODE = "FECCOOEX2024"; // puedes cambiar este código
-    let esAdmin = false;
+  function escapeHtml(str) {
+    return (str || "")
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
 
-    function activarModeracion() {
-      const intento = prompt("Introduce el código de moderación:");
-      if (!intento) return;
-      if (intento === ADMIN_CODE) {
-        esAdmin = true;
-        document.body.classList.add("modo-admin");
-        alert("Modo moderación activado. Ahora puedes eliminar mensajes.");
-      } else {
-        alert("Código incorrecto.");
-      }
+  function formatTime(ts) {
+    if (!ts) return "";
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    return d.toLocaleString("es-ES", { day:"2-digit", month:"2-digit", year:"numeric", hour:"2-digit", minute:"2-digit" });
+  }
+
+  function renderMessages(docs) {
+    chatBox.innerHTML = "";
+    const frag = document.createDocumentFragment();
+
+    docs.forEach(doc => {
+      const m = doc.data();
+      const div = document.createElement("div");
+      div.className = "msg";
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+
+      const name = document.createElement("span");
+      name.className = "name";
+      name.textContent = m.nombre || "Anónimo";
+
+      const tag = document.createElement("span");
+      tag.className = "tag";
+      tag.textContent = "Público";
+
+      const time = document.createElement("span");
+      time.className = "time";
+      time.textContent = formatTime(m.createdAt);
+
+      meta.appendChild(name);
+      meta.appendChild(tag);
+      meta.appendChild(time);
+
+      const p = document.createElement("p");
+      p.className = "text";
+      p.innerHTML = escapeHtml(m.texto || "");
+
+      div.appendChild(meta);
+      div.appendChild(p);
+      frag.appendChild(div);
+    });
+
+    chatBox.appendChild(frag);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  // Escucha en tiempo real (últimos 200 mensajes)
+  const q = query(collection(db, "messages"), orderBy("createdAt", "asc"), limit(200));
+  onSnapshot(q, (snap) => {
+    renderMessages(snap.docs);
+  }, (err) => {
+    console.error(err);
+    estado.textContent = "No se pudo conectar al chat.";
+  });
+
+  async function enviarMensaje() {
+    const nombre = (inputNombre.value || "").trim();
+    const texto = (inputMensaje.value || "").trim();
+
+    if (!texto) {
+      estado.textContent = "Escribe un mensaje antes de enviar.";
+      return;
     }
 
-    btnModeracion.addEventListener("click", activarModeracion);
+    // nombre opcional
+    const nombreFinal = nombre ? nombre.slice(0, 40) : "Anónimo";
 
-    /* Escuchar mensajes en tiempo real */
-    onSnapshot(query(mensajesRef, orderBy("timestamp", "asc")), (snapshot) => {
-      mensajesDiv.innerHTML = "";
+    btnEnviar.disabled = true;
+    estado.textContent = "Enviando…";
 
-      snapshot.forEach((docSnap) => {
-        const m = docSnap.data();
-        const nombre = m.nombre || "Anónimo";
-        const texto = m.texto || "";
-        const idMensaje = docSnap.id;
-
-        const esOficial =
-          /ccoo|feccooex|federaci.n|fe ense/gi.test(nombre);
-
-        const div = document.createElement("div");
-        div.className = "chat-mensaje" + (esOficial ? " oficial" : "");
-
-        let fechaTexto = "";
-        if (m.timestamp) {
-          const d = m.timestamp.toDate();
-          fechaTexto =
-            d.toLocaleDateString("es-ES") +
-            " · " +
-            d.toLocaleTimeString("es-ES", {
-              hour: "2-digit",
-              minute: "2-digit"
-            });
-        }
-
-        div.innerHTML = `
-          <div class="autor">${nombre}</div>
-          <div class="texto">${texto}</div>
-          <div class="hora">${fechaTexto}</div>
-        `;
-
-        // Botón de eliminar (visible solo en modo moderación)
-        const btnDel = document.createElement("button");
-        btnDel.className = "btn-eliminar";
-        btnDel.textContent = "✕";
-        btnDel.title = "Eliminar mensaje";
-        btnDel.addEventListener("click", async () => {
-          if (!esAdmin) return;
-          const ok = confirm("¿Eliminar este mensaje?");
-          if (!ok) return;
-          try {
-            await deleteDoc(doc(mensajesRef, idMensaje));
-          } catch (err) {
-            alert("No se ha podido eliminar el mensaje.");
-          }
-        });
-
-        div.appendChild(btnDel);
-        mensajesDiv.appendChild(div);
+    try {
+      await addDoc(collection(db, "messages"), {
+        nombre: nombreFinal,
+        texto: texto.slice(0, 800),
+        createdAt: serverTimestamp()
       });
 
-      mensajesDiv.scrollTop = mensajesDiv.scrollHeight;
-    });
-
-    /* Enviar mensaje */
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const nombre = inputNombre.value.trim() || "Anónimo";
-      const texto = inputTexto.value.trim();
-      if (!texto) return;
-
-      const ahora = Date.now();
-      if (ahora - ultimoEnvioMs < 5000) {
-        alert("Espera unos segundos antes de enviar otro mensaje.");
-        return;
-      }
-
-      try {
-        await addDoc(mensajesRef, {
-          nombre,
-          texto,
-          timestamp: serverTimestamp()
-        });
-        ultimoEnvioMs = ahora;
-        inputTexto.value = "";
-      } catch (err) {
-        alert("No se ha podido enviar el mensaje.");
-      }
-    });
-
-    /* Presencia: contador de usuarios conectados */
-    const presenceId =
-      (self.crypto && crypto.randomUUID && crypto.randomUUID()) ||
-      (Date.now() + "_" + Math.random().toString(16).slice(2));
-
-    const presenciaDocRef = doc(presenciaRef, presenceId);
-
-    async function actualizarPresencia() {
-      try {
-        await setDoc(
-          presenciaDocRef,
-          { lastActive: serverTimestamp() },
-          { merge: true }
-        );
-      } catch (err) {
-        // silencio, no es crítico
-      }
+      inputMensaje.value = "";
+      estado.textContent = "Mensaje enviado.";
+      setTimeout(() => estado.textContent = "", 1200);
+    } catch (e) {
+      console.error(e);
+      estado.textContent = "Error al enviar. Intenta de nuevo.";
+    } finally {
+      btnEnviar.disabled = false;
     }
+  }
 
-    // Actualiza presencia al cargar y cada 25s
-    actualizarPresencia();
-    const presenceInterval = setInterval(actualizarPresencia, 25000);
+  btnEnviar.addEventListener("click", enviarMensaje);
+  btnLimpiar.addEventListener("click", () => {
+    inputNombre.value = "";
+    inputMensaje.value = "";
+    estado.textContent = "";
+  });
 
-    // Escuchar cambios en la colección de presencia
-    onSnapshot(presenciaRef, (snapshot) => {
-      const ahora = Date.now();
-      let activos = 0;
+  // Enter para enviar (sin saltos) / Shift+Enter para salto
+  inputMensaje.addEventListener("keydown", (ev) => {
+    if (ev.key === "Enter" && !ev.shiftKey) {
+      ev.preventDefault();
+      enviarMensaje();
+    }
+  });
+</script>
 
-      snapshot.forEach((docSnap) => {
-        const data = docSnap.data();
-        if (!data.lastActive) return;
-        const t = data.lastActive.toDate().getTime();
-        if (ahora - t < 60000) {
-          activos++;
-        }
-      });
-
-      if (activos === 0) {
-        contadorUsuarios.textContent = "Personas conectadas ahora: 0";
-      } else if (activos === 1) {
-        contadorUsuarios.textContent = "Personas conectadas ahora: 1";
-      } else {
-        contadorUsuarios.textContent =
-          "Personas conectadas ahora: " + activos;
-      }
-    });
-
-    // Intentar limpiar presencia al cerrar
-    window.addEventListener("beforeunload", () => {
-      clearInterval(presenceInterval);
-      deleteDoc(presenciaDocRef).catch(() => {});
-    });
-  </script>
 </body>
 </html>
