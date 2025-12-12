@@ -228,6 +228,7 @@
       margin: 0 0 4px;
       font-size: 1rem;
       color: #111827;
+      text-transform: capitalize;
     }
 
     .cal-lista {
@@ -533,25 +534,20 @@
 
   <!-- SCRIPT CALENDARIOS -->
   <script>
-    // ==== CONFIGURACIÓN DE ARCHIVOS CSV ====
-    // Pon estos ficheros en la misma carpeta que calendario.html:
+    // Archivos necesarios en la misma carpeta que este calendario.html:
     // - calendario_escolar.csv
     // - calendario_laboral.csv
     // - festivos_locales.csv
     //
-    // Estructura recomendada:
-    // calendario_escolar.csv:
-    //   curso,fecha,tipo,descripcion,etapas,ambito
-    //   2025-2026,2025-09-10,inicio_clases,Inicio de las actividades lectivas en Educación Infantil y Primaria,infantil-primaria,Extremadura
-    //
-    // calendario_laboral.csv:
-    //   anio,fecha,ambito,descripcion,municipio
-    //   2025,2025-01-01,estatal,Año Nuevo,
-    //   2025,2025-09-08,autonómico,Día de Extremadura,
-    //
-    // festivos_locales.csv:
-    //   municipio,provincia,festivo1_fecha,festivo1_nombre,festivo2_fecha,festivo2_nombre
-    //   Badajoz,Badajoz,2025-03-15,Fiesta local 1,2025-09-24,Fiesta local 2
+    // IMPORTANTE:
+    // - En estos CSV, las fechas pueden venir como texto: "17 de febrero" (sin año).
+    // - El año se toma de:
+    //   - calendario_laboral.csv -> columna "anio" (ej. 2026)
+    //   - calendario_escolar.csv -> columna "curso" (ej. 2025-2026)
+    // - En festivos_locales.csv los festivos son también texto "17 de febrero" y se interpretan
+    //   según:
+    //   - Pestaña Laboral: el año seleccionado en el selector "Año"
+    //   - Pestaña Escolar: el curso seleccionado (sep-dic -> primer año, ene-ago -> segundo año)
 
     let escolarData = [];
     let laboralData = [];
@@ -562,7 +558,9 @@
       "julio","agosto","septiembre","octubre","noviembre","diciembre"
     ];
 
-    // Detectar separador (coma o punto y coma) y parsear CSV a objetos
+    // -----------------------------
+    // CSV parsing (coma o punto y coma)
+    // -----------------------------
     function parseCSV(text) {
       const lines = text.trim().split(/\r?\n/);
       if (!lines.length) return [];
@@ -579,23 +577,103 @@
         });
     }
 
-    // Agrupar lista de eventos (con campo fecha) por mes
-    function agruparPorMes(eventos, campoFecha) {
-      const porMes = {}; // mesIndex -> array
+    // -----------------------------
+    // Helpers para fechas en castellano: "17 de febrero"
+    // -----------------------------
+    function parseFechaES(texto, anio) {
+      const raw = (texto || "").trim().toLowerCase();
+
+      // Si viene en ISO (por si algún día mezclas), lo aceptamos:
+      if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+        const d = new Date(raw);
+        return { date: isNaN(d) ? null : d, display: texto.trim() };
+      }
+
+      // Normalizar: quitar "de" repetidos, dobles espacios
+      const norm = raw.replace(/\s+de\s+/g, " ").replace(/\s+/g, " ").trim();
+
+      // Esperamos: "17 febrero" o "1 enero"
+      const m = norm.match(/^(\d{1,2})\s+([a-záéíóúñ]+)$/i);
+      if (!m) return { date: null, display: texto.trim() };
+
+      const dia = parseInt(m[1], 10);
+      const mesTxt = m[2];
+
+      const meses = {
+        "enero": 0,
+        "febrero": 1,
+        "marzo": 2,
+        "abril": 3,
+        "mayo": 4,
+        "junio": 5,
+        "julio": 6,
+        "agosto": 7,
+        "septiembre": 8,
+        "setiembre": 8,
+        "octubre": 9,
+        "noviembre": 10,
+        "diciembre": 11
+      };
+
+      const mes = meses[mesTxt];
+      if (mes === undefined) return { date: null, display: texto.trim() };
+
+      const d = new Date(Number(anio), mes, dia);
+      return { date: isNaN(d) ? null : d, display: texto.trim() };
+    }
+
+    function getAniosCurso(curso) {
+      const c = (curso || "").trim();
+      const m = c.match(/^(\d{4})\s*-\s*(\d{4})$/);
+      if (!m) return null;
+      return { anio1: Number(m[1]), anio2: Number(m[2]) };
+    }
+
+    // -----------------------------
+    // Agrupar por mes con fechas texto
+    // -----------------------------
+    function agruparPorMes(eventos, campoFecha, ctx = {}) {
+      // ctx:
+      // - tipo: "laboral" | "escolar"
+      // - anio: number|string (laboral)
+      // - curso: string (escolar)
+      const porMes = {};
+
+      const anioLaboral = ctx.anio ? Number(ctx.anio) : null;
+      const aniosCurso = ctx.curso ? getAniosCurso(ctx.curso) : null;
+
       eventos.forEach(ev => {
-        const fechaStr = (ev[campoFecha] || "").trim();
-        const d = new Date(fechaStr);
-        if (isNaN(d)) return;
-        const m = d.getMonth(); // 0-11
+        const fechaTxt = (ev[campoFecha] || "").trim();
+        let parsed = { date: null, display: fechaTxt };
+
+        if (ctx.tipo === "laboral" && anioLaboral) {
+          parsed = parseFechaES(fechaTxt, anioLaboral);
+        } else if (ctx.tipo === "escolar" && aniosCurso) {
+          // En escolar, el año depende del mes: sep-dic => anio1, ene-ago => anio2
+          const p1 = parseFechaES(fechaTxt, aniosCurso.anio1);
+          if (p1.date) {
+            const mes = p1.date.getMonth();
+            const anioDef = (mes >= 8) ? aniosCurso.anio1 : aniosCurso.anio2;
+            parsed = parseFechaES(fechaTxt, anioDef);
+          } else {
+            parsed = p1;
+          }
+        } else {
+          const d = new Date(fechaTxt);
+          parsed = { date: isNaN(d) ? null : d, display: fechaTxt };
+        }
+
+        if (!parsed.date) return;
+
+        const m = parsed.date.getMonth();
         if (!porMes[m]) porMes[m] = [];
         porMes[m].push({
           ...ev,
-          _date: d,
-          _fechaStr: fechaStr
+          _date: parsed.date,
+          _fechaStr: parsed.display // Esto es lo que mostramos: "17 de febrero"
         });
       });
 
-      // Ordenar dentro de cada mes
       Object.keys(porMes).forEach(m => {
         porMes[m].sort((a, b) => a._date - b._date);
       });
@@ -603,7 +681,9 @@
       return porMes;
     }
 
-    // Render de lista por meses, con orden de meses configurable
+    // -----------------------------
+    // Render de lista por meses, con orden configurable
+    // -----------------------------
     function renderListaPorMes(container, porMes, opciones = {}) {
       container.innerHTML = "";
 
@@ -614,10 +694,8 @@
       let mesesOrdenados;
 
       if (opciones.ordenMeses && Array.isArray(opciones.ordenMeses)) {
-        // Respetar el orden personalizado (ej. septiembre→agosto)
         mesesOrdenados = opciones.ordenMeses.filter(m => mesesDisponibles.includes(m));
       } else {
-        // Orden natural enero→diciembre
         mesesOrdenados = mesesDisponibles.sort((a, b) => a - b);
       }
 
@@ -673,6 +751,9 @@
       container.appendChild(frag);
     }
 
+    // -----------------------------
+    // Festivos locales (mostrar texto tal cual)
+    // -----------------------------
     function renderFestivosLocales(containerId, municipioSeleccionado) {
       const cont = document.getElementById(containerId);
       cont.innerHTML = "";
@@ -692,15 +773,19 @@
 
       const ul = document.createElement("ul");
 
-      if (fila.festivo1_fecha || fila.festivo1_nombre) {
+      const f1 = (fila.festivo1_fecha || "").trim();
+      const n1 = (fila.festivo1_nombre || "").trim() || "Festivo local";
+      if (f1 || n1) {
         const li1 = document.createElement("li");
-        li1.textContent = (fila.festivo1_fecha || "") + " – " + (fila.festivo1_nombre || "Festivo local");
+        li1.textContent = (f1 ? f1 : "") + (f1 && n1 ? " – " : "") + n1;
         ul.appendChild(li1);
       }
 
-      if (fila.festivo2_fecha || fila.festivo2_nombre) {
+      const f2 = (fila.festivo2_fecha || "").trim();
+      const n2 = (fila.festivo2_nombre || "").trim() || "Festivo local";
+      if (f2 || n2) {
         const li2 = document.createElement("li");
-        li2.textContent = (fila.festivo2_fecha || "") + " – " + (fila.festivo2_nombre || "Festivo local");
+        li2.textContent = (f2 ? f2 : "") + (f2 && n2 ? " – " : "") + n2;
         ul.appendChild(li2);
       }
 
@@ -708,6 +793,9 @@
       cont.appendChild(ul);
     }
 
+    // -----------------------------
+    // Tabs
+    // -----------------------------
     function initTabs() {
       const tabButtons = document.querySelectorAll(".tab-btn");
       const tabContents = {
@@ -727,11 +815,15 @@
       });
     }
 
+    // -----------------------------
+    // Poblar selects
+    // -----------------------------
     function poblarSelectCurso() {
       const selectCurso = document.getElementById("select-curso");
       const cursos = Array.from(new Set(
         escolarData.map(r => (r.curso || "").trim()).filter(Boolean)
       )).sort();
+
       cursos.forEach(curso => {
         const opt = document.createElement("option");
         opt.value = curso;
@@ -744,11 +836,12 @@
       const selectAnio = document.getElementById("select-anio");
       const anios = Array.from(new Set(
         laboralData.map(r => (r.anio || "").trim()).filter(Boolean)
-      )).sort();
+      )).sort((a, b) => Number(a) - Number(b));
+
       anios.forEach(anio => {
         const opt = document.createElement("option");
         opt.value = anio;
-        opt.textContent = anio;
+        opt.textContent = "Año " + anio;
         selectAnio.appendChild(opt);
       });
     }
@@ -774,6 +867,9 @@
       });
     }
 
+    // -----------------------------
+    // Render escolar y laboral
+    // -----------------------------
     function renderEscolar() {
       const selectCurso = document.getElementById("select-curso");
       const selectMuni = document.getElementById("select-municipio-escolar");
@@ -802,10 +898,9 @@
         });
       }
 
-      const porMes = agruparPorMes(eventos, "fecha");
+      const porMes = agruparPorMes(eventos, "fecha", { tipo: "escolar", curso: cursoSel });
 
-      // Orden académico: septiembre (8) → octubre (9) → noviembre (10) → diciembre (11)
-      // → enero (0) → febrero (1) → marzo (2) → abril (3) → mayo (4) → junio (5) → julio (6) → agosto (7)
+      // Orden académico: septiembre → agosto
       const ordenAcademico = [8,9,10,11,0,1,2,3,4,5,6,7];
 
       renderListaPorMes(contLista, porMes, {
@@ -835,8 +930,9 @@
         return;
       }
 
+      // OJO: el <select> muestra "Año 2026" pero el value es "2026" (correcto)
       const eventos = laboralData.filter(r => (r.anio || "").trim() === anioSel);
-      const porMes = agruparPorMes(eventos, "fecha");
+      const porMes = agruparPorMes(eventos, "fecha", { tipo: "laboral", anio: anioSel });
 
       // Laboral: orden natural enero→diciembre
       renderListaPorMes(contLista, porMes, { mostrarEtapas: false });
@@ -846,6 +942,9 @@
       }
     }
 
+    // -----------------------------
+    // Cargar datos
+    // -----------------------------
     async function cargarDatos() {
       const escolarLista = document.getElementById("escolar-lista");
       const laboralLista = document.getElementById("laboral-lista");
@@ -898,7 +997,5 @@
       document.getElementById("select-municipio-laboral").addEventListener("change", renderLaboral);
     });
   </script>
-
 </body>
 </html>
-
