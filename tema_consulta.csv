@@ -1,0 +1,11 @@
+id,tema,orden,activo
+1,Permisos y licencias,1,1
+2,Horario y jornada,2,1
+3,Retribuciones y nómina,3,1
+4,Vacaciones y asuntos propios,4,1
+5,Sustituciones y cobertura de plazas,5,1
+6,Conciliación y reducción de jornada,6,1
+7,Riesgos laborales y salud laboral,7,1
+8,Traslados y concursos,8,1
+9,Interinos y bolsas,9,1
+10,Otros,99,1
