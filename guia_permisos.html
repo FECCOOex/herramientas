@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Guía práctica · Permisos y ausencias (docentes) · Herramientas FECCOOEx</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    * { box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:#f3f4f6;
+      color:#222;
+    }
+
+    /* HEADER */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 24px;
+      background:#d60000;
+      color:#fff;
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    header img{ height:52px; }
+    .titles h1{ margin:0; font-size:1.6rem; font-weight:700; }
+    .titles p{ margin:2px 0 0; font-size:0.9rem; opacity:0.95; }
+    nav a{
+      color:#fff; text-decoration:none; font-weight:600;
+      padding:6px 12px; border:1px solid rgba(255,255,255,0.7);
+      border-radius:999px; transition:0.2s ease;
+    }
+    nav a:hover{
+      background:rgba(255,255,255,0.18);
+      transform: translateY(-1px);
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    /* MAIN */
+    main{
+      max-width: 980px;
+      margin: 26px auto 40px;
+      padding: 0 16px 40px;
+    }
+
+    .btn-volver{
+      display:inline-block;
+      margin-bottom:16px;
+      padding:6px 10px;
+      border-radius:6px;
+      background:#d60000;
+      color:#fff;
+      font-size:0.9rem;
+      font-weight:700;
+      text-decoration:none;
+      transition: background 0.15s;
+    }
+    .btn-volver:hover{ background:#b40000; }
+
+    .page-title{ margin: 0 0 6px; font-size:1.6rem; }
+    .page-subtitle{ margin:0 0 14px; color:#444; font-size:0.95rem; }
+
+    .card{
+      background:#fff;
+      border:1px solid #e1e4ea;
+      border-radius: 12px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.10);
+      padding: 14px 16px 16px;
+      margin-bottom: 14px;
+    }
+
+    .notice{
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      color:#7c2d12;
+      border-radius: 12px;
+      padding: 12px 12px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    }
+    .notice strong{ color:#7c2d12; }
+    .notice a{ color:#d60000; font-weight:900; text-decoration:none; }
+    .notice a:hover{ text-decoration:underline; }
+
+    h2{
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+      color:#111827;
+    }
+
+    ul{ margin: 8px 0 0; padding-left: 18px; }
+    li{ margin: 5px 0; line-height: 1.25rem; }
+
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .chip{
+      font-size:0.75rem;
+      font-weight:900;
+      padding: 3px 10px;
+      border-radius:999px;
+      background:#f3f4f6;
+      color:#374151;
+      border:1px solid #e5e7eb;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 880px){
+      .grid2{ grid-template-columns: 1fr; }
+    }
+
+    .table{
+      width:100%;
+      border-collapse: collapse;
+      font-size:0.92rem;
+      margin-top: 8px;
+    }
+    .table th, .table td{
+      border: 1px solid #e5e7eb;
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+    .table th{
+      background:#f9fafb;
+      text-align:left;
+      font-weight:900;
+      color:#111827;
+    }
+
+    .muted{
+      color:#6b7280;
+      font-size:0.85rem;
+      line-height: 1.2rem;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .btn{
+      border:none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight:900;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-block;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+    .btn-primary{ background:#d60000; color:#fff; }
+    .btn-primary:hover{
+      background:#b40000;
+      transform: translateY(-1px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    }
+    .btn-secondary{ background:#111827; color:#fff; }
+    .btn-secondary:hover{
+      transform: translateY(-1px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    }
+
+    /* FOOTER institucional */
+    footer{
+      background:#222;
+      color:#f2f2f2;
+      padding:18px 20px 10px;
+      border-top:3px solid #d60000;
+      font-size:0.85rem;
+      margin-top: 10px;
+    }
+    .footer-inner{
+      max-width:1300px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap:16px;
+    }
+    @media (max-width: 900px){
+      .footer-inner{ grid-template-columns: 1fr; }
+    }
+    .footer-col h3{
+      margin:0 0 6px;
+      font-size:0.95rem;
+      text-transform:uppercase;
+      letter-spacing:0.03em;
+      color:#fff;
+    }
+    .footer-col p{
+      margin:0 0 4px;
+      font-size:0.82rem;
+      color:#e0e0e0;
+    }
+    .footer-col a{
+      color:#ffdddd;
+      text-decoration:none;
+      font-size:0.82rem;
+    }
+    .footer-col a:hover{ text-decoration:underline; }
+
+    .footer-logo-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:6px;
+    }
+    .footer-logo-row img{
+      height:30px;
+      background:#d60000;
+      padding:3px 6px;
+      border-radius:4px;
+    }
+
+    .footer-bottom{
+      max-width:1300px;
+      margin:10px auto 0;
+      border-top:1px solid #444;
+      padding-top:6px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .footer-bottom-left{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:0.78rem;
+      color:#e0e0e0;
+    }
+    .footer-bottom-left img{ height:18px; }
+
+    .footer-bottom-right{
+      font-size:0.78rem;
+      color:#bbbbbb;
+      text-align:right;
+    }
+    @media (max-width: 600px){
+      .footer-bottom{ flex-direction:column; align-items:flex-start; }
+      .footer-bottom-right{ text-align:left; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <img src="img/feccooex.png" alt="FECCOOEx">
+    <div class="titles">
+      <h1>Herramientas FECCOOEx</h1>
+      <p>Recursos públicos y sindicales para la comunidad educativa</p>
+    </div>
+  </div>
+  <nav>
+    <a href="delegados.html">Área delegados/as</a>
+  </nav>
+</header>
+
+<main>
+  <a class="btn-volver" href="guias.html">Volver a Guías prácticas</a>
+
+  <h1 class="page-title">Guía práctica: permisos y ausencias (personal docente)</h1>
+  <p class="page-subtitle">
+    Orientación rápida para identificar el permiso adecuado y tramitarlo con criterio. Para casos complejos, utiliza <a href="consultas.html">Consultas sindicales</a>.
+  </p>
+
+  <section class="notice">
+    <strong>Nota importante:</strong> esta guía es orientativa. La regulación principal en Extremadura para personal docente no universitario se recoge en la
+    <strong>Orden de 29 de agosto de 2024</strong> (DOE) y, como marco general, en el <strong>EBEP</strong> (RDL 5/2015). Consulta siempre el texto oficial y la instrucción/procedimiento vigente de tu centro o unidad de personal.
+    <div class="chips">
+      <span class="chip">Extremadura</span>
+      <span class="chip">Docentes no universitarios</span>
+      <span class="chip">Permisos y ausencias</span>
+      <span class="chip">Actualización: <span id="upd"></span></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>1) ¿Qué permiso necesito? (mapa rápido)</h2>
+    <div class="grid2">
+      <div>
+        <ul>
+          <li><strong>Asuntos particulares</strong> (días “propios” dentro del curso, con planificación y autorización según necesidades del servicio).</li>
+          <li><strong>Enfermedad / incapacidad temporal</strong>: baja médica (no es “permiso”: se gestiona como IT).</li>
+          <li><strong>Deber inexcusable</strong> (citaciones oficiales, mesas electorales, etc.).</li>
+          <li><strong>Exámenes finales / pruebas oficiales</strong> (cuando proceda, con acreditación).</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li><strong>Fallecimiento / accidente / enfermedad grave</strong> de familiar (con acreditación y según grado/traslado).</li>
+          <li><strong>Matrimonio o registro de pareja</strong> (cuando proceda, con acreditación).</li>
+          <li><strong>Conciliación</strong>: nacimiento, adopción/guarda, lactancia, cuidado de menor, violencia de género/sexual, etc.</li>
+          <li><strong>Formación/estudios</strong>: en su caso, licencias o permisos específicos (convocatorias/anuncios).</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="muted" style="margin-top:10px;">
+      En Extremadura, la Orden de 29 de agosto de 2024 sistematiza el régimen de permisos del personal docente en el ámbito de gestión de la Consejería competente. 
+      El EBEP (arts. 48–50) fija el marco general de permisos, vacaciones y conciliación. 
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>2) Checklist de tramitación (lo que casi siempre te pedirán)</h2>
+    <ul>
+      <li><strong>Tipo de permiso</strong> y fechas (inicio/fin). Si es por horas, especifica franja horaria.</li>
+      <li><strong>Justificante</strong>: cita médica, certificado, citación oficial, libro de familia, etc. (según el caso).</li>
+      <li><strong>Antelación</strong>: cuando sea previsible (p. ej., asuntos particulares), pide con margen.</li>
+      <li><strong>Canal</strong>: el que determine tu centro/Administración (habitualmente solicitud a través del procedimiento interno y/o plataforma corporativa).</li>
+      <li><strong>Registro</strong>: guarda copia de lo presentado y del justificante (PDF/captura/registro).</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>3) Casos muy frecuentes (qué hacer)</h2>
+
+    <table class="table" aria-label="Casos frecuentes">
+      <thead>
+        <tr>
+          <th>Situación</th>
+          <th>Qué suele corresponder</th>
+          <th>Documentación típica</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Necesito un día por un asunto personal previsible</td>
+          <td>Asuntos particulares (según régimen de la Orden 2024)</td>
+          <td>Solicitud + (si procede) justificación mínima según centro</td>
+        </tr>
+        <tr>
+          <td>Me citan como jurado/mesa electoral/juicio/inspección</td>
+          <td>Deber inexcusable</td>
+          <td>Citación oficial</td>
+        </tr>
+        <tr>
+          <td>Fallecimiento/enfermedad grave de familiar</td>
+          <td>Permiso por causa familiar (condicionado a grado y desplazamiento)</td>
+          <td>Justificante + acreditación parentesco (si se solicita)</td>
+        </tr>
+        <tr>
+          <td>Necesito acompañar a menor o dependiente a cita médica</td>
+          <td>Conciliación / permisos específicos (según EBEP/Orden)</td>
+          <td>Cita/justificante + (si procede) acreditación del vínculo</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="muted" style="margin-top:10px;">
+      Nota: los <strong>días exactos</strong>, condiciones y compatibilidades varían por supuesto concreto (grado de parentesco, convivencia, distancia, etc.).
+      Para evitar errores, verifica siempre el texto oficial aplicable.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>4) Enlaces oficiales recomendados</h2>
+    <div class="actions">
+      <a class="btn btn-primary" target="_blank" href="https://doe.juntaex.es/pdfs/doe/2024/1690o/24050153.pdf">Orden 29/08/2024 (DOE) · PDF</a>
+      <a class="btn btn-secondary" target="_blank" href="https://doe.juntaex.es/otrosFormatos/html.php?anio=2024&doe=1690o&xml=2024050153">Orden 29/08/2024 (DOE) · HTML</a>
+      <a class="btn btn-secondary" target="_blank" href="https://www.boe.es/buscar/act.php?id=BOE-A-2015-11719">EBEP (RDL 5/2015) · BOE</a>
+      <a class="btn btn-secondary" target="_blank" href="https://doe.juntaex.es/pdfs/doe/2013/1550o/13040170C.pdf">Decreto 149/2013 · DOE (PDF)</a>
+    </div>
+    <p class="muted" style="margin-top:10px;">
+      Si vas a solicitar una <strong>licencia por estudios</strong>, suele publicarse procedimiento/convocatoria específica (p. ej. resoluciones de Personal Docente).
+      En Profex puedes consultar convocatorias vigentes. 
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>5) ¿Y si me lo deniegan o hay dudas?</h2>
+    <ul>
+      <li>Pide que te indiquen <strong>el motivo</strong> (necesidades del servicio, falta de documentación, incompatibilidad, etc.).</li>
+      <li>Revisa si hay posibilidad de <strong>subsanación</strong> (aportar justificante o corregir fechas).</li>
+      <li>Si crees que no se ajusta a norma, usa <a href="consultas.html"><strong>Consultas sindicales</strong></a> para estudiar el caso (mejor con copia del justificante y de la respuesta recibida).</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-logo-row">
+        <img src="img/feccooex.png" alt="FECCOOEx">
+        <div>
+          <strong>Federación de Enseñanza de CCOO de Extremadura</strong><br>
+          <span style="font-size:0.8rem;">Herramientas digitales para la acción sindical y la comunidad educativa.</span>
+        </div>
+      </div>
+      <p>Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo y la calidad de la educación en Extremadura.</p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Contacto</h3>
+      <p><strong>Dirección:</strong><br>
+        Avenida Juan Carlos I, nº 47<br>
+        CP 06800 · Mérida (Extremadura)
+      </p>
+      <p><strong>Teléfono:</strong> 924 330 018</p>
+      <p><strong>Correo:</strong> <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a></p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Enlaces rápidos</h3>
+      <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
+      <p><a href="https://www.facebook.com/feccooex" target="_blank">Facebook FECCOOEx</a></p>
+      <p><a href="https://x.com/FECCOOex" target="_blank">X (Twitter) FECCOOEx</a></p>
+      <p><a href="https://www.instagram.com/feccooex" target="_blank">Instagram FECCOOEx</a></p>
+      <p><a href="https://t.me/feccooextremadura" target="_blank">Canal de Telegram FECCOOExtremadura</a></p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-bottom-left">
+      <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
+      <span>Contenido bajo licencia Creative Commons BY-ND 4.0 (se permite compartir sin modificaciones y con atribución).</span>
+    </div>
+    <div class="footer-bottom-right">
+      © <span id="anio-footer"></span> Federación de Enseñanza de CCOO de Extremadura
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Fecha de “actualización” visible en la guía (puedes cambiarla cuando reviséis el contenido)
+  document.getElementById("upd").textContent = "diciembre 2025";
+  document.getElementById("anio-footer").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
