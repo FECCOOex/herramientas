@@ -127,16 +127,6 @@
       resize: vertical;
     }
 
-    .hint{
-      margin-top: 6px;
-      font-size: 0.82rem;
-      color:#555;
-      background:#f9fafb;
-      border: 1px dashed #e5e7eb;
-      border-radius: 10px;
-      padding: 10px 10px;
-    }
-
     .row-full{ grid-column: 1 / -1; }
 
     .checks{
@@ -145,23 +135,23 @@
       align-items:flex-start;
       font-size:0.85rem;
       color:#333;
-      line-height: 1.2rem;
+      line-height: 1.25rem;
+      margin-top: 4px;
     }
-    .checks input{ width:auto; margin-top:3px; }
+    .checks input{ width:auto; margin-top:4px; }
 
     .actions{
       display:flex;
       gap:10px;
       align-items:center;
-      justify-content:flex-start;
       flex-wrap: wrap;
-      margin-top: 10px;
+      margin-top: 14px;
     }
 
     .btn{
       border:none;
       border-radius: 10px;
-      padding: 10px 12px;
+      padding: 10px 14px;
       font-weight:800;
       cursor:pointer;
       transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
@@ -186,358 +176,188 @@
       box-shadow:0 6px 16px rgba(0,0,0,0.18);
     }
 
-    .note-small{
-      font-size:0.82rem;
+    .hint{
+      margin-top: 14px;
+      font-size: 0.82rem;
       color:#555;
+      background:#f9fafb;
+      border: 1px dashed #e5e7eb;
+      border-radius: 10px;
+      padding: 10px 12px;
     }
 
-    /* FOOTER (mismo estilo del resto) */
+    /* FOOTER */
     footer{
       background:#222;
       color:#f2f2f2;
       padding:18px 20px 10px;
       border-top:3px solid #d60000;
       font-size:0.85rem;
-    }
-
-    .footer-inner{
-      max-width:1300px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns: 2fr 1.2fr 1.2fr;
-      gap:16px;
-    }
-    @media (max-width: 900px){
-      .footer-inner{ grid-template-columns: 1fr; }
-    }
-
-    .footer-col h3{
-      margin:0 0 6px;
-      font-size:0.95rem;
-      text-transform:uppercase;
-      letter-spacing:0.03em;
-      color:#fff;
-    }
-    .footer-col p{
-      margin:0 0 4px;
-      font-size:0.82rem;
-      color:#e0e0e0;
-    }
-    .footer-col a{
-      color:#ffdddd;
-      text-decoration:none;
-      font-size:0.82rem;
-    }
-    .footer-col a:hover{ text-decoration:underline; }
-
-    .footer-logo-row{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:6px;
-    }
-    .footer-logo-row img{
-      height:30px;
-      background:#d60000;
-      padding:3px 6px;
-      border-radius:4px;
-    }
-
-    .footer-bottom{
-      max-width:1300px;
-      margin:10px auto 0;
-      border-top:1px solid #444;
-      padding-top:6px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-
-    .footer-bottom-left{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      font-size:0.78rem;
-      color:#e0e0e0;
-    }
-    .footer-bottom-left img{ height:18px; }
-
-    .footer-bottom-right{
-      font-size:0.78rem;
-      color:#bbbbbb;
-      text-align:right;
-    }
-    @media (max-width: 600px){
-      .footer-bottom{ flex-direction:column; align-items:flex-start; }
-      .footer-bottom-right{ text-align:left; }
+      margin-top: 20px;
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <div style="display:flex; align-items:center; gap:16px;">
-      <img src="img/feccooex.png" alt="FECCOOEx">
-      <div class="titles">
-        <h1>Herramientas FECCOOEx</h1>
-        <p>Recursos públicos y sindicales para la comunidad educativa</p>
-      </div>
+<header>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <img src="img/feccooex.png" alt="FECCOOEx">
+    <div class="titles">
+      <h1>Herramientas FECCOOEx</h1>
+      <p>Recursos públicos y sindicales para la comunidad educativa</p>
     </div>
+  </div>
 
-    <nav>
-      <a href="delegados.html">Área delegados/as</a>
-    </nav>
-  </header>
+  <nav>
+    <a href="delegados.html">Área delegados/as</a>
+  </nav>
+</header>
 
-  <main>
-    <a class="btn-volver" href="index.html">Volver a la portada</a>
+<main>
+  <a class="btn-volver" href="index.html">Volver a la portada</a>
 
-    <h1 class="page-title">Consultas sindicales</h1>
-    <p class="page-subtitle">
-      A través de este formulario se pueden plantear las consultas y sugerencias de carácter laboral que se consideren.
-    </p>
+  <h1 class="page-title">Consultas sindicales</h1>
+  <p class="page-subtitle">
+    A través de este formulario se pueden plantear las consultas y sugerencias de carácter laboral que se consideren.
+  </p>
 
-    <section class="card">
-      <form id="form-consultas" autocomplete="on">
-        <div class="form-grid">
-          <div>
-            <label for="nombre">Nombre y apellidos</label>
-            <input id="nombre" name="nombre" type="text" placeholder="Ej.: María Pérez" required>
-          </div>
+  <section class="card">
+    <form id="form-consultas">
+      <div class="form-grid">
 
-          <div>
-            <label for="email">Correo de contacto</label>
-            <input id="email" name="email" type="email" placeholder="Ej.: maria@email.com" required>
-          </div>
-
-          <div>
-            <label for="telefono">Teléfono (opcional)</label>
-            <input id="telefono" name="telefono" type="tel" placeholder="Ej.: 600 000 000">
-          </div>
-
-          <div>
-            <label for="centro">Centro / Servicio (opcional)</label>
-            <input id="centro" name="centro" type="text" placeholder="Ej.: IES … / EOI … / Administración …">
-          </div>
-
-          <div>
-            <label for="municipio">Municipio (opcional)</label>
-            <input id="municipio" name="municipio" type="text" placeholder="Ej.: Mérida">
-          </div>
-
-          <div>
-            <label for="tema">Tema principal</label>
-            <select id="tema" name="tema" required>
-              <option value="">Cargando temáticas…</option>
-            </select>
-          </div>
-
-          <div class="row-full">
-            <label for="asunto">Asunto</label>
-            <input id="asunto" name="asunto" type="text" placeholder="Ej.: Horario, permisos, sustituciones…" required>
-          </div>
-
-          <div class="row-full">
-            <label for="mensaje">Consulta / sugerencia</label>
-            <textarea id="mensaje" name="mensaje" placeholder="Describe brevemente tu consulta. Si procede, indica fechas, normativa, documentación disponible, etc." required></textarea>
-          </div>
-
-          <div class="row-full checks">
-            <input id="consentimiento" type="checkbox" required>
-            <label for="consentimiento" style="margin:0; font-weight:600;">
-              Confirmo que los datos aportados se usarán únicamente para atender esta consulta.
-            </label>
-          </div>
+        <div>
+          <label for="nombre">Nombre y apellidos</label>
+          <input id="nombre" type="text" required>
         </div>
 
-        <div class="actions">
-          <button class="btn btn-primary" type="submit">Enviar consulta</button>
-          <button class="btn btn-secondary" type="button" id="btn-limpiar">Limpiar formulario</button>
-          <span class="note-small">Se abrirá tu cliente de correo con el mensaje ya preparado.</span>
+        <div>
+          <label for="email">Correo de contacto</label>
+          <input id="email" type="email" required>
         </div>
 
-        <div class="hint" style="margin-top:12px;">
-          <strong>Correo de destino:</strong> educacion@extremadura.ccoo.es<br>
-          Si tu dispositivo no tiene configurado un cliente de correo, copia el texto del mensaje y envíalo manualmente.
+        <div>
+          <label for="telefono">Teléfono (opcional)</label>
+          <input id="telefono" type="tel">
         </div>
-      </form>
-    </section>
-  </main>
 
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-col">
-        <div class="footer-logo-row">
-          <img src="img/feccooex.png" alt="FECCOOEx">
-          <div>
-            <strong>Federación de Enseñanza de CCOO de Extremadura</strong><br>
-            <span style="font-size:0.8rem;">Herramientas digitales para la acción sindical y la comunidad educativa.</span>
-          </div>
+        <div>
+          <label for="centro">Centro / servicio (opcional)</label>
+          <input id="centro" type="text">
         </div>
-        <p>Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo del profesorado y la calidad de la educación en Extremadura.</p>
+
+        <div>
+          <label for="municipio">Municipio (opcional)</label>
+          <input id="municipio" type="text">
+        </div>
+
+        <div>
+          <label for="tema">Tema principal</label>
+          <select id="tema" required>
+            <option value="">Cargando temáticas…</option>
+          </select>
+        </div>
+
+        <div class="row-full">
+          <label for="asunto">Asunto</label>
+          <input id="asunto" type="text" required>
+        </div>
+
+        <div class="row-full">
+          <label for="mensaje">Consulta / sugerencia</label>
+          <textarea id="mensaje" required></textarea>
+        </div>
+
+        <div class="row-full checks">
+          <input id="consentimiento" type="checkbox" required>
+          <label for="consentimiento">
+            He leído y acepto que los datos facilitados se utilicen exclusivamente para la gestión y respuesta de esta consulta, conforme a la normativa de protección de datos.
+          </label>
+        </div>
+
       </div>
 
-      <div class="footer-col">
-        <h3>Contacto</h3>
-        <p><strong>Dirección:</strong><br>
-          Avenida Juan Carlos I, nº 47<br>
-          CP 06800 · Mérida (Extremadura)
-        </p>
-        <p><strong>Teléfono:</strong> 924 330 018</p>
-        <p><strong>Correo:</strong> <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a></p>
+      <div class="actions">
+        <button class="btn btn-primary" type="submit">Enviar consulta</button>
+        <button class="btn btn-secondary" type="button" id="btn-limpiar">Limpiar formulario</button>
       </div>
 
-      <div class="footer-col">
-        <h3>Enlaces rápidos</h3>
-        <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
-        <p><a href="https://www.facebook.com/feccooex" target="_blank">Facebook FECCOOEx</a></p>
-        <p><a href="https://x.com/FECCOOex" target="_blank">X (Twitter) FECCOOEx</a></p>
-        <p><a href="https://www.instagram.com/feccooex" target="_blank">Instagram FECCOOEx</a></p>
-        <p><a href="https://t.me/feccooextremadura" target="_blank">Canal de Telegram FECCOOExtremadura</a></p>
+      <div class="hint">
+        <strong>Protección de datos</strong><br>
+        Los datos personales facilitados serán tratados por la Federación de Enseñanza de CCOO de Extremadura con la
+        única finalidad de gestionar y responder a la consulta planteada. No se utilizarán para fines comerciales ni
+        se cederán a terceros, salvo obligación legal.
+        <br><br>
+        <strong>Correo de contacto:</strong> educacion@extremadura.ccoo.es
       </div>
-    </div>
+    </form>
+  </section>
+</main>
 
-    <div class="footer-bottom">
-      <div class="footer-bottom-left">
-        <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
-        <span>Contenido bajo licencia Creative Commons BY-ND 4.0 (se permite compartir sin modificaciones y con atribución).</span>
-      </div>
-      <div class="footer-bottom-right">
-        © <span id="anio-footer"></span> Federación de Enseñanza de CCOO de Extremadura
-      </div>
-    </div>
+<script>
+  const EMAIL_DESTINO = "educacion@extremadura.ccoo.es";
 
-    <script>
-      document.getElementById('anio-footer').textContent = new Date().getFullYear();
-    </script>
-  </footer>
+  function parseCSV(text) {
+    const lines = text.trim().split(/\r?\n/);
+    const delimiter = lines[0].includes(";") ? ";" : ",";
+    const headers = lines[0].split(delimiter).map(h => h.trim());
+    return lines.slice(1).map(l => {
+      const cols = l.split(delimiter).map(c => c.trim());
+      const obj = {};
+      headers.forEach((h,i) => obj[h] = cols[i] || "");
+      return obj;
+    });
+  }
 
-  <script>
-    const EMAIL_DESTINO = "educacion@extremadura.ccoo.es";
-    const CSV_TEMAS = "tema_consulta.csv";
+  async function cargarTemas() {
+    const select = document.getElementById("tema");
+    try {
+      const resp = await fetch("tema_consulta.csv", { cache: "no-store" });
+      const text = await resp.text();
+      const rows = parseCSV(text);
 
-    function parseCSV(text) {
-      const lines = text.trim().split(/\r?\n/);
-      if (!lines.length) return [];
-      const firstLine = lines[0];
-      const delimiter = firstLine.includes(";") ? ";" : ",";
-      const headers = firstLine.split(delimiter).map(h => h.trim());
-
-      return lines.slice(1)
-        .filter(l => l.trim())
-        .map(line => {
-          const cols = line.split(delimiter).map(c => c.trim());
-          const obj = {};
-          headers.forEach((h, i) => obj[h] = cols[i] || "");
-          return obj;
-        });
-    }
-
-    async function cargarTemas() {
-      const select = document.getElementById("tema");
-      try {
-        const resp = await fetch(CSV_TEMAS, { cache: "no-store" });
-        if (!resp.ok) throw new Error("No se pudo cargar tema_consulta.csv");
-        const text = await resp.text();
-        const rows = parseCSV(text);
-
-        // Esperamos columnas: id, tema, (opcional) orden, activo
-        const temas = rows
-          .filter(r => {
-            const activo = (r.activo || "").trim();
-            return activo === "" || activo === "1" || activo.toLowerCase() === "si" || activo.toLowerCase() === "sí";
-          })
-          .sort((a, b) => {
-            const oa = Number((a.orden || "").trim() || 9999);
-            const ob = Number((b.orden || "").trim() || 9999);
-            if (oa !== ob) return oa - ob;
-            return (a.tema || "").localeCompare((b.tema || ""), "es");
-          });
-
-        select.innerHTML = '<option value="">Selecciona un tema…</option>';
-        temas.forEach(r => {
+      select.innerHTML = '<option value="">Selecciona un tema…</option>';
+      rows
+        .filter(r => !r.activo || r.activo === "1")
+        .forEach(r => {
           const opt = document.createElement("option");
-          opt.value = (r.tema || "").trim();
-          opt.textContent = (r.tema || "").trim();
+          opt.value = r.tema;
+          opt.textContent = r.tema;
           select.appendChild(opt);
         });
-
-        // si por algún motivo queda vacío
-        if (select.options.length <= 1) {
-          select.innerHTML = '<option value="">No hay temáticas activas</option>';
-        }
-      } catch (e) {
-        console.warn(e);
-        select.innerHTML = '<option value="">No se pudo cargar la lista (revisa tema_consulta.csv)</option>';
-      }
+    } catch {
+      select.innerHTML = '<option value="">No se pudieron cargar las temáticas</option>';
     }
+  }
 
-    function buildMailBody(data) {
-      const lines = [
-        "CONSULTA / SUGERENCIA (ÁMBITO LABORAL)",
-        "--------------------------------------",
-        `Nombre: ${data.nombre}`,
-        `Email: ${data.email}`,
-        `Teléfono: ${data.telefono || "-"}`,
-        `Centro/Servicio: ${data.centro || "-"}`,
-        `Municipio: ${data.municipio || "-"}`,
-        `Tema principal: ${data.tema}`,
-        "",
-        "Mensaje:",
-        data.mensaje,
-        "",
-        "—",
-        "Enviado desde Herramientas FECCOOEx"
-      ];
-      return lines.join("\n");
-    }
+  document.addEventListener("DOMContentLoaded", () => {
+    cargarTemas();
 
-    function toMailto(subject, body) {
-      const s = encodeURIComponent(subject);
-      const b = encodeURIComponent(body);
-      return `mailto:${EMAIL_DESTINO}?subject=${s}&body=${b}`;
-    }
+    document.getElementById("btn-limpiar").onclick = () => {
+      document.getElementById("form-consultas").reset();
+    };
 
-    document.addEventListener("DOMContentLoaded", () => {
-      cargarTemas();
+    document.getElementById("form-consultas").onsubmit = e => {
+      e.preventDefault();
 
-      document.getElementById("btn-limpiar").addEventListener("click", () => {
-        document.getElementById("form-consultas").reset();
-      });
+      const subject = `[Consultas FECCOOEx] ${tema.value} — ${asunto.value}`;
+      const body = `
+Nombre: ${nombre.value}
+Email: ${email.value}
+Teléfono: ${telefono.value || "-"}
+Centro/Servicio: ${centro.value || "-"}
+Municipio: ${municipio.value || "-"}
+Tema: ${tema.value}
 
-      document.getElementById("form-consultas").addEventListener("submit", (ev) => {
-        ev.preventDefault();
+Consulta:
+${mensaje.value}
+      `.trim();
 
-        const data = {
-          nombre: document.getElementById("nombre").value.trim(),
-          email: document.getElementById("email").value.trim(),
-          telefono: document.getElementById("telefono").value.trim(),
-          centro: document.getElementById("centro").value.trim(),
-          municipio: document.getElementById("municipio").value.trim(),
-          tema: document.getElementById("tema").value.trim(),
-          asunto: document.getElementById("asunto").value.trim(),
-          mensaje: document.getElementById("mensaje").value.trim(),
-          consentimiento: document.getElementById("consentimiento").checked
-        };
+      window.location.href =
+        `mailto:${EMAIL_DESTINO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    };
+  });
+</script>
 
-        if (!data.consentimiento) {
-          alert("Debes aceptar el uso de datos para poder enviar la consulta.");
-          return;
-        }
-        if (!data.tema) {
-          alert("Selecciona un 'Tema principal'.");
-          return;
-        }
-
-        const subject = `[Consultas FECCOOEx] ${data.tema} — ${data.asunto}`;
-        const body = buildMailBody(data);
-
-        window.location.href = toMailto(subject, body);
-      });
-    });
-  </script>
 </body>
 </html>
