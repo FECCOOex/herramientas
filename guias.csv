@@ -1,5 +1,5 @@
 id_guia,titulo,tema,destinatarios,descripcion,tipo,url,ultima_actualizacion,ambito,solo_delegados,activa
 g01,Permisos retribuidos: guía práctica,laboral,Todo el personal educativo,Qué permisos puedes solicitar y cómo hacerlo,html,guia_permisos.html,marzo 2025,ambos,0,1
 g02,Reducción de jornada por conciliación,conciliacion,Personal docente y laboral,Pasos y requisitos para solicitar reducción de jornada,html,guia_reduccion_jornada.html,marzo 2025,ambos,0,1
-g03,Derechos básicos del personal interino,interinos,Personal interino,Resumen claro de derechos y deberes del personal interino,pdf,docs/guia_interinos.pdf,febrero 2025,docente,0,1
+g03,Derechos básicos del personal interino,interinos,Personal interino docente,"Guía práctica sobre derechos, listas, adjudicaciones, renuncias y cese",html,guia_interinos.html,diciembre 2025,docente,0,1
 g04,Cambios de horario y condiciones de trabajo,condiciones,Todo el personal educativo,Guía práctica sobre modificaciones de horario y condiciones laborales,html,guia_cambios_condiciones.html,diciembre 2025,ambos,0,1
