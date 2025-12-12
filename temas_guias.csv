@@ -1,0 +1,7 @@
+id_tema,tema,descripcion,orden,activo
+laboral,Derechos laborales,"Jornada, horarios, retribuciones, permisos y vacaciones",1,1
+conciliacion,Conciliación y vida personal,Reducciones de jornada y medidas de conciliación,2,1
+conflictos,Situaciones conflictivas,"Cambios de centro, conflictos laborales y movilidad forzosa",3,1
+interinos,Interinos y personal temporal,"Derechos básicos, bolsas y sustituciones",4,1
+salud,Salud laboral,"Riesgos laborales, bajas médicas y prevención",5,1
+procesos,Procesos administrativos,"Concursos, traslados y comisiones de servicio",6,1
