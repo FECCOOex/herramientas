@@ -29,9 +29,7 @@
       z-index: 10;
     }
 
-    header img {
-      height: 52px;
-    }
+    header img { height: 52px; }
 
     .titles h1 {
       margin: 0;
@@ -52,14 +50,9 @@
       padding: 6px 12px;
       border: 1px solid rgba(255,255,255,0.7);
       border-radius: 999px;
-      transition: 0.2s ease;
     }
 
-    nav a:hover {
-      background: rgba(255,255,255,0.18);
-      transform: translateY(-1px);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-    }
+    nav a:hover { background: rgba(255,255,255,0.18); }
 
     /* MAIN */
     main {
@@ -68,33 +61,16 @@
       padding: 0 16px 40px;
     }
 
-    .page-title {
-      margin: 0 0 4px;
-      font-size: 1.6rem;
-    }
-
-    .page-subtitle {
-      margin: 0 0 14px;
-      font-size: 0.95rem;
-      color: #444;
-    }
-
     .btn-volver {
       display: inline-block;
       margin-bottom: 16px;
       padding: 6px 10px;
       border-radius: 6px;
-      border: none;
       background: #d60000;
       color: #fff;
       font-size: 0.9rem;
       font-weight: 600;
       text-decoration: none;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-    .btn-volver:hover {
-      background: #b40000;
     }
 
     /* TABS */
@@ -103,7 +79,7 @@
       border-radius: 999px;
       background: #e5e7eb;
       padding: 3px;
-      margin: 0 0 16px;
+      margin-bottom: 16px;
     }
 
     .tab-btn {
@@ -115,11 +91,10 @@
       cursor: pointer;
       font-weight: 600;
       color: #555;
-      transition: background 0.15s, color 0.15s, box-shadow 0.15s;
     }
 
     .tab-btn.active {
-      background: #ffffff;
+      background: #fff;
       color: #d60000;
       box-shadow: 0 2px 5px rgba(0,0,0,0.15);
     }
@@ -136,51 +111,36 @@
       box-shadow: 0 3px 8px rgba(0,0,0,0.10);
     }
 
-    .block-cal h2 {
-      margin: 0 0 6px;
-      font-size: 1.2rem;
-      color: #d60000;
-    }
-
-    .block-cal p.intro {
-      margin: 0 0 10px;
-      font-size: 0.9rem;
-      color: #444;
-    }
-
-    /* Controles */
     .controles-calendario {
       display: flex;
       flex-wrap: wrap;
       gap: 10px 16px;
       align-items: flex-end;
       margin-bottom: 10px;
-      border-radius: 8px;
       background: #f9fafb;
-      padding: 10px 10px 8px;
+      padding: 10px;
+      border-radius: 8px;
       border: 1px dashed #e5e7eb;
     }
 
     .control {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 4px;
       min-width: 220px;
     }
 
-    .control label {
+    label {
       font-size: 0.8rem;
       font-weight: 600;
       color: #555;
     }
 
     select {
-      font-family: inherit;
       font-size: 0.9rem;
       padding: 6px 8px;
       border-radius: 6px;
       border: 1px solid #cbd5e1;
-      background: #fff;
     }
 
     .check-inline {
@@ -189,729 +149,158 @@
       gap: 6px;
       font-size: 0.82rem;
       color: #444;
-      margin-top: 2px;
-      padding-bottom: 2px;
     }
 
-    .check-inline input { margin: 0; }
+    .btn-limpiar {
+      background: none;
+      border: none;
+      color: #d60000;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0;
+      align-self: flex-start;
+    }
 
-    /* Listados */
+    .btn-limpiar:hover { text-decoration: underline; }
+
     .nota {
       font-size: 0.85rem;
       color: #555;
       background: #f3f4ff;
-      border-radius: 6px;
       padding: 6px 8px;
+      border-radius: 6px;
       border: 1px solid #e5e7eb;
     }
 
-    .cal-lista-wrapper { margin-top: 10px; }
-
-    .cal-mes {
-      margin-bottom: 10px;
-      padding-bottom: 4px;
-      border-bottom: 1px dashed #e5e7eb;
-    }
-    .cal-mes:last-child { border-bottom: none; }
-
     .cal-mes h3 {
-      margin: 0 0 4px;
-      font-size: 1rem;
-      color: #111827;
       text-transform: capitalize;
+      margin-bottom: 4px;
     }
 
-    .cal-lista {
-      list-style: none;
-      margin: 0;
-      padding-left: 0;
-      font-size: 0.86rem;
-    }
-
-    .cal-lista li { margin: 1px 0; }
-
-    .cal-lista li span.fecha { font-weight: 700; }
-    .cal-lista li span.tipo { font-style: italic; color: #6b7280; }
-    .cal-lista li span.etapas { color: #4b5563; }
-
-    /* Festivos locales */
-    .cal-festivos-locales {
-      margin-top: 12px;
-      padding-top: 8px;
-      border-top: 1px solid #e5e7eb;
-    }
-
-    .cal-festivos-locales h3 {
-      margin: 0 0 4px;
-      font-size: 0.98rem;
-      color: #111827;
-    }
-
-    .cal-festivos-locales ul {
-      margin: 0;
-      padding-left: 18px;
-      font-size: 0.86rem;
-    }
-
-    /* FOOTER */
     footer {
       background: #222;
-      color: #f2f2f2;
-      padding: 18px 20px 10px;
-      margin-top: 10px;
+      color: #eee;
+      padding: 20px;
       border-top: 3px solid #d60000;
-      font-size: 0.85rem;
-    }
-
-    .footer-inner {
-      max-width: 1300px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 2fr 1.2fr 1.2fr;
-      gap: 16px;
-    }
-
-    @media (max-width: 900px) {
-      .footer-inner { grid-template-columns: 1fr; }
-    }
-
-    .footer-col h3 {
-      margin: 0 0 6px;
-      font-size: 0.95rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      color: #ffffff;
-    }
-
-    .footer-col p {
-      margin: 0 0 4px;
-      font-size: 0.82rem;
-      color: #e0e0e0;
-    }
-
-    .footer-col a {
-      color: #ffdddd;
-      text-decoration: none;
-      font-size: 0.82rem;
-    }
-
-    .footer-col a:hover { text-decoration: underline; }
-
-    .footer-logo-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-
-    .footer-logo-row img {
-      height: 30px;
-      background: #d60000;
-      padding: 3px 6px;
-      border-radius: 4px;
-    }
-
-    .footer-bottom {
-      max-width: 1300px;
-      margin: 10px auto 0;
-      border-top: 1px solid #444;
-      padding-top: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .footer-bottom-left {
-      display:flex;
-      align-items:center;
-      gap:6px;
-      font-size:0.78rem;
-      color:#e0e0e0;
-    }
-
-    .footer-bottom-left img { height: 18px; }
-
-    .footer-bottom-right {
-      font-size:0.78rem;
-      color:#bbbbbb;
-      text-align:right;
-    }
-
-    @media (max-width: 600px) {
-      .footer-bottom { flex-direction: column; align-items:flex-start; }
-      .footer-bottom-right { text-align:left; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div style="display:flex; align-items:center; gap:16px;">
-      <img src="img/feccooex.png" alt="FECCOOEx">
-      <div class="titles">
-        <h1>Herramientas FECCOOEx</h1>
-        <p>Recursos públicos y sindicales para la comunidad educativa</p>
+<header>
+  <div style="display:flex; gap:16px; align-items:center;">
+    <img src="img/feccooex.png" alt="FECCOOEx">
+    <div class="titles">
+      <h1>Herramientas FECCOOEx</h1>
+      <p>Recursos públicos y sindicales</p>
+    </div>
+  </div>
+  <nav>
+    <a href="delegados.html">Área delegados/as</a>
+  </nav>
+</header>
+
+<main>
+  <a class="btn-volver" href="index.html">Volver a la portada</a>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="escolar">Calendario escolar</button>
+    <button class="tab-btn" data-tab="laboral">Calendario laboral</button>
+  </div>
+
+  <!-- ESCOLAR -->
+  <section id="tab-escolar" class="tab-content active">
+    <section class="block-cal">
+      <div class="controles-calendario">
+        <div class="control">
+          <label>Curso académico</label>
+          <select id="select-curso">
+            <option value="">Selecciona curso…</option>
+          </select>
+        </div>
+
+        <div class="control">
+          <label>Municipio (festivos locales)</label>
+          <select id="select-municipio-escolar"></select>
+          <button class="btn-limpiar" id="btn-limpiar-escolar">Limpiar municipio</button>
+        </div>
+
+        <div class="check-inline">
+          <input type="checkbox" id="chk-celebraciones" checked>
+          <label for="chk-celebraciones">Mostrar celebraciones pedagógicas</label>
+        </div>
       </div>
-    </div>
 
-    <nav>
-      <a href="delegados.html">Área delegados/as</a>
-    </nav>
-  </header>
-
-  <!-- CONTENIDO PRINCIPAL -->
-  <main>
-    <a class="btn-volver" href="index.html">Volver a la portada</a>
-
-    <h1 class="page-title">Calendarios de Extremadura</h1>
-    <p class="page-subtitle">
-      Consulta el calendario escolar y el calendario laboral de Extremadura, junto con los dos festivos locales
-      de cada municipio.
-    </p>
-
-    <!-- PESTAÑAS -->
-    <div class="tabs">
-      <button class="tab-btn active" data-tab="escolar">Calendario escolar</button>
-      <button class="tab-btn" data-tab="laboral">Calendario laboral</button>
-    </div>
-
-    <!-- TAB ESCOLAR -->
-    <section id="tab-escolar" class="tab-content active">
-      <section class="block-cal">
-        <h2>Calendario escolar de Extremadura</h2>
-        <p class="intro">
-          Selecciona el curso académico y el municipio para ver también sus festivos locales.
-          Puedes decidir si quieres mostrar o no las celebraciones pedagógicas.
-        </p>
-
-        <div class="controles-calendario">
-          <div class="control">
-            <label for="select-curso">Curso académico</label>
-            <select id="select-curso">
-              <option value="">Selecciona curso…</option>
-            </select>
-          </div>
-
-          <div class="control">
-            <label for="select-municipio-escolar">Municipio (festivos locales)</label>
-            <select id="select-municipio-escolar"></select>
-          </div>
-
-          <div class="check-inline">
-            <input type="checkbox" id="chk-celebraciones" checked>
-            <label for="chk-celebraciones">Mostrar celebraciones pedagógicas</label>
-          </div>
-        </div>
-
-        <div id="escolar-lista" class="cal-lista-wrapper">
-          <p class="nota">Cargando datos del calendario escolar…</p>
-        </div>
-
-        <div id="escolar-festivos-locales" class="cal-festivos-locales"></div>
-      </section>
+      <div id="escolar-lista" class="nota">Selecciona un curso académico.</div>
+      <div id="escolar-festivos-locales"></div>
     </section>
+  </section>
 
-    <!-- TAB LABORAL -->
-    <section id="tab-laboral" class="tab-content">
-      <section class="block-cal">
-        <h2>Calendario laboral de Extremadura</h2>
-        <p class="intro">
-          Selecciona el año y el municipio para consultar los festivos laborales estatales, autonómicos
-          y los dos festivos locales del municipio.
-        </p>
-
-        <div class="controles-calendario">
-          <div class="control">
-            <label for="select-anio">Año</label>
-            <select id="select-anio">
-              <option value="">Selecciona año…</option>
-            </select>
-          </div>
-
-          <div class="control">
-            <label for="select-municipio-laboral">Municipio (festivos locales)</label>
-            <select id="select-municipio-laboral"></select>
-          </div>
+  <!-- LABORAL -->
+  <section id="tab-laboral" class="tab-content">
+    <section class="block-cal">
+      <div class="controles-calendario">
+        <div class="control">
+          <label>Año</label>
+          <select id="select-anio">
+            <option value="">Selecciona año…</option>
+          </select>
         </div>
 
-        <div id="laboral-lista" class="cal-lista-wrapper">
-          <p class="nota">Cargando datos del calendario laboral…</p>
+        <div class="control">
+          <label>Municipio (festivos locales)</label>
+          <select id="select-municipio-laboral"></select>
+          <button class="btn-limpiar" id="btn-limpiar-laboral">Limpiar municipio</button>
         </div>
+      </div>
 
-        <div id="laboral-festivos-locales" class="cal-festivos-locales"></div>
-      </section>
+      <div id="laboral-lista" class="nota">Selecciona un año.</div>
+      <div id="laboral-festivos-locales"></div>
     </section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-col">
-        <div class="footer-logo-row">
-          <img src="img/feccooex.png" alt="FECCOOEx">
-          <div>
-            <strong>Federación de Enseñanza de CCOO de Extremadura</strong><br>
-            <span style="font-size:0.8rem;">Herramientas digitales para la acción sindical y la comunidad educativa.</span>
-          </div>
-        </div>
-        <p>Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo del profesorado y la calidad de la educación en Extremadura.</p>
-      </div>
-
-      <div class="footer-col">
-        <h3>Contacto</h3>
-        <p><strong>Dirección:</strong><br>
-        Avenida Juan Carlos I, nº 47<br>
-        CP 06800 · Mérida (Extremadura)</p>
-        <p><strong>Teléfono:</strong> 924 330 018</p>
-        <p><strong>Correo:</strong> <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a></p>
-      </div>
-
-      <div class="footer-col">
-        <h3>Enlaces rápidos</h3>
-        <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
-        <p><a href="https://www.facebook.com/feccooex" target="_blank">Facebook FECCOOEx</a></p>
-        <p><a href="https://x.com/FECCOOex" target="_blank">X (Twitter) FECCOOEx</a></p>
-        <p><a href="https://www.instagram.com/feccooex" target="_blank">Instagram FECCOOEx</a></p>
-        <p><a href="https://t.me/feccooextremadura" target="_blank">Canal de Telegram FECCOOExtremadura</a></p>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <div class="footer-bottom-left">
-        <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
-        <span>Contenido bajo licencia Creative Commons BY-ND 4.0 (se permite compartir sin modificaciones y con atribución).</span>
-      </div>
-      <div class="footer-bottom-right">
-        © <span id="anio-footer"></span> Federación de Enseñanza de CCOO de Extremadura
-      </div>
-    </div>
-
-    <script>
-      document.getElementById('anio-footer').textContent = new Date().getFullYear();
-    </script>
-  </footer>
-
-  <!-- SCRIPT CALENDARIOS -->
-  <script>
-    // Archivos necesarios en la misma carpeta:
-    // - calendario_escolar.csv
-    // - calendario_laboral.csv
-    // - festivos_locales.csv
-    //
-    // Fechas en CSV: texto tipo DOE ("17 de febrero") sin año.
-    // - En laboral el año viene de la columna "anio"
-    // - En escolar el año se infiere del curso (sep-dic -> primer año, ene-ago -> segundo)
-
-    let escolarData = [];
-    let laboralData = [];
-    let festivosLocales = [];
-
-    const monthNames = [
-      "enero","febrero","marzo","abril","mayo","junio",
-      "julio","agosto","septiembre","octubre","noviembre","diciembre"
-    ];
-
-    function parseCSV(text) {
-      const lines = text.trim().split(/\r?\n/);
-      if (!lines.length) return [];
-      const firstLine = lines[0];
-      const delimiter = firstLine.includes(";") ? ";" : ",";
-      const headers = firstLine.split(delimiter).map(h => h.trim());
-      return lines.slice(1)
-        .filter(l => l.trim())
-        .map(line => {
-          const cols = line.split(delimiter).map(c => c.trim());
-          const obj = {};
-          headers.forEach((h, i) => { obj[h] = cols[i] || ""; });
-          return obj;
-        });
-    }
-
-    function parseFechaES(texto, anio) {
-      const raw = (texto || "").trim().toLowerCase();
-
-      // ISO fallback
-      if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
-        const d = new Date(raw);
-        return { date: isNaN(d) ? null : d, display: texto.trim() };
-      }
-
-      const norm = raw.replace(/\s+de\s+/g, " ").replace(/\s+/g, " ").trim();
-      const m = norm.match(/^(\d{1,2})\s+([a-záéíóúñ]+)$/i);
-      if (!m) return { date: null, display: texto.trim() };
-
-      const dia = parseInt(m[1], 10);
-      const mesTxt = m[2];
-
-      const meses = {
-        "enero": 0, "febrero": 1, "marzo": 2, "abril": 3, "mayo": 4, "junio": 5,
-        "julio": 6, "agosto": 7, "septiembre": 8, "setiembre": 8,
-        "octubre": 9, "noviembre": 10, "diciembre": 11
-      };
-
-      const mes = meses[mesTxt];
-      if (mes === undefined) return { date: null, display: texto.trim() };
-
-      const d = new Date(Number(anio), mes, dia);
-      return { date: isNaN(d) ? null : d, display: texto.trim() };
-    }
-
-    function getAniosCurso(curso) {
-      const c = (curso || "").trim();
-      const m = c.match(/^(\d{4})\s*-\s*(\d{4})$/);
-      if (!m) return null;
-      return { anio1: Number(m[1]), anio2: Number(m[2]) };
-    }
-
-    function agruparPorMes(eventos, campoFecha, ctx = {}) {
-      const porMes = {};
-      const anioLaboral = ctx.anio ? Number(ctx.anio) : null;
-      const aniosCurso = ctx.curso ? getAniosCurso(ctx.curso) : null;
-
-      eventos.forEach(ev => {
-        const fechaTxt = (ev[campoFecha] || "").trim();
-        let parsed = { date: null, display: fechaTxt };
-
-        if (ctx.tipo === "laboral" && anioLaboral) {
-          parsed = parseFechaES(fechaTxt, anioLaboral);
-        } else if (ctx.tipo === "escolar" && aniosCurso) {
-          const p1 = parseFechaES(fechaTxt, aniosCurso.anio1);
-          if (p1.date) {
-            const mes = p1.date.getMonth();
-            const anioDef = (mes >= 8) ? aniosCurso.anio1 : aniosCurso.anio2;
-            parsed = parseFechaES(fechaTxt, anioDef);
-          } else {
-            parsed = p1;
-          }
-        } else {
-          const d = new Date(fechaTxt);
-          parsed = { date: isNaN(d) ? null : d, display: fechaTxt };
-        }
-
-        if (!parsed.date) return;
-
-        const m = parsed.date.getMonth();
-        if (!porMes[m]) porMes[m] = [];
-        porMes[m].push({ ...ev, _date: parsed.date, _fechaStr: parsed.display });
-      });
-
-      Object.keys(porMes).forEach(m => porMes[m].sort((a, b) => a._date - b._date));
-      return porMes;
-    }
-
-    function renderListaPorMes(container, porMes, opciones = {}) {
-      container.innerHTML = "";
-
-      const mesesDisponibles = Object.keys(porMes)
-        .map(n => parseInt(n, 10))
-        .filter(n => !isNaN(n));
-
-      let mesesOrdenados;
-      if (opciones.ordenMeses && Array.isArray(opciones.ordenMeses)) {
-        mesesOrdenados = opciones.ordenMeses.filter(m => mesesDisponibles.includes(m));
-      } else {
-        mesesOrdenados = mesesDisponibles.sort((a, b) => a - b);
-      }
-
-      if (!mesesOrdenados.length) {
-        container.innerHTML = '<p class="nota">No hay eventos para los filtros seleccionados.</p>';
-        return;
-      }
-
-      const frag = document.createDocumentFragment();
-
-      mesesOrdenados.forEach(m => {
-        const section = document.createElement("section");
-        section.className = "cal-mes";
-
-        const h3 = document.createElement("h3");
-        h3.textContent = monthNames[m];
-        section.appendChild(h3);
-
-        const ul = document.createElement("ul");
-        ul.className = "cal-lista";
-
-        porMes[m].forEach(ev => {
-          const li = document.createElement("li");
-
-          const spanFecha = document.createElement("span");
-          spanFecha.className = "fecha";
-          spanFecha.textContent = ev._fechaStr || "";
-          li.appendChild(spanFecha);
-
-          li.appendChild(document.createTextNode(" – " + (ev.descripcion || "")));
-
-          if (ev.tipo) {
-            const spanTipo = document.createElement("span");
-            spanTipo.className = "tipo";
-            spanTipo.textContent = " · " + ev.tipo;
-            li.appendChild(spanTipo);
-          }
-
-          if (ev.etapas && opciones.mostrarEtapas) {
-            const spanEtapas = document.createElement("span");
-            spanEtapas.className = "etapas";
-            spanEtapas.textContent = " [" + ev.etapas + "]";
-            li.appendChild(spanEtapas);
-          }
-
-          ul.appendChild(li);
-        });
-
-        section.appendChild(ul);
-        frag.appendChild(section);
-      });
-
-      container.appendChild(frag);
-    }
-
-    function renderFestivosLocales(containerId, municipioSeleccionado) {
-      const cont = document.getElementById(containerId);
-      cont.innerHTML = "";
-      if (!municipioSeleccionado) return;
-
-      const fila = festivosLocales.find(
-        f => (f.municipio || "").toLowerCase() === municipioSeleccionado.toLowerCase()
-      );
-
-      if (!fila) {
-        cont.innerHTML = "<p class='nota'>No se han registrado festivos locales para este municipio.</p>";
-        return;
-      }
-
-      const h3 = document.createElement("h3");
-      h3.textContent = "Festivos locales en " + fila.municipio + " (" + (fila.provincia || "Extremadura") + ")";
-
-      const ul = document.createElement("ul");
-
-      const f1 = (fila.festivo1_fecha || "").trim();
-      const n1 = (fila.festivo1_nombre || "").trim() || "Festivo local";
-      const f2 = (fila.festivo2_fecha || "").trim();
-      const n2 = (fila.festivo2_nombre || "").trim() || "Festivo local";
-
-      if (f1 || n1) {
-        const li1 = document.createElement("li");
-        li1.textContent = (f1 ? f1 : "") + (f1 && n1 ? " – " : "") + n1;
-        ul.appendChild(li1);
-      }
-
-      if (f2 || n2) {
-        const li2 = document.createElement("li");
-        li2.textContent = (f2 ? f2 : "") + (f2 && n2 ? " – " : "") + n2;
-        ul.appendChild(li2);
-      }
-
-      cont.appendChild(h3);
-      cont.appendChild(ul);
-    }
-
-    function initTabs() {
-      const tabButtons = document.querySelectorAll(".tab-btn");
-      const tabContents = {
-        escolar: document.getElementById("tab-escolar"),
-        laboral: document.getElementById("tab-laboral")
-      };
-
-      tabButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-          const tab = btn.dataset.tab;
-          tabButtons.forEach(b => b.classList.remove("active"));
-          btn.classList.add("active");
-          Object.keys(tabContents).forEach(key => {
-            tabContents[key].classList.toggle("active", key === tab);
-          });
-        });
-      });
-    }
-
-    function poblarSelectCurso() {
-      const selectCurso = document.getElementById("select-curso");
-      const cursos = Array.from(new Set(
-        escolarData.map(r => (r.curso || "").trim()).filter(Boolean)
-      )).sort();
-
-      // reset
-      selectCurso.innerHTML = '<option value="">Selecciona curso…</option>';
-
-      cursos.forEach(curso => {
-        const opt = document.createElement("option");
-        opt.value = curso;
-        opt.textContent = curso;
-        selectCurso.appendChild(opt);
-      });
-    }
-
-    function poblarSelectAnio() {
-      const selectAnio = document.getElementById("select-anio");
-      const anios = Array.from(new Set(
-        laboralData.map(r => (r.anio || "").trim()).filter(Boolean)
-      )).sort((a, b) => Number(a) - Number(b));
-
-      // reset
-      selectAnio.innerHTML = '<option value="">Selecciona año…</option>';
-
-      anios.forEach(anio => {
-        const opt = document.createElement("option");
-        opt.value = anio;
-        opt.textContent = "Año " + anio;
-        selectAnio.appendChild(opt);
-      });
-    }
-
-    function poblarSelectMunicipiosSinTodos() {
-      const selectEsc = document.getElementById("select-municipio-escolar");
-      const selectLab = document.getElementById("select-municipio-laboral");
-
-      const municipios = Array.from(new Set(
-        festivosLocales.map(r => (r.municipio || "").trim()).filter(Boolean)
-      )).sort((a, b) => a.localeCompare(b, "es"));
-
-      // reset (sin "Todos")
-      selectEsc.innerHTML = "";
-      selectLab.innerHTML = "";
-
-      municipios.forEach(m => {
-        const opt1 = document.createElement("option");
-        opt1.value = m;
-        opt1.textContent = m;
-        selectEsc.appendChild(opt1);
-
-        const opt2 = document.createElement("option");
-        opt2.value = m;
-        opt2.textContent = m;
-        selectLab.appendChild(opt2);
-      });
-
-      // Seleccionar el primer municipio por defecto (si existe)
-      if (municipios.length) {
-        selectEsc.value = municipios[0];
-        selectLab.value = municipios[0];
-      }
-    }
-
-    function renderEscolar() {
-      const selectCurso = document.getElementById("select-curso");
-      const selectMuni = document.getElementById("select-municipio-escolar");
-      const chkCeleb = document.getElementById("chk-celebraciones");
-      const contLista = document.getElementById("escolar-lista");
-      const contFestivos = document.getElementById("escolar-festivos-locales");
-
-      contLista.innerHTML = "";
-      contFestivos.innerHTML = "";
-
-      const cursoSel = (selectCurso.value || "").trim();
-      const muniSel = (selectMuni.value || "").trim();
-      const mostrarCelebraciones = chkCeleb.checked;
-
-      if (!cursoSel) {
-        contLista.innerHTML = "<p class='nota'>Selecciona un curso académico para ver el calendario escolar.</p>";
-        // aun así, si hay municipio seleccionado, mostramos festivos
-        if (muniSel) renderFestivosLocales("escolar-festivos-locales", muniSel);
-        return;
-      }
-
-      let eventos = escolarData.filter(r => (r.curso || "").trim() === cursoSel);
-
-      if (!mostrarCelebraciones) {
-        eventos = eventos.filter(r => {
-          const t = (r.tipo || "").toLowerCase();
-          return !(t === "celebracion" || t === "celebración");
-        });
-      }
-
-      const porMes = agruparPorMes(eventos, "fecha", { tipo: "escolar", curso: cursoSel });
-      const ordenAcademico = [8,9,10,11,0,1,2,3,4,5,6,7];
-
-      renderListaPorMes(contLista, porMes, {
-        mostrarEtapas: true,
-        ordenMeses: ordenAcademico
-      });
-
-      if (muniSel) renderFestivosLocales("escolar-festivos-locales", muniSel);
-    }
-
-    function renderLaboral() {
-      const selectAnio = document.getElementById("select-anio");
-      const selectMuni = document.getElementById("select-municipio-laboral");
-      const contLista = document.getElementById("laboral-lista");
-      const contFestivos = document.getElementById("laboral-festivos-locales");
-
-      contLista.innerHTML = "";
-      contFestivos.innerHTML = "";
-
-      const anioSel = (selectAnio.value || "").trim();
-      const muniSel = (selectMuni.value || "").trim();
-
-      if (!anioSel) {
-        contLista.innerHTML = "<p class='nota'>Selecciona un año para ver el calendario laboral.</p>";
-        if (muniSel) renderFestivosLocales("laboral-festivos-locales", muniSel);
-        return;
-      }
-
-      const eventos = laboralData.filter(r => (r.anio || "").trim() === anioSel);
-      const porMes = agruparPorMes(eventos, "fecha", { tipo: "laboral", anio: anioSel });
-
-      renderListaPorMes(contLista, porMes, { mostrarEtapas: false });
-
-      if (muniSel) renderFestivosLocales("laboral-festivos-locales", muniSel);
-    }
-
-    async function cargarDatos() {
-      const escolarLista = document.getElementById("escolar-lista");
-      const laboralLista = document.getElementById("laboral-lista");
-
-      try {
-        const [txtEsc, txtLab, txtLoc] = await Promise.all([
-          fetch("calendario_escolar.csv").then(r => r.ok ? r.text() : ""),
-          fetch("calendario_laboral.csv").then(r => r.ok ? r.text() : ""),
-          fetch("festivos_locales.csv").then(r => r.ok ? r.text() : "")
-        ]);
-
-        if (txtEsc) {
-          escolarData = parseCSV(txtEsc);
-        } else {
-          escolarLista.innerHTML = "<p class='nota'>No se ha encontrado el archivo calendario_escolar.csv.</p>";
-        }
-
-        if (txtLab) {
-          laboralData = parseCSV(txtLab);
-        } else {
-          laboralLista.innerHTML = "<p class='nota'>No se ha encontrado el archivo calendario_laboral.csv.</p>";
-        }
-
-        if (txtLoc) {
-          festivosLocales = parseCSV(txtLoc);
-        }
-
-        poblarSelectCurso();
-        poblarSelectAnio();
-        poblarSelectMunicipiosSinTodos();
-
-        // render inicial
-        renderEscolar();
-        renderLaboral();
-      } catch (e) {
-        console.error(e);
-        escolarLista.innerHTML = "<p class='nota'>Se ha producido un error al cargar los datos del calendario.</p>";
-        laboralLista.innerHTML = "<p class='nota'>Se ha producido un error al cargar los datos del calendario.</p>";
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      initTabs();
-      cargarDatos();
-
-      document.getElementById("select-curso").addEventListener("change", renderEscolar);
-      document.getElementById("select-municipio-escolar").addEventListener("change", renderEscolar);
-      document.getElementById("chk-celebraciones").addEventListener("change", renderEscolar);
-
-      document.getElementById("select-anio").addEventListener("change", renderLaboral);
-      document.getElementById("select-municipio-laboral").addEventListener("change", renderLaboral);
+  </section>
+</main>
+
+<script>
+/* ========= LÓGICA ========= */
+let escolarData=[], laboralData=[], festivosLocales=[];
+
+function parseCSV(text){
+  const lines=text.trim().split(/\r?\n/);
+  const d=lines[0].includes(";")?";":",";
+  const h=lines[0].split(d);
+  return lines.slice(1).map(l=>{
+    const c=l.split(d); let o={};
+    h.forEach((k,i)=>o[k]=c[i]||""); return o;
+  });
+}
+
+function cargarSelectMunicipios(){
+  const esc=document.getElementById("select-municipio-escolar");
+  const lab=document.getElementById("select-municipio-laboral");
+  esc.innerHTML='<option value="">Selecciona un municipio…</option>';
+  lab.innerHTML='<option value="">Selecciona un municipio…</option>';
+
+  [...new Set(festivosLocales.map(f=>f.municipio))].sort()
+    .forEach(m=>{
+      esc.innerHTML+=`<option>${m}</option>`;
+      lab.innerHTML+=`<option>${m}</option>`;
     });
-  </script>
+}
+
+document.getElementById("btn-limpiar-escolar").onclick=()=>{
+  document.getElementById("select-municipio-escolar").value="";
+};
+document.getElementById("btn-limpiar-laboral").onclick=()=>{
+  document.getElementById("select-municipio-laboral").value="";
+};
+
+fetch("festivos_locales.csv").then(r=>r.text()).then(t=>{
+  festivosLocales=parseCSV(t);
+  cargarSelectMunicipios();
+});
+</script>
+
 </body>
 </html>
