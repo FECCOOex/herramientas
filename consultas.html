@@ -2,184 +2,542 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Consultas sindicales · Herramientas FECCCOOEx</title>
+  <title>Consultas sindicales · Herramientas FECCOOEx</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <style>
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
+
+    body{
+      margin:0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f7f7f7;
-      color: #222;
+      background:#f3f4f6;
+      color:#222;
     }
 
-    header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 14px 24px;
-      background: #d60000;
-      color: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    /* HEADER */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 24px;
+      background:#d60000;
+      color:#fff;
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
+      position:sticky;
+      top:0;
+      z-index:10;
     }
-    header img { height: 52px; }
-    header .titles h1 {
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: 700;
+    header img{ height:52px; }
+
+    .titles h1{
+      margin:0;
+      font-size:1.6rem;
+      font-weight:700;
     }
-    header .titles p {
-      margin: 2px 0 0;
-      font-size: 0.9rem;
-      opacity: 0.9;
+    .titles p{
+      margin:2px 0 0;
+      font-size:0.9rem;
+      opacity:0.95;
+    }
+    nav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      padding:6px 12px;
+      border:1px solid rgba(255,255,255,0.7);
+      border-radius:999px;
+      transition:0.2s ease;
+    }
+    nav a:hover{
+      background:rgba(255,255,255,0.18);
+      transform: translateY(-1px);
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
     }
 
-    main {
-      max-width: 800px;
-      margin: 24px auto 40px;
-      padding: 0 16px;
+    /* MAIN */
+    main{
+      max-width: 980px;
+      margin: 26px auto 40px;
+      padding: 0 16px 40px;
     }
 
-    .block {
-      background: #fff;
+    .btn-volver{
+      display:inline-block;
+      margin-bottom:16px;
+      padding:6px 10px;
+      border-radius:6px;
+      background:#d60000;
+      color:#fff;
+      font-size:0.9rem;
+      font-weight:600;
+      text-decoration:none;
+      transition: background 0.15s;
+    }
+    .btn-volver:hover{ background:#b40000; }
+
+    .page-title{
+      margin: 0 0 6px;
+      font-size:1.6rem;
+    }
+    .page-subtitle{
+      margin:0 0 14px;
+      color:#444;
+      font-size:0.95rem;
+    }
+
+    .card{
+      background:#fff;
+      border:1px solid #e1e4ea;
+      border-radius: 12px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.10);
+      padding: 14px 16px 16px;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 14px;
+      margin-top: 12px;
+    }
+    @media (max-width: 820px){
+      .form-grid{ grid-template-columns: 1fr; }
+    }
+
+    label{
+      font-size:0.82rem;
+      font-weight:700;
+      color:#555;
+      display:block;
+      margin-bottom:4px;
+    }
+
+    input, select, textarea{
+      width:100%;
+      font-family: inherit;
+      font-size:0.95rem;
+      padding: 8px 10px;
       border-radius: 8px;
-      padding: 18px 20px;
-      margin-bottom: 18px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .block:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-    }
-    .block h2 {
-      margin: 0 0 8px;
-      font-size: 1.25rem;
-      color: #d60000;
-    }
-    .block p {
-      margin: 0 0 8px;
-      font-size: 0.95rem;
-      color: #444;
+      border:1px solid #cbd5e1;
+      background:#fff;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 8px;
-    }
-    label {
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-    input[type="text"],
-    input[type="email"],
-    select,
-    textarea {
-      width: 100%;
-      padding: 7px 8px;
-      font-size: 0.9rem;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-    }
-    textarea {
-      min-height: 130px;
+    textarea{
+      min-height: 140px;
       resize: vertical;
     }
-    button {
-      align-self: flex-start;
-      padding: 7px 14px;
-      font-size: 0.9rem;
-      border-radius: 4px;
-      border: none;
-      background: #d60000;
-      color: #fff;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 4px;
-    }
-    button:hover {
-      background: #b40000;
+
+    .hint{
+      margin-top: 6px;
+      font-size: 0.82rem;
+      color:#555;
+      background:#f9fafb;
+      border: 1px dashed #e5e7eb;
+      border-radius: 10px;
+      padding: 10px 10px;
     }
 
-    .note {
-      margin-top: 8px;
-      font-size: 0.8rem;
-      color: #666;
+    .row-full{ grid-column: 1 / -1; }
+
+    .checks{
+      display:flex;
+      gap:8px;
+      align-items:flex-start;
+      font-size:0.85rem;
+      color:#333;
+      line-height: 1.2rem;
+    }
+    .checks input{ width:auto; margin-top:3px; }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-start;
+      flex-wrap: wrap;
+      margin-top: 10px;
     }
 
-    footer {
-      font-size: 0.75rem;
-      text-align: center;
-      padding: 12px;
-      color: #444;
-      border-top: 1px solid #e0e0e0;
-      background: #fafafa;
+    .btn{
+      border:none;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-weight:800;
+      cursor:pointer;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
     }
-    footer img {
-      height: 22px;
-      vertical-align: middle;
-      margin-right: 6px;
+
+    .btn-primary{
+      background:#d60000;
+      color:#fff;
+    }
+    .btn-primary:hover{
+      background:#b40000;
+      transform: translateY(-1px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    }
+
+    .btn-secondary{
+      background:#111827;
+      color:#fff;
+    }
+    .btn-secondary:hover{
+      transform: translateY(-1px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    }
+
+    .note-small{
+      font-size:0.82rem;
+      color:#555;
+    }
+
+    /* FOOTER (mismo estilo del resto) */
+    footer{
+      background:#222;
+      color:#f2f2f2;
+      padding:18px 20px 10px;
+      border-top:3px solid #d60000;
+      font-size:0.85rem;
+    }
+
+    .footer-inner{
+      max-width:1300px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap:16px;
+    }
+    @media (max-width: 900px){
+      .footer-inner{ grid-template-columns: 1fr; }
+    }
+
+    .footer-col h3{
+      margin:0 0 6px;
+      font-size:0.95rem;
+      text-transform:uppercase;
+      letter-spacing:0.03em;
+      color:#fff;
+    }
+    .footer-col p{
+      margin:0 0 4px;
+      font-size:0.82rem;
+      color:#e0e0e0;
+    }
+    .footer-col a{
+      color:#ffdddd;
+      text-decoration:none;
+      font-size:0.82rem;
+    }
+    .footer-col a:hover{ text-decoration:underline; }
+
+    .footer-logo-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:6px;
+    }
+    .footer-logo-row img{
+      height:30px;
+      background:#d60000;
+      padding:3px 6px;
+      border-radius:4px;
+    }
+
+    .footer-bottom{
+      max-width:1300px;
+      margin:10px auto 0;
+      border-top:1px solid #444;
+      padding-top:6px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .footer-bottom-left{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:0.78rem;
+      color:#e0e0e0;
+    }
+    .footer-bottom-left img{ height:18px; }
+
+    .footer-bottom-right{
+      font-size:0.78rem;
+      color:#bbbbbb;
+      text-align:right;
+    }
+    @media (max-width: 600px){
+      .footer-bottom{ flex-direction:column; align-items:flex-start; }
+      .footer-bottom-right{ text-align:left; }
     }
   </style>
 </head>
+
 <body>
 
   <header>
-    <img src="img/feccooex.png" alt="FECCOOEx">
-    <div class="titles">
-      <h1>Consultas sindicales</h1>
-      <p>Canal para plantear dudas sobre condiciones laborales y normativa</p>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <img src="img/feccooex.png" alt="FECCOOEx">
+      <div class="titles">
+        <h1>Herramientas FECCOOEx</h1>
+        <p>Recursos públicos y sindicales para la comunidad educativa</p>
+      </div>
     </div>
+
+    <nav>
+      <a href="delegados.html">Área delegados/as</a>
+    </nav>
   </header>
 
   <main>
-    <section class="block">
-      <h2>Envío de consultas</h2>
-      <p>
-        A través de este formulario se pueden plantear consultas relacionadas con la situación laboral en los centros
-        educativos, dudas sobre la normativa o cuestiones organizativas.
-      </p>
+    <a class="btn-volver" href="index.html">Volver a la portada</a>
 
-      <!-- Sustituye "tu_correo@ccoo.es" por el correo real de recepción -->
-      <form action="mailto:tu_correo@ccoo.es" method="post" enctype="text/plain">
-        <label for="nombre">Nombre (opcional)</label>
-        <input type="text" id="nombre" name="Nombre" />
+    <h1 class="page-title">Consultas sindicales</h1>
+    <p class="page-subtitle">
+      A través de este formulario se pueden plantear las consultas y sugerencias de carácter laboral que se consideren.
+    </p>
 
-        <label for="correo">Correo electrónico de contacto</label>
-        <input type="email" id="correo" name="Correo" required />
+    <section class="card">
+      <form id="form-consultas" autocomplete="on">
+        <div class="form-grid">
+          <div>
+            <label for="nombre">Nombre y apellidos</label>
+            <input id="nombre" name="nombre" type="text" placeholder="Ej.: María Pérez" required>
+          </div>
 
-        <label for="centro">Centro de trabajo</label>
-        <input type="text" id="centro" name="Centro" />
+          <div>
+            <label for="email">Correo de contacto</label>
+            <input id="email" name="email" type="email" placeholder="Ej.: maria@email.com" required>
+          </div>
 
-        <label for="tema">Tema principal</label>
-        <select id="tema" name="Tema">
-          <option value="">Selecciona un tema</option>
-          <option value="Jornada y horarios">Jornada y horarios</option>
-          <option value="Permisos y licencias">Permisos y licencias</option>
-          <option value="Retribuciones">Retribuciones</option>
-          <option value="Plantillas y organización de centro">Plantillas y organización de centro</option>
-          <option value="Prevención de riesgos laborales">Prevención de riesgos laborales</option>
-          <option value="Otro">Otro</option>
-        </select>
+          <div>
+            <label for="telefono">Teléfono (opcional)</label>
+            <input id="telefono" name="telefono" type="tel" placeholder="Ej.: 600 000 000">
+          </div>
 
-        <label for="consulta">Describe tu consulta</label>
-        <textarea id="consulta" name="Consulta" required></textarea>
+          <div>
+            <label for="centro">Centro / Servicio (opcional)</label>
+            <input id="centro" name="centro" type="text" placeholder="Ej.: IES … / EOI … / Administración …">
+          </div>
 
-        <button type="submit">Enviar consulta</button>
+          <div>
+            <label for="municipio">Municipio (opcional)</label>
+            <input id="municipio" name="municipio" type="text" placeholder="Ej.: Mérida">
+          </div>
+
+          <div>
+            <label for="tema">Tema principal</label>
+            <select id="tema" name="tema" required>
+              <option value="">Cargando temáticas…</option>
+            </select>
+          </div>
+
+          <div class="row-full">
+            <label for="asunto">Asunto</label>
+            <input id="asunto" name="asunto" type="text" placeholder="Ej.: Horario, permisos, sustituciones…" required>
+          </div>
+
+          <div class="row-full">
+            <label for="mensaje">Consulta / sugerencia</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Describe brevemente tu consulta. Si procede, indica fechas, normativa, documentación disponible, etc." required></textarea>
+          </div>
+
+          <div class="row-full checks">
+            <input id="consentimiento" type="checkbox" required>
+            <label for="consentimiento" style="margin:0; font-weight:600;">
+              Confirmo que los datos aportados se usarán únicamente para atender esta consulta.
+            </label>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" type="submit">Enviar consulta</button>
+          <button class="btn btn-secondary" type="button" id="btn-limpiar">Limpiar formulario</button>
+          <span class="note-small">Se abrirá tu cliente de correo con el mensaje ya preparado.</span>
+        </div>
+
+        <div class="hint" style="margin-top:12px;">
+          <strong>Correo de destino:</strong> educacion@extremadura.ccoo.es<br>
+          Si tu dispositivo no tiene configurado un cliente de correo, copia el texto del mensaje y envíalo manualmente.
+        </div>
       </form>
-
-      <p class="note">
-        No incluyas datos especialmente sensibles o clínicos. Este canal sirve para derivar tu consulta a la Federación
-        de Enseñanza de CCOO Extremadura y facilitar una primera orientación.
-      </p>
     </section>
   </main>
 
   <footer>
-    <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
-    Este contenido se distribuye bajo licencia <strong>Creative Commons BY-ND 4.0</strong>, permitiendo compartir sin modificaciones y con atribución.
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-logo-row">
+          <img src="img/feccooex.png" alt="FECCOOEx">
+          <div>
+            <strong>Federación de Enseñanza de CCOO de Extremadura</strong><br>
+            <span style="font-size:0.8rem;">Herramientas digitales para la acción sindical y la comunidad educativa.</span>
+          </div>
+        </div>
+        <p>Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo del profesorado y la calidad de la educación en Extremadura.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Contacto</h3>
+        <p><strong>Dirección:</strong><br>
+          Avenida Juan Carlos I, nº 47<br>
+          CP 06800 · Mérida (Extremadura)
+        </p>
+        <p><strong>Teléfono:</strong> 924 330 018</p>
+        <p><strong>Correo:</strong> <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a></p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Enlaces rápidos</h3>
+        <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
+        <p><a href="https://www.facebook.com/feccooex" target="_blank">Facebook FECCOOEx</a></p>
+        <p><a href="https://x.com/FECCOOex" target="_blank">X (Twitter) FECCOOEx</a></p>
+        <p><a href="https://www.instagram.com/feccooex" target="_blank">Instagram FECCOOEx</a></p>
+        <p><a href="https://t.me/feccooextremadura" target="_blank">Canal de Telegram FECCOOExtremadura</a></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
+        <span>Contenido bajo licencia Creative Commons BY-ND 4.0 (se permite compartir sin modificaciones y con atribución).</span>
+      </div>
+      <div class="footer-bottom-right">
+        © <span id="anio-footer"></span> Federación de Enseñanza de CCOO de Extremadura
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('anio-footer').textContent = new Date().getFullYear();
+    </script>
   </footer>
 
+  <script>
+    const EMAIL_DESTINO = "educacion@extremadura.ccoo.es";
+    const CSV_TEMAS = "tema_consulta.csv";
+
+    function parseCSV(text) {
+      const lines = text.trim().split(/\r?\n/);
+      if (!lines.length) return [];
+      const firstLine = lines[0];
+      const delimiter = firstLine.includes(";") ? ";" : ",";
+      const headers = firstLine.split(delimiter).map(h => h.trim());
+
+      return lines.slice(1)
+        .filter(l => l.trim())
+        .map(line => {
+          const cols = line.split(delimiter).map(c => c.trim());
+          const obj = {};
+          headers.forEach((h, i) => obj[h] = cols[i] || "");
+          return obj;
+        });
+    }
+
+    async function cargarTemas() {
+      const select = document.getElementById("tema");
+      try {
+        const resp = await fetch(CSV_TEMAS, { cache: "no-store" });
+        if (!resp.ok) throw new Error("No se pudo cargar tema_consulta.csv");
+        const text = await resp.text();
+        const rows = parseCSV(text);
+
+        // Esperamos columnas: id, tema, (opcional) orden, activo
+        const temas = rows
+          .filter(r => {
+            const activo = (r.activo || "").trim();
+            return activo === "" || activo === "1" || activo.toLowerCase() === "si" || activo.toLowerCase() === "sí";
+          })
+          .sort((a, b) => {
+            const oa = Number((a.orden || "").trim() || 9999);
+            const ob = Number((b.orden || "").trim() || 9999);
+            if (oa !== ob) return oa - ob;
+            return (a.tema || "").localeCompare((b.tema || ""), "es");
+          });
+
+        select.innerHTML = '<option value="">Selecciona un tema…</option>';
+        temas.forEach(r => {
+          const opt = document.createElement("option");
+          opt.value = (r.tema || "").trim();
+          opt.textContent = (r.tema || "").trim();
+          select.appendChild(opt);
+        });
+
+        // si por algún motivo queda vacío
+        if (select.options.length <= 1) {
+          select.innerHTML = '<option value="">No hay temáticas activas</option>';
+        }
+      } catch (e) {
+        console.warn(e);
+        select.innerHTML = '<option value="">No se pudo cargar la lista (revisa tema_consulta.csv)</option>';
+      }
+    }
+
+    function buildMailBody(data) {
+      const lines = [
+        "CONSULTA / SUGERENCIA (ÁMBITO LABORAL)",
+        "--------------------------------------",
+        `Nombre: ${data.nombre}`,
+        `Email: ${data.email}`,
+        `Teléfono: ${data.telefono || "-"}`,
+        `Centro/Servicio: ${data.centro || "-"}`,
+        `Municipio: ${data.municipio || "-"}`,
+        `Tema principal: ${data.tema}`,
+        "",
+        "Mensaje:",
+        data.mensaje,
+        "",
+        "—",
+        "Enviado desde Herramientas FECCOOEx"
+      ];
+      return lines.join("\n");
+    }
+
+    function toMailto(subject, body) {
+      const s = encodeURIComponent(subject);
+      const b = encodeURIComponent(body);
+      return `mailto:${EMAIL_DESTINO}?subject=${s}&body=${b}`;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      cargarTemas();
+
+      document.getElementById("btn-limpiar").addEventListener("click", () => {
+        document.getElementById("form-consultas").reset();
+      });
+
+      document.getElementById("form-consultas").addEventListener("submit", (ev) => {
+        ev.preventDefault();
+
+        const data = {
+          nombre: document.getElementById("nombre").value.trim(),
+          email: document.getElementById("email").value.trim(),
+          telefono: document.getElementById("telefono").value.trim(),
+          centro: document.getElementById("centro").value.trim(),
+          municipio: document.getElementById("municipio").value.trim(),
+          tema: document.getElementById("tema").value.trim(),
+          asunto: document.getElementById("asunto").value.trim(),
+          mensaje: document.getElementById("mensaje").value.trim(),
+          consentimiento: document.getElementById("consentimiento").checked
+        };
+
+        if (!data.consentimiento) {
+          alert("Debes aceptar el uso de datos para poder enviar la consulta.");
+          return;
+        }
+        if (!data.tema) {
+          alert("Selecciona un 'Tema principal'.");
+          return;
+        }
+
+        const subject = `[Consultas FECCOOEx] ${data.tema} — ${data.asunto}`;
+        const body = buildMailBody(data);
+
+        window.location.href = toMailto(subject, body);
+      });
+    });
+  </script>
 </body>
 </html>
