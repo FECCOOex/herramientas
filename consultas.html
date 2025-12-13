@@ -63,7 +63,14 @@
     .btn-volver:hover{ background:#b40000; }
 
     .page-title{ margin: 0 0 6px; font-size:1.6rem; }
-    .page-subtitle{ margin:0 0 14px; color:#444; font-size:0.95rem; line-height:1.25rem; }
+    .page-subtitle{
+      margin:0 0 14px;
+      color:#444;
+      font-size:0.95rem;
+      line-height:1.25rem;
+    }
+    .page-subtitle a{ color:#d60000; font-weight:900; text-decoration:none; }
+    .page-subtitle a:hover{ text-decoration:underline; }
 
     .card{
       background:#fff;
@@ -151,6 +158,12 @@
     .btn-secondary:hover{
       transform: translateY(-1px);
       box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    }
+    .btn:disabled{
+      opacity:0.6;
+      cursor:not-allowed;
+      transform:none !important;
+      box-shadow:none !important;
     }
 
     .ok{
@@ -278,7 +291,6 @@
   <h1 class="page-title">Consultas sindicales</h1>
   <p class="page-subtitle">
     A través de este formulario se pueden plantear las consultas y sugerencias de carácter laboral que se consideren.
-    Si es una urgencia, usa el <a href="chat.html">chat público</a> cuando haya delegados/as disponibles.
   </p>
 
   <section class="card">
@@ -287,7 +299,7 @@
       No se publicarán en la web ni se usarán con fines distintos.
     </div>
 
-    <form id="form-consultas">
+    <form id="form-consultas" novalidate>
       <div class="row2">
         <div>
           <label for="nombre">Nombre y apellidos</label>
@@ -308,7 +320,6 @@
 
         <div>
           <label for="tema">Tema principal</label>
-          <!-- Si más adelante lo conectas a tema_consulta.csv, se puede poblar dinámicamente -->
           <select id="tema" name="tema" required>
             <option value="">Selecciona un tema</option>
             <option>Jornada y horarios</option>
@@ -328,13 +339,16 @@
       <label for="mensaje">Consulta o sugerencia</label>
       <textarea id="mensaje" name="mensaje" placeholder="Describe el caso con el máximo detalle posible (fechas, documento recibido, horario, etc.)" required></textarea>
 
+      <!-- Honeypot anti-spam (oculto al usuario) -->
+      <input type="text" id="website" name="website" autocomplete="off" style="display:none" />
+
       <div class="actions">
-        <button class="btn btn-primary" type="submit">Enviar consulta</button>
-        <a class="btn btn-secondary" href="mailto:educacion@extremadura.ccoo.es">Enviar por correo</a>
+        <button id="btn-enviar" class="btn btn-primary" type="submit">Enviar consulta</button>
+        <a class="btn btn-secondary" href="mailto:educacion@extremadura.ccoo.es">Escribir desde mi correo</a>
       </div>
 
-      <div id="ok" class="ok">Consulta preparada. Se abrirá tu correo para enviarla a la Federación.</div>
-      <div id="err" class="err">No se pudo preparar el envío. Revisa los campos e inténtalo de nuevo.</div>
+      <div id="ok" class="ok">Consulta enviada correctamente. Te responderemos lo antes posible.</div>
+      <div id="err" class="err">No se pudo enviar. Inténtalo de nuevo en unos minutos.</div>
     </form>
 
     <p class="help" style="margin-top:10px;">
@@ -390,42 +404,68 @@
 <script>
   document.getElementById("anio-footer").textContent = new Date().getFullYear();
 
-  // En GitHub Pages no se puede "enviar" un formulario a servidor sin backend.
-  // Solución operativa: preparar un correo con los datos y abrir el cliente de correo del usuario.
   const form = document.getElementById("form-consultas");
   const ok = document.getElementById("ok");
   const err = document.getElementById("err");
+  const btn = document.getElementById("btn-enviar");
 
-  form.addEventListener("submit", (e) => {
+  function showError(msg){
+    err.textContent = msg || "No se pudo enviar. Inténtalo de nuevo en unos minutos.";
+    err.style.display = "block";
+    ok.style.display = "none";
+  }
+
+  function showOk(msg){
+    ok.textContent = msg || "Consulta enviada correctamente. Te responderemos lo antes posible.";
+    ok.style.display = "block";
+    err.style.display = "none";
+  }
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     ok.style.display = "none";
     err.style.display = "none";
 
-    const nombre = document.getElementById("nombre").value.trim();
-    const correo = document.getElementById("correo").value.trim();
-    const telefono = document.getElementById("telefono").value.trim();
-    const tema = document.getElementById("tema").value.trim();
-    const centro = document.getElementById("centro").value.trim();
-    const mensaje = document.getElementById("mensaje").value.trim();
+    const payload = {
+      nombre: document.getElementById("nombre").value.trim(),
+      correo: document.getElementById("correo").value.trim(),
+      telefono: document.getElementById("telefono").value.trim(),
+      tema: document.getElementById("tema").value.trim(),
+      centro: document.getElementById("centro").value.trim(),
+      mensaje: document.getElementById("mensaje").value.trim(),
+      website: (document.getElementById("website").value || "").trim()
+    };
 
-    if(!nombre || !correo || !tema || !mensaje){
-      err.style.display = "block";
+    if(!payload.nombre || !payload.correo || !payload.tema || !payload.mensaje){
+      showError("Faltan campos obligatorios (nombre, correo, tema y mensaje).");
       return;
     }
 
-    const to = "educacion@extremadura.ccoo.es";
-    const subject = encodeURIComponent(`[Consulta] ${tema} · ${nombre}`);
-    const body = encodeURIComponent(
-      `Nombre: ${nombre}\n` +
-      `Correo: ${correo}\n` +
-      (telefono ? `Teléfono: ${telefono}\n` : ``) +
-      (centro ? `Centro / localidad: ${centro}\n` : ``) +
-      `Tema: ${tema}\n\n` +
-      `Consulta:\n${mensaje}\n`
-    );
+    btn.disabled = true;
+    btn.textContent = "Enviando…";
 
-    ok.style.display = "block";
-    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+    try{
+      const r = await fetch("/api/consultas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await r.json().catch(() => ({}));
+
+      if(!r.ok || !data.ok){
+        showError("No se pudo enviar. Revisa los datos e inténtalo de nuevo.");
+        return;
+      }
+
+      showOk("Consulta enviada correctamente. Te responderemos lo antes posible.");
+      form.reset();
+    }catch(ex){
+      showError("No se pudo enviar (error de red).");
+    }finally{
+      btn.disabled = false;
+      btn.textContent = "Enviar consulta";
+    }
   });
 </script>
 
