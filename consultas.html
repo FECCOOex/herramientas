@@ -2,472 +2,184 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Consultas sindicales · Herramientas FECCOOEx</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <title>Consultas sindicales · Herramientas FECCCOOEx</title>
   <style>
     * { box-sizing: border-box; }
-    body{
-      margin:0;
+    body {
+      margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:#f3f4f6;
-      color:#222;
+      background: #f7f7f7;
+      color: #222;
     }
 
-    /* HEADER */
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 24px;
-      background:#d60000;
-      color:#fff;
-      box-shadow:0 2px 6px rgba(0,0,0,0.25);
-      position:sticky;
-      top:0;
-      z-index:10;
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 24px;
+      background: #d60000;
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.25);
     }
-    header img{ height:52px; }
-    .titles h1{ margin:0; font-size:1.6rem; font-weight:700; }
-    .titles p{ margin:2px 0 0; font-size:0.9rem; opacity:0.95; }
-    nav a{
-      color:#fff; text-decoration:none; font-weight:600;
-      padding:6px 12px; border:1px solid rgba(255,255,255,0.7);
-      border-radius:999px; transition:0.2s ease;
+    header img { height: 52px; }
+    header .titles h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
     }
-    nav a:hover{
-      background:rgba(255,255,255,0.18);
-      transform: translateY(-1px);
-      box-shadow:0 2px 6px rgba(0,0,0,0.25);
+    header .titles p {
+      margin: 2px 0 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
     }
 
-    /* MAIN */
-    main{
-      max-width: 980px;
-      margin: 26px auto 40px;
-      padding: 0 16px 40px;
+    main {
+      max-width: 800px;
+      margin: 24px auto 40px;
+      padding: 0 16px;
     }
 
-    .btn-volver{
-      display:inline-block;
-      margin-bottom:16px;
-      padding:6px 10px;
-      border-radius:6px;
-      background:#d60000;
-      color:#fff;
-      font-size:0.9rem;
-      font-weight:700;
-      text-decoration:none;
-      transition: background 0.15s;
+    .block {
+      background: #fff;
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
-    .btn-volver:hover{ background:#b40000; }
-
-    .page-title{ margin: 0 0 6px; font-size:1.6rem; }
-    .page-subtitle{
-      margin:0 0 14px;
-      color:#444;
-      font-size:0.95rem;
-      line-height:1.25rem;
+    .block:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
     }
-    .page-subtitle a{ color:#d60000; font-weight:900; text-decoration:none; }
-    .page-subtitle a:hover{ text-decoration:underline; }
-
-    .card{
-      background:#fff;
-      border:1px solid #e1e4ea;
-      border-radius: 12px;
-      box-shadow:0 3px 10px rgba(0,0,0,0.10);
-      padding: 14px 16px 16px;
-      margin-bottom: 14px;
+    .block h2 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+      color: #d60000;
+    }
+    .block p {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      color: #444;
     }
 
-    label{
-      font-size:0.82rem;
-      font-weight:900;
-      color:#555;
-      display:block;
-      margin:10px 0 4px;
-    }
-    input, select, textarea{
-      width:100%;
-      font-family: inherit;
-      font-size:0.95rem;
-      padding: 9px 10px;
-      border-radius: 10px;
-      border:1px solid #cbd5e1;
-      background:#fff;
-    }
-    textarea{ min-height: 140px; resize: vertical; }
-
-    .row2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
+    form {
+      display: flex;
+      flex-direction: column;
       gap: 10px;
+      margin-top: 8px;
     }
-    @media (max-width: 860px){
-      .row2{ grid-template-columns: 1fr; }
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
     }
-
-    .help{
-      font-size:0.82rem;
-      color:#6b7280;
-      margin-top:6px;
-      line-height:1.2rem;
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 7px 8px;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
     }
-
-    .notice{
-      background:#f9fafb;
-      border: 1px dashed #e5e7eb;
-      border-radius: 12px;
-      padding: 10px 12px;
-      color:#4b5563;
-      font-size:0.88rem;
-      line-height:1.25rem;
+    textarea {
+      min-height: 130px;
+      resize: vertical;
     }
-
-    .actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top: 12px;
-      align-items:center;
+    button {
+      align-self: flex-start;
+      padding: 7px 14px;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      border: none;
+      background: #d60000;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 4px;
     }
-    .btn{
-      border:none;
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-weight:900;
-      cursor:pointer;
-      text-decoration:none;
-      display:inline-block;
-      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
-    }
-    .btn-primary{
-      background:#d60000;
-      color:#fff;
-    }
-    .btn-primary:hover{
-      background:#b40000;
-      transform: translateY(-1px);
-      box-shadow:0 6px 16px rgba(0,0,0,0.18);
-    }
-    .btn-secondary{
-      background:#111827;
-      color:#fff;
-    }
-    .btn-secondary:hover{
-      transform: translateY(-1px);
-      box-shadow:0 6px 16px rgba(0,0,0,0.18);
-    }
-    .btn:disabled{
-      opacity:0.6;
-      cursor:not-allowed;
-      transform:none !important;
-      box-shadow:none !important;
+    button:hover {
+      background: #b40000;
     }
 
-    .ok{
-      display:none;
-      background:#ecfdf5;
-      border:1px solid #a7f3d0;
-      color:#065f46;
-      border-radius:12px;
-      padding:10px 12px;
-      font-weight:800;
-      margin-top:12px;
-    }
-    .err{
-      display:none;
-      background:#fef2f2;
-      border:1px solid #fecaca;
-      color:#7f1d1d;
-      border-radius:12px;
-      padding:10px 12px;
-      font-weight:800;
-      margin-top:12px;
+    .note {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #666;
     }
 
-    /* FOOTER institucional */
-    footer{
-      background:#222;
-      color:#f2f2f2;
-      padding:18px 20px 10px;
-      border-top:3px solid #d60000;
-      font-size:0.85rem;
-      margin-top: 10px;
+    footer {
+      font-size: 0.75rem;
+      text-align: center;
+      padding: 12px;
+      color: #444;
+      border-top: 1px solid #e0e0e0;
+      background: #fafafa;
     }
-    .footer-inner{
-      max-width:1300px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns: 2fr 1.2fr 1.2fr;
-      gap:16px;
-    }
-    @media (max-width: 900px){
-      .footer-inner{ grid-template-columns: 1fr; }
-    }
-    .footer-col h3{
-      margin:0 0 6px;
-      font-size:0.95rem;
-      text-transform:uppercase;
-      letter-spacing:0.03em;
-      color:#fff;
-    }
-    .footer-col p{
-      margin:0 0 4px;
-      font-size:0.82rem;
-      color:#e0e0e0;
-      line-height:1.2rem;
-    }
-    .footer-col a{
-      color:#ffdddd;
-      text-decoration:none;
-      font-size:0.82rem;
-    }
-    .footer-col a:hover{ text-decoration:underline; }
-
-    .footer-logo-row{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:6px;
-    }
-    .footer-logo-row img{
-      height:30px;
-      background:#d60000;
-      padding:3px 6px;
-      border-radius:4px;
-    }
-
-    .footer-bottom{
-      max-width:1300px;
-      margin:10px auto 0;
-      border-top:1px solid #444;
-      padding-top:6px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-    .footer-bottom-left{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      font-size:0.78rem;
-      color:#e0e0e0;
-    }
-    .footer-bottom-left img{ height:18px; }
-
-    .footer-bottom-right{
-      font-size:0.78rem;
-      color:#bbbbbb;
-      text-align:right;
-    }
-    @media (max-width: 600px){
-      .footer-bottom{ flex-direction:column; align-items:flex-start; }
-      .footer-bottom-right{ text-align:left; }
+    footer img {
+      height: 22px;
+      vertical-align: middle;
+      margin-right: 6px;
     }
   </style>
 </head>
-
 <body>
-<header>
-  <div style="display:flex; align-items:center; gap:16px;">
+
+  <header>
     <img src="img/feccooex.png" alt="FECCOOEx">
     <div class="titles">
-      <h1>Herramientas FECCOOEx</h1>
-      <p>Recursos públicos y sindicales para la comunidad educativa</p>
+      <h1>Consultas sindicales</h1>
+      <p>Canal para plantear dudas sobre condiciones laborales y normativa</p>
     </div>
-  </div>
-  <nav>
-    <a href="delegados.html">Área delegados/as</a>
-  </nav>
-</header>
+  </header>
 
-<main>
-  <a class="btn-volver" href="index.html">Volver a la portada</a>
-
-  <h1 class="page-title">Consultas sindicales</h1>
-  <p class="page-subtitle">
-    A través de este formulario se pueden plantear las consultas y sugerencias de carácter laboral que se consideren.
-  </p>
-
-  <section class="card">
-    <div class="notice">
-      <strong>Protección de datos:</strong> los datos aportados se utilizarán exclusivamente para atender esta consulta y gestionar la respuesta.
-      No se publicarán en la web ni se usarán con fines distintos.
-    </div>
-
-    <form id="form-consultas" novalidate>
-      <div class="row2">
-        <div>
-          <label for="nombre">Nombre y apellidos</label>
-          <input id="nombre" name="nombre" type="text" placeholder="Escribe tu nombre" required />
-        </div>
-        <div>
-          <label for="correo">Correo electrónico</label>
-          <input id="correo" name="correo" type="email" placeholder="tu@email.com" required />
-        </div>
-      </div>
-
-      <div class="row2">
-        <div>
-          <label for="telefono">Teléfono (opcional)</label>
-          <input id="telefono" name="telefono" type="tel" placeholder="Ej. 600 000 000" />
-          <div class="help">Solo si quieres que te llamemos para aclarar detalles.</div>
-        </div>
-
-        <div>
-          <label for="tema">Tema principal</label>
-          <select id="tema" name="tema" required>
-            <option value="">Selecciona un tema</option>
-            <option>Jornada y horarios</option>
-            <option>Permisos y licencias</option>
-            <option>Retribuciones</option>
-            <option>Interinos y sustituciones</option>
-            <option>Conciliación</option>
-            <option>Salud laboral</option>
-            <option>Otros</option>
-          </select>
-        </div>
-      </div>
-
-      <label for="centro">Centro / localidad (opcional)</label>
-      <input id="centro" name="centro" type="text" placeholder="Centro, municipio, provincia..." />
-
-      <label for="mensaje">Consulta o sugerencia</label>
-      <textarea id="mensaje" name="mensaje" placeholder="Describe el caso con el máximo detalle posible (fechas, documento recibido, horario, etc.)" required></textarea>
-
-      <!-- Honeypot anti-spam (oculto al usuario) -->
-      <input type="text" id="website" name="website" autocomplete="off" style="display:none" />
-
-      <div class="actions">
-        <button id="btn-enviar" class="btn btn-primary" type="submit">Enviar consulta</button>
-        <a class="btn btn-secondary" href="mailto:educacion@extremadura.ccoo.es">Escribir desde mi correo</a>
-      </div>
-
-      <div id="ok" class="ok">Consulta enviada correctamente. Te responderemos lo antes posible.</div>
-      <div id="err" class="err">No se pudo enviar. Inténtalo de nuevo en unos minutos.</div>
-    </form>
-
-    <p class="help" style="margin-top:10px;">
-      Destinatario: <strong>educacion@extremadura.ccoo.es</strong>
-    </p>
-  </section>
-</main>
-
-<footer>
-  <div class="footer-inner">
-    <div class="footer-col">
-      <div class="footer-logo-row">
-        <img src="img/feccooex.png" alt="FECCOOEx">
-        <div>
-          <strong>Federación de Enseñanza de CCOO de Extremadura</strong><br>
-          <span style="font-size:0.8rem;">Herramientas digitales para la acción sindical y la comunidad educativa.</span>
-        </div>
-      </div>
-      <p>Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo y la calidad de la educación en Extremadura.</p>
-    </div>
-
-    <div class="footer-col">
-      <h3>Contacto</h3>
-      <p><strong>Dirección:</strong><br>
-        Avenida Juan Carlos I, núm. 47<br>
-        CP 06800 · Mérida (Extremadura)
+  <main>
+    <section class="block">
+      <h2>Envío de consultas</h2>
+      <p>
+        A través de este formulario se pueden plantear consultas relacionadas con la situación laboral en los centros
+        educativos, dudas sobre la normativa o cuestiones organizativas.
       </p>
-      <p><strong>Teléfono:</strong> 924330018</p>
-      <p><strong>Correo:</strong> <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a></p>
-    </div>
 
-    <div class="footer-col">
-      <h3>Enlaces rápidos</h3>
-      <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
-      <p><a href="https://www.facebook.com/feccooex" target="_blank">Facebook FECCOOEx</a></p>
-      <p><a href="https://x.com/FECCOOex" target="_blank">X (Twitter) FECCOOEx</a></p>
-      <p><a href="https://www.instagram.com/feccooex" target="_blank">Instagram FECCOOEx</a></p>
-      <p><a href="https://t.me/feccooextremadura" target="_blank">Canal de Telegram FECCOOExtremadura</a></p>
-    </div>
-  </div>
+      <!-- Sustituye "tu_correo@ccoo.es" por el correo real de recepción -->
+      <form action="mailto:tu_correo@ccoo.es" method="post" enctype="text/plain">
+        <label for="nombre">Nombre (opcional)</label>
+        <input type="text" id="nombre" name="Nombre" />
 
-  <div class="footer-bottom">
-    <div class="footer-bottom-left">
-      <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
-      <span>Contenido bajo licencia Creative Commons BY-ND 4.0 (se permite compartir sin modificaciones y con atribución).</span>
-    </div>
-    <div class="footer-bottom-right">
-      © <span id="anio-footer"></span> Federación de Enseñanza de CCOO de Extremadura
-    </div>
-  </div>
-</footer>
+        <label for="correo">Correo electrónico de contacto</label>
+        <input type="email" id="correo" name="Correo" required />
 
-<script>
-  document.getElementById("anio-footer").textContent = new Date().getFullYear();
+        <label for="centro">Centro de trabajo</label>
+        <input type="text" id="centro" name="Centro" />
 
-  const form = document.getElementById("form-consultas");
-  const ok = document.getElementById("ok");
-  const err = document.getElementById("err");
-  const btn = document.getElementById("btn-enviar");
+        <label for="tema">Tema principal</label>
+        <select id="tema" name="Tema">
+          <option value="">Selecciona un tema</option>
+          <option value="Jornada y horarios">Jornada y horarios</option>
+          <option value="Permisos y licencias">Permisos y licencias</option>
+          <option value="Retribuciones">Retribuciones</option>
+          <option value="Plantillas y organización de centro">Plantillas y organización de centro</option>
+          <option value="Prevención de riesgos laborales">Prevención de riesgos laborales</option>
+          <option value="Otro">Otro</option>
+        </select>
 
-  function showError(msg){
-    err.textContent = msg || "No se pudo enviar. Inténtalo de nuevo en unos minutos.";
-    err.style.display = "block";
-    ok.style.display = "none";
-  }
+        <label for="consulta">Describe tu consulta</label>
+        <textarea id="consulta" name="Consulta" required></textarea>
 
-  function showOk(msg){
-    ok.textContent = msg || "Consulta enviada correctamente. Te responderemos lo antes posible.";
-    ok.style.display = "block";
-    err.style.display = "none";
-  }
+        <button type="submit">Enviar consulta</button>
+      </form>
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    ok.style.display = "none";
-    err.style.display = "none";
+      <p class="note">
+        No incluyas datos especialmente sensibles o clínicos. Este canal sirve para derivar tu consulta a la Federación
+        de Enseñanza de CCOO Extremadura y facilitar una primera orientación.
+      </p>
+    </section>
+  </main>
 
-    const payload = {
-      nombre: document.getElementById("nombre").value.trim(),
-      correo: document.getElementById("correo").value.trim(),
-      telefono: document.getElementById("telefono").value.trim(),
-      tema: document.getElementById("tema").value.trim(),
-      centro: document.getElementById("centro").value.trim(),
-      mensaje: document.getElementById("mensaje").value.trim(),
-      website: (document.getElementById("website").value || "").trim()
-    };
-
-    if(!payload.nombre || !payload.correo || !payload.tema || !payload.mensaje){
-      showError("Faltan campos obligatorios (nombre, correo, tema y mensaje).");
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = "Enviando…";
-
-    try{
-      const r = await fetch("/api/consultas", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-
-      const data = await r.json().catch(() => ({}));
-
-      if(!r.ok || !data.ok){
-        showError("No se pudo enviar. Revisa los datos e inténtalo de nuevo.");
-        return;
-      }
-
-      showOk("Consulta enviada correctamente. Te responderemos lo antes posible.");
-      form.reset();
-    }catch(ex){
-      showError("No se pudo enviar (error de red).");
-    }finally{
-      btn.disabled = false;
-      btn.textContent = "Enviar consulta";
-    }
-  });
-</script>
+  <footer>
+    <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
+    Este contenido se distribuye bajo licencia <strong>Creative Commons BY-ND 4.0</strong>, permitiendo compartir sin modificaciones y con atribución.
+  </footer>
 
 </body>
 </html>
