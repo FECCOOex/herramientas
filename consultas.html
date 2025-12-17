@@ -7,189 +7,64 @@
 
   <style>
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:#f3f4f6;
-      color:#222;
-    }
+    body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f3f4f6;color:#222}
 
-    /* HEADER */
     header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:14px 24px;
-      background:#d60000;
-      color:#fff;
-      box-shadow:0 2px 6px rgba(0,0,0,.25);
+      display:flex;justify-content:space-between;align-items:center;
+      padding:14px 24px;background:#d60000;color:#fff;
+      box-shadow:0 2px 6px rgba(0,0,0,.25);position:sticky;top:0;z-index:10
     }
     header img{height:52px}
     .titles h1{margin:0;font-size:1.6rem}
-    .titles p{margin:2px 0 0;font-size:.9rem}
-    nav a{
-      color:#fff;
-      text-decoration:none;
-      font-weight:700;
-      padding:6px 12px;
-      border:1px solid rgba(255,255,255,.7);
-      border-radius:999px;
-    }
+    .titles p{margin:2px 0 0;font-size:.9rem;opacity:.95}
+    nav a{color:#fff;text-decoration:none;font-weight:700;padding:6px 12px;border:1px solid rgba(255,255,255,.7);border-radius:999px}
 
-    /* MAIN */
-    main{
-      max-width:980px;
-      margin:26px auto;
-      padding:0 16px;
-    }
-
-    .btn-volver{
-      display:inline-block;
-      margin-bottom:16px;
-      padding:6px 10px;
-      background:#d60000;
-      color:#fff;
-      border-radius:6px;
-      text-decoration:none;
-      font-weight:700;
-    }
+    main{max-width:980px;margin:26px auto;padding:0 16px 40px}
+    .btn-volver{display:inline-block;margin-bottom:16px;padding:6px 10px;background:#d60000;color:#fff;border-radius:6px;text-decoration:none;font-weight:700}
 
     h1{margin:0 0 6px}
-    .subtitle{
-      margin:0 0 14px;
-      color:#444;
-      font-size:.95rem;
-    }
+    .subtitle{margin:0 0 14px;color:#444;font-size:.95rem;line-height:1.25rem}
 
-    .card{
-      background:#fff;
-      border-radius:12px;
-      padding:16px;
-      box-shadow:0 3px 10px rgba(0,0,0,.1);
-    }
+    .card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 3px 10px rgba(0,0,0,.1);border:1px solid #e1e4ea}
 
-    label{
-      display:block;
-      margin-top:10px;
-      font-weight:800;
-      font-size:.82rem;
-      color:#555;
-    }
+    label{display:block;margin-top:10px;font-weight:800;font-size:.82rem;color:#555}
+    input,select,textarea{width:100%;padding:9px 10px;margin-top:4px;border-radius:10px;border:1px solid #cbd5e1;font-size:.95rem}
+    textarea{min-height:140px;resize:vertical}
 
-    input,select,textarea{
-      width:100%;
-      padding:9px 10px;
-      margin-top:4px;
-      border-radius:10px;
-      border:1px solid #cbd5e1;
-      font-size:.95rem;
-    }
-    textarea{min-height:140px}
-
-    .row2{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-    @media(max-width:800px){
-      .row2{grid-template-columns:1fr}
-    }
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media(max-width:800px){.row2{grid-template-columns:1fr}}
 
     .notice{
-      background:#f9fafb;
-      border:1px dashed #e5e7eb;
-      border-radius:10px;
-      padding:10px;
-      font-size:.88rem;
-      color:#444;
-      margin-bottom:10px;
+      background:#f9fafb;border:1px dashed #e5e7eb;border-radius:10px;
+      padding:10px;font-size:.88rem;color:#444;margin-bottom:10px;line-height:1.25rem
     }
 
-    .actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:14px;
-    }
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .btn{border:none;border-radius:10px;padding:10px 14px;font-weight:900;cursor:pointer}
+    .btn-primary{background:#d60000;color:#fff}
+    .btn:disabled{opacity:.6;cursor:not-allowed}
 
-    .btn{
-      border:none;
-      border-radius:10px;
-      padding:10px 14px;
-      font-weight:900;
-      cursor:pointer;
-    }
-    .btn-primary{
-      background:#d60000;
-      color:#fff;
-    }
-    .btn-secondary{
-      background:#111827;
-      color:#fff;
-      text-decoration:none;
-      display:inline-block;
-    }
+    .ok,.err{display:none;margin-top:12px;padding:10px;border-radius:10px;font-weight:800;line-height:1.25rem}
+    .ok{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
+    .err{background:#fef2f2;border:1px solid #fecaca;color:#7f1d1d}
 
-    .ok,.err{
-      display:none;
-      margin-top:12px;
-      padding:10px;
-      border-radius:10px;
-      font-weight:800;
-    }
-    .ok{
-      background:#ecfdf5;
-      border:1px solid #a7f3d0;
-      color:#065f46;
-    }
-    .err{
-      background:#fef2f2;
-      border:1px solid #fecaca;
-      color:#7f1d1d;
-    }
-
-    /* FOOTER */
-    footer{
-      background:#222;
-      color:#eee;
-      margin-top:30px;
-      padding:18px 20px;
-      border-top:3px solid #d60000;
-      font-size:.82rem;
-    }
-    .footer-inner{
-      max-width:1200px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:2fr 1fr 1fr;
-      gap:16px;
-    }
-    @media(max-width:900px){
-      .footer-inner{grid-template-columns:1fr}
-    }
-    .footer-inner img{
-      height:30px;
-      background:#d60000;
-      padding:4px 6px;
-      border-radius:4px;
-    }
+    footer{background:#222;color:#eee;margin-top:30px;padding:18px 20px;border-top:3px solid #d60000;font-size:.82rem}
+    .footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px}
+    @media(max-width:900px){.footer-inner{grid-template-columns:1fr}}
+    .footer-inner img{height:30px;background:#d60000;padding:4px 6px;border-radius:4px}
     .footer-inner a{color:#ffdddd;text-decoration:none}
+    .footer-inner a:hover{text-decoration:underline}
 
     .footer-bottom{
-      margin-top:10px;
-      border-top:1px solid #444;
-      padding-top:6px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      flex-wrap:wrap;
-      gap:6px;
+      margin-top:10px;border-top:1px solid #444;padding-top:6px;
+      display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px
     }
+    .cc-row{display:flex;align-items:center;gap:6px}
+    .cc-row img{height:18px}
   </style>
 </head>
 
 <body>
-
 <header>
   <div style="display:flex;gap:16px;align-items:center">
     <img src="img/feccooex.png" alt="FECCOOEx">
@@ -198,9 +73,7 @@
       <p>Recursos sindicales para la comunidad educativa</p>
     </div>
   </div>
-  <nav>
-    <a href="delegados.html">Área delegados/as</a>
-  </nav>
+  <nav><a href="delegados.html">Área delegados/as</a></nav>
 </header>
 
 <main>
@@ -213,31 +86,29 @@
 
   <section class="card">
     <div class="notice">
-      <strong>Protección de datos:</strong>
-      los datos aportados se utilizarán exclusivamente para atender esta consulta y gestionar la respuesta.
+      <strong>Protección de datos:</strong> los datos aportados se utilizarán exclusivamente para atender esta consulta y gestionar la respuesta.
+      No se publicarán en la web ni se usarán con fines distintos.
     </div>
 
-    <!-- FORMULARIO SIN ACTION -->
     <form id="form-consultas">
-
       <div class="row2">
         <div>
-          <label>Nombre y apellidos</label>
+          <label for="nombre">Nombre y apellidos</label>
           <input id="nombre" required>
         </div>
         <div>
-          <label>Correo electrónico</label>
+          <label for="correo">Correo electrónico</label>
           <input id="correo" type="email" required>
         </div>
       </div>
 
       <div class="row2">
         <div>
-          <label>Teléfono (opcional)</label>
+          <label for="telefono">Teléfono (opcional)</label>
           <input id="telefono">
         </div>
         <div>
-          <label>Tema principal</label>
+          <label for="tema">Tema principal</label>
           <select id="tema" required>
             <option value="">Selecciona un tema</option>
             <option>Jornada y horarios</option>
@@ -251,27 +122,21 @@
         </div>
       </div>
 
-      <label>Centro de trabajo (opcional)</label>
+      <label for="centro">Centro de trabajo (opcional)</label>
       <input id="centro">
 
-      <label>Consulta o sugerencia</label>
+      <label for="mensaje">Consulta o sugerencia</label>
       <textarea id="mensaje" required></textarea>
 
-      <!-- honeypot -->
-      <input id="website" style="display:none">
+      <!-- honeypot anti-spam -->
+      <input id="website" style="display:none" autocomplete="off">
 
       <div class="actions">
-        <button id="btn-enviar" type="button" class="btn btn-primary">
-          Enviar consulta
-        </button>
-        <a class="btn btn-secondary"
-           href="mailto:educacion@extremadura.ccoo.es">
-           Escribir desde mi correo
-        </a>
+        <button id="btn-enviar" type="button" class="btn btn-primary">Enviar consulta</button>
       </div>
 
-      <div id="ok" class="ok">Consulta enviada correctamente.</div>
-      <div id="err" class="err">No se pudo enviar la consulta.</div>
+      <div id="ok" class="ok"></div>
+      <div id="err" class="err"></div>
     </form>
   </section>
 </main>
@@ -279,13 +144,13 @@
 <footer>
   <div class="footer-inner">
     <div>
-      <img src="img/feccooex.png">
+      <img src="img/feccooex.png" alt="FECCOOEx">
       <p><strong>Federación de Enseñanza de CCOO de Extremadura</strong></p>
       <p>Herramientas digitales para la acción sindical.</p>
     </div>
     <div>
       <p><strong>Contacto</strong></p>
-      <p>Avenida Juan Carlos I, 47 · Mérida</p>
+      <p>Avenida Juan Carlos I, núm. 47 · CP 06800 · Mérida (Extremadura)</p>
       <p>924 33 00 18</p>
       <p><a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a></p>
     </div>
@@ -300,40 +165,54 @@
   </div>
 
   <div class="footer-bottom">
-    <div>
-      <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png">
-      CC BY-ND 4.0
+    <div class="cc-row">
+      <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="CC BY-ND 4.0">
+      <span>Contenido bajo licencia Creative Commons BY-ND 4.0</span>
     </div>
-    <div>
-      © <span id="anio"></span> FECCOOEx
-    </div>
+    <div>© <span id="anio"></span> FECCOOEx</div>
   </div>
 </footer>
 
 <script>
   document.getElementById("anio").textContent = new Date().getFullYear();
 
-  const btn = document.getElementById("btn-enviar");
-  const ok = document.getElementById("ok");
-  const err = document.getElementById("err");
+  const form = document.getElementById("form-consultas");
+  const btn  = document.getElementById("btn-enviar");
+  const ok   = document.getElementById("ok");
+  const err  = document.getElementById("err");
 
-  btn.addEventListener("click", async () => {
+  function clearMsgs(){
     ok.style.display = "none";
     err.style.display = "none";
+    ok.textContent = "";
+    err.textContent = "";
+  }
+  function showOk(msg){
+    clearMsgs();
+    ok.textContent = msg;
+    ok.style.display = "block";
+  }
+  function showErr(msg){
+    clearMsgs();
+    err.textContent = msg;
+    err.style.display = "block";
+  }
+
+  btn.addEventListener("click", async () => {
+    clearMsgs();
 
     const payload = {
-      nombre: nombre.value.trim(),
-      correo: correo.value.trim(),
-      telefono: telefono.value.trim(),
-      tema: tema.value,
-      centro: centro.value.trim(),
-      mensaje: mensaje.value.trim(),
-      website: website.value.trim()
+      nombre: document.getElementById("nombre").value.trim(),
+      correo: document.getElementById("correo").value.trim(),
+      telefono: document.getElementById("telefono").value.trim(),
+      tema: document.getElementById("tema").value.trim(),
+      centro: document.getElementById("centro").value.trim(),
+      mensaje: document.getElementById("mensaje").value.trim(),
+      website: document.getElementById("website").value.trim()
     };
 
     if (!payload.nombre || !payload.correo || !payload.tema || !payload.mensaje) {
-      err.textContent = "Faltan campos obligatorios.";
-      err.style.display = "block";
+      showErr("Faltan campos obligatorios (nombre, correo, tema y mensaje).");
       return;
     }
 
@@ -346,14 +225,20 @@
         headers: {"Content-Type":"application/json"},
         body: JSON.stringify(payload)
       });
-      const data = await r.json();
 
-      if (!r.ok || !data.ok) throw new Error();
+      const data = await r.json().catch(() => ({}));
 
-      ok.style.display = "block";
+      if (!r.ok || !data.ok) {
+        const detalle = data?.error ? ` (${data.error})` : "";
+        showErr("No se pudo enviar la consulta" + detalle + ".");
+        return;
+      }
+
+      showOk("Consulta enviada correctamente. Te responderemos lo antes posible.");
       form.reset();
-    } catch {
-      err.style.display = "block";
+
+    } catch (e) {
+      showErr("No se pudo enviar la consulta (error de red).");
     } finally {
       btn.disabled = false;
       btn.textContent = "Enviar consulta";
