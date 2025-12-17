@@ -2,564 +2,478 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Centros de trabajo · Herramientas FECCCOOEx</title>
+  <title>Centros de trabajo · Herramientas FECCOOEx</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Leaflet CSS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
-
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f7f7f7;
-      color: #222;
-    }
-
-    /* HEADER */
-    header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 14px 24px;
-      background: #d60000;
-      color: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.25);
-    }
-    header img {
-      height: 52px;
-    }
-    header .titles h1 {
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
-    header .titles p {
-      margin: 2px 0 0;
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-
-    main {
-      max-width: 1200px;
-      margin: 24px auto 40px;
-      padding: 0 16px;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .block {
-      background: #fff;
-      border-radius: 8px;
-      padding: 16px 18px;
-      margin-bottom: 18px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .block:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-    }
-
-    .block h2 {
-      margin: 0 0 8px;
-      font-size: 1.2rem;
-      color: #d60000;
-    }
-    .block p {
-      margin: 0 0 8px;
-      font-size: 0.9rem;
-      color: #444;
-    }
-
-    /* Botones generales */
-    .btn-primary {
-      background: #d60000;
-      color: #fff;
-      margin-top: 10px;
-      padding: 6px 10px;
-      font-size: 0.85rem;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .btn-secondary {
-      background: #f0f0f0;
-      color: #333;
-      margin-left: 6px;
-      margin-top: 10px;
-      padding: 6px 10px;
-      font-size: 0.85rem;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    /* Botón volver a la portada */
-    .btn-volver {
-      display: inline-block;
-      padding: 6px 12px;
-      font-size: 0.9rem;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      background: #d60000;
-      color: #fff;
-      text-decoration: none;
-      margin-top: 6px;
-    }
-    .btn-volver:hover {
-      background: #b40000;
-    }
-
-    .small-note {
-      font-size: 0.75rem;
-      color: #666;
-      margin-top: 8px;
-    }
-
-    /* Mapa */
-    #map {
-      width: 100%;
-      height: 520px;
-      border-radius: 8px;
-    }
-
-    /* Resultados tabla */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-    }
-    thead {
-      background: #f0f0f0;
-    }
-    th, td {
-      padding: 6px 8px;
-      border-bottom: 1px solid #e0e0e0;
-      text-align: left;
-    }
-    tbody tr:hover {
-      background: #fafafa;
-    }
-
-    .distance-box {
-      margin-top: 10px;
-      padding: 6px 8px;
-      border-radius: 4px;
-      background: #ffe5e5;
-      color: #6b0000;
-      font-size: 0.8rem;
-    }
-
-    .error-msg {
-      margin-top: 8px;
-      padding: 8px;
-      font-size: 0.8rem;
-      border-radius: 4px;
-      background: #ffe5e5;
-      color: #6b0000;
-    }
-
-    footer {
-      font-size: 0.75rem;
-      text-align: center;
-      padding: 12px;
-      color: #444;
-      border-top: 1px solid #e0e0e0;
-      background: #fafafa;
-    }
-    footer img {
-      height: 22px;
-      vertical-align: middle;
-      margin-right: 6px;
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <img src="img/feccooex.png" alt="FECCOOEx">
-    <div class="titles">
-      <h1>Centros de trabajo</h1>
-      <p>Localización y filtrado de centros educativos de Extremadura</p>
-    </div>
-  </header>
-
-  <main>
-    <section class="block" id="intro-block">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;">
-        <div>
-          <h2>Descripción de la herramienta</h2>
-          <p>
-            Este apartado permite visualizar en un mapa los centros educativos incluidos en la base de datos, filtrarlos
-            por municipio, zona, tipo de centro y horario, y consultar la distancia aproximada entre dos centros.
-          </p>
-          <p class="small-note">
-            La información procede de un fichero <code>centros.csv</code> que se actualiza internamente. Asegúrate de que
-            el archivo está en la misma carpeta que este HTML y que la fila de cabecera es:
-          </p>
-          <p class="small-note">
-            <code>
-              id, nombre, codigo_centro, titularidad, tipo_centro, etapas, lat, lng, zona, direccion, cp, municipio,
-              provincia, telefono, fax, email, web, horario, jornada_partida, notas
-            </code>
-          </p>
-        </div>
-        <div style="text-align:right;">
-          <button class="btn-volver" onclick="window.location.href='index.html'">
-            Volver a la portada
-          </button>
-        </div>
-      </div>
-      <div id="csv-error" class="error-msg" style="display:none;"></div>
-    </section>
-
-    <section class="layout">
-      <!-- Panel de filtros -->
-      <aside class="block filters">
-        <h2>Filtros</h2>
-        <p style="font-size:0.85rem;">
-          Selecciona uno o varios criterios y se actualizarán el mapa y el listado inferior.
-        </p>
-
-        <label for="f-municipio">Municipio</label>
-        <select id="f-municipio">
-          <option value="">Todos</option>
-        </select>
-
-        <label for="f-zona">Zona</label>
-        <select id="f-zona">
-          <option value="">Todas</option>
-        </select>
-
-        <label for="f-tipo">Tipo de centro</label>
-        <select id="f-tipo">
-          <option value="">Todos</option>
-        </select>
-
-        <label for="f-horario">Horario</label>
-        <select id="f-horario">
-          <option value="">Todos</option>
-        </select>
-
-        <div style="margin-top:10px;">
-          <button class="btn-primary" id="btn-aplicar">Aplicar filtros</button>
-          <button class="btn-secondary" id="btn-reset">Limpiar</button>
-        </div>
-
-        <hr style="margin:14px 0; border:none; border-top:1px solid #eee;">
-
-        <h2 style="font-size:1rem; margin-bottom:4px;">Medir distancia</h2>
-        <p style="font-size:0.8rem;">
-          Activa el modo de medida y haz clic sucesivamente en dos centros del mapa para obtener la distancia
-          aproximada entre ellos.
-        </p>
-        <button class="btn-secondary" id="btn-medir">Modo medir distancia</button>
-
-        <div class="distance-box" id="distance-box" style="display:none;"></div>
-      </aside>
-
-      <!-- Mapa -->
-      <section class="block">
-        <h2>Mapa de centros</h2>
-        <div id="map"></div>
-      </section>
-    </section>
-
-    <!-- Resultados -->
-    <section class="block results">
-      <h2>Listado de centros filtrados</h2>
-      <p style="font-size:0.85rem;">
-        Se muestran los centros que cumplen los criterios seleccionados. El listado se actualiza automáticamente.
-      </p>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Municipio</th>
-            <th>Zona</th>
-            <th>Tipo de centro</th>
-            <th>Horario</th>
-          </tr>
-        </thead>
-        <tbody id="results-body">
-          <!-- Filas generadas por JavaScript -->
-        </tbody>
-      </table>
-    </section>
-  </main>
-
-  <footer>
-    <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
-    Este contenido se distribuye bajo licencia <strong>Creative Commons BY-ND 4.0</strong>, permitiendo compartir sin modificaciones y con atribución.
-  </footer>
-
-  <!-- Leaflet JS -->
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <script>
-    // --- Mapa básico (centro aproximado de Extremadura) ---
-    const map = L.map('map').setView([39.2, -6.3], 7);
+  <!-- PapaParse -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; OpenStreetMap'
-    }).addTo(map);
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f3f4f6;color:#222}
 
-    const centrosLayer = L.layerGroup().addTo(map);
+    header{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 24px;background:#d60000;color:#fff;
+      box-shadow:0 2px 6px rgba(0,0,0,.25);position:sticky;top:0;z-index:10
+    }
+    header img{height:52px}
+    .titles h1{margin:0;font-size:1.6rem;font-weight:700}
+    .titles p{margin:2px 0 0;font-size:.9rem;opacity:.95}
+    nav a{color:#fff;text-decoration:none;font-weight:700;padding:6px 12px;border:1px solid rgba(255,255,255,.7);border-radius:999px}
 
-    let centrosData = [];
-    let modoMedir = false;
-    let puntoA = null;
-    let puntoB = null;
-
-    const selectMunicipio = document.getElementById('f-municipio');
-    const selectZona      = document.getElementById('f-zona');
-    const selectTipo      = document.getElementById('f-tipo');
-    const selectHorario   = document.getElementById('f-horario');
-    const tbodyResultados = document.getElementById('results-body');
-    const distanceBox     = document.getElementById('distance-box');
-    const csvErrorBox     = document.getElementById('csv-error');
-
-    // Parser CSV simple (detecta ; o ,)
-    function parseCSV(text) {
-      const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
-      if (lines.length < 2) return { headers: [], rows: [] };
-
-      const headerLine = lines[0];
-      const sep = (headerLine.split(';').length > headerLine.split(',').length) ? ';' : ',';
-
-      const headers = headerLine.split(sep).map(h => h.trim());
-      const rows = lines.slice(1).map(line => {
-        const cols = line.split(sep);
-        const obj = {};
-        headers.forEach((h, i) => {
-          obj[h] = (cols[i] || '').trim();
-        });
-        return obj;
-      });
-
-      return { headers, rows };
+    main{max-width:1300px;margin:26px auto;padding:0 16px 40px}
+    .btn-volver{
+      display:inline-block;margin-bottom:16px;padding:6px 10px;border-radius:6px;
+      background:#d60000;color:#fff;font-size:.9rem;font-weight:800;text-decoration:none
     }
 
-    // Carga del CSV de centros
-    fetch('centros.csv')
-      .then(resp => {
-        if (!resp.ok) throw new Error('No se pudo cargar centros.csv (respuesta HTTP no OK)');
-        return resp.text();
+    .layout{
+      display:grid;
+      grid-template-columns: 380px 1fr;
+      gap:14px;
+      align-items:start;
+    }
+    @media(max-width:1100px){
+      .layout{grid-template-columns:1fr}
+    }
+
+    .card{
+      background:#fff;border:1px solid #e1e4ea;border-radius:12px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.10);
+      padding:14px 16px 16px;margin-bottom:14px
+    }
+
+    h1{margin:0 0 6px;font-size:1.6rem}
+    .subtitle{margin:0 0 14px;color:#444;font-size:.95rem;line-height:1.25rem}
+
+    /* Filtros: cada uno en su línea */
+    .filter-row{margin-top:10px}
+    .filter-row label{display:block;font-size:.82rem;font-weight:900;color:#555;margin-bottom:4px}
+    .filter-row select, .filter-row input{
+      width:100%;padding:9px 10px;border-radius:10px;border:1px solid #cbd5e1;font-size:.95rem;background:#fff
+    }
+
+    .btn{
+      border:none;border-radius:10px;padding:10px 14px;font-weight:900;cursor:pointer;display:inline-block
+    }
+    .btn-primary{background:#d60000;color:#fff}
+    .btn-secondary{background:#111827;color:#fff}
+    .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+
+    #map{height:560px;border-radius:12px;border:1px solid #e1e4ea}
+    @media(max-width:1100px){ #map{height:520px} }
+
+    .results-meta{margin-top:8px;color:#444;font-size:.9rem}
+    .list{margin-top:10px;display:grid;gap:8px}
+    .item{
+      border:1px solid #e5e7eb;border-radius:12px;padding:10px 10px;background:#fff
+    }
+    .item h3{margin:0 0 4px;font-size:1rem}
+    .item .small{font-size:.84rem;color:#555;line-height:1.2rem}
+    .tagline{margin-top:4px;font-size:.82rem;color:#666}
+
+    /* FOOTER institucional (mismo que Consultas) */
+    footer{
+      background:#222;color:#f2f2f2;padding:18px 20px 10px;border-top:3px solid #d60000;
+      font-size:.85rem;margin-top:10px
+    }
+    .footer-inner{
+      max-width:1300px;margin:0 auto;display:grid;grid-template-columns:2fr 1.2fr 1.2fr;gap:16px
+    }
+    @media (max-width:900px){ .footer-inner{grid-template-columns:1fr} }
+    .footer-col h3{margin:0 0 6px;font-size:.95rem;text-transform:uppercase;letter-spacing:.03em;color:#fff}
+    .footer-col p{margin:0 0 4px;font-size:.82rem;color:#e0e0e0;line-height:1.2rem}
+    .footer-col a{color:#ffdddd;text-decoration:none;font-size:.82rem}
+    .footer-col a:hover{text-decoration:underline}
+    .footer-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+    .footer-logo-row img{height:30px;background:#d60000;padding:3px 6px;border-radius:4px}
+    .footer-bottom{
+      max-width:1300px;margin:10px auto 0;border-top:1px solid #444;padding-top:6px;
+      display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap
+    }
+    .footer-bottom-left{display:flex;align-items:center;gap:6px;font-size:.78rem;color:#e0e0e0}
+    .footer-bottom-left img{height:18px}
+    .footer-bottom-right{font-size:.78rem;color:#bbbbbb}
+  </style>
+</head>
+
+<body>
+<header>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <img src="img/feccooex.png" alt="FECCOOEx">
+    <div class="titles">
+      <h1>Herramientas FECCOOEx</h1>
+      <p>Consulta de centros de trabajo (mapa y filtros)</p>
+    </div>
+  </div>
+  <nav><a href="delegados.html">Área delegados/as</a></nav>
+</header>
+
+<main>
+  <a class="btn-volver" href="index.html">Volver a la portada</a>
+
+  <h1>Centros de trabajo</h1>
+  <p class="subtitle">
+    Filtra por municipio, zona, tipo de centro, titularidad y horario. Los resultados se reflejan en el mapa y en el listado.
+  </p>
+
+  <div class="layout">
+    <!-- PANEL IZQUIERDO -->
+    <section class="card">
+      <h2 style="margin:0 0 6px;">Filtros</h2>
+      <div style="font-size:.9rem;color:#555;">Cada filtro aparece en su propia línea para facilitar la lectura.</div>
+
+      <div class="filter-row">
+        <label for="f_busqueda">Búsqueda por nombre / código / dirección</label>
+        <input id="f_busqueda" type="text" placeholder="Escribe y filtra..." />
+      </div>
+
+      <div class="filter-row">
+        <label for="f_municipio">Municipio</label>
+        <select id="f_municipio">
+          <option value="">(Todos)</option>
+        </select>
+      </div>
+
+      <div class="filter-row">
+        <label for="f_zona">Zona (1–8)</label>
+        <select id="f_zona">
+          <option value="">(Todas)</option>
+        </select>
+      </div>
+
+      <div class="filter-row">
+        <label for="f_tipo">Tipo de centro</label>
+        <select id="f_tipo">
+          <option value="">(Todos)</option>
+        </select>
+      </div>
+
+      <div class="filter-row">
+        <label for="f_titularidad">Titularidad</label>
+        <select id="f_titularidad">
+          <option value="">(Todas)</option>
+        </select>
+      </div>
+
+      <div class="filter-row">
+        <label for="f_horario">Horario</label>
+        <select id="f_horario">
+          <option value="">(Todos)</option>
+        </select>
+      </div>
+
+      <div class="btnrow">
+        <button class="btn btn-secondary" id="btn_reset" type="button">Limpiar filtros</button>
+        <button class="btn btn-primary" id="btn_reload" type="button">Recargar CSV</button>
+      </div>
+
+      <div class="results-meta" id="meta"></div>
+      <div class="list" id="list"></div>
+    </section>
+
+    <!-- MAPA -->
+    <section class="card" style="padding:12px;">
+      <div id="map"></div>
+      <div class="results-meta" style="margin-top:10px;">
+        Si un centro no aparece en el mapa suele ser por falta de lat/lng en el CSV.
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-logo-row">
+        <img src="img/feccooex.png" alt="FECCOOEx">
+        <div>
+          <strong>Federación de Enseñanza de CCOO de Extremadura</strong><br>
+          <span style="font-size:0.8rem;">Herramientas digitales para la acción sindical y la comunidad educativa.</span>
+        </div>
+      </div>
+      <p>Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo y la calidad de la educación en Extremadura.</p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Contacto</h3>
+      <p><strong>Dirección:</strong><br>
+        Avenida Juan Carlos I, núm. 47<br>
+        CP 06800 · Mérida (Extremadura)
+      </p>
+      <p><strong>Teléfono:</strong> 924330018</p>
+      <p><strong>Correo:</strong> <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a></p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Enlaces rápidos</h3>
+      <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
+      <p><a href="https://www.facebook.com/feccooex" target="_blank">Facebook FECCOOEx</a></p>
+      <p><a href="https://x.com/FECCOOex" target="_blank">X (Twitter) FECCOOEx</a></p>
+      <p><a href="https://www.instagram.com/feccooex" target="_blank">Instagram FECCOOEx</a></p>
+      <p><a href="https://t.me/feccooextremadura" target="_blank">Canal de Telegram FECCOOExtremadura</a></p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-bottom-left">
+      <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
+      <span>Contenido bajo licencia Creative Commons BY-ND 4.0 (se permite compartir sin modificaciones y con atribución).</span>
+    </div>
+    <div class="footer-bottom-right">
+      © <span id="anio-footer"></span> Federación de Enseñanza de CCOO de Extremadura
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("anio-footer").textContent = new Date().getFullYear();
+
+  // Helpers
+  const norm = (v) => (v ?? "").toString().trim();
+  const normKey = (v) => norm(v).toLowerCase();
+
+  // CSV columns we expect (by NAME, order irrelevant)
+  const COL = {
+    id: "id",
+    nombre: "nombre",
+    codigo: "codigo_centro",
+    titularidad: "titularidad",
+    tipo: "tipo_centro",
+    etapas: "etapas",
+    lat: "lat",
+    lng: "lng",
+    zona: "zona",
+    direccion: "direccion",
+    cp: "cp",
+    municipio: "municipio",
+    provincia: "provincia",
+    telefono: "telefono",
+    fax: "fax",
+    email: "email",
+    web: "web",
+    horario: "horario",
+    jornada: "jornada_partida",
+    notas: "notas"
+  };
+
+  // State
+  let raw = [];
+  let filtered = [];
+  let markersLayer;
+
+  // Map
+  const map = L.map("map").setView([39.2, -6.3], 8);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "&copy; OpenStreetMap"
+  }).addTo(map);
+
+  markersLayer = L.layerGroup().addTo(map);
+
+  // Elements
+  const elBus = document.getElementById("f_busqueda");
+  const elMun = document.getElementById("f_municipio");
+  const elZona = document.getElementById("f_zona");
+  const elTipo = document.getElementById("f_tipo");
+  const elTit = document.getElementById("f_titularidad");
+  const elHor = document.getElementById("f_horario");
+  const elMeta = document.getElementById("meta");
+  const elList = document.getElementById("list");
+
+  document.getElementById("btn_reset").addEventListener("click", () => {
+    elBus.value = "";
+    elMun.value = "";
+    elZona.value = "";
+    elTipo.value = "";
+    elTit.value = "";
+    elHor.value = "";
+    applyFilters();
+  });
+
+  document.getElementById("btn_reload").addEventListener("click", () => loadCSV(true));
+
+  [elBus, elMun, elZona, elTipo, elTit, elHor].forEach(el => {
+    el.addEventListener("input", applyFilters);
+    el.addEventListener("change", applyFilters);
+  });
+
+  function uniqueSorted(values) {
+    const set = new Set(values.map(norm).filter(Boolean));
+    return [...set].sort((a,b) => a.localeCompare(b, "es", {sensitivity:"base"}));
+  }
+
+  function setOptions(selectEl, values, firstLabel) {
+    const current = selectEl.value;
+    selectEl.innerHTML = "";
+    const opt0 = document.createElement("option");
+    opt0.value = "";
+    opt0.textContent = firstLabel;
+    selectEl.appendChild(opt0);
+    values.forEach(v => {
+      const o = document.createElement("option");
+      o.value = v;
+      o.textContent = v;
+      selectEl.appendChild(o);
+    });
+    // restore if possible
+    if ([...selectEl.options].some(o => o.value === current)) selectEl.value = current;
+  }
+
+  function parseFloatOrNull(v){
+    const t = norm(v).replace(",", ".");
+    const x = Number.parseFloat(t);
+    return Number.isFinite(x) ? x : null;
+  }
+
+  function loadCSV(bustCache=false){
+    const url = "centros.csv" + (bustCache ? ("?v=" + Date.now()) : "");
+    fetch(url)
+      .then(r => {
+        if(!r.ok) throw new Error("No se pudo cargar centros.csv (" + r.status + ")");
+        return r.text();
       })
       .then(text => {
-        const parsed = parseCSV(text);
-        if (!parsed.headers.length) {
-          throw new Error('El archivo centros.csv parece estar vacío o sin cabecera válida.');
-        }
+        const parsed = Papa.parse(text, { header:true, skipEmptyLines:true });
+        raw = (parsed.data || []).map(row => {
+          // Normalize expected keys even if CSV has extra spaces
+          const obj = {};
+          for (const k in row) obj[normKey(k)] = row[k];
 
-        const required = ['id','nombre','codigo_centro','titularidad','tipo_centro','etapas',
-                          'lat','lng','zona','direccion','cp','municipio','provincia',
-                          'telefono','fax','email','web','horario','jornada_partida','notas'];
+          return {
+            id: norm(obj[COL.id]),
+            nombre: norm(obj[COL.nombre]),
+            codigo_centro: norm(obj[COL.codigo]),
+            titularidad: norm(obj[COL.titularidad]),
+            tipo_centro: norm(obj[COL.tipo]),
+            etapas: norm(obj[COL.etapas]),
+            lat: parseFloatOrNull(obj[COL.lat]),
+            lng: parseFloatOrNull(obj[COL.lng]),
+            zona: norm(obj[COL.zona]),
+            direccion: norm(obj[COL.direccion]),
+            cp: norm(obj[COL.cp]),
+            municipio: norm(obj[COL.municipio]),
+            provincia: norm(obj[COL.provincia]),
+            telefono: norm(obj[COL.telefono]),
+            fax: norm(obj[COL.fax]),
+            email: norm(obj[COL.email]),
+            web: norm(obj[COL.web]),
+            horario: norm(obj[COL.horario]),
+            jornada_partida: norm(obj[COL.jornada]),
+            notas: norm(obj[COL.notas])
+          };
+        });
 
-        const missing = required.filter(col => !parsed.headers.includes(col));
-        if (missing.length) {
-          csvErrorBox.style.display = 'block';
-          csvErrorBox.textContent =
-            'Aviso: faltan columnas esperadas en centros.csv: ' + missing.join(', ');
-        }
+        // Build filter options from CLEAN fields (no mezclar)
+        setOptions(elMun, uniqueSorted(raw.map(x => x.municipio)), "(Todos)");
+        setOptions(elZona, uniqueSorted(raw.map(x => x.zona)), "(Todas)");
+        setOptions(elTipo, uniqueSorted(raw.map(x => x.tipo_centro)), "(Todos)");
+        setOptions(elTit, uniqueSorted(raw.map(x => x.titularidad)), "(Todas)");
+        setOptions(elHor, uniqueSorted(raw.map(x => x.horario)), "(Todos)");
 
-        // Unificar datos a un formato fijo que usaremos en la app
-        centrosData = parsed.rows.map(r => ({
-          id:              r['id']              || '',
-          nombre:          r['nombre']          || '',
-          codigo_centro:   r['codigo_centro']   || '',
-          titularidad:     r['titularidad']     || '',
-          tipo_centro:     r['tipo_centro']     || '',
-          etapas:          r['etapas']          || '',
-          lat:             r['lat']             || '',
-          lng:             r['lng']             || '',
-          zona:            r['zona']            || '',
-          direccion:       r['direccion']       || '',
-          cp:              r['cp']              || '',
-          municipio:       r['municipio']       || '',
-          provincia:       r['provincia']       || '',
-          telefono:        r['telefono']        || '',
-          fax:             r['fax']             || '',
-          email:           r['email']           || '',
-          web:             r['web']             || '',
-          horario:         r['horario']         || '',
-          jornada_partida: r['jornada_partida'] || '',
-          notas:           r['notas']           || ''
-        }));
-
-        inicializarFiltros(centrosData);
-        pintarCentros(centrosData);
+        applyFilters();
       })
       .catch(err => {
-        console.error(err);
-        csvErrorBox.style.display = 'block';
-        csvErrorBox.textContent =
-          "No se ha podido cargar 'centros.csv'. Revisa que el archivo está en la misma carpeta que este HTML " +
-          "y que no esté abierto en exclusiva por otra aplicación.";
-        alert("Error al cargar 'centros.csv'. Pulsa F12 y mira la consola para más detalles técnicos.");
+        elMeta.textContent = "Error: " + err.message;
+        elList.innerHTML = "";
+        markersLayer.clearLayers();
       });
+  }
 
-    function inicializarFiltros(data) {
-      const municipios = new Set();
-      const zonas      = new Set();
-      const tipos      = new Set();
-      const horarios   = new Set();
+  function applyFilters(){
+    const q = normKey(elBus.value);
+    const municipio = normKey(elMun.value);
+    const zona = normKey(elZona.value);
+    const tipo = normKey(elTipo.value);
+    const titularidad = normKey(elTit.value);
+    const horario = normKey(elHor.value);
 
-      data.forEach(c => {
-        if (c.municipio) municipios.add(c.municipio);
-        if (c.zona)      zonas.add(c.zona);
-        if (c.tipo_centro) tipos.add(c.tipo_centro);
-        if (c.horario)   horarios.add(c.horario);
-      });
-
-      rellenarSelect(selectMunicipio, municipios);
-      rellenarSelect(selectZona, zonas);
-      rellenarSelect(selectTipo, tipos);
-      rellenarSelect(selectHorario, horarios);
-    }
-
-    function rellenarSelect(select, valoresSet) {
-      const valores = Array.from(valoresSet).sort((a, b) => a.localeCompare(b, 'es'));
-      valores.forEach(v => {
-        const opt = document.createElement('option');
-        opt.value = v;
-        opt.textContent = v;
-        select.appendChild(opt);
-      });
-    }
-
-    function aplicarFiltros() {
-      const mun = selectMunicipio.value;
-      const zon = selectZona.value;
-      const tip = selectTipo.value;
-      const hor = selectHorario.value;
-
-      const filtrados = centrosData.filter(c => {
-        const okMun = !mun || c.municipio === mun;
-        const okZon = !zon || c.zona === zon;
-        const okTip = !tip || c.tipo_centro === tip;
-        const okHor = !hor || c.horario === hor;
-        return okMun && okZon && okTip && okHor;
-      });
-
-      pintarCentros(filtrados);
-    }
-
-    function resetFiltros() {
-      selectMunicipio.value = '';
-      selectZona.value = '';
-      selectTipo.value = '';
-      selectHorario.value = '';
-      aplicarFiltros();
-    }
-
-    function pintarCentros(data) {
-      centrosLayer.clearLayers();
-      tbodyResultados.innerHTML = '';
-
-      const bounds = [];
-
-      data.forEach(c => {
-        const lat = parseFloat((c.lat || '').replace(',', '.'));
-        const lng = parseFloat((c.lng || '').replace(',', '.'));
-
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${c.nombre}</td>
-          <td>${c.municipio}</td>
-          <td>${c.zona}</td>
-          <td>${c.tipo_centro}</td>
-          <td>${c.horario}</td>
-        `;
-        tbodyResultados.appendChild(tr);
-
-        if (!isNaN(lat) && !isNaN(lng)) {
-          const marker = L.marker([lat, lng]);
-
-          marker.bindPopup(
-            `<strong>${c.nombre}</strong><br>` +
-            (c.municipio ? `${c.municipio}<br>` : '') +
-            (c.zona ? `Zona: ${c.zona}<br>` : '') +
-            (c.tipo_centro ? `Tipo: ${c.tipo_centro}<br>` : '') +
-            (c.horario ? `Horario: ${c.horario}<br>` : '') +
-            (c.direccion ? `${c.direccion}` : '')
-          );
-
-          marker.on('click', () => {
-            if (!modoMedir) return;
-
-            if (!puntoA) {
-              puntoA = { lat, lng, nombre: c.nombre };
-              distanceBox.style.display = 'block';
-              distanceBox.textContent = `Primer centro seleccionado: ${c.nombre}. Ahora haz clic en el segundo centro.`;
-            } else if (!puntoB) {
-              puntoB = { lat, lng, nombre: c.nombre };
-              const d = distanciaKm(puntoA.lat, puntoA.lng, puntoB.lat, puntoB.lng);
-              distanceBox.style.display = 'block';
-              distanceBox.textContent =
-                `Distancia aproximada entre "${puntoA.nombre}" y "${puntoB.nombre}": ` +
-                `${d.toFixed(1)} km. Pulsa de nuevo en "Modo medir distancia" para reiniciar.`;
-            }
-          });
-
-          marker.addTo(centrosLayer);
-          bounds.push([lat, lng]);
-        }
-      });
-
-      if (bounds.length > 0) {
-        map.fitBounds(bounds, { padding: [20, 20] });
+    filtered = raw.filter(x => {
+      // texto libre: nombre/código/dirección/municipio
+      if (q) {
+        const hay = [
+          x.nombre, x.codigo_centro, x.direccion, x.municipio, x.provincia
+        ].map(normKey).join(" | ");
+        if (!hay.includes(q)) return false;
       }
-    }
+      if (municipio && normKey(x.municipio) !== municipio) return false;
+      if (zona && normKey(x.zona) !== zona) return false;
+      if (tipo && normKey(x.tipo_centro) !== tipo) return false;
+      if (titularidad && normKey(x.titularidad) !== titularidad) return false;
+      if (horario && normKey(x.horario) !== horario) return false;
 
-    function distanciaKm(lat1, lon1, lat2, lon2) {
-      const R = 6371;
-      const toRad = x => x * Math.PI / 180;
-      const dLat = toRad(lat2 - lat1);
-      const dLon = toRad(lon2 - lon1);
-      const a =
-        Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-        Math.sin(dLon/2) * Math.sin(dLon/2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      return R * c;
-    }
-
-    document.getElementById('btn-aplicar').addEventListener('click', aplicarFiltros);
-    document.getElementById('btn-reset').addEventListener('click', resetFiltros);
-
-    document.getElementById('btn-medir').addEventListener('click', () => {
-      modoMedir = !modoMedir;
-      puntoA = null;
-      puntoB = null;
-      if (modoMedir) {
-        distanceBox.style.display = 'block';
-        distanceBox.textContent = 'Modo medir activado. Haz clic en el primer centro en el mapa.';
-      } else {
-        distanceBox.style.display = 'none';
-      }
+      return true;
     });
-  </script>
 
+    render();
+  }
+
+  function render(){
+    // Meta
+    elMeta.textContent = `Resultados: ${filtered.length} de ${raw.length}`;
+
+    // List
+    elList.innerHTML = "";
+    filtered.slice(0, 200).forEach(x => {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.innerHTML = `
+        <h3>${escapeHtml(x.nombre || "(Sin nombre)")}</h3>
+        <div class="small">
+          <strong>Código:</strong> ${escapeHtml(x.codigo_centro || "-")} ·
+          <strong>Municipio:</strong> ${escapeHtml(x.municipio || "-")} ·
+          <strong>Zona:</strong> ${escapeHtml(x.zona || "-")}<br>
+          <strong>Tipo:</strong> ${escapeHtml(x.tipo_centro || "-")} ·
+          <strong>Titularidad:</strong> ${escapeHtml(x.titularidad || "-")}<br>
+          <strong>Horario:</strong> ${escapeHtml(x.horario || "-")}
+        </div>
+        <div class="tagline">${escapeHtml(x.direccion || "")}</div>
+      `;
+      elList.appendChild(div);
+    });
+
+    // Map
+    markersLayer.clearLayers();
+
+    const points = [];
+    filtered.forEach(x => {
+      if (x.lat == null || x.lng == null) return;
+
+      const m = L.marker([x.lat, x.lng]).bindPopup(`
+        <strong>${escapeHtml(x.nombre || "")}</strong><br>
+        ${escapeHtml(x.direccion || "")}<br>
+        <strong>Municipio:</strong> ${escapeHtml(x.municipio || "-")}<br>
+        <strong>Zona:</strong> ${escapeHtml(x.zona || "-")}<br>
+        <strong>Tipo:</strong> ${escapeHtml(x.tipo_centro || "-")}<br>
+        <strong>Horario:</strong> ${escapeHtml(x.horario || "-")}
+      `);
+
+      m.addTo(markersLayer);
+      points.push([x.lat, x.lng]);
+    });
+
+    if (points.length) {
+      const bounds = L.latLngBounds(points);
+      map.fitBounds(bounds.pad(0.15));
+    }
+  }
+
+  function escapeHtml(s){
+    return (s ?? "").toString()
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  // Load on start (cache-bust to avoid stale CSV)
+  loadCSV(true);
+</script>
 </body>
 </html>
