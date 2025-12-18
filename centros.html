@@ -78,21 +78,38 @@
     .item .small{font-size:.84rem;color:#555;line-height:1.2rem}
     .tagline{margin-top:4px;font-size:.82rem;color:#666}
 
-    /* FOOTER institucional */
+    /* FOOTER institucional (sin logo; contacto ampliado) */
     footer{
       background:#222;color:#f2f2f2;padding:18px 20px 10px;border-top:3px solid #d60000;
       font-size:.85rem;margin-top:10px
     }
     .footer-inner{
-      max-width:1300px;margin:0 auto;display:grid;grid-template-columns:2fr 1.2fr 1.2fr;gap:16px
+      max-width:1300px;margin:0 auto;display:grid;
+      grid-template-columns: 1.4fr 1.1fr 1.1fr;
+      gap:16px
     }
     @media (max-width:900px){ .footer-inner{grid-template-columns:1fr} }
-    .footer-col h3{margin:0 0 6px;font-size:.95rem;text-transform:uppercase;letter-spacing:.03em;color:#fff}
-    .footer-col p{margin:0 0 4px;font-size:.82rem;color:#e0e0e0;line-height:1.2rem}
+
+    .footer-col h3{
+      margin:0 0 6px;font-size:.95rem;text-transform:uppercase;letter-spacing:.03em;color:#fff
+    }
+    .footer-col p{
+      margin:0 0 6px;font-size:.82rem;color:#e0e0e0;line-height:1.25rem
+    }
     .footer-col a{color:#ffdddd;text-decoration:none;font-size:.82rem}
     .footer-col a:hover{text-decoration:underline}
-    .footer-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-    .footer-logo-row img{height:30px;background:#d60000;padding:3px 6px;border-radius:4px}
+
+    .phones{
+      margin:6px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:4px;
+      font-size:.82rem;
+      color:#e0e0e0;
+    }
+    .phones li strong{color:#fff}
+
     .footer-bottom{
       max-width:1300px;margin:10px auto 0;border-top:1px solid #444;padding-top:6px;
       display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap
@@ -186,24 +203,25 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-col">
-      <div class="footer-logo-row">
-        <img src="img/feccooex.png" alt="FECCOOEx">
-        <div>
-          <strong>Federación de Enseñanza de CCOO de Extremadura</strong><br>
-          <span style="font-size:0.8rem;">Herramientas digitales para la acción sindical y la comunidad educativa.</span>
-        </div>
-      </div>
-      <p>Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo y la calidad de la educación en Extremadura.</p>
-    </div>
-
-    <div class="footer-col">
       <h3>Contacto</h3>
       <p><strong>Dirección:</strong><br>
         Avenida Juan Carlos I, núm. 47<br>
         CP 06800 · Mérida (Extremadura)
       </p>
-      <p><strong>Teléfono:</strong> 924330018</p>
-      <p><strong>Correo:</strong> <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a></p>
+
+      <p><strong>Teléfonos por sede:</strong></p>
+      <ul class="phones">
+        <li><strong>Badajoz:</strong> 924224104</li>
+        <li><strong>Cáceres:</strong> 927223534</li>
+        <li><strong>Mérida:</strong> 924330018</li>
+        <li><strong>Plasencia:</strong> 927424086</li>
+        <li><strong>Don Benito:</strong> 924802080</li>
+        <li><strong>Zafra:</strong> 924553202</li>
+      </ul>
+
+      <p style="margin-top:10px;"><strong>Correo:</strong>
+        <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a>
+      </p>
     </div>
 
     <div class="footer-col">
@@ -213,6 +231,13 @@
       <p><a href="https://x.com/FECCOOex" target="_blank">X (Twitter) FECCOOEx</a></p>
       <p><a href="https://www.instagram.com/feccooex" target="_blank">Instagram FECCOOEx</a></p>
       <p><a href="https://t.me/feccooextremadura" target="_blank">Canal de Telegram FECCOOExtremadura</a></p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Licencia</h3>
+      <p>Los contenidos de esta web se publican bajo licencia:</p>
+      <p><strong>Creative Commons BY-ND 4.0</strong></p>
+      <p>Se permite compartir con atribución, sin modificaciones.</p>
     </div>
   </div>
 
@@ -230,7 +255,7 @@
 <script>
   document.getElementById("anio-footer").textContent = new Date().getFullYear();
 
-  // Encabezados EXACTOS en tu CSV:
+  // Columnas exactas del CSV:
   // id, nombre, codigo_centro, titularidad, tipo_centro, etapas, lat, lng, zona,
   // direccion, cp, municipio, provincia, telefono, fax, email, web, horario, jornada_partida
 
@@ -286,6 +311,15 @@
     if ([...selectEl.options].some(o => o.value === current)) selectEl.value = current;
   }
 
+  function escapeHtml(s){
+    return (s ?? "").toString()
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
   // Map
   const map = L.map("map").setView([39.2, -6.3], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -326,15 +360,6 @@
     el.addEventListener("change", applyFilters);
   });
 
-  function escapeHtml(s){
-    return (s ?? "").toString()
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
-  }
-
   function loadCSV(bustCache=false){
     const url = "centros.csv" + (bustCache ? ("?v=" + Date.now()) : "");
     fetch(url)
@@ -368,7 +393,6 @@
           jornada_partida: norm(row[COL.jornada_partida])
         }));
 
-        // Opciones de filtros (cada uno de SU campo)
         setOptions(elMun, uniqueSorted(raw.map(x => x.municipio)), "(Todos)");
         setOptions(elZona, uniqueSorted(raw.map(x => x.zona)), "(Todas)");
         setOptions(elTipo, uniqueSorted(raw.map(x => x.tipo_centro)), "(Todos)");
@@ -396,9 +420,8 @@
 
     filtered = raw.filter(x => {
       if (q) {
-        const hay = [
-          x.nombre, x.codigo_centro, x.direccion, x.municipio, x.provincia
-        ].map(normKey).join(" | ");
+        const hay = [x.nombre, x.codigo_centro, x.direccion, x.municipio, x.provincia]
+          .map(normKey).join(" | ");
         if (!hay.includes(q)) return false;
       }
       if (municipio && normKey(x.municipio) !== municipio) return false;
@@ -407,7 +430,6 @@
       if (titularidad && normKey(x.titularidad) !== titularidad) return false;
       if (horario && normKey(x.horario) !== horario) return false;
       if (jornada && normKey(x.jornada_partida) !== jornada) return false;
-
       return true;
     });
 
@@ -463,7 +485,6 @@
     }
   }
 
-  // Cargar al inicio (evita CSV en caché)
   loadCSV(true);
 </script>
 </body>
