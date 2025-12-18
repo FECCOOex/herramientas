@@ -6,15 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    * { box-sizing: border-box; }
+    *{ box-sizing:border-box; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       background:#f3f4f6;
       color:#222;
     }
 
-    /* HEADER (unificado) */
+    /* HEADER */
     header{
       display:flex;
       align-items:center;
@@ -31,9 +31,13 @@
     .titles h1{ margin:0; font-size:1.6rem; font-weight:700; }
     .titles p{ margin:2px 0 0; font-size:0.9rem; opacity:0.95; }
     nav a{
-      color:#fff; text-decoration:none; font-weight:600;
-      padding:6px 12px; border:1px solid rgba(255,255,255,0.7);
-      border-radius:999px; transition:0.2s ease;
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      padding:6px 12px;
+      border:1px solid rgba(255,255,255,0.7);
+      border-radius:999px;
+      transition:0.2s ease;
     }
     nav a:hover{
       background:rgba(255,255,255,0.18);
@@ -43,9 +47,9 @@
 
     /* MAIN */
     main{
-      max-width: 1180px;
-      margin: 26px auto 40px;
-      padding: 0 16px 40px;
+      max-width:1180px;
+      margin:26px auto 40px;
+      padding:0 16px 40px;
     }
 
     .btn-volver{
@@ -62,23 +66,23 @@
     }
     .btn-volver:hover{ background:#b40000; }
 
-    .page-title{ margin: 0 0 6px; font-size:1.6rem; }
+    .page-title{ margin:0 0 6px; font-size:1.6rem; }
     .page-subtitle{ margin:0 0 14px; color:#444; font-size:0.95rem; }
 
     .card{
       background:#fff;
       border:1px solid #e1e4ea;
-      border-radius: 12px;
+      border-radius:12px;
       box-shadow:0 3px 10px rgba(0,0,0,0.10);
-      padding: 14px 16px 16px;
-      margin-bottom: 14px;
+      padding:14px 16px 16px;
+      margin-bottom:14px;
     }
 
-    /* filtros */
+    /* FILTROS */
     .filters{
       display:grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
-      gap: 10px;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+      gap:10px;
       align-items:end;
     }
     @media (max-width: 980px){
@@ -92,34 +96,43 @@
       display:block;
       margin-bottom:4px;
     }
+
     select, input{
       width:100%;
-      font-family: inherit;
+      font-family:inherit;
       font-size:0.95rem;
-      padding: 8px 10px;
-      border-radius: 8px;
+      padding:8px 10px;
+      border-radius:8px;
       border:1px solid #cbd5e1;
       background:#fff;
+      outline:none;
+    }
+    select:focus, input:focus{
+      border-color:#d60000;
+      box-shadow:0 0 0 2px rgba(214,0,0,0.10);
     }
 
     .hint{
-      margin-top: 10px;
-      font-size: 0.83rem;
+      margin-top:10px;
+      font-size:0.83rem;
       color:#555;
       background:#f9fafb;
-      border: 1px dashed #e5e7eb;
-      border-radius: 10px;
-      padding: 10px 12px;
+      border:1px dashed #e5e7eb;
+      border-radius:10px;
+      padding:10px 12px;
     }
 
-    .muted{ color:#6b7280; font-size:0.82rem; }
+    .status{
+      font-size:0.85rem;
+      color:#555;
+    }
 
-    /* grid publicaciones */
+    /* GRID RESULTADOS */
     .grid{
+      margin-top:12px;
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 12px;
+      gap:12px;
     }
     @media (max-width: 1080px){
       .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -131,34 +144,37 @@
     .pub{
       background:#fff;
       border:1px solid #e1e4ea;
-      border-radius: 14px;
+      border-radius:14px;
       box-shadow:0 3px 10px rgba(0,0,0,0.10);
-      padding: 14px 14px 12px;
+      padding:14px 14px 12px;
       display:flex;
       flex-direction:column;
-      gap: 8px;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-      min-height: 210px;
+      gap:8px;
+      transition:transform 0.15s ease, box-shadow 0.15s ease;
+      min-height: 220px;
     }
     .pub:hover{
-      transform: translateY(-2px);
+      transform:translateY(-2px);
       box-shadow:0 10px 22px rgba(0,0,0,0.14);
     }
 
-    .badges{
+    .pub-top{
       display:flex;
+      flex-wrap:wrap;
       gap:8px;
-      flex-wrap: wrap;
+      align-items:flex-start;
+      justify-content:space-between;
     }
+
     .badge{
       font-size:0.75rem;
       font-weight:900;
-      padding: 3px 10px;
-      border-radius: 999px;
+      padding:3px 10px;
+      border-radius:999px;
       background:#f3f4f6;
       color:#374151;
-      border: 1px solid #e5e7eb;
-      white-space: nowrap;
+      border:1px solid #e5e7eb;
+      white-space:nowrap;
     }
 
     .title{
@@ -166,15 +182,7 @@
       font-size:1.05rem;
       font-weight:900;
       color:#111827;
-      line-height: 1.2rem;
-    }
-
-    .desc{
-      margin:0;
-      color:#374151;
-      font-size:0.92rem;
-      line-height: 1.25rem;
-      flex: 1;
+      line-height:1.2rem;
     }
 
     .meta{
@@ -185,19 +193,34 @@
       gap:4px;
     }
 
+    .desc{
+      margin:0;
+      color:#374151;
+      font-size:0.92rem;
+      line-height:1.25rem;
+      flex:1;
+    }
+
+    .tags{
+      font-size:0.8rem;
+      color:#6b7280;
+      line-height:1.15rem;
+    }
+    .tags span{ font-weight:800; color:#4b5563; }
+
     .actions{
       display:flex;
       gap:10px;
-      flex-wrap: wrap;
-      margin-top: 4px;
+      flex-wrap:wrap;
+      margin-top:4px;
       align-items:center;
-      justify-content: space-between;
+      justify-content:space-between;
     }
 
     .btn{
       border:none;
-      border-radius: 10px;
-      padding: 9px 12px;
+      border-radius:10px;
+      padding:9px 12px;
       font-weight:900;
       cursor:pointer;
       text-decoration:none;
@@ -214,29 +237,28 @@
       box-shadow:0 6px 16px rgba(0,0,0,0.18);
     }
 
-    .tag-small{
-      font-size:0.78rem;
+    .muted{
       color:#6b7280;
+      font-size:0.82rem;
     }
 
-    /* FOOTER (nuevo unificado sin logo arriba) */
+    /* FOOTER NUEVO */
     footer{
       background:#222;
       color:#f2f2f2;
       padding:18px 20px 10px;
       border-top:3px solid #d60000;
       font-size:0.85rem;
-      margin-top: 10px;
+      margin-top:10px;
     }
 
     .footer-inner{
       max-width:1300px;
       margin:0 auto;
       display:grid;
-      grid-template-columns: 1.35fr 1fr 1fr;
+      grid-template-columns: 1.6fr 1.4fr 1fr; /* Contacto más ancho */
       gap:16px;
     }
-
     @media (max-width: 900px){
       .footer-inner{ grid-template-columns: 1fr; }
     }
@@ -248,14 +270,12 @@
       letter-spacing:0.03em;
       color:#fff;
     }
-
     .footer-col p{
       margin:0 0 6px;
       font-size:0.82rem;
       color:#e0e0e0;
       line-height:1.25rem;
     }
-
     .footer-col a{
       color:#ffdddd;
       text-decoration:none;
@@ -263,12 +283,15 @@
     }
     .footer-col a:hover{ text-decoration:underline; }
 
-    .footer-phones{
-      margin:0;
-      padding-left:18px;
-      font-size:0.82rem;
-      line-height:1.25rem;
-      color:#e0e0e0;
+    /* Contacto en 2 columnas */
+    .contact-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:6px;
+    }
+    @media (max-width: 900px){
+      .contact-grid{ grid-template-columns: 1fr; }
     }
 
     .footer-bottom{
@@ -282,7 +305,6 @@
       gap:8px;
       flex-wrap:wrap;
     }
-
     .footer-bottom-left{
       display:flex;
       align-items:center;
@@ -314,6 +336,7 @@
       <p>Recursos públicos y sindicales para la comunidad educativa</p>
     </div>
   </div>
+
   <nav>
     <a href="delegados.html">Área delegados/as</a>
   </nav>
@@ -322,16 +345,19 @@
 <main>
   <a class="btn-volver" href="index.html">Volver a la portada</a>
 
-  <h1 class="page-title">Publicaciones</h1>
+  <h1 class="page-title">Publicaciones sindicales</h1>
   <p class="page-subtitle">
-    Comunicados, informes, boletines y materiales útiles para la comunidad educativa. Usa los filtros para encontrar rápidamente lo que necesitas.
+    Comunicados, notas, informes y materiales de interés. Puedes filtrar por temática, tipo, ámbito y año, o buscar por palabras.
   </p>
 
+  <!-- Filtros -->
   <section class="card">
     <div class="filters">
       <div>
-        <label for="f-texto">Buscar</label>
-        <input id="f-texto" type="text" placeholder="Título, resumen, etiquetas…">
+        <label for="f-tema">Temática</label>
+        <select id="f-tema">
+          <option value="">Todas</option>
+        </select>
       </div>
 
       <div>
@@ -342,24 +368,8 @@
       </div>
 
       <div>
-        <label for="f-tema">Temática</label>
-        <select id="f-tema">
-          <option value="">Todas</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="filters" style="margin-top:10px;">
-      <div>
         <label for="f-ambito">Ámbito</label>
         <select id="f-ambito">
-          <option value="">Todos</option>
-        </select>
-      </div>
-
-      <div>
-        <label for="f-nivel">Nivel educativo</label>
-        <select id="f-nivel">
           <option value="">Todos</option>
         </select>
       </div>
@@ -372,42 +382,52 @@
       </div>
     </div>
 
+    <div style="margin-top:10px;">
+      <label for="f-texto">Buscar</label>
+      <input id="f-texto" type="text" placeholder="Título, resumen, palabras clave, destinatarios…" />
+    </div>
+
     <div class="hint">
-      Consejo: empieza por <strong>Tipo</strong> o <strong>Temática</strong> y luego afina con el buscador.
+      Consejo: usa primero <strong>Temática</strong> o <strong>Año</strong> y luego el buscador para afinar.
     </div>
   </section>
 
+  <!-- Resultados -->
   <section class="card">
-    <div id="status" class="muted">Cargando publicaciones…</div>
+    <div id="status" class="status">Cargando publicaciones…</div>
     <div id="grid" class="grid"></div>
   </section>
 </main>
 
 <footer>
   <div class="footer-inner">
+    <!-- Contacto (en 2 columnas internas) -->
     <div class="footer-col">
       <h3>Contacto</h3>
-      <p><strong>Dirección:</strong><br>
-        Avenida Juan Carlos I, núm. 47<br>
-        CP 06800 · Mérida (Extremadura)
-      </p>
-      <p><strong>Correo:</strong>
-        <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a>
-      </p>
+      <div class="contact-grid">
+        <div>
+          <p><strong>Dirección:</strong><br>
+            Avenida Juan Carlos, I núm. 47<br>
+            CP 06800 · Mérida (Extremadura)
+          </p>
+          <p><strong>Correo:</strong>
+            <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a>
+          </p>
+        </div>
+        <div>
+          <p><strong>Teléfonos por sede</strong><br>
+            <strong>Badajoz:</strong> 924224104<br>
+            <strong>Cáceres:</strong> 927223534<br>
+            <strong>Mérida:</strong> 924330018<br>
+            <strong>Plasencia:</strong> 927424086<br>
+            <strong>Don Benito:</strong> 924802080<br>
+            <strong>Zafra:</strong> 924553202
+          </p>
+        </div>
+      </div>
     </div>
 
-    <div class="footer-col">
-      <h3>Teléfonos por sede</h3>
-      <ul class="footer-phones">
-        <li><strong>Badajoz:</strong> 924224104</li>
-        <li><strong>Cáceres:</strong> 927223534</li>
-        <li><strong>Mérida:</strong> 924330018</li>
-        <li><strong>Plasencia:</strong> 927424086</li>
-        <li><strong>Don Benito:</strong> 924802080</li>
-        <li><strong>Zafra:</strong> 924553202</li>
-      </ul>
-    </div>
-
+    <!-- Enlaces -->
     <div class="footer-col">
       <h3>Enlaces rápidos</h3>
       <p><a href="https://extremadura.fe.ccoo.es/" target="_blank" rel="noopener noreferrer">Web FECCOOExtremadura</a></p>
@@ -415,6 +435,13 @@
       <p><a href="https://x.com/FECCOOex" target="_blank" rel="noopener noreferrer">X (Twitter) FECCOOEx</a></p>
       <p><a href="https://www.instagram.com/feccooex" target="_blank" rel="noopener noreferrer">Instagram FECCOOEx</a></p>
       <p><a href="https://t.me/feccooextremadura" target="_blank" rel="noopener noreferrer">Canal de Telegram FECCOOExtremadura</a></p>
+    </div>
+
+    <!-- Espacio libre / futuro -->
+    <div class="footer-col">
+      <h3>Información</h3>
+      <p>Este espacio reúne recursos públicos y sindicales para la comunidad educativa en Extremadura.</p>
+      <p class="muted">Sugerencias: usa “Consultas sindicales” para casos privados o complejos.</p>
     </div>
   </div>
 
@@ -429,56 +456,84 @@
   </div>
 
   <script>
-    document.getElementById('anio-footer').textContent = new Date().getFullYear();
+    document.getElementById("anio-footer").textContent = new Date().getFullYear();
   </script>
 </footer>
 
 <script>
-  const CSV_PUBLICACIONES = "publicaciones.csv";
+  const CSV_PATH = "publicaciones.csv";
 
-  const fTexto = document.getElementById("f-texto");
-  const fTipo  = document.getElementById("f-tipo");
   const fTema  = document.getElementById("f-tema");
-  const fAmbito= document.getElementById("f-ambito");
-  const fNivel = document.getElementById("f-nivel");
+  const fTipo  = document.getElementById("f-tipo");
+  const fAmb   = document.getElementById("f-ambito");
   const fAnio  = document.getElementById("f-anio");
+  const fTexto = document.getElementById("f-texto");
 
   const grid = document.getElementById("grid");
   const statusEl = document.getElementById("status");
 
   let publicaciones = [];
 
-  function parseCSV(text){
-    const lines = text.trim().split(/\r?\n/);
-    if (!lines.length) return [];
-    const delimiter = lines[0].includes(";") ? ";" : ",";
-    const headers = lines[0].split(delimiter).map(h => h.trim());
+  // CSV robusto (comillas, comas, saltos)
+  function parseCSV(text) {
+    const rows = [];
+    let row = [];
+    let val = "";
+    let inQuotes = false;
 
-    return lines.slice(1).filter(l => l.trim()).map(line => {
-      // split simple (si algún día necesitas comillas con comas dentro, lo mejor es evitar comas en texto o usar ;)
-      const cols = line.split(delimiter).map(c => c.trim());
-      const obj = {};
-      headers.forEach((h,i) => obj[h] = cols[i] ?? "");
-      return obj;
-    });
+    // Detecta delimitador por primera línea (coma o punto y coma)
+    const firstLine = text.split(/\r?\n/).find(l => l.trim().length);
+    const delimiter = (firstLine && firstLine.includes(";") && !firstLine.includes(",")) ? ";" : ",";
+
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      const next = text[i + 1];
+
+      if (c === '"' && inQuotes && next === '"') {
+        val += '"';
+        i++;
+      } else if (c === '"') {
+        inQuotes = !inQuotes;
+      } else if (c === delimiter && !inQuotes) {
+        row.push(val);
+        val = "";
+      } else if ((c === "\n" || c === "\r") && !inQuotes) {
+        if (val !== "" || row.length) {
+          row.push(val);
+          rows.push(row);
+          row = [];
+          val = "";
+        }
+      } else {
+        val += c;
+      }
+    }
+    if (val !== "" || row.length) {
+      row.push(val);
+      rows.push(row);
+    }
+
+    // Normaliza
+    return rows.map(r => r.map(x => (x ?? "").trim()));
   }
 
-  async function loadCSV(path){
-    const resp = await fetch(path, { cache: "no-store" });
-    if (!resp.ok) throw new Error("No se pudo cargar " + path);
-    return await resp.text();
-  }
-
-  function normalize(s){ return (s || "").toLowerCase().trim(); }
+  function norm(s){ return (s || "").toString().trim(); }
+  function normLow(s){ return norm(s).toLowerCase(); }
 
   function uniqueSorted(arr){
-    return Array.from(new Set(arr.filter(Boolean)))
-      .sort((a,b) => a.localeCompare(b, "es"));
+    return Array.from(new Set(arr.filter(Boolean))).sort((a,b) => a.localeCompare(b, "es"));
   }
 
-  function poblarSelect(select, valores, placeholder){
+  function getYear(fecha){
+    // espera YYYY-MM-DD o YYYY/MM/DD o YYYY...
+    const f = norm(fecha);
+    const m = f.match(/^(\d{4})/);
+    return m ? m[1] : "";
+  }
+
+  function fillSelect(select, values, placeholder){
     select.innerHTML = `<option value="">${placeholder}</option>`;
-    valores.forEach(v => {
+    values.forEach(v => {
       const opt = document.createElement("option");
       opt.value = v;
       opt.textContent = v;
@@ -486,145 +541,124 @@
     });
   }
 
-  function initFilters(){
-    const tipos = uniqueSorted(publicaciones.map(p => (p.tipo || "").trim()));
-    const temas = uniqueSorted(publicaciones.map(p => (p.tema || "").trim()));
-    const ambitos = uniqueSorted(publicaciones.map(p => (p.ambito || "").trim()));
-
-    const nivelesSet = new Set();
-    publicaciones.forEach(p => {
-      (p.nivel_educativo || "")
-        .split(",")
-        .map(x => x.trim())
-        .filter(Boolean)
-        .forEach(x => nivelesSet.add(x));
-    });
-    const niveles = Array.from(nivelesSet).sort((a,b)=>a.localeCompare(b,"es"));
-
-    const aniosSet = new Set();
-    publicaciones.forEach(p => {
-      const y = (p.fecha || "").trim().slice(0,4);
-      if (y && /^\d{4}$/.test(y)) aniosSet.add(y);
-    });
-    const anios = Array.from(aniosSet).sort((a,b)=>Number(b)-Number(a)); // desc
-
-    poblarSelect(fTipo, tipos, "Todos");
-    poblarSelect(fTema, temas, "Todas");
-    poblarSelect(fAmbito, ambitos, "Todos");
-    poblarSelect(fNivel, niveles, "Todos");
-    poblarSelect(fAnio, anios, "Todos");
-  }
-
-  function render(){
-    const q = normalize(fTexto.value);
-    const tipo = (fTipo.value || "").trim();
-    const tema = (fTema.value || "").trim();
-    const ambito = (fAmbito.value || "").trim();
-    const nivel = (fNivel.value || "").trim();
-    const anio = (fAnio.value || "").trim();
+  function applyFilters(){
+    const tema = normLow(fTema.value);
+    const tipo = normLow(fTipo.value);
+    const amb  = normLow(fAmb.value);
+    const anio = norm(fAnio.value);
+    const txt  = normLow(fTexto.value);
 
     const filtered = publicaciones.filter(p => {
-      if (normalize(p.activo) === "0") return false;
+      if (norm(p.activo) === "0") return false;
 
-      if (tipo && (p.tipo || "").trim() !== tipo) return false;
-      if (tema && (p.tema || "").trim() !== tema) return false;
-      if (ambito && (p.ambito || "").trim() !== ambito) return false;
+      if (tema && normLow(p.tema) !== tema) return false;
+      if (tipo && normLow(p.tipo) !== tipo) return false;
+      if (amb  && normLow(p.ambito) !== amb) return false;
 
-      if (anio) {
-        const y = (p.fecha || "").trim().slice(0,4);
+      if (anio){
+        const y = getYear(p.fecha);
         if (y !== anio) return false;
       }
 
-      if (nivel) {
-        const niveles = (p.nivel_educativo || "")
-          .split(",")
-          .map(x => x.trim())
-          .filter(Boolean);
-        if (!niveles.includes(nivel)) return false;
-      }
-
-      if (q) {
-        const blob = [
-          p.titulo, p.resumen, p.etiquetas, p.tema, p.tipo, p.ambito, p.nivel_educativo
-        ].map(normalize).join(" ");
-        if (!blob.includes(q)) return false;
+      if (txt){
+        const hay = [
+          p.titulo, p.resumen, p.palabras_clave, p.destinatarios, p.tema, p.tipo, p.ambito, p.fuente
+        ].map(normLow).join(" ");
+        if (!hay.includes(txt)) return false;
       }
 
       return true;
     });
 
-    statusEl.textContent = filtered.length
-      ? `Mostrando ${filtered.length} publicación(es).`
-      : "No hay resultados con los filtros actuales.";
+    // Orden
+    filtered.sort((a,b) => {
+      const oa = Number(norm(a.orden) || 999999);
+      const ob = Number(norm(b.orden) || 999999);
+      if (oa !== ob) return oa - ob;
+      // si no, por fecha desc
+      return norm(b.fecha).localeCompare(norm(a.fecha), "es");
+    });
 
+    render(filtered);
+  }
+
+  function render(list){
     grid.innerHTML = "";
 
-    // Orden: fecha desc (si existe)
-    filtered.sort((a,b) => (b.fecha || "").localeCompare(a.fecha || ""));
+    statusEl.textContent = list.length
+      ? `Mostrando ${list.length} publicación(es).`
+      : "No hay resultados con los filtros actuales.";
 
-    filtered.forEach(p => {
+    list.forEach(p => {
       const el = document.createElement("article");
       el.className = "pub";
 
-      const badges = document.createElement("div");
-      badges.className = "badges";
+      const top = document.createElement("div");
+      top.className = "pub-top";
 
-      const b1 = document.createElement("span");
-      b1.className = "badge";
-      b1.textContent = (p.tipo || "Publicación").trim();
-      badges.appendChild(b1);
+      const bTema = document.createElement("span");
+      bTema.className = "badge";
+      bTema.textContent = norm(p.tema) || "Sin temática";
 
-      if ((p.tema || "").trim()) {
-        const b2 = document.createElement("span");
-        b2.className = "badge";
-        b2.textContent = p.tema.trim();
-        badges.appendChild(b2);
-      }
+      const bTipo = document.createElement("span");
+      bTipo.className = "badge";
+      bTipo.textContent = (norm(p.tipo) || "Publicación").toUpperCase();
+
+      top.appendChild(bTema);
+      top.appendChild(bTipo);
 
       const title = document.createElement("h3");
       title.className = "title";
-      title.textContent = p.titulo || "Sin título";
-
-      const desc = document.createElement("p");
-      desc.className = "desc";
-      desc.textContent = p.resumen || "";
+      title.textContent = norm(p.titulo) || "Publicación";
 
       const meta = document.createElement("div");
       meta.className = "meta";
       meta.innerHTML = `
-        <div><strong>Fecha:</strong> ${p.fecha || "-"}</div>
-        <div><strong>Ámbito:</strong> ${p.ambito || "-"}</div>
-        <div><strong>Nivel:</strong> ${p.nivel_educativo || "-"}</div>
+        <div><strong>Fecha:</strong> ${norm(p.fecha) || "-"}</div>
+        <div><strong>Ámbito:</strong> ${norm(p.ambito) || "-"}</div>
+        <div><strong>Destinatarios:</strong> ${norm(p.destinatarios) || "-"}</div>
+        <div><strong>Fuente:</strong> ${norm(p.fuente) || "-"}</div>
       `;
+
+      const desc = document.createElement("p");
+      desc.className = "desc";
+      desc.textContent = norm(p.resumen) || "";
+
+      const tags = document.createElement("div");
+      tags.className = "tags";
+      const pk = norm(p.palabras_clave);
+      tags.innerHTML = pk ? `<span>Palabras clave:</span> ${pk}` : `<span>Palabras clave:</span> -`;
 
       const actions = document.createElement("div");
       actions.className = "actions";
 
-      const url = (p.enlace || "").trim();
+      const url = norm(p.url);
+
       const btn = document.createElement("a");
       btn.className = "btn btn-primary";
-      btn.href = url || "#";
       btn.textContent = "Abrir publicación";
-      btn.target = "_blank";
-      btn.rel = "noopener noreferrer";
-      if (!url) {
+      if (url){
+        btn.href = url;
+        btn.target = "_blank";
+        btn.rel = "noopener noreferrer";
+      } else {
+        btn.href = "#";
         btn.style.opacity = "0.5";
         btn.style.pointerEvents = "none";
       }
 
-      const right = document.createElement("span");
-      right.className = "tag-small";
-      const autor = (p.autor_org || "").trim();
-      const formato = (p.formato || "").trim();
-      right.textContent = [autor, formato ? formato.toUpperCase() : ""].filter(Boolean).join(" · ");
+      const rightInfo = document.createElement("span");
+      rightInfo.className = "muted";
+      rightInfo.textContent = norm(p.ambito) ? `· ${norm(p.ambito)}` : "";
 
       actions.appendChild(btn);
-      actions.appendChild(right);
+      actions.appendChild(rightInfo);
 
-      el.appendChild(badges);
+      el.appendChild(top);
       el.appendChild(title);
-      el.appendChild(desc);
       el.appendChild(meta);
+      el.appendChild(desc);
+      el.appendChild(tags);
       el.appendChild(actions);
 
       grid.appendChild(el);
@@ -633,22 +667,46 @@
 
   async function init(){
     try{
-      const text = await loadCSV(CSV_PUBLICACIONES);
-      publicaciones = parseCSV(text);
-      initFilters();
-      render();
+      const resp = await fetch(CSV_PATH, { cache: "no-store" });
+      if (!resp.ok) throw new Error("No se pudo cargar " + CSV_PATH);
+      const text = await resp.text();
+
+      const rows = parseCSV(text).filter(r => r.length > 1);
+      if (rows.length < 2){
+        statusEl.textContent = "publicaciones.csv está vacío o no tiene cabecera.";
+        return;
+      }
+
+      const headers = rows[0].map(h => norm(h));
+      publicaciones = rows.slice(1).map(r => {
+        const obj = {};
+        headers.forEach((h,i) => obj[h] = norm(r[i] || ""));
+        return obj;
+      });
+
+      // Rellena filtros con valores reales
+      const temas = uniqueSorted(publicaciones.map(p => norm(p.tema)));
+      const tipos = uniqueSorted(publicaciones.map(p => norm(p.tipo)));
+      const ambs  = uniqueSorted(publicaciones.map(p => norm(p.ambito)));
+
+      const anios = uniqueSorted(publicaciones.map(p => getYear(p.fecha))).sort((a,b) => Number(b) - Number(a));
+
+      fillSelect(fTema, temas, "Todas");
+      fillSelect(fTipo, tipos, "Todos");
+      fillSelect(fAmb,  ambs,  "Todos");
+      fillSelect(fAnio, anios, "Todos");
+
+      // Eventos
+      [fTema, fTipo, fAmb, fAnio].forEach(s => s.addEventListener("change", applyFilters));
+      fTexto.addEventListener("input", applyFilters);
+
+      applyFilters();
+
     }catch(e){
       console.error(e);
       statusEl.textContent = "No se pudieron cargar las publicaciones. Revisa que publicaciones.csv esté en la raíz junto a publicaciones.html.";
     }
   }
-
-  fTexto.addEventListener("input", render);
-  fTipo.addEventListener("change", render);
-  fTema.addEventListener("change", render);
-  fAmbito.addEventListener("change", render);
-  fNivel.addEventListener("change", render);
-  fAnio.addEventListener("change", render);
 
   init();
 </script>
