@@ -5,6 +5,9 @@
   <title>Consultas sindicales · Herramientas FECCOOEx</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- FOOTER CENTRALIZADO -->
+  <link rel="stylesheet" href="assets/footer.css" />
+
   <style>
     * { box-sizing: border-box; }
     body{
@@ -155,82 +158,6 @@
       font-weight:800;
       margin-top:12px;
     }
-
-    /* FOOTER institucional (unificado) */
-    footer{
-      background:#222;
-      color:#f2f2f2;
-      padding:18px 20px 10px;
-      border-top:3px solid #d60000;
-      font-size:0.85rem;
-      margin-top: 10px;
-    }
-    .footer-inner{
-      max-width:1300px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns: 2fr 1.2fr 1.2fr;
-      gap:16px;
-    }
-    @media (max-width: 900px){
-      .footer-inner{ grid-template-columns: 1fr; }
-    }
-    .footer-col h3{
-      margin:0 0 6px;
-      font-size:0.95rem;
-      text-transform:uppercase;
-      letter-spacing:0.03em;
-      color:#fff;
-    }
-    .footer-col p{
-      margin:0 0 4px;
-      font-size:0.82rem;
-      color:#e0e0e0;
-      line-height:1.2rem;
-    }
-    .footer-col a{
-      color:#ffdddd;
-      text-decoration:none;
-      font-size:0.82rem;
-    }
-    .footer-col a:hover{ text-decoration:underline; }
-
-    .footer-logo-row{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:6px;
-    }
-    .footer-logo-row img{
-      height:30px;
-      background:#d60000;
-      padding:3px 6px;
-      border-radius:4px;
-    }
-
-    .footer-bottom{
-      max-width:1300px;
-      margin:10px auto 0;
-      border-top:1px solid #444;
-      padding-top:6px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-    .footer-bottom-left{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      font-size:0.78rem;
-      color:#e0e0e0;
-    }
-    .footer-bottom-left img{ height:18px; }
-    .footer-bottom-right{
-      font-size:0.78rem;
-      color:#bbbbbb;
-    }
   </style>
 </head>
 
@@ -313,53 +240,11 @@
   </section>
 </main>
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-col">
-      <div class="footer-logo-row">
-        <img src="img/feccooex.png" alt="FECCOOEx">
-        <div>
-          <strong>Federación de Enseñanza de CCOO de Extremadura</strong><br>
-          <span style="font-size:0.8rem;">Herramientas digitales para la acción sindical y la comunidad educativa.</span>
-        </div>
-      </div>
-      <p>Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo y la calidad de la educación en Extremadura.</p>
-    </div>
-
-    <div class="footer-col">
-      <h3>Contacto</h3>
-      <p><strong>Dirección:</strong><br>
-        Avenida Juan Carlos I, núm. 47<br>
-        CP 06800 · Mérida (Extremadura)
-      </p>
-      <p><strong>Teléfono:</strong> 924330018</p>
-      <p><strong>Correo:</strong> <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a></p>
-    </div>
-
-    <div class="footer-col">
-      <h3>Enlaces rápidos</h3>
-      <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
-      <p><a href="https://www.facebook.com/feccooex" target="_blank">Facebook FECCOOEx</a></p>
-      <p><a href="https://x.com/FECCOOex" target="_blank">X (Twitter) FECCOOEx</a></p>
-      <p><a href="https://www.instagram.com/feccooex" target="_blank">Instagram FECCOOEx</a></p>
-      <p><a href="https://t.me/feccooextremadura" target="_blank">Canal de Telegram FECCOOExtremadura</a></p>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <div class="footer-bottom-left">
-      <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
-      <span>Contenido bajo licencia Creative Commons BY-ND 4.0 (se permite compartir sin modificaciones y con atribución).</span>
-    </div>
-    <div class="footer-bottom-right">
-      © <span id="anio-footer"></span> Federación de Enseñanza de CCOO de Extremadura
-    </div>
-  </div>
-</footer>
+<!-- FOOTER CENTRAL -->
+<div id="site-footer"></div>
+<script src="assets/footer.js"></script>
 
 <script>
-  document.getElementById("anio-footer").textContent = new Date().getFullYear();
-
   const form = document.getElementById("form-consultas");
   const btn  = document.getElementById("btn-enviar");
   const ok   = document.getElementById("ok");
@@ -400,6 +285,13 @@
       return;
     }
 
+    // Honeypot: si lo rellena un bot, no enviamos
+    if (payload.website) {
+      showOk("Consulta enviada correctamente.");
+      form.reset();
+      return;
+    }
+
     btn.disabled = true;
     btn.textContent = "Enviando…";
 
@@ -410,9 +302,12 @@
         body: JSON.stringify(payload)
       });
 
-      const data = await r.json().catch(() => ({}));
+      // Puede devolver JSON o HTML (errores). Leemos texto y luego intentamos parsear.
+      const raw = await r.text();
+      let data = {};
+      try { data = JSON.parse(raw); } catch(_) { data = {}; }
 
-      if (!r.ok || !data.ok) {
+      if (!r.ok || data.ok !== true) {
         const detalle = data?.error ? ` (${data.error})` : "";
         showErr("No se pudo enviar la consulta" + detalle + ".");
         return;
