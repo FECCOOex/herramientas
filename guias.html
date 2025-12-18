@@ -218,7 +218,7 @@
 
     .muted{ color:#6b7280; font-size:0.82rem; }
 
-    /* FOOTER institucional */
+    /* FOOTER (nuevo unificado sin logo arriba) */
     footer{
       background:#222;
       color:#f2f2f2;
@@ -227,16 +227,19 @@
       font-size:0.85rem;
       margin-top: 10px;
     }
+
     .footer-inner{
       max-width:1300px;
       margin:0 auto;
       display:grid;
-      grid-template-columns: 2fr 1.2fr 1.2fr;
+      grid-template-columns: 1.35fr 1fr 1fr;
       gap:16px;
     }
+
     @media (max-width: 900px){
       .footer-inner{ grid-template-columns: 1fr; }
     }
+
     .footer-col h3{
       margin:0 0 6px;
       font-size:0.95rem;
@@ -244,29 +247,28 @@
       letter-spacing:0.03em;
       color:#fff;
     }
+
     .footer-col p{
-      margin:0 0 4px;
+      margin:0 0 6px;
       font-size:0.82rem;
       color:#e0e0e0;
+      line-height:1.25rem;
     }
+
     .footer-col a{
       color:#ffdddd;
       text-decoration:none;
       font-size:0.82rem;
     }
+
     .footer-col a:hover{ text-decoration:underline; }
 
-    .footer-logo-row{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:6px;
-    }
-    .footer-logo-row img{
-      height:30px;
-      background:#d60000;
-      padding:3px 6px;
-      border-radius:4px;
+    .footer-phones{
+      margin:0;
+      padding-left:18px;
+      font-size:0.82rem;
+      line-height:1.25rem;
+      color:#e0e0e0;
     }
 
     .footer-bottom{
@@ -280,6 +282,7 @@
       gap:8px;
       flex-wrap:wrap;
     }
+
     .footer-bottom-left{
       display:flex;
       align-items:center;
@@ -362,33 +365,35 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-col">
-      <div class="footer-logo-row">
-        <img src="img/feccooex.png" alt="FECCOOEx">
-        <div>
-          <strong>Federación de Enseñanza de CCOO de Extremadura</strong><br>
-          <span style="font-size:0.8rem;">Herramientas digitales para la acción sindical y la comunidad educativa.</span>
-        </div>
-      </div>
-      <p>Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo y la calidad de la educación en Extremadura.</p>
+      <h3>Contacto</h3>
+      <p><strong>Dirección:</strong><br>
+        Avenida Juan Carlos I, núm. 47<br>
+        CP 06800 · Mérida (Extremadura)
+      </p>
+      <p><strong>Correo:</strong>
+        <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a>
+      </p>
     </div>
 
     <div class="footer-col">
-      <h3>Contacto</h3>
-      <p><strong>Dirección:</strong><br>
-        Avenida Juan Carlos I, nº 47<br>
-        CP 06800 · Mérida (Extremadura)
-      </p>
-      <p><strong>Teléfono:</strong> 924 330 018</p>
-      <p><strong>Correo:</strong> <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a></p>
+      <h3>Teléfonos por sede</h3>
+      <ul class="footer-phones">
+        <li><strong>Badajoz:</strong> 924224104</li>
+        <li><strong>Cáceres:</strong> 927223534</li>
+        <li><strong>Mérida:</strong> 924330018</li>
+        <li><strong>Plasencia:</strong> 927424086</li>
+        <li><strong>Don Benito:</strong> 924802080</li>
+        <li><strong>Zafra:</strong> 924553202</li>
+      </ul>
     </div>
 
     <div class="footer-col">
       <h3>Enlaces rápidos</h3>
-      <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
-      <p><a href="https://www.facebook.com/feccooex" target="_blank">Facebook FECCOOEx</a></p>
-      <p><a href="https://x.com/FECCOOex" target="_blank">X (Twitter) FECCOOEx</a></p>
-      <p><a href="https://www.instagram.com/feccooex" target="_blank">Instagram FECCOOEx</a></p>
-      <p><a href="https://t.me/feccooextremadura" target="_blank">Canal de Telegram FECCOOExtremadura</a></p>
+      <p><a href="https://extremadura.fe.ccoo.es/" target="_blank" rel="noopener noreferrer">Web FECCOOExtremadura</a></p>
+      <p><a href="https://www.facebook.com/feccooex" target="_blank" rel="noopener noreferrer">Facebook FECCOOEx</a></p>
+      <p><a href="https://x.com/FECCOOex" target="_blank" rel="noopener noreferrer">X (Twitter) FECCOOEx</a></p>
+      <p><a href="https://www.instagram.com/feccooex" target="_blank" rel="noopener noreferrer">Instagram FECCOOEx</a></p>
+      <p><a href="https://t.me/feccooextremadura" target="_blank" rel="noopener noreferrer">Canal de Telegram FECCOOExtremadura</a></p>
     </div>
   </div>
 
