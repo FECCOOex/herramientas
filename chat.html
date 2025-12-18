@@ -255,7 +255,7 @@
       line-height: 1.28rem;
     }
 
-    /* FOOTER institucional */
+    /* FOOTER (nuevo) */
     footer{
       background:#222;
       color:#f2f2f2;
@@ -269,7 +269,7 @@
       max-width:1300px;
       margin:0 auto;
       display:grid;
-      grid-template-columns: 2fr 1.2fr 1.2fr;
+      grid-template-columns: 1.35fr 1fr 1fr;
       gap:16px;
     }
     @media (max-width: 900px){
@@ -284,9 +284,10 @@
       color:#fff;
     }
     .footer-col p{
-      margin:0 0 4px;
+      margin:0 0 6px;
       font-size:0.82rem;
       color:#e0e0e0;
+      line-height:1.25rem;
     }
     .footer-col a{
       color:#ffdddd;
@@ -295,18 +296,14 @@
     }
     .footer-col a:hover{ text-decoration:underline; }
 
-    .footer-logo-row{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:6px;
+    .footer-phones{
+      margin:0;
+      padding-left: 18px;
+      color:#e0e0e0;
+      font-size:0.82rem;
+      line-height:1.25rem;
     }
-    .footer-logo-row img{
-      height:30px;
-      background:#d60000; /* fondo rojo para logo blanco */
-      padding:3px 6px;
-      border-radius:4px;
-    }
+    .footer-phones li{ margin: 2px 0; }
 
     .footer-bottom{
       max-width:1300px;
@@ -411,33 +408,37 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-col">
-      <div class="footer-logo-row">
-        <img src="img/feccooex.png" alt="FECCOOEx">
-        <div>
-          <strong>Federación de Enseñanza de CCOO de Extremadura</strong><br>
-          <span style="font-size:0.8rem;">Herramientas digitales para la acción sindical y la comunidad educativa.</span>
-        </div>
-      </div>
-      <p>Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo y la calidad de la educación en Extremadura.</p>
+      <h3>Contacto</h3>
+      <p>
+        <strong>Dirección:</strong><br>
+        Avenida Juan Carlos I, núm. 47<br>
+        CP 06800 · Mérida (Extremadura)
+      </p>
+      <p>
+        <strong>Correo:</strong>
+        <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a>
+      </p>
     </div>
 
     <div class="footer-col">
-      <h3>Contacto</h3>
-      <p><strong>Dirección:</strong><br>
-        Avenida Juan Carlos I, nº 47<br>
-        CP 06800 · Mérida (Extremadura)
-      </p>
-      <p><strong>Teléfono:</strong> 924 330 018</p>
-      <p><strong>Correo:</strong> <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a></p>
+      <h3>Teléfonos por sede</h3>
+      <ul class="footer-phones">
+        <li><strong>Badajoz:</strong> 924224104</li>
+        <li><strong>Cáceres:</strong> 927223534</li>
+        <li><strong>Mérida:</strong> 924330018</li>
+        <li><strong>Plasencia:</strong> 927424086</li>
+        <li><strong>Don Benito:</strong> 924802080</li>
+        <li><strong>Zafra:</strong> 924553202</li>
+      </ul>
     </div>
 
     <div class="footer-col">
       <h3>Enlaces rápidos</h3>
-      <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
-      <p><a href="https://www.facebook.com/feccooex" target="_blank">Facebook FECCOOEx</a></p>
-      <p><a href="https://x.com/FECCOOex" target="_blank">X (Twitter) FECCOOEx</a></p>
-      <p><a href="https://www.instagram.com/feccooex" target="_blank">Instagram FECCOOEx</a></p>
-      <p><a href="https://t.me/feccooextremadura" target="_blank">Canal de Telegram FECCOOExtremadura</a></p>
+      <p><a href="https://extremadura.fe.ccoo.es/" target="_blank" rel="noopener">Web FECCOOExtremadura</a></p>
+      <p><a href="https://www.facebook.com/feccooex" target="_blank" rel="noopener">Facebook FECCOOEx</a></p>
+      <p><a href="https://x.com/FECCOOex" target="_blank" rel="noopener">X (Twitter) FECCOOEx</a></p>
+      <p><a href="https://www.instagram.com/feccooex" target="_blank" rel="noopener">Instagram FECCOOEx</a></p>
+      <p><a href="https://t.me/feccooextremadura" target="_blank" rel="noopener">Canal de Telegram FECCOOExtremadura</a></p>
     </div>
   </div>
 
@@ -456,7 +457,7 @@
   </script>
 </footer>
 
-<!-- Firebase (reemplaza SOLO el bloque firebaseConfig por el tuyo real) -->
+<!-- Firebase (tu config REAL ya está pegada) -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
   import {
@@ -464,15 +465,14 @@
     query, orderBy, limit, onSnapshot
   } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-  // 🔴 PEGA AQUÍ TU CONFIG REAL (la que ya te funciona)
- const firebaseConfig = {
-  apiKey: "AIzaSyDU1o7NEtPCWz6M0Q2gToZE97qmtSP72OY",
-  authDomain: "feccooex-chat.firebaseapp.com",
-  projectId: "feccooex-chat",
-  storageBucket: "feccooex-chat.firebasestorage.app",
-  messagingSenderId: "323736709612",
-  appId: "1:323736709612:web:e7a23fb298a6281882b8c9"
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyDU1o7NEtPCWz6M0Q2gToZE97qmtSP72OY",
+    authDomain: "feccooex-chat.firebaseapp.com",
+    projectId: "feccooex-chat",
+    storageBucket: "feccooex-chat.firebasestorage.app",
+    messagingSenderId: "323736709612",
+    appId: "1:323736709612:web:e7a23fb298a6281882b8c9"
+  };
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
@@ -483,15 +483,6 @@
   const inputMensaje = document.getElementById("mensaje");
   const btnEnviar = document.getElementById("btn-enviar");
   const btnLimpiar = document.getElementById("btn-limpiar");
-
-  function escapeHtml(str) {
-    return (str || "")
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
-  }
 
   function formatTime(ts) {
     if (!ts) return "";
@@ -504,7 +495,7 @@
     const frag = document.createDocumentFragment();
 
     docs.forEach(doc => {
-      const m = doc.data();
+      const m = doc.data() || {};
       const div = document.createElement("div");
       div.className = "msg";
 
@@ -529,7 +520,7 @@
 
       const p = document.createElement("p");
       p.className = "text";
-      p.innerHTML = escapeHtml(m.texto || "");
+      p.textContent = m.texto || "";
 
       div.appendChild(meta);
       div.appendChild(p);
@@ -540,7 +531,7 @@
     chatBox.scrollTop = chatBox.scrollHeight;
   }
 
-  // Escucha en tiempo real (últimos 200 mensajes)
+  // Realtime (últimos 200)
   const q = query(collection(db, "messages"), orderBy("createdAt", "asc"), limit(200));
   onSnapshot(q, (snap) => {
     renderMessages(snap.docs);
@@ -600,4 +591,3 @@
 
 </body>
 </html>
-
