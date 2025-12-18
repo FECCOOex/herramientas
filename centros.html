@@ -78,17 +78,22 @@
     .item .small{font-size:.84rem;color:#555;line-height:1.2rem}
     .tagline{margin-top:4px;font-size:.82rem;color:#666}
 
-    /* FOOTER institucional (sin logo; contacto ampliado) */
+    /* FOOTER: Contacto 2 columnas + Enlaces rápidos */
     footer{
       background:#222;color:#f2f2f2;padding:18px 20px 10px;border-top:3px solid #d60000;
       font-size:.85rem;margin-top:10px
     }
     .footer-inner{
-      max-width:1300px;margin:0 auto;display:grid;
-      grid-template-columns: 1.4fr 1.1fr 1.1fr;
-      gap:16px
+      max-width:1300px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: 1.2fr 1fr 1fr; /* Contacto(1) | Teléfonos(2) | Enlaces(3) */
+      gap:16px;
+      align-items:start;
     }
-    @media (max-width:900px){ .footer-inner{grid-template-columns:1fr} }
+    @media (max-width:900px){
+      .footer-inner{grid-template-columns:1fr}
+    }
 
     .footer-col h3{
       margin:0 0 6px;font-size:.95rem;text-transform:uppercase;letter-spacing:.03em;color:#fff
@@ -110,6 +115,7 @@
     }
     .phones li strong{color:#fff}
 
+    /* LICENCIA abajo (sin duplicar arriba) */
     .footer-bottom{
       max-width:1300px;margin:10px auto 0;border-top:1px solid #444;padding-top:6px;
       display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap
@@ -202,14 +208,21 @@
 
 <footer>
   <div class="footer-inner">
+    <!-- Columna 1: Contacto + Dirección + Correo -->
     <div class="footer-col">
       <h3>Contacto</h3>
       <p><strong>Dirección:</strong><br>
         Avenida Juan Carlos I, núm. 47<br>
         CP 06800 · Mérida (Extremadura)
       </p>
+      <p><strong>Correo:</strong>
+        <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a>
+      </p>
+    </div>
 
-      <p><strong>Teléfonos por sede:</strong></p>
+    <!-- Columna 2: Teléfonos por sede -->
+    <div class="footer-col">
+      <h3>Teléfonos por sede</h3>
       <ul class="phones">
         <li><strong>Badajoz:</strong> 924224104</li>
         <li><strong>Cáceres:</strong> 927223534</li>
@@ -218,12 +231,9 @@
         <li><strong>Don Benito:</strong> 924802080</li>
         <li><strong>Zafra:</strong> 924553202</li>
       </ul>
-
-      <p style="margin-top:10px;"><strong>Correo:</strong>
-        <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a>
-      </p>
     </div>
 
+    <!-- Columna 3: Enlaces rápidos -->
     <div class="footer-col">
       <h3>Enlaces rápidos</h3>
       <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
@@ -231,13 +241,6 @@
       <p><a href="https://x.com/FECCOOex" target="_blank">X (Twitter) FECCOOEx</a></p>
       <p><a href="https://www.instagram.com/feccooex" target="_blank">Instagram FECCOOEx</a></p>
       <p><a href="https://t.me/feccooextremadura" target="_blank">Canal de Telegram FECCOOExtremadura</a></p>
-    </div>
-
-    <div class="footer-col">
-      <h3>Licencia</h3>
-      <p>Los contenidos de esta web se publican bajo licencia:</p>
-      <p><strong>Creative Commons BY-ND 4.0</strong></p>
-      <p>Se permite compartir con atribución, sin modificaciones.</p>
     </div>
   </div>
 
