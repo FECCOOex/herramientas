@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <title>Normativa por temática · Herramientas FECCOOEx</title>
+
+  <!-- FOOTER CENTRALIZADO -->
+  <link rel="stylesheet" href="assets/footer.css" />
+
   <style>
     * { box-sizing: border-box; }
     body {
@@ -215,20 +219,6 @@
       font-style:italic;
       margin-top:8px;
     }
-
-    footer {
-      font-size: 0.75rem;
-      text-align: center;
-      padding: 12px;
-      color: #444;
-      border-top: 1px solid #e0e0e0;
-      background: #fafafa;
-    }
-    footer img {
-      height: 22px;
-      vertical-align: middle;
-      margin-right: 6px;
-    }
   </style>
 </head>
 
@@ -326,10 +316,9 @@
     </section>
   </main>
 
-  <footer>
-    <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
-    Este contenido se distribuye bajo licencia <strong>Creative Commons BY-ND 4.0</strong>, permitiendo compartir sin modificaciones y con atribución.
-  </footer>
+  <!-- FOOTER CENTRAL -->
+  <div id="site-footer"></div>
+  <script src="assets/footer.js"></script>
 
   <!-- Script: carga y filtrado de normativa -->
   <script>
@@ -345,9 +334,8 @@
         const next = text[i + 1];
 
         if (c === '"' && inQuotes && next === '"') {
-          // Doble comilla dentro de campo
           value += '"';
-          i++; // saltar la segunda
+          i++;
         } else if (c === '"') {
           inQuotes = !inQuotes;
         } else if (c === ',' && !inQuotes) {
@@ -384,7 +372,6 @@
     const contadorResultados = document.getElementById('contador-resultados');
     const mensajeSinResultados = document.getElementById('mensaje-sin-resultados');
 
-    // --- Cargar normativa.csv ---
     fetch('normativa.csv')
       .then(resp => {
         if (!resp.ok) throw new Error('No se pudo cargar normativa.csv');
@@ -414,7 +401,6 @@
         contadorResultados.textContent = 'Error al cargar la normativa.';
       });
 
-    // --- Rellenar filtros con valores únicos de los datos ---
     function inicializarFiltros(datos) {
       const categorias = new Set();
       const ambitos    = new Set();
@@ -426,7 +412,6 @@
         if (n.ambito)    ambitos.add(n.ambito);
         if (n.tipo_norma) tipos.add(n.tipo_norma);
         if (n.nivel_educativo) {
-          // Puede venir "Primaria, ESO" -> dividir
           n.nivel_educativo.split(',').forEach(nv => {
             const limpio = nv.trim();
             if (limpio) niveles.add(limpio);
@@ -449,7 +434,6 @@
       llenarSelect(filtroTipo, tipos);
       llenarSelect(filtroNivel, niveles);
 
-      // Escuchar cambios
       filtroCategoria.addEventListener('change', aplicarFiltros);
       filtroAmbito.addEventListener('change', aplicarFiltros);
       filtroTipo.addEventListener('change', aplicarFiltros);
@@ -458,7 +442,6 @@
       filtroAnio.addEventListener('input', aplicarFiltros);
     }
 
-    // --- Aplicar filtros y pintar resultados ---
     function aplicarFiltros() {
       if (!normas || normas.length === 0) return;
 
@@ -470,45 +453,28 @@
       const anio  = filtroAnio.value.trim();
 
       const filtradas = normas.filter(n => {
-        // Filtrar por categoría
-        if (cat && (!n.categoria || n.categoria.toLowerCase() !== cat)) {
-          return false;
-        }
-        // Filtrar por ámbito
-        if (amb && (!n.ambito || n.ambito.toLowerCase() !== amb)) {
-          return false;
-        }
-        // Filtrar por tipo de norma
-        if (tipo && (!n.tipo_norma || n.tipo_norma.toLowerCase() !== tipo)) {
-          return false;
-        }
-        // Filtrar por nivel educativo (puede haber varios niveles separados por coma)
+        if (cat && (!n.categoria || n.categoria.toLowerCase() !== cat)) return false;
+        if (amb && (!n.ambito || n.ambito.toLowerCase() !== amb)) return false;
+        if (tipo && (!n.tipo_norma || n.tipo_norma.toLowerCase() !== tipo)) return false;
+
         if (nivel) {
           const nivelesNorma = (n.nivel_educativo || '')
             .split(',')
             .map(x => x.trim().toLowerCase())
             .filter(x => x);
-          if (!nivelesNorma.includes(nivel)) {
-            return false;
-          }
+          if (!nivelesNorma.includes(nivel)) return false;
         }
-        // Filtrar por año (AAAA) a partir de la fecha
+
         if (anio) {
           const year = (n.fecha || '').substring(0,4);
-          if (year !== anio) {
-            return false;
-          }
+          if (year !== anio) return false;
         }
-        // Filtrar por texto libre en título, descripción y palabras clave
+
         if (texto) {
-          const blob = [
-            n.titulo || '',
-            n.descripcion || '',
-            n.palabras_clave || ''
-          ].join(' ').toLowerCase();
-          if (!blob.includes(texto)) {
-            return false;
-          }
+          const blob = [n.titulo || '', n.descripcion || '', n.palabras_clave || '']
+            .join(' ')
+            .toLowerCase();
+          if (!blob.includes(texto)) return false;
         }
         return true;
       });
@@ -526,7 +492,8 @@
       }
 
       mensajeSinResultados.style.display = 'none';
-      contadorResultados.textContent = `${lista.length} norma${lista.length !== 1 ? 's' : ''} encontrada${lista.length !== 1 ? 's' : ''}.`;
+      contadorResultados.textContent =
+        `${lista.length} norma${lista.length !== 1 ? 's' : ''} encontrada${lista.length !== 1 ? 's' : ''}.`;
 
       lista.forEach(n => {
         const card = document.createElement('article');
