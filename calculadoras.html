@@ -32,13 +32,9 @@
     .titles h1{ margin:0; font-size:1.6rem; font-weight:700; }
     .titles p{ margin:2px 0 0; font-size:0.9rem; opacity:0.95; }
     nav a{
-      color:#fff;
-      text-decoration:none;
-      font-weight:600;
-      padding:6px 12px;
-      border:1px solid rgba(255,255,255,0.7);
-      border-radius:999px;
-      transition:0.2s ease;
+      color:#fff; text-decoration:none; font-weight:600;
+      padding:6px 12px; border:1px solid rgba(255,255,255,0.7);
+      border-radius:999px; transition:0.2s ease;
     }
     nav a:hover{
       background:rgba(255,255,255,0.18);
@@ -229,7 +225,7 @@
       max-width:1300px;
       margin:0 auto;
       display:grid;
-      grid-template-columns: 2fr 1.2fr 1.2fr;
+      grid-template-columns: 1.4fr 1.4fr 1.2fr;
       gap:16px;
     }
     @media (max-width: 900px){
@@ -255,19 +251,6 @@
     }
     .footer-col a:hover{ text-decoration:underline; }
 
-    .footer-logo-row{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:6px;
-    }
-    .footer-logo-row img{
-      height:30px;
-      background:#d60000;
-      padding:3px 6px;
-      border-radius:4px;
-    }
-
     .contact-grid{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -277,13 +260,15 @@
     @media (max-width: 520px){
       .contact-grid{ grid-template-columns: 1fr; }
     }
-    .contact-grid .k{
+    .k{
       font-weight: 900;
       color:#fff;
       display:block;
       margin-bottom: 2px;
       font-size:0.82rem;
     }
+
+    .phones p{ margin: 0 0 6px; }
 
     .footer-bottom{
       max-width:1300px;
@@ -333,24 +318,21 @@
     </nav>
   </header>
 
-  <!-- CONTENIDO PRINCIPAL -->
   <main>
     <a class="btn-volver" href="index.html">Volver a la portada</a>
 
     <h1 class="page-title">Calculadoras</h1>
     <p class="page-subtitle">
       Herramientas de cálculo orientativas para distintos procedimientos (interinos, concurso de traslados, retribuciones, jubilación).
-      Cada calculadora incluirá referencia a la normativa aplicable y una explicación de supuestos y límites.
     </p>
 
     <section class="card">
       <div class="notice">
-        <strong>Importante:</strong> estas calculadoras son <strong>orientativas</strong>. La puntuación o resultado final depende de la validación administrativa,
-        documentación acreditativa y de la normativa/convocatoria vigente en cada momento.
+        <strong>Importante:</strong> estas calculadoras son <strong>orientativas</strong>. El resultado final depende de la convocatoria vigente,
+        la documentación aportada y la validación administrativa.
       </div>
 
       <div class="grid">
-        <!-- Interinos -->
         <article class="tool">
           <div class="badge-row">
             <span class="badge red">Disponible</span>
@@ -358,13 +340,10 @@
             <span class="badge">Interinos</span>
           </div>
           <h3>Calculadora de baremo de interinos</h3>
-          <p>
-            Estima tu puntuación total conforme al baremo de la última convocatoria (experiencia, oposición y otros méritos),
-            con topes automáticos por apartado.
-          </p>
+          <p>Estima tu puntuación conforme al baremo de la última convocatoria, con topes automáticos por apartado.</p>
           <div class="meta">
-            <div><strong>Normativa:</strong> Resolución 14/03/2025 (DOE)</div>
-            <div class="tiny">Incluye desglose por subapartados y total (máx. 10).</div>
+            <div><strong>Base:</strong> Resolución de 14/03/2025 (DOE)</div>
+            <div class="tiny">Desglose + total.</div>
           </div>
           <div class="actions">
             <a class="btn btn-primary" href="calculadoras/interinos.html">Abrir calculadora</a>
@@ -372,7 +351,6 @@
           </div>
         </article>
 
-        <!-- Concurso de traslados -->
         <article class="tool">
           <div class="badge-row">
             <span class="badge">En preparación</span>
@@ -380,13 +358,10 @@
             <span class="badge">Traslados</span>
           </div>
           <h3>Concurso de traslados</h3>
-          <p>
-            Calculadora orientativa del baremo de méritos del concurso (antigüedad, cargos, formación, méritos académicos…),
-            adaptada a la convocatoria vigente.
-          </p>
+          <p>Calculadora orientativa del baremo de méritos adaptada a la convocatoria vigente.</p>
           <div class="meta">
-            <div><strong>Normativa:</strong> (pendiente vincular a convocatoria vigente)</div>
-            <div class="tiny">Se añadirá selector de cuerpos/especialidades.</div>
+            <div><strong>Base:</strong> (pendiente de vincular)</div>
+            <div class="tiny">Selector de cuerpos/especialidades.</div>
           </div>
           <div class="actions">
             <a class="btn btn-primary btn-disabled" href="#">Próximamente</a>
@@ -394,7 +369,6 @@
           </div>
         </article>
 
-        <!-- Retribuciones -->
         <article class="tool">
           <div class="badge-row">
             <span class="badge">En preparación</span>
@@ -402,13 +376,10 @@
             <span class="badge">Retribuciones</span>
           </div>
           <h3>Retribuciones (estimador)</h3>
-          <p>
-            Estima retribuciones aproximadas por cuerpo, jornada, trienios/sexenios y complementos (según tablas vigentes).
-            Útil para comparar escenarios.
-          </p>
+          <p>Estimación por cuerpo, jornada y complementos según tablas vigentes.</p>
           <div class="meta">
-            <div><strong>Normativa:</strong> (tablas retributivas vigentes)</div>
-            <div class="tiny">Se añadirá exportación a PDF/CSV.</div>
+            <div><strong>Base:</strong> (tablas retributivas vigentes)</div>
+            <div class="tiny">Comparador de escenarios.</div>
           </div>
           <div class="actions">
             <a class="btn btn-primary btn-disabled" href="#">Próximamente</a>
@@ -416,92 +387,63 @@
           </div>
         </article>
 
-        <!-- Jubilación -->
         <article class="tool">
           <div class="badge-row">
             <span class="badge">En preparación</span>
             <span class="badge">Jubilación</span>
-            <span class="badge">Clases pasivas / SS</span>
           </div>
           <h3>Jubilación (orientador)</h3>
-          <p>
-            Calcula escenarios (ordinaria/anticipada, años cotizados, edad, coeficientes), y enlaza a normativa/guías.
-            Incluye advertencias por casuística.
-          </p>
+          <p>Escenarios orientativos (ordinaria/anticipada) y checklist de documentación.</p>
           <div class="meta">
-            <div><strong>Normativa:</strong> (pendiente vincular: Seguridad Social / Clases Pasivas)</div>
-            <div class="tiny">Se añadirá checklist de documentación.</div>
+            <div><strong>Base:</strong> (pendiente de vincular)</div>
+            <div class="tiny">Advertencias por casuística.</div>
           </div>
           <div class="actions">
             <a class="btn btn-primary btn-disabled" href="#">Próximamente</a>
             <a class="btn btn-secondary" href="guias.html">Ver guías</a>
           </div>
         </article>
-
-        <!-- Tarjeta “Añadir calculadora” (plantilla) -->
-        <article class="tool">
-          <div class="badge-row">
-            <span class="badge">Plantilla</span>
-            <span class="badge">Modular</span>
-          </div>
-          <h3>¿Nueva calculadora?</h3>
-          <p>
-            Esta sección está pensada para crecer. Cada calculadora se aloja en <code>/calculadoras/</code> e incluye:
-            descripción, supuestos, normativa aplicable y versión.
-          </p>
-          <div class="meta">
-            <div><strong>Sugerencia:</strong> crear <code>calculadoras.csv</code> para generar estas tarjetas automáticamente.</div>
-            <div class="tiny">Si quieres, lo implementamos como hicimos con guías/publicaciones.</div>
-          </div>
-          <div class="actions">
-            <a class="btn btn-secondary" href="consultas.html">Proponer una</a>
-          </div>
-        </article>
       </div>
     </section>
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
-      <div class="footer-col">
-        <div class="footer-logo-row">
-          <img src="img/feccooex.png" alt="FECCOOEx">
-          <div>
-            <strong>Federación de Enseñanza de CCOO de Extremadura</strong><br>
-            <span style="font-size:0.8rem;">Herramientas digitales para la acción sindical y la comunidad educativa.</span>
-          </div>
-        </div>
-        <p>Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo del profesorado y la calidad de la educación en Extremadura.</p>
-      </div>
-
+      <!-- Col 1: Contacto (Dirección + Correo) -->
       <div class="footer-col">
         <h3>Contacto</h3>
-
         <div class="contact-grid">
           <div>
             <span class="k">Dirección</span>
-            <p style="margin:0 0 6px;">
-              Avenida Juan Carlos I, nº 47<br>
+            <p>
+              Avenida Juan Carlos I, núm. 47<br>
               CP 06800 · Mérida (Extremadura)
             </p>
-
             <span class="k">Correo</span>
             <p style="margin:0;">
               <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a>
             </p>
           </div>
 
-          <div>
-            <span class="k">Teléfono</span>
-            <p style="margin:0 0 6px;">924 330 018</p>
-
-            <span class="k">Horario</span>
-            <p style="margin:0;">(Añadir si procede)</p>
+          <div class="phones">
+            <span class="k">Teléfonos por sede</span>
+            <p>Badajoz: 924224104</p>
+            <p>Cáceres: 927223534</p>
+            <p>Mérida: 924330018</p>
+            <p>Plasencia: 927424086</p>
+            <p>Don Benito: 924802080</p>
+            <p>Zafra: 924553202</p>
           </div>
         </div>
       </div>
 
+      <!-- Col 2: (vacío a propósito si queréis meter algo futuro) -->
+      <div class="footer-col">
+        <h3> </h3>
+        <p style="opacity:0.9;"> </p>
+      </div>
+
+      <!-- Col 3: Enlaces -->
       <div class="footer-col">
         <h3>Enlaces rápidos</h3>
         <p><a href="https://extremadura.fe.ccoo.es/" target="_blank" rel="noopener noreferrer">Web FECCOOExtremadura</a></p>
