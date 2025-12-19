@@ -1,0 +1,8 @@
+id_calc,orden,tipo,titulo_norma,fecha,enlace
+c01,1,base,Real Decreto 276/2007,2007-02-23,https://www.boe.es/buscar/doc.php?id=BOE-A-2007-4232
+c01,2,baremo,Convocatoria de interinos Extremadura,2024-06-01,https://www.educarex.es
+c02,1,base,Real Decreto 1364/2010,2010-10-29,https://www.boe.es/buscar/doc.php?id=BOE-A-2010-16564
+c02,2,procedimiento,Orden de convocatoria CGT,2024-11-01,https://www.boe.es
+c03,1,base,Presupuestos Generales del Estado,2024-01-01,https://www.boe.es
+c03,2,instrucciones,Retribuciones docentes Extremadura,2024-09-01,https://www.educarex.es
+c04,1,base,Real Decreto Legislativo 8/2015,2015-10-30,https://www.boe.es/buscar/doc.php?id=BOE-A-2015-11724

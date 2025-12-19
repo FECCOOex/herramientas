@@ -1,0 +1,5 @@
+id,titulo,slug,proceso,colectivo,descripcion,palabras_clave,url,estado,ultima_actualizacion,orden,activo
+c01,Baremo de interinos,interinos,Interinos,docente,Calculadora orientativa del baremo de méritos para personal interino según convocatorias vigentes.,baremo interinos méritos experiencia formación,/calculadoras/interinos.html,activa,febrero 2025,1,1
+c02,Concurso de traslados,traslados,Traslados,docente,Simulación de puntuación en el concurso general de traslados del personal docente.,concurso traslados antigüedad méritos,/calculadoras/traslados.html,en_desarrollo,enero 2025,2,1
+c03,Retribuciones,retribuciones,Retribuciones,ambos,Calculadora de retribuciones mensuales según cuerpo,jornada y complementos.,/calculadoras/retribuciones.html,en_desarrollo,enero 2025,3,1
+c04,Jubilación,jubilacion,Jubilación,docente,Estimación orientativa de fechas y condiciones de jubilación del personal docente.,jubilación retiro edades cotización,/calculadoras/jubilacion.html,en_desarrollo,enero 2025,4,1
