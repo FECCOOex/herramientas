@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    *{ box-sizing:border-box; }
+    * { box-sizing: border-box; }
+
     body{
       margin:0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -37,12 +38,19 @@
       padding:6px 12px;
       border:1px solid rgba(255,255,255,0.7);
       border-radius:999px;
+      transition:0.2s ease;
+    }
+    nav a:hover{
+      background:rgba(255,255,255,0.18);
+      transform: translateY(-1px);
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
     }
 
+    /* MAIN */
     main{
-      max-width:1200px;
-      margin:26px auto 40px;
-      padding:0 16px 40px;
+      max-width: 1180px;
+      margin: 26px auto 40px;
+      padding: 0 16px 40px;
     }
 
     .btn-volver{
@@ -53,118 +61,169 @@
       background:#d60000;
       color:#fff;
       font-size:0.9rem;
-      font-weight:600;
-      text-decoration:none;
-    }
-
-    h1.page-title{ margin:0 0 6px; font-size:1.6rem; }
-    .page-subtitle{ margin:0 0 14px; color:#444; font-size:0.95rem; }
-
-    /* FILTROS */
-    .filters{
-      display:grid;
-      grid-template-columns: 1fr 1fr 2fr;
-      gap:10px;
-      margin-bottom:16px;
-    }
-    @media(max-width:900px){
-      .filters{ grid-template-columns:1fr; }
-    }
-    label{
-      font-size:0.8rem;
       font-weight:700;
-      color:#555;
-      display:block;
-      margin-bottom:3px;
+      text-decoration:none;
+      transition: background 0.15s;
     }
-    select,input{
-      width:100%;
-      padding:7px 9px;
-      border-radius:6px;
-      border:1px solid #cbd5e1;
-      font-size:0.9rem;
-    }
+    .btn-volver:hover{ background:#b40000; }
 
-    /* GRID */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:14px;
+    .page-title{ margin: 0 0 6px; font-size:1.6rem; }
+    .page-subtitle{
+      margin:0 0 14px;
+      color:#444;
+      font-size:0.95rem;
+      line-height: 1.35rem;
     }
-    @media(max-width:1100px){ .grid{ grid-template-columns:repeat(2,1fr); } }
-    @media(max-width:700px){ .grid{ grid-template-columns:1fr; } }
 
     .card{
       background:#fff;
       border:1px solid #e1e4ea;
-      border-radius:14px;
-      padding:14px;
+      border-radius: 12px;
       box-shadow:0 3px 10px rgba(0,0,0,0.10);
-      display:flex;
-      flex-direction:column;
-      gap:8px;
+      padding: 14px 16px 16px;
+      margin-bottom: 14px;
     }
 
-    .badges{
+    .notice{
+      background:#f9fafb;
+      border: 1px dashed #e5e7eb;
+      border-radius: 12px;
+      padding: 10px 12px;
+      color:#4b5563;
+      font-size:0.88rem;
+      line-height:1.25rem;
+      margin-bottom:10px;
+    }
+
+    /* GRID de tarjetas */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    @media (max-width: 1080px){
+      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 700px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .tool{
+      background:#fff;
+      border:1px solid #e1e4ea;
+      border-radius: 14px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.10);
+      padding: 14px 14px 12px;
       display:flex;
-      gap:6px;
-      flex-wrap:wrap;
+      flex-direction:column;
+      gap: 10px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      min-height: 230px;
+    }
+    .tool:hover{
+      transform: translateY(-2px);
+      box-shadow:0 10px 22px rgba(0,0,0,0.14);
+    }
+
+    .badge-row{
+      display:flex;
+      gap:8px;
+      flex-wrap: wrap;
+      align-items:center;
     }
     .badge{
       font-size:0.75rem;
-      padding:2px 8px;
-      border-radius:999px;
+      font-weight:900;
+      padding: 3px 10px;
+      border-radius: 999px;
       background:#f3f4f6;
-      border:1px solid #e5e7eb;
-      font-weight:700;
+      color:#374151;
+      border: 1px solid #e5e7eb;
+      white-space: nowrap;
+    }
+    .badge.red{
+      background:#fff1f2;
+      border-color:#fecdd3;
+      color:#9f1239;
     }
 
-    .card h3{
+    .tool h3{
       margin:0;
       font-size:1.05rem;
+      font-weight:950;
       color:#111827;
+      line-height: 1.2rem;
     }
-
-    .desc{
-      font-size:0.9rem;
+    .tool p{
+      margin:0;
       color:#374151;
-      flex:1;
+      font-size:0.92rem;
+      line-height: 1.25rem;
+      flex: 1;
     }
 
-    .normativa{
-      font-size:0.8rem;
+    .meta{
+      font-size:0.82rem;
       color:#555;
-    }
-    .normativa ul{
-      margin:4px 0 0;
-      padding-left:16px;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
     }
 
     .actions{
-      margin-top:6px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 4px;
     }
+
     .btn{
-      display:inline-block;
-      padding:7px 12px;
-      border-radius:8px;
-      font-weight:800;
+      border:none;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-weight:900;
+      cursor:pointer;
       text-decoration:none;
-      font-size:0.9rem;
+      display:inline-block;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
     }
-    .btn-primary{ background:#d60000; color:#fff; }
-    .btn-disabled{
-      background:#9ca3af;
+    .btn-primary{
+      background:#d60000;
       color:#fff;
+    }
+    .btn-primary:hover{
+      background:#b40000;
+      transform: translateY(-1px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    }
+    .btn-secondary{
+      background:#111827;
+      color:#fff;
+    }
+    .btn-secondary:hover{
+      transform: translateY(-1px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    }
+    .btn-disabled{
+      opacity:0.55;
+      pointer-events:none;
       cursor:not-allowed;
     }
 
-    /* FOOTER */
+    .tiny{
+      font-size:0.82rem;
+      color:#6b7280;
+      line-height:1.25rem;
+    }
+
+    /* FOOTER institucional (nuevo) */
     footer{
       background:#222;
       color:#f2f2f2;
       padding:18px 20px 10px;
       border-top:3px solid #d60000;
       font-size:0.85rem;
+      margin-top: 10px;
     }
     .footer-inner{
       max-width:1300px;
@@ -173,10 +232,59 @@
       grid-template-columns: 2fr 1.2fr 1.2fr;
       gap:16px;
     }
-    @media(max-width:900px){ .footer-inner{ grid-template-columns:1fr; } }
-    .footer-col h3{ margin:0 0 6px; font-size:0.95rem; text-transform:uppercase; }
-    .footer-col p{ margin:0 0 4px; font-size:0.82rem; color:#e0e0e0; }
-    .footer-col a{ color:#ffdddd; text-decoration:none; font-size:0.82rem; }
+    @media (max-width: 900px){
+      .footer-inner{ grid-template-columns: 1fr; }
+    }
+    .footer-col h3{
+      margin:0 0 6px;
+      font-size:0.95rem;
+      text-transform:uppercase;
+      letter-spacing:0.03em;
+      color:#fff;
+    }
+    .footer-col p{
+      margin:0 0 6px;
+      font-size:0.82rem;
+      color:#e0e0e0;
+      line-height:1.2rem;
+    }
+    .footer-col a{
+      color:#ffdddd;
+      text-decoration:none;
+      font-size:0.82rem;
+    }
+    .footer-col a:hover{ text-decoration:underline; }
+
+    .footer-logo-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:6px;
+    }
+    .footer-logo-row img{
+      height:30px;
+      background:#d60000;
+      padding:3px 6px;
+      border-radius:4px;
+    }
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 14px;
+      margin-top: 6px;
+    }
+    @media (max-width: 520px){
+      .contact-grid{ grid-template-columns: 1fr; }
+    }
+    .contact-grid .k{
+      font-weight: 900;
+      color:#fff;
+      display:block;
+      margin-bottom: 2px;
+      font-size:0.82rem;
+    }
+
     .footer-bottom{
       max-width:1300px;
       margin:10px auto 0;
@@ -184,6 +292,8 @@
       padding-top:6px;
       display:flex;
       justify-content:space-between;
+      align-items:center;
+      gap:8px;
       flex-wrap:wrap;
     }
     .footer-bottom-left{
@@ -191,166 +301,230 @@
       align-items:center;
       gap:6px;
       font-size:0.78rem;
+      color:#e0e0e0;
     }
     .footer-bottom-left img{ height:18px; }
-    .footer-bottom-right{ font-size:0.78rem; color:#bbb; }
+    .footer-bottom-right{
+      font-size:0.78rem;
+      color:#bbbbbb;
+      text-align:right;
+    }
+    @media (max-width: 600px){
+      .footer-bottom{ flex-direction:column; align-items:flex-start; }
+      .footer-bottom-right{ text-align:left; }
+    }
   </style>
 </head>
 
 <body>
-<header>
-  <div style="display:flex; align-items:center; gap:16px;">
-    <img src="img/feccooex.png" alt="FECCOOEx">
-    <div class="titles">
-      <h1>Herramientas FECCOOEx</h1>
-      <p>Recursos públicos y sindicales para la comunidad educativa</p>
-    </div>
-  </div>
-  <nav>
-    <a href="delegados.html">Área delegados/as</a>
-  </nav>
-</header>
 
-<main>
-  <a class="btn-volver" href="index.html">Volver a la portada</a>
-
-  <h1 class="page-title">Calculadoras</h1>
-  <p class="page-subtitle">
-    Herramientas orientativas para distintos procesos administrativos y laborales del ámbito educativo,
-    siempre basadas en la normativa vigente.
-  </p>
-
-  <div class="filters">
-    <div>
-      <label>Proceso</label>
-      <select id="f-proceso"><option value="">Todos</option></select>
-    </div>
-    <div>
-      <label>Colectivo</label>
-      <select id="f-colectivo">
-        <option value="">Todos</option>
-        <option value="docente">Docente</option>
-        <option value="laboral">Laboral</option>
-        <option value="ambos">Ambos</option>
-      </select>
-    </div>
-    <div>
-      <label>Buscar</label>
-      <input id="f-texto" placeholder="Baremo, jubilación, retribuciones…">
-    </div>
-  </div>
-
-  <div id="grid" class="grid"></div>
-</main>
-
-<footer>
-  <div class="footer-inner">
-    <div class="footer-col">
-      <p><strong>Federación de Enseñanza de CCOO de Extremadura</strong></p>
-      <p>Herramientas digitales para la acción sindical y la comunidad educativa.</p>
-    </div>
-    <div class="footer-col">
-      <h3>Contacto</h3>
-      <p>Avenida Juan Carlos I, 47 · Mérida</p>
-      <p><a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a></p>
-    </div>
-    <div class="footer-col">
-      <h3>Enlaces</h3>
-      <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <div class="footer-bottom-left">
-      <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png">
-      <span>Creative Commons BY-ND 4.0</span>
-    </div>
-    <div class="footer-bottom-right">
-      © <span id="anio"></span> FECCOOEx
-    </div>
-  </div>
-</footer>
-
-<script>
-document.getElementById("anio").textContent = new Date().getFullYear();
-
-function parseCSV(t){
-  const l=t.trim().split(/\r?\n/); if(!l.length) return [];
-  const d=l[0].includes(";")?";":",";
-  const h=l[0].split(d).map(x=>x.trim());
-  return l.slice(1).filter(x=>x.trim()).map(r=>{
-    const c=r.split(d); const o={};
-    h.forEach((k,i)=>o[k]=(c[i]||"").trim());
-    return o;
-  });
-}
-
-const grid=document.getElementById("grid");
-const fProceso=document.getElementById("f-proceso");
-const fColectivo=document.getElementById("f-colectivo");
-const fTexto=document.getElementById("f-texto");
-
-let calcs=[], normas=[];
-
-Promise.all([
-  fetch("calculadoras.csv").then(r=>r.text()),
-  fetch("normativa_calculadoras.csv").then(r=>r.text())
-]).then(([c,n])=>{
-  calcs=parseCSV(c).filter(x=>x.activo==="1");
-  normas=parseCSV(n);
-
-  [...new Set(calcs.map(c=>c.proceso))].forEach(p=>{
-    const o=document.createElement("option");
-    o.value=p; o.textContent=p;
-    fProceso.appendChild(o);
-  });
-
-  render();
-});
-
-function render(){
-  const p=fProceso.value.toLowerCase();
-  const c=fColectivo.value.toLowerCase();
-  const t=fTexto.value.toLowerCase();
-
-  grid.innerHTML="";
-
-  calcs.filter(x=>{
-    if(p && x.proceso.toLowerCase()!==p) return false;
-    if(c && x.colectivo.toLowerCase()!==c) return false;
-    if(t && !(x.titulo+x.descripcion+x.palabras_clave).toLowerCase().includes(t)) return false;
-    return true;
-  }).sort((a,b)=>a.orden-b.orden).forEach(calc=>{
-    const card=document.createElement("div");
-    card.className="card";
-
-    const relNorm=normas.filter(n=>n.id_calc===calc.id).sort((a,b)=>a.orden-b.orden);
-
-    card.innerHTML=`
-      <div class="badges">
-        <span class="badge">${calc.proceso}</span>
-        <span class="badge">${calc.colectivo}</span>
-        <span class="badge">${calc.estado}</span>
+  <!-- HEADER -->
+  <header>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <img src="img/feccooex.png" alt="FECCOOEx">
+      <div class="titles">
+        <h1>Herramientas FECCOOEx</h1>
+        <p>Recursos públicos y sindicales para la comunidad educativa</p>
       </div>
-      <h3>${calc.titulo}</h3>
-      <p class="desc">${calc.descripcion}</p>
-      <div class="normativa">
-        <strong>Normativa relacionada:</strong>
-        <ul>${relNorm.slice(0,3).map(n=>`<li><a href="${n.enlace}" target="_blank">${n.titulo_norma}</a></li>`).join("")}</ul>
-      </div>
-      <div class="actions">
-        ${calc.estado==="activa"
-          ? `<a class="btn btn-primary" href="${calc.url}">Abrir calculadora</a>`
-          : `<span class="btn btn-disabled">En desarrollo</span>`
-        }
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-}
+    </div>
 
-[fProceso,fColectivo].forEach(e=>e.addEventListener("change",render));
-fTexto.addEventListener("input",render);
-</script>
+    <nav>
+      <a href="delegados.html">Área delegados/as</a>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main>
+    <a class="btn-volver" href="index.html">Volver a la portada</a>
+
+    <h1 class="page-title">Calculadoras</h1>
+    <p class="page-subtitle">
+      Herramientas de cálculo orientativas para distintos procedimientos (interinos, concurso de traslados, retribuciones, jubilación).
+      Cada calculadora incluirá referencia a la normativa aplicable y una explicación de supuestos y límites.
+    </p>
+
+    <section class="card">
+      <div class="notice">
+        <strong>Importante:</strong> estas calculadoras son <strong>orientativas</strong>. La puntuación o resultado final depende de la validación administrativa,
+        documentación acreditativa y de la normativa/convocatoria vigente en cada momento.
+      </div>
+
+      <div class="grid">
+        <!-- Interinos -->
+        <article class="tool">
+          <div class="badge-row">
+            <span class="badge red">Disponible</span>
+            <span class="badge">Baremo</span>
+            <span class="badge">Interinos</span>
+          </div>
+          <h3>Calculadora de baremo de interinos</h3>
+          <p>
+            Estima tu puntuación total conforme al baremo de la última convocatoria (experiencia, oposición y otros méritos),
+            con topes automáticos por apartado.
+          </p>
+          <div class="meta">
+            <div><strong>Normativa:</strong> Resolución 14/03/2025 (DOE)</div>
+            <div class="tiny">Incluye desglose por subapartados y total (máx. 10).</div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-primary" href="calculadoras/interinos.html">Abrir calculadora</a>
+            <a class="btn btn-secondary" href="normativa.html">Ver normativa</a>
+          </div>
+        </article>
+
+        <!-- Concurso de traslados -->
+        <article class="tool">
+          <div class="badge-row">
+            <span class="badge">En preparación</span>
+            <span class="badge">Concurso</span>
+            <span class="badge">Traslados</span>
+          </div>
+          <h3>Concurso de traslados</h3>
+          <p>
+            Calculadora orientativa del baremo de méritos del concurso (antigüedad, cargos, formación, méritos académicos…),
+            adaptada a la convocatoria vigente.
+          </p>
+          <div class="meta">
+            <div><strong>Normativa:</strong> (pendiente vincular a convocatoria vigente)</div>
+            <div class="tiny">Se añadirá selector de cuerpos/especialidades.</div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-primary btn-disabled" href="#">Próximamente</a>
+            <a class="btn btn-secondary" href="normativa.html">Ver normativa</a>
+          </div>
+        </article>
+
+        <!-- Retribuciones -->
+        <article class="tool">
+          <div class="badge-row">
+            <span class="badge">En preparación</span>
+            <span class="badge">Nómina</span>
+            <span class="badge">Retribuciones</span>
+          </div>
+          <h3>Retribuciones (estimador)</h3>
+          <p>
+            Estima retribuciones aproximadas por cuerpo, jornada, trienios/sexenios y complementos (según tablas vigentes).
+            Útil para comparar escenarios.
+          </p>
+          <div class="meta">
+            <div><strong>Normativa:</strong> (tablas retributivas vigentes)</div>
+            <div class="tiny">Se añadirá exportación a PDF/CSV.</div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-primary btn-disabled" href="#">Próximamente</a>
+            <a class="btn btn-secondary" href="normativa.html">Ver normativa</a>
+          </div>
+        </article>
+
+        <!-- Jubilación -->
+        <article class="tool">
+          <div class="badge-row">
+            <span class="badge">En preparación</span>
+            <span class="badge">Jubilación</span>
+            <span class="badge">Clases pasivas / SS</span>
+          </div>
+          <h3>Jubilación (orientador)</h3>
+          <p>
+            Calcula escenarios (ordinaria/anticipada, años cotizados, edad, coeficientes), y enlaza a normativa/guías.
+            Incluye advertencias por casuística.
+          </p>
+          <div class="meta">
+            <div><strong>Normativa:</strong> (pendiente vincular: Seguridad Social / Clases Pasivas)</div>
+            <div class="tiny">Se añadirá checklist de documentación.</div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-primary btn-disabled" href="#">Próximamente</a>
+            <a class="btn btn-secondary" href="guias.html">Ver guías</a>
+          </div>
+        </article>
+
+        <!-- Tarjeta “Añadir calculadora” (plantilla) -->
+        <article class="tool">
+          <div class="badge-row">
+            <span class="badge">Plantilla</span>
+            <span class="badge">Modular</span>
+          </div>
+          <h3>¿Nueva calculadora?</h3>
+          <p>
+            Esta sección está pensada para crecer. Cada calculadora se aloja en <code>/calculadoras/</code> e incluye:
+            descripción, supuestos, normativa aplicable y versión.
+          </p>
+          <div class="meta">
+            <div><strong>Sugerencia:</strong> crear <code>calculadoras.csv</code> para generar estas tarjetas automáticamente.</div>
+            <div class="tiny">Si quieres, lo implementamos como hicimos con guías/publicaciones.</div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-secondary" href="consultas.html">Proponer una</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-logo-row">
+          <img src="img/feccooex.png" alt="FECCOOEx">
+          <div>
+            <strong>Federación de Enseñanza de CCOO de Extremadura</strong><br>
+            <span style="font-size:0.8rem;">Herramientas digitales para la acción sindical y la comunidad educativa.</span>
+          </div>
+        </div>
+        <p>Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo del profesorado y la calidad de la educación en Extremadura.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Contacto</h3>
+
+        <div class="contact-grid">
+          <div>
+            <span class="k">Dirección</span>
+            <p style="margin:0 0 6px;">
+              Avenida Juan Carlos I, nº 47<br>
+              CP 06800 · Mérida (Extremadura)
+            </p>
+
+            <span class="k">Correo</span>
+            <p style="margin:0;">
+              <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a>
+            </p>
+          </div>
+
+          <div>
+            <span class="k">Teléfono</span>
+            <p style="margin:0 0 6px;">924 330 018</p>
+
+            <span class="k">Horario</span>
+            <p style="margin:0;">(Añadir si procede)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h3>Enlaces rápidos</h3>
+        <p><a href="https://extremadura.fe.ccoo.es/" target="_blank" rel="noopener noreferrer">Web FECCOOExtremadura</a></p>
+        <p><a href="https://www.facebook.com/feccooex" target="_blank" rel="noopener noreferrer">Facebook FECCOOEx</a></p>
+        <p><a href="https://x.com/FECCOOex" target="_blank" rel="noopener noreferrer">X (Twitter) FECCOOEx</a></p>
+        <p><a href="https://www.instagram.com/feccooex" target="_blank" rel="noopener noreferrer">Instagram FECCOOEx</a></p>
+        <p><a href="https://t.me/feccooextremadura" target="_blank" rel="noopener noreferrer">Canal de Telegram FECCOOExtremadura</a></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
+        <span>Contenido bajo licencia Creative Commons BY-ND 4.0 (se permite compartir sin modificaciones y con atribución).</span>
+      </div>
+      <div class="footer-bottom-right">
+        © <span id="anio-footer"></span> Federación de Enseñanza de CCOO de Extremadura
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('anio-footer').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
