@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Calculadoras · Herramientas FECCOOEx</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:#f3f4f6;
+      color:#222;
+    }
+
+    /* HEADER */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 24px;
+      background:#d60000;
+      color:#fff;
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    header img{ height:52px; }
+    .titles h1{ margin:0; font-size:1.6rem; font-weight:700; }
+    .titles p{ margin:2px 0 0; font-size:0.9rem; opacity:0.95; }
+    nav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      padding:6px 12px;
+      border:1px solid rgba(255,255,255,0.7);
+      border-radius:999px;
+    }
+
+    main{
+      max-width:1200px;
+      margin:26px auto 40px;
+      padding:0 16px 40px;
+    }
+
+    .btn-volver{
+      display:inline-block;
+      margin-bottom:16px;
+      padding:6px 10px;
+      border-radius:6px;
+      background:#d60000;
+      color:#fff;
+      font-size:0.9rem;
+      font-weight:600;
+      text-decoration:none;
+    }
+
+    h1.page-title{ margin:0 0 6px; font-size:1.6rem; }
+    .page-subtitle{ margin:0 0 14px; color:#444; font-size:0.95rem; }
+
+    /* FILTROS */
+    .filters{
+      display:grid;
+      grid-template-columns: 1fr 1fr 2fr;
+      gap:10px;
+      margin-bottom:16px;
+    }
+    @media(max-width:900px){
+      .filters{ grid-template-columns:1fr; }
+    }
+    label{
+      font-size:0.8rem;
+      font-weight:700;
+      color:#555;
+      display:block;
+      margin-bottom:3px;
+    }
+    select,input{
+      width:100%;
+      padding:7px 9px;
+      border-radius:6px;
+      border:1px solid #cbd5e1;
+      font-size:0.9rem;
+    }
+
+    /* GRID */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:14px;
+    }
+    @media(max-width:1100px){ .grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:700px){ .grid{ grid-template-columns:1fr; } }
+
+    .card{
+      background:#fff;
+      border:1px solid #e1e4ea;
+      border-radius:14px;
+      padding:14px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.10);
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .badges{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+    .badge{
+      font-size:0.75rem;
+      padding:2px 8px;
+      border-radius:999px;
+      background:#f3f4f6;
+      border:1px solid #e5e7eb;
+      font-weight:700;
+    }
+
+    .card h3{
+      margin:0;
+      font-size:1.05rem;
+      color:#111827;
+    }
+
+    .desc{
+      font-size:0.9rem;
+      color:#374151;
+      flex:1;
+    }
+
+    .normativa{
+      font-size:0.8rem;
+      color:#555;
+    }
+    .normativa ul{
+      margin:4px 0 0;
+      padding-left:16px;
+    }
+
+    .actions{
+      margin-top:6px;
+    }
+    .btn{
+      display:inline-block;
+      padding:7px 12px;
+      border-radius:8px;
+      font-weight:800;
+      text-decoration:none;
+      font-size:0.9rem;
+    }
+    .btn-primary{ background:#d60000; color:#fff; }
+    .btn-disabled{
+      background:#9ca3af;
+      color:#fff;
+      cursor:not-allowed;
+    }
+
+    /* FOOTER */
+    footer{
+      background:#222;
+      color:#f2f2f2;
+      padding:18px 20px 10px;
+      border-top:3px solid #d60000;
+      font-size:0.85rem;
+    }
+    .footer-inner{
+      max-width:1300px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap:16px;
+    }
+    @media(max-width:900px){ .footer-inner{ grid-template-columns:1fr; } }
+    .footer-col h3{ margin:0 0 6px; font-size:0.95rem; text-transform:uppercase; }
+    .footer-col p{ margin:0 0 4px; font-size:0.82rem; color:#e0e0e0; }
+    .footer-col a{ color:#ffdddd; text-decoration:none; font-size:0.82rem; }
+    .footer-bottom{
+      max-width:1300px;
+      margin:10px auto 0;
+      border-top:1px solid #444;
+      padding-top:6px;
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .footer-bottom-left{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:0.78rem;
+    }
+    .footer-bottom-left img{ height:18px; }
+    .footer-bottom-right{ font-size:0.78rem; color:#bbb; }
+  </style>
+</head>
+
+<body>
+<header>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <img src="img/feccooex.png" alt="FECCOOEx">
+    <div class="titles">
+      <h1>Herramientas FECCOOEx</h1>
+      <p>Recursos públicos y sindicales para la comunidad educativa</p>
+    </div>
+  </div>
+  <nav>
+    <a href="delegados.html">Área delegados/as</a>
+  </nav>
+</header>
+
+<main>
+  <a class="btn-volver" href="index.html">Volver a la portada</a>
+
+  <h1 class="page-title">Calculadoras</h1>
+  <p class="page-subtitle">
+    Herramientas orientativas para distintos procesos administrativos y laborales del ámbito educativo,
+    siempre basadas en la normativa vigente.
+  </p>
+
+  <div class="filters">
+    <div>
+      <label>Proceso</label>
+      <select id="f-proceso"><option value="">Todos</option></select>
+    </div>
+    <div>
+      <label>Colectivo</label>
+      <select id="f-colectivo">
+        <option value="">Todos</option>
+        <option value="docente">Docente</option>
+        <option value="laboral">Laboral</option>
+        <option value="ambos">Ambos</option>
+      </select>
+    </div>
+    <div>
+      <label>Buscar</label>
+      <input id="f-texto" placeholder="Baremo, jubilación, retribuciones…">
+    </div>
+  </div>
+
+  <div id="grid" class="grid"></div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <p><strong>Federación de Enseñanza de CCOO de Extremadura</strong></p>
+      <p>Herramientas digitales para la acción sindical y la comunidad educativa.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Contacto</h3>
+      <p>Avenida Juan Carlos I, 47 · Mérida</p>
+      <p><a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a></p>
+    </div>
+    <div class="footer-col">
+      <h3>Enlaces</h3>
+      <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-bottom-left">
+      <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png">
+      <span>Creative Commons BY-ND 4.0</span>
+    </div>
+    <div class="footer-bottom-right">
+      © <span id="anio"></span> FECCOOEx
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById("anio").textContent = new Date().getFullYear();
+
+function parseCSV(t){
+  const l=t.trim().split(/\r?\n/); if(!l.length) return [];
+  const d=l[0].includes(";")?";":",";
+  const h=l[0].split(d).map(x=>x.trim());
+  return l.slice(1).filter(x=>x.trim()).map(r=>{
+    const c=r.split(d); const o={};
+    h.forEach((k,i)=>o[k]=(c[i]||"").trim());
+    return o;
+  });
+}
+
+const grid=document.getElementById("grid");
+const fProceso=document.getElementById("f-proceso");
+const fColectivo=document.getElementById("f-colectivo");
+const fTexto=document.getElementById("f-texto");
+
+let calcs=[], normas=[];
+
+Promise.all([
+  fetch("calculadoras.csv").then(r=>r.text()),
+  fetch("normativa_calculadoras.csv").then(r=>r.text())
+]).then(([c,n])=>{
+  calcs=parseCSV(c).filter(x=>x.activo==="1");
+  normas=parseCSV(n);
+
+  [...new Set(calcs.map(c=>c.proceso))].forEach(p=>{
+    const o=document.createElement("option");
+    o.value=p; o.textContent=p;
+    fProceso.appendChild(o);
+  });
+
+  render();
+});
+
+function render(){
+  const p=fProceso.value.toLowerCase();
+  const c=fColectivo.value.toLowerCase();
+  const t=fTexto.value.toLowerCase();
+
+  grid.innerHTML="";
+
+  calcs.filter(x=>{
+    if(p && x.proceso.toLowerCase()!==p) return false;
+    if(c && x.colectivo.toLowerCase()!==c) return false;
+    if(t && !(x.titulo+x.descripcion+x.palabras_clave).toLowerCase().includes(t)) return false;
+    return true;
+  }).sort((a,b)=>a.orden-b.orden).forEach(calc=>{
+    const card=document.createElement("div");
+    card.className="card";
+
+    const relNorm=normas.filter(n=>n.id_calc===calc.id).sort((a,b)=>a.orden-b.orden);
+
+    card.innerHTML=`
+      <div class="badges">
+        <span class="badge">${calc.proceso}</span>
+        <span class="badge">${calc.colectivo}</span>
+        <span class="badge">${calc.estado}</span>
+      </div>
+      <h3>${calc.titulo}</h3>
+      <p class="desc">${calc.descripcion}</p>
+      <div class="normativa">
+        <strong>Normativa relacionada:</strong>
+        <ul>${relNorm.slice(0,3).map(n=>`<li><a href="${n.enlace}" target="_blank">${n.titulo_norma}</a></li>`).join("")}</ul>
+      </div>
+      <div class="actions">
+        ${calc.estado==="activa"
+          ? `<a class="btn btn-primary" href="${calc.url}">Abrir calculadora</a>`
+          : `<span class="btn btn-disabled">En desarrollo</span>`
+        }
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+[fProceso,fColectivo].forEach(e=>e.addEventListener("change",render));
+fTexto.addEventListener("input",render);
+</script>
+</body>
+</html>
