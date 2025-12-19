@@ -1,1 +1,1008 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Calculadora de baremo de interinos · Herramientas FECCOOEx</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:#f3f4f6;
+      color:#222;
+    }
+
+    /* HEADER */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 24px;
+      background:#d60000;
+      color:#fff;
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    header img{ height:52px; }
+    .titles h1{ margin:0; font-size:1.6rem; font-weight:700; }
+    .titles p{ margin:2px 0 0; font-size:0.9rem; opacity:0.95; }
+    nav a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      padding:6px 12px;
+      border:1px solid rgba(255,255,255,0.7);
+      border-radius:999px;
+      transition:0.2s ease;
+    }
+    nav a:hover{
+      background:rgba(255,255,255,0.18);
+      transform: translateY(-1px);
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    /* MAIN */
+    main{
+      max-width: 1100px;
+      margin: 26px auto 40px;
+      padding: 0 16px 40px;
+    }
+
+    .btn-volver{
+      display:inline-block;
+      margin-bottom:16px;
+      padding:6px 10px;
+      border-radius:6px;
+      background:#d60000;
+      color:#fff;
+      font-size:0.9rem;
+      font-weight:700;
+      text-decoration:none;
+      transition: background 0.15s;
+    }
+    .btn-volver:hover{ background:#b40000; }
+
+    .page-title{ margin: 0 0 6px; font-size:1.6rem; }
+    .page-subtitle{ margin:0 0 14px; color:#444; font-size:0.95rem; line-height:1.35rem; }
+
+    .card{
+      background:#fff;
+      border:1px solid #e1e4ea;
+      border-radius: 12px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.10);
+      padding: 14px 16px 16px;
+      margin-bottom: 14px;
+    }
+
+    .notice{
+      background:#f9fafb;
+      border: 1px dashed #e5e7eb;
+      border-radius: 12px;
+      padding: 10px 12px;
+      color:#4b5563;
+      font-size:0.88rem;
+      line-height:1.25rem;
+      margin-bottom:10px;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 900px){
+      .grid2{ grid-template-columns: 1fr; }
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 980px){
+      .grid3{ grid-template-columns: 1fr; }
+    }
+
+    label{
+      display:block;
+      font-size:0.82rem;
+      font-weight:900;
+      color:#555;
+      margin:10px 0 4px;
+    }
+
+    input, select{
+      width:100%;
+      font-family: inherit;
+      font-size:0.95rem;
+      padding: 9px 10px;
+      border-radius: 10px;
+      border:1px solid #cbd5e1;
+      background:#fff;
+      outline:none;
+    }
+    input:focus, select:focus{
+      border-color:#d60000;
+      box-shadow: 0 0 0 2px rgba(214,0,0,0.12);
+    }
+
+    .section-title{
+      margin: 0 0 6px;
+      font-size: 1.15rem;
+      color:#d60000;
+      font-weight: 900;
+    }
+    .muted{
+      color:#6b7280;
+      font-size:0.85rem;
+      line-height:1.25rem;
+    }
+
+    .pillrow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+    .pill{
+      font-size:0.78rem;
+      font-weight:900;
+      padding: 4px 10px;
+      border-radius:999px;
+      background:#f3f4f6;
+      border:1px solid #e5e7eb;
+      color:#374151;
+    }
+    .pill strong{ color:#111827; }
+
+    .results{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+
+    .big-total{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:10px;
+      flex-wrap:wrap;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+    }
+    .big-total .label{
+      font-weight: 900;
+      color:#111827;
+      font-size: 1.0rem;
+    }
+    .big-total .value{
+      font-weight: 1000;
+      font-size: 1.35rem;
+      color:#d60000;
+    }
+
+    .table-like{
+      width:100%;
+      border-collapse: collapse;
+      overflow:hidden;
+      border-radius: 10px;
+      border:1px solid #e5e7eb;
+    }
+    .table-like th, .table-like td{
+      padding: 10px 10px;
+      border-bottom:1px solid #e5e7eb;
+      font-size:0.9rem;
+      text-align:left;
+      vertical-align: top;
+    }
+    .table-like th{
+      background:#f9fafb;
+      font-weight: 900;
+      color:#111827;
+    }
+    .table-like tr:last-child td{ border-bottom:none; }
+    .right{ text-align:right; white-space:nowrap; font-variant-numeric: tabular-nums; }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 10px;
+    }
+    .btn{
+      border:none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 900;
+      cursor:pointer;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+    .btn-primary{
+      background:#d60000;
+      color:#fff;
+    }
+    .btn-primary:hover{
+      background:#b40000;
+      transform: translateY(-1px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    }
+    .btn-secondary{
+      background:#111827;
+      color:#fff;
+    }
+    .btn-secondary:hover{
+      transform: translateY(-1px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    }
+
+    .tiny{
+      font-size:0.8rem;
+      color:#555;
+      line-height:1.25rem;
+    }
+    .kbd{
+      display:inline-block;
+      border:1px solid #e5e7eb;
+      background:#fff;
+      padding: 1px 6px;
+      border-radius: 6px;
+      font-weight: 900;
+      font-size:0.78rem;
+      color:#111827;
+    }
+
+    /* FOOTER institucional (nuevo) */
+    footer{
+      background:#222;
+      color:#f2f2f2;
+      padding:18px 20px 10px;
+      border-top:3px solid #d60000;
+      font-size:0.85rem;
+      margin-top: 10px;
+    }
+    .footer-inner{
+      max-width:1300px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap:16px;
+    }
+    @media (max-width: 900px){
+      .footer-inner{ grid-template-columns: 1fr; }
+    }
+    .footer-col h3{
+      margin:0 0 6px;
+      font-size:0.95rem;
+      text-transform:uppercase;
+      letter-spacing:0.03em;
+      color:#fff;
+    }
+    .footer-col p{
+      margin:0 0 6px;
+      font-size:0.82rem;
+      color:#e0e0e0;
+      line-height:1.2rem;
+    }
+    .footer-col a{
+      color:#ffdddd;
+      text-decoration:none;
+      font-size:0.82rem;
+    }
+    .footer-col a:hover{ text-decoration:underline; }
+
+    .footer-logo-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:6px;
+    }
+    .footer-logo-row img{
+      height:30px;
+      background:#d60000;
+      padding:3px 6px;
+      border-radius:4px;
+    }
+
+    /* Contacto en 2 columnas dentro del bloque */
+    .contact-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 14px;
+      margin-top: 6px;
+    }
+    @media (max-width: 520px){
+      .contact-grid{ grid-template-columns: 1fr; }
+    }
+    .contact-grid .k{
+      font-weight: 900;
+      color:#fff;
+      display:block;
+      margin-bottom: 2px;
+      font-size:0.82rem;
+    }
+
+    .footer-bottom{
+      max-width:1300px;
+      margin:10px auto 0;
+      border-top:1px solid #444;
+      padding-top:6px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .footer-bottom-left{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:0.78rem;
+      color:#e0e0e0;
+    }
+    .footer-bottom-left img{ height:18px; }
+    .footer-bottom-right{
+      font-size:0.78rem;
+      color:#bbbbbb;
+      text-align:right;
+    }
+    @media (max-width: 600px){
+      .footer-bottom{ flex-direction:column; align-items:flex-start; }
+      .footer-bottom-right{ text-align:left; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <img src="../img/feccooex.png" alt="FECCOOEx">
+      <div class="titles">
+        <h1>Herramientas FECCOOEx</h1>
+        <p>Recursos públicos y sindicales para la comunidad educativa</p>
+      </div>
+    </div>
+
+    <nav>
+      <a href="../delegados.html">Área delegados/as</a>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main>
+    <a class="btn-volver" href="../calculadoras.html">← Volver a Calculadoras</a>
+
+    <h1 class="page-title">Calculadora de baremo de interinos (Extremadura)</h1>
+    <p class="page-subtitle">
+      Calcula una <strong>estimación orientativa</strong> del baremo según el <strong>Anexo X</strong> de la
+      <em>Resolución de 14 de marzo de 2025</em> (DOE 2025 / 560o / 25060902).
+      Revisa siempre la convocatoria y anexos vigentes antes de presentar méritos.
+    </p>
+
+    <section class="card">
+      <div class="notice">
+        <strong>Cómo está montada esta calculadora (fuente de datos):</strong><br>
+        Los coeficientes y topes de puntuación están implementados <strong>tal cual</strong> aparecen en el
+        <strong>Anexo X (Baremo de méritos)</strong> de la Resolución indicada.<br><br>
+        <span class="tiny">
+          Estructura del baremo: <strong>(1) Experiencia docente</strong> (máx. 4,7500) + <strong>(2) Resultado de oposición</strong> (máx. 3,0000) +
+          <strong>(3) Otros méritos</strong> (máx. 2,2500) = <strong>10,0000</strong> puntos.
+        </span>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-secondary" id="btn-ejemplo" type="button">Rellenar ejemplo</button>
+        <button class="btn btn-primary" id="btn-limpiar" type="button">Limpiar todo</button>
+        <span class="tiny">Tip: usa <span class="kbd">Tab</span> para moverte por campos.</span>
+      </div>
+    </section>
+
+    <!-- 1) EXPERIENCIA -->
+    <section class="card">
+      <h2 class="section-title">1) Experiencia docente <span class="muted">(máximo 4,7500)</span></h2>
+      <p class="muted">
+        Introduce <strong>meses</strong> (y, si quieres, <strong>días</strong>) por cada tipo. La calculadora convierte días a puntos con la
+        equivalencia del propio baremo cuando existe (p.ej., apartados 3.4/3.5/3.6) o aproximación de 30 días/mes cuando el baremo se expresa “por mes”.
+      </p>
+
+      <div class="grid2">
+        <div>
+          <label>1.1 Misma especialidad/cuerpo en centros públicos (meses)</label>
+          <input id="m11" type="number" min="0" step="0.01" placeholder="Ej.: 18" />
+          <div class="grid2">
+            <div>
+              <label style="margin-top:8px;">1.1 (días, opcional)</label>
+              <input id="d11" type="number" min="0" step="1" placeholder="Ej.: 10" />
+            </div>
+            <div class="muted" style="margin-top:28px;">
+              0,0396 por mes (máx. 4,7500)
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label>1.2 Otras especialidades/cuerpos en centros públicos (meses)</label>
+          <input id="m12" type="number" min="0" step="0.01" placeholder="Ej.: 6" />
+          <div class="grid2">
+            <div>
+              <label style="margin-top:8px;">1.2 (días, opcional)</label>
+              <input id="d12" type="number" min="0" step="1" placeholder="Ej.: 0" />
+            </div>
+            <div class="muted" style="margin-top:28px;">
+              0,0197 por mes (máx. 2,3750)
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label>1.3 Misma especialidad/cuerpo en otros centros (meses)</label>
+          <input id="m13" type="number" min="0" step="0.01" placeholder="Ej.: 0" />
+          <div class="grid2">
+            <div>
+              <label style="margin-top:8px;">1.3 (días, opcional)</label>
+              <input id="d13" type="number" min="0" step="1" placeholder="Ej.: 0" />
+            </div>
+            <div class="muted" style="margin-top:28px;">
+              0,0158 por mes (máx. 1,9000)
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label>1.4 Otras especialidades/cuerpos en otros centros (meses)</label>
+          <input id="m14" type="number" min="0" step="0.01" placeholder="Ej.: 0" />
+          <div class="grid2">
+            <div>
+              <label style="margin-top:8px;">1.4 (días, opcional)</label>
+              <input id="d14" type="number" min="0" step="1" placeholder="Ej.: 0" />
+            </div>
+            <div class="muted" style="margin-top:28px;">
+              0,0099 por mes (máx. 1,1875)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pillrow">
+        <span class="pill">1.1: <strong id="p11">0,0000</strong></span>
+        <span class="pill">1.2: <strong id="p12">0,0000</strong></span>
+        <span class="pill">1.3: <strong id="p13">0,0000</strong></span>
+        <span class="pill">1.4: <strong id="p14">0,0000</strong></span>
+        <span class="pill">Total 1): <strong id="p1">0,0000</strong></span>
+      </div>
+    </section>
+
+    <!-- 2) OPOSICIÓN -->
+    <section class="card">
+      <h2 class="section-title">2) Resultado de oposición <span class="muted">(máximo 3,0000)</span></h2>
+      <p class="muted">
+        Según el baremo (Anexo X), se pondera la <strong>nota media (NM)</strong> obtenida en el proceso selectivo y el
+        número de ocasiones (máx. 3) en que se ha superado el proceso selectivo <em>sin obtener plaza</em> en Extremadura.
+      </p>
+
+      <div class="grid2">
+        <div>
+          <label>Nota media (NM) del proceso selectivo (0 a 10)</label>
+          <input id="nm" type="number" min="0" max="10" step="0.01" placeholder="Ej.: 7.50" />
+          <div class="muted">Puntos por nota: NM × 0,30</div>
+        </div>
+
+        <div>
+          <label>Nº de veces que superaste sin obtener plaza (0 a 3)</label>
+          <input id="veces" type="number" min="0" max="3" step="1" placeholder="Ej.: 1" />
+          <div class="muted">Puntos por veces: veces × 0,30 (máx. 0,90)</div>
+        </div>
+      </div>
+
+      <div class="pillrow">
+        <span class="pill">Total 2): <strong id="p2">0,0000</strong></span>
+      </div>
+    </section>
+
+    <!-- 3) OTROS MÉRITOS -->
+    <section class="card">
+      <h2 class="section-title">3) Otros méritos <span class="muted">(máximo 2,2500)</span></h2>
+      <p class="muted">
+        En el Anexo X, este bloque incluye varios subapartados con topes propios (y además un tope global del bloque).
+        Aquí se implementan los coeficientes y límites descritos en el propio Anexo.
+      </p>
+
+      <div class="grid2">
+        <!-- 3.1 -->
+        <div>
+          <h3 style="margin:0; font-size:1rem; color:#111827;">3.1 Expediente académico <span class="muted">(máx. 0,6000)</span></h3>
+          <label>Nota media del expediente (0 a 10)</label>
+          <input id="exp" type="number" min="0" max="10" step="0.01" placeholder="Ej.: 8.20" />
+          <div class="muted">Fórmula: (nota − 5) × 0,12 (si nota &lt; 5, puntúa 0)</div>
+        </div>
+
+        <!-- 3.2 -->
+        <div>
+          <h3 style="margin:0; font-size:1rem; color:#111827;">3.2 Otras titulaciones e idiomas <span class="muted">(máx. 0,7500)</span></h3>
+
+          <label>3.2.1 Grado/Licenciatura/Máster adicional (nº títulos)</label>
+          <input id="titul" type="number" min="0" step="1" placeholder="Ej.: 1" />
+          <div class="muted">0,3750 por título (según Anexo X).</div>
+
+          <label>3.2.2 FP / Enseñanzas régimen especial (nº títulos)</label>
+          <input id="fp" type="number" min="0" step="1" placeholder="Ej.: 0" />
+          <div class="muted">0,1250 por título.</div>
+
+          <label>3.2.3 Idiomas (selecciona el nivel)</label>
+          <select id="idioma">
+            <option value="0">Sin acreditar</option>
+            <option value="0.125">B2 (0,1250)</option>
+            <option value="0.25">C1 (0,2500)</option>
+            <option value="0.375">C2 (0,3750)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:10px;">
+        <!-- 3.3 -->
+        <div>
+          <h3 style="margin:0; font-size:1rem; color:#111827;">3.3 Formación permanente <span class="muted">(máx. 1,0000)</span></h3>
+
+          <label>3.3.1 Cursos/seminarios/grupos de trabajo (horas)</label>
+          <input id="horas" type="number" min="0" step="1" placeholder="Ej.: 120" />
+          <div class="muted">0,0100 por cada 10 horas (equivale a 0,001 por hora). Máx. 0,6000.</div>
+
+          <label>3.3.2 Publicaciones (hasta 0,4000)</label>
+          <div class="grid3">
+            <div>
+              <label style="margin-top:8px;">Libros (0,2000 c/u)</label>
+              <input id="libros" type="number" min="0" step="1" placeholder="0" />
+            </div>
+            <div>
+              <label style="margin-top:8px;">Artículos (0,0500 c/u)</label>
+              <input id="articulos" type="number" min="0" step="1" placeholder="0" />
+            </div>
+            <div>
+              <label style="margin-top:8px;">Otras (0,0200 c/u)</label>
+              <input id="otraspub" type="number" min="0" step="1" placeholder="0" />
+            </div>
+          </div>
+          <div class="muted">
+            Nota: el Anexo X distingue autoría/participación y mínimos; aquí se calcula la puntuación base por recuento y aplica el tope 0,4000.
+          </div>
+        </div>
+
+        <!-- 3.4 / 3.5 / 3.6 / 3.7 -->
+        <div>
+          <h3 style="margin:0; font-size:1rem; color:#111827;">3.4–3.7 Otros apartados del Anexo X <span class="muted">(topes según subapartado)</span></h3>
+
+          <div class="notice" style="margin-top:10px;">
+            Si estos apartados no te aplican, déjalos a 0. Se incluyen para cubrir el Anexo X (p.ej. tutorías FP Dual,
+            puestos de difícil desempeño, funciones directivas/coord., tramo 1).
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label>3.4.1 Tutor/a FP Dual (meses)</label>
+              <input id="m341" type="number" min="0" step="0.01" placeholder="0" />
+              <label style="margin-top:8px;">3.4.1 (días)</label>
+              <input id="d341" type="number" min="0" step="1" placeholder="0" />
+              <div class="muted">0,0900/mes y 0,0030/día. Tope del 3.4: 1,0000.</div>
+            </div>
+            <div>
+              <label>3.4.2 Docencia especialistas FP Dual (meses)</label>
+              <input id="m342" type="number" min="0" step="0.01" placeholder="0" />
+              <label style="margin-top:8px;">3.4.2 (días)</label>
+              <input id="d342" type="number" min="0" step="1" placeholder="0" />
+              <div class="muted">0,0200/mes y 0,0006/día. Tope del 3.4: 1,0000.</div>
+            </div>
+          </div>
+
+          <div class="grid2" style="margin-top:10px;">
+            <div>
+              <label>3.5 Puestos de difícil desempeño (meses)</label>
+              <input id="m35" type="number" min="0" step="0.01" placeholder="0" />
+              <label style="margin-top:8px;">3.5 (días)</label>
+              <input id="d35" type="number" min="0" step="1" placeholder="0" />
+              <div class="muted">0,0312/mes y 0,0010/día. Máx. 0,7500.</div>
+            </div>
+            <div>
+              <label>3.6.1 Funciones directivas (meses)</label>
+              <input id="m361" type="number" min="0" step="0.01" placeholder="0" />
+              <label style="margin-top:8px;">3.6.1 (días)</label>
+              <input id="d361" type="number" min="0" step="1" placeholder="0" />
+              <div class="muted">0,0300/mes y 0,0010/día. (Tope 3.6: 0,7500)</div>
+            </div>
+          </div>
+
+          <div class="grid2" style="margin-top:10px;">
+            <div>
+              <label>3.6.2 Otras coordinaciones (meses)</label>
+              <input id="m362" type="number" min="0" step="0.01" placeholder="0" />
+              <label style="margin-top:8px;">3.6.2 (días)</label>
+              <input id="d362" type="number" min="0" step="1" placeholder="0" />
+              <div class="muted">0,0080/mes y 0,0002/día. (Tope 3.6: 0,7500)</div>
+            </div>
+            <div>
+              <label>3.7 Tramo 1 (sí/no)</label>
+              <select id="tramo">
+                <option value="0">No</option>
+                <option value="0.1">Sí (0,1000)</option>
+              </select>
+              <div class="muted">Máx. 0,1000.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pillrow">
+        <span class="pill">3.1: <strong id="p31">0,0000</strong></span>
+        <span class="pill">3.2: <strong id="p32">0,0000</strong></span>
+        <span class="pill">3.3: <strong id="p33">0,0000</strong></span>
+        <span class="pill">3.4: <strong id="p34">0,0000</strong></span>
+        <span class="pill">3.5: <strong id="p35">0,0000</strong></span>
+        <span class="pill">3.6: <strong id="p36">0,0000</strong></span>
+        <span class="pill">3.7: <strong id="p37">0,0000</strong></span>
+        <span class="pill">Total 3): <strong id="p3">0,0000</strong></span>
+      </div>
+    </section>
+
+    <!-- RESULTADOS -->
+    <section class="card">
+      <h2 class="section-title">Resultado</h2>
+
+      <div class="results">
+        <div class="big-total">
+          <div class="label">Total baremo (máx. 10,0000)</div>
+          <div class="value" id="ptotal">0,0000</div>
+        </div>
+
+        <table class="table-like">
+          <thead>
+            <tr>
+              <th>Bloque</th>
+              <th class="right">Puntos</th>
+              <th class="right">Tope</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1) Experiencia docente</strong></td>
+              <td class="right" id="r1">0,0000</td>
+              <td class="right">4,7500</td>
+            </tr>
+            <tr>
+              <td><strong>2) Resultado de oposición</strong></td>
+              <td class="right" id="r2">0,0000</td>
+              <td class="right">3,0000</td>
+            </tr>
+            <tr>
+              <td><strong>3) Otros méritos</strong></td>
+              <td class="right" id="r3">0,0000</td>
+              <td class="right">2,2500</td>
+            </tr>
+            <tr>
+              <td><strong>Total</strong></td>
+              <td class="right" id="rt">0,0000</td>
+              <td class="right">10,0000</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="tiny">
+          <strong>Nota:</strong> La aplicación de méritos puede requerir comprobaciones (p.ej. compatibilidades, equivalencias, documentación, fechas de efecto, etc.).
+          Esta calculadora no sustituye la revisión del Anexo X ni la validación administrativa.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-logo-row">
+          <img src="../img/feccooex.png" alt="FECCOOEx">
+          <div>
+            <strong>Federación de Enseñanza de CCOO de Extremadura</strong><br>
+            <span style="font-size:0.8rem;">Herramientas digitales para la acción sindical y la comunidad educativa.</span>
+          </div>
+        </div>
+        <p>Este espacio reúne recursos públicos y sindicales para mejorar las condiciones de trabajo del profesorado y la calidad de la educación en Extremadura.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Contacto</h3>
+
+        <div class="contact-grid">
+          <div>
+            <span class="k">Dirección</span>
+            <p style="margin:0 0 6px;">
+              Avenida Juan Carlos I, nº 47<br>
+              CP 06800 · Mérida (Extremadura)
+            </p>
+
+            <span class="k">Correo</span>
+            <p style="margin:0;">
+              <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a>
+            </p>
+          </div>
+
+          <div>
+            <span class="k">Teléfono</span>
+            <p style="margin:0 0 6px;">924 330 018</p>
+
+            <span class="k">Horario</span>
+            <p style="margin:0;">(Añadir si procede)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h3>Enlaces rápidos</h3>
+        <p><a href="https://extremadura.fe.ccoo.es/" target="_blank" rel="noopener noreferrer">Web FECCOOExtremadura</a></p>
+        <p><a href="https://www.facebook.com/feccooex" target="_blank" rel="noopener noreferrer">Facebook FECCOOEx</a></p>
+        <p><a href="https://x.com/FECCOOex" target="_blank" rel="noopener noreferrer">X (Twitter) FECCOOEx</a></p>
+        <p><a href="https://www.instagram.com/feccooex" target="_blank" rel="noopener noreferrer">Instagram FECCOOEx</a></p>
+        <p><a href="https://t.me/feccooextremadura" target="_blank" rel="noopener noreferrer">Canal de Telegram FECCOOExtremadura</a></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
+        <span>Contenido bajo licencia Creative Commons BY-ND 4.0 (se permite compartir sin modificaciones y con atribución).</span>
+      </div>
+      <div class="footer-bottom-right">
+        © <span id="anio-footer"></span> Federación de Enseñanza de CCOO de Extremadura
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('anio-footer').textContent = new Date().getFullYear();
+
+    // ---- Helpers ----
+    function n(v){ const x = parseFloat(v); return isNaN(x) ? 0 : x; }
+    function i(v){ const x = parseInt(v, 10); return isNaN(x) ? 0 : x; }
+    function clamp(x, a, b){ return Math.max(a, Math.min(b, x)); }
+    function fmt(x){
+      return (Math.round((x + Number.EPSILON) * 10000) / 10000).toFixed(4).replace(".", ",");
+    }
+
+    // Para apartados expresados "por mes" sin coeficiente diario explícito:
+    // aproximación sencilla: días/30 => meses equivalentes
+    function mesesEq(meses, dias){
+      return n(meses) + (i(dias) / 30);
+    }
+
+    // ---- Coeficientes (Anexo X, Resolución 14/03/2025) ----
+    const C = {
+      // 1) Experiencia (por mes)
+      p11_mes: 0.0396, p11_max: 4.7500,
+      p12_mes: 0.0197, p12_max: 2.3750,
+      p13_mes: 0.0158, p13_max: 1.9000,
+      p14_mes: 0.0099, p14_max: 1.1875,
+      p1_max: 4.7500,
+
+      // 2) Oposición
+      op_nm: 0.30,
+      op_vez: 0.30,
+      p2_max: 3.0000,
+
+      // 3) Otros méritos (tope global)
+      p3_max: 2.2500,
+
+      // 3.1 Expediente
+      exp_k: 0.12,
+      p31_max: 0.6000,
+
+      // 3.2 Titulaciones/idiomas
+      tit_k: 0.3750,
+      fp_k: 0.1250,
+      p32_max: 0.7500,
+
+      // 3.3 Formación permanente
+      horas_k_por_hora: 0.0010,  // 0.01 por 10h
+      p331_max: 0.6000,
+      libro_k: 0.2000,
+      art_k: 0.0500,
+      otra_k: 0.0200,
+      p332_max: 0.4000,
+      p33_max: 1.0000,
+
+      // 3.4 Tutorías FP Dual
+      p341_mes: 0.0900, p341_dia: 0.0030,
+      p342_mes: 0.0200, p342_dia: 0.0006,
+      p34_max: 1.0000,
+
+      // 3.5 Difícil desempeño
+      p35_mes: 0.0312, p35_dia: 0.0010,
+      p35_max: 0.7500,
+
+      // 3.6 Funciones
+      p361_mes: 0.0300, p361_dia: 0.0010,
+      p362_mes: 0.0080, p362_dia: 0.0002,
+      p36_max: 0.7500,
+
+      // 3.7 Tramo 1
+      p37_max: 0.1000
+    };
+
+    // ---- Cálculo principal ----
+    function calcular(){
+      // 1) Experiencia
+      const m11 = mesesEq(document.getElementById("m11").value, document.getElementById("d11").value);
+      const m12 = mesesEq(document.getElementById("m12").value, document.getElementById("d12").value);
+      const m13 = mesesEq(document.getElementById("m13").value, document.getElementById("d13").value);
+      const m14 = mesesEq(document.getElementById("m14").value, document.getElementById("d14").value);
+
+      const p11 = clamp(m11 * C.p11_mes, 0, C.p11_max);
+      const p12 = clamp(m12 * C.p12_mes, 0, C.p12_max);
+      const p13 = clamp(m13 * C.p13_mes, 0, C.p13_max);
+      const p14 = clamp(m14 * C.p14_mes, 0, C.p14_max);
+
+      const p1 = clamp(p11 + p12 + p13 + p14, 0, C.p1_max);
+
+      // 2) Oposición (cap a 3.0 según tabla de máximos del Anexo X)
+      const nm = clamp(n(document.getElementById("nm").value), 0, 10);
+      const veces = clamp(i(document.getElementById("veces").value), 0, 3);
+      let p2 = (nm * C.op_nm) + (veces * C.op_vez);
+      p2 = clamp(p2, 0, C.p2_max);
+
+      // 3) Otros méritos
+      // 3.1 expediente
+      const exp = clamp(n(document.getElementById("exp").value), 0, 10);
+      let p31 = (exp > 5) ? ((exp - 5) * C.exp_k) : 0;
+      p31 = clamp(p31, 0, C.p31_max);
+
+      // 3.2 titulaciones/idiomas
+      const titul = clamp(i(document.getElementById("titul").value), 0, 99);
+      const fp = clamp(i(document.getElementById("fp").value), 0, 99);
+      const idioma = clamp(n(document.getElementById("idioma").value), 0, 0.375);
+
+      let p32 = (titul * C.tit_k) + (fp * C.fp_k) + idioma;
+      p32 = clamp(p32, 0, C.p32_max);
+
+      // 3.3 formación permanente
+      const horas = clamp(i(document.getElementById("horas").value), 0, 100000);
+      let p331 = horas * C.horas_k_por_hora;
+      p331 = clamp(p331, 0, C.p331_max);
+
+      const libros = clamp(i(document.getElementById("libros").value), 0, 999);
+      const articulos = clamp(i(document.getElementById("articulos").value), 0, 999);
+      const otraspub = clamp(i(document.getElementById("otraspub").value), 0, 999);
+      let p332 = (libros * C.libro_k) + (articulos * C.art_k) + (otraspub * C.otra_k);
+      p332 = clamp(p332, 0, C.p332_max);
+
+      let p33 = p331 + p332;
+      p33 = clamp(p33, 0, C.p33_max);
+
+      // 3.4 tutorías FP Dual
+      const m341 = clamp(n(document.getElementById("m341").value), 0, 9999);
+      const d341 = clamp(i(document.getElementById("d341").value), 0, 999999);
+      const m342 = clamp(n(document.getElementById("m342").value), 0, 9999);
+      const d342 = clamp(i(document.getElementById("d342").value), 0, 999999);
+
+      let p34 = (m341 * C.p341_mes) + (d341 * C.p341_dia) + (m342 * C.p342_mes) + (d342 * C.p342_dia);
+      p34 = clamp(p34, 0, C.p34_max);
+
+      // 3.5 difícil desempeño
+      const m35 = clamp(n(document.getElementById("m35").value), 0, 9999);
+      const d35 = clamp(i(document.getElementById("d35").value), 0, 999999);
+      let p35 = (m35 * C.p35_mes) + (d35 * C.p35_dia);
+      p35 = clamp(p35, 0, C.p35_max);
+
+      // 3.6 funciones
+      const m361 = clamp(n(document.getElementById("m361").value), 0, 9999);
+      const d361 = clamp(i(document.getElementById("d361").value), 0, 999999);
+      const m362 = clamp(n(document.getElementById("m362").value), 0, 9999);
+      const d362 = clamp(i(document.getElementById("d362").value), 0, 999999);
+
+      let p36 = (m361 * C.p361_mes) + (d361 * C.p361_dia) + (m362 * C.p362_mes) + (d362 * C.p362_dia);
+      p36 = clamp(p36, 0, C.p36_max);
+
+      // 3.7 tramo 1
+      let p37 = clamp(n(document.getElementById("tramo").value), 0, C.p37_max);
+
+      let p3_raw = p31 + p32 + p33 + p34 + p35 + p36 + p37;
+      let p3 = clamp(p3_raw, 0, C.p3_max);
+
+      // Total
+      const total = clamp(p1 + p2 + p3, 0, 10.0);
+
+      // ---- Pintar ----
+      document.getElementById("p11").textContent = fmt(p11);
+      document.getElementById("p12").textContent = fmt(p12);
+      document.getElementById("p13").textContent = fmt(p13);
+      document.getElementById("p14").textContent = fmt(p14);
+      document.getElementById("p1").textContent = fmt(p1);
+
+      document.getElementById("p2").textContent = fmt(p2);
+
+      document.getElementById("p31").textContent = fmt(p31);
+      document.getElementById("p32").textContent = fmt(p32);
+      document.getElementById("p33").textContent = fmt(p33);
+      document.getElementById("p34").textContent = fmt(p34);
+      document.getElementById("p35").textContent = fmt(p35);
+      document.getElementById("p36").textContent = fmt(p36);
+      document.getElementById("p37").textContent = fmt(p37);
+      document.getElementById("p3").textContent = fmt(p3);
+
+      document.getElementById("ptotal").textContent = fmt(total);
+
+      document.getElementById("r1").textContent = fmt(p1);
+      document.getElementById("r2").textContent = fmt(p2);
+      document.getElementById("r3").textContent = fmt(p3);
+      document.getElementById("rt").textContent = fmt(total);
+    }
+
+    // ---- Eventos ----
+    const inputs = Array.from(document.querySelectorAll("input, select"));
+    inputs.forEach(el => el.addEventListener("input", calcular));
+    inputs.forEach(el => el.addEventListener("change", calcular));
+
+    // ---- Botones ----
+    document.getElementById("btn-limpiar").addEventListener("click", () => {
+      inputs.forEach(el => {
+        if (el.tagName === "SELECT") {
+          el.selectedIndex = 0;
+        } else {
+          el.value = "";
+        }
+      });
+      calcular();
+    });
+
+    document.getElementById("btn-ejemplo").addEventListener("click", () => {
+      // Ejemplo orientativo
+      document.getElementById("m11").value = "24";
+      document.getElementById("d11").value = "0";
+      document.getElementById("m12").value = "6";
+      document.getElementById("d12").value = "0";
+      document.getElementById("m13").value = "0";
+      document.getElementById("d13").value = "0";
+      document.getElementById("m14").value = "0";
+      document.getElementById("d14").value = "0";
+
+      document.getElementById("nm").value = "7.50";
+      document.getElementById("veces").value = "1";
+
+      document.getElementById("exp").value = "8.20";
+      document.getElementById("titul").value = "1";
+      document.getElementById("fp").value = "0";
+      document.getElementById("idioma").value = "0.25";
+
+      document.getElementById("horas").value = "120";
+      document.getElementById("libros").value = "0";
+      document.getElementById("articulos").value = "1";
+      document.getElementById("otraspub").value = "0";
+
+      document.getElementById("m341").value = "0";
+      document.getElementById("d341").value = "0";
+      document.getElementById("m342").value = "0";
+      document.getElementById("d342").value = "0";
+
+      document.getElementById("m35").value = "0";
+      document.getElementById("d35").value = "0";
+
+      document.getElementById("m361").value = "0";
+      document.getElementById("d361").value = "0";
+      document.getElementById("m362").value = "0";
+      document.getElementById("d362").value = "0";
+
+      document.getElementById("tramo").value = "0";
+
+      calcular();
+    });
+
+    // Calcular al cargar
+    calcular();
+  </script>
+</body>
+</html>
 
