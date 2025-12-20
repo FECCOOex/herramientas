@@ -5,6 +5,9 @@
   <title>Herramientas FECCOOEx</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- FOOTER CENTRALIZADO -->
+  <link rel="stylesheet" href="assets/footer.css" />
+
   <style>
     * { box-sizing: border-box; }
 
@@ -152,93 +155,10 @@
       transform: translateY(-1px);
       box-shadow: 0 4px 9px rgba(180,0,0,0.35);
     }
-
-    /* FOOTER (nuevo) */
-    footer{
-      background:#222;
-      color:#f2f2f2;
-      padding:18px 20px 10px;
-      border-top:3px solid #d60000;
-      font-size:0.85rem;
-      margin-top: 10px;
-    }
-
-    .footer-inner{
-      max-width:1300px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns: 2fr 1.2fr 1.2fr;
-      gap:16px;
-      align-items: start;
-    }
-
-    @media (max-width: 900px){
-      .footer-inner{ grid-template-columns: 1fr; }
-    }
-
-    .footer-col h3{
-      margin:0 0 6px;
-      font-size:0.95rem;
-      text-transform:uppercase;
-      letter-spacing:0.03em;
-      color:#fff;
-    }
-
-    .footer-col p{
-      margin:0 0 6px;
-      font-size:0.82rem;
-      color:#e0e0e0;
-      line-height:1.2rem;
-    }
-
-    .footer-col a{
-      color:#ffdddd;
-      text-decoration:none;
-      font-size:0.82rem;
-    }
-    .footer-col a:hover{ text-decoration:underline; }
-
-    .contact-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    @media (max-width: 900px){
-      .contact-grid{ grid-template-columns: 1fr; }
-    }
-
-    .footer-bottom{
-      max-width:1300px;
-      margin:10px auto 0;
-      border-top:1px solid #444;
-      padding-top:6px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-
-    .footer-bottom-left{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      font-size:0.78rem;
-      color:#e0e0e0;
-    }
-    .footer-bottom-left img{ height:18px; }
-
-    .footer-bottom-right{
-      font-size:0.78rem;
-      color:#bbbbbb;
-    }
   </style>
 </head>
 
 <body>
-
-  <!-- HEADER -->
   <header>
     <div style="display:flex; align-items:center; gap:16px;">
       <img src="img/feccooex.png" alt="FECCOOEx">
@@ -247,95 +167,85 @@
         <p>Recursos públicos y sindicales para la comunidad educativa</p>
       </div>
     </div>
-
     <nav>
       <a href="delegados.html">Área delegados/as</a>
     </nav>
   </header>
 
-  <!-- CONTENIDO PRINCIPAL -->
   <main>
-
     <div class="grid">
 
-      <!-- 1. CENTROS -->
       <article class="card">
         <div class="card-header">
           <img src="img/herramientas.png" alt="icono">
           <h2>Centros educativos</h2>
         </div>
         <img class="card-image" src="img/tarjetas/centros.png" alt="Centros">
-        <p>Consulta interactiva de centros de Extremadura con filtros y mapa.</p>
+        <p>Consulta interactiva de todos los centros educativos de Extremadura con mapa, filtros y buscador.</p>
         <a class="btn" href="centros.html">Abrir herramienta</a>
       </article>
 
-      <!-- 2. NORMATIVA -->
       <article class="card">
         <div class="card-header">
           <img src="img/herramientas.png" alt="icono">
           <h2>Normativa</h2>
         </div>
         <img class="card-image" src="img/tarjetas/normativa.png" alt="Normativa">
-        <p>Buscador de normativa por temática, nivel y palabras clave.</p>
+        <p>Buscador de leyes, decretos, órdenes e instrucciones por niveles, temática y palabras clave.</p>
         <a class="btn" href="normativa.html">Abrir herramienta</a>
       </article>
 
-      <!-- 3. CALENDARIOS -->
       <article class="card">
         <div class="card-header">
           <img src="img/herramientas.png" alt="icono">
           <h2>Calendarios</h2>
         </div>
         <img class="card-image" src="img/tarjetas/calendario.png" alt="Calendarios">
-        <p>Calendario escolar y laboral de Extremadura con festivos locales.</p>
+        <p>Calendario escolar, laboral y celebraciones pedagógicas en formato interactivo.</p>
         <a class="btn" href="calendario.html">Abrir herramienta</a>
       </article>
 
-      <!-- 4. CONSULTAS -->
       <article class="card">
         <div class="card-header">
           <img src="img/herramientas.png" alt="icono">
           <h2>Consultas</h2>
         </div>
         <img class="card-image" src="img/tarjetas/consultas.png" alt="Consultas">
-        <p>Canal para enviar consultas laborales y sindicales (privado).</p>
+        <p>Canal para enviar consultas formales o incidencias al sindicato.</p>
         <a class="btn" href="consultas.html">Abrir herramienta</a>
       </article>
 
-      <!-- 5. CHAT -->
       <article class="card">
         <div class="card-header">
           <img src="img/herramientas.png" alt="icono">
           <h2>Chat en línea</h2>
         </div>
         <img class="card-image" src="img/tarjetas/chats.png" alt="Chat">
-        <p>Chat público para dudas breves (no inmediato).</p>
+        <p>Chat público para resolver dudas rápidas en directo.</p>
         <a class="btn" href="chat.html">Abrir herramienta</a>
       </article>
 
-      <!-- 6. GUÍAS -->
       <article class="card">
         <div class="card-header">
           <img src="img/herramientas.png" alt="icono">
           <h2>Guías sindicales</h2>
         </div>
         <img class="card-image" src="img/tarjetas/guias.png" alt="Guías">
-        <p>Guías prácticas: permisos, jornada, interinos y más.</p>
+        <p>Guías breves para delegados/as, claustros y equipos directivos.</p>
         <a class="btn" href="guias.html">Abrir herramienta</a>
       </article>
 
-      <!-- 7. PUBLICACIONES -->
       <article class="card">
         <div class="card-header">
           <img src="img/herramientas.png" alt="icono">
           <h2>Publicaciones</h2>
         </div>
         <img class="card-image" src="img/tarjetas/publicaciones.png" alt="Publicaciones">
-        <p>Comunicados, informes y materiales sindicales seleccionados.</p>
+        <p>Acceso a documentos, informes y boletines de la Federación de Enseñanza.</p>
         <a class="btn" href="publicaciones.html">Abrir herramienta</a>
       </article>
 
-      <!-- 8. CALCULADORAS (OJO: plural + enlace correcto) -->
+      <!-- ✅ CAMBIO AQUÍ: Calculadora docente -> Calculadoras; calculadora.html -> calculadoras.html -->
       <article class="card">
         <div class="card-header">
           <img src="img/herramientas.png" alt="icono">
@@ -346,91 +256,32 @@
         <a class="btn" href="calculadoras.html">Abrir herramienta</a>
       </article>
 
-      <!-- 9. CONTACTOS -->
       <article class="card">
         <div class="card-header">
           <img src="img/herramientas.png" alt="icono">
           <h2>Contactos</h2>
         </div>
         <img class="card-image" src="img/tarjetas/contactos.png" alt="Contactos">
-        <p>Datos de contacto y sedes (próximamente ampliado).</p>
+        <p>Contactos de la Federación, delegados/as de zona y asesoría jurídica.</p>
         <a class="btn" href="contactos.html">Abrir herramienta</a>
       </article>
 
-      <!-- 10. AFILIACIÓN -->
       <article class="card">
         <div class="card-header">
           <img src="img/herramientas.png" alt="icono">
           <h2>Afiliación</h2>
         </div>
         <img class="card-image" src="img/tarjetas/afiliacion.png" alt="Afiliación">
-        <p>Ventajas e información sobre afiliación (próximamente).</p>
+        <p>Información para afiliarse a FECCOOEx y ventajas para la afiliación.</p>
         <a class="btn" href="afiliacion.html">Abrir herramienta</a>
       </article>
 
     </div>
   </main>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-
-      <div class="footer-col">
-        <h3>Contacto</h3>
-
-        <div class="contact-grid">
-          <div>
-            <p><strong>Dirección:</strong><br>
-              Avenida Juan Carlos I, núm. 47<br>
-              CP 06800 · Mérida (Extremadura)
-            </p>
-            <p><strong>Correo:</strong>
-              <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a>
-            </p>
-          </div>
-
-          <div>
-            <p><strong>Teléfonos por sede:</strong></p>
-            <p>Badajoz: 924224104</p>
-            <p>Cáceres: 927223534</p>
-            <p>Mérida: 924330018</p>
-            <p>Plasencia: 927424086</p>
-            <p>Don Benito: 924802080</p>
-            <p>Zafra: 924553202</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-col">
-        <h3>Enlaces rápidos</h3>
-        <p><a href="https://extremadura.fe.ccoo.es/" target="_blank" rel="noopener noreferrer">Web FECCOOExtremadura</a></p>
-        <p><a href="https://www.facebook.com/feccooex" target="_blank" rel="noopener noreferrer">Facebook FECCOOEx</a></p>
-        <p><a href="https://x.com/FECCOOex" target="_blank" rel="noopener noreferrer">X (Twitter) FECCOOEx</a></p>
-        <p><a href="https://www.instagram.com/feccooex" target="_blank" rel="noopener noreferrer">Instagram FECCOOEx</a></p>
-        <p><a href="https://t.me/feccooextremadura" target="_blank" rel="noopener noreferrer">Canal de Telegram FECCOOExtremadura</a></p>
-      </div>
-
-      <div class="footer-col">
-        <h3>Licencia</h3>
-        <p>Este contenido se comparte bajo licencia Creative Commons BY-ND 4.0.</p>
-      </div>
-
-    </div>
-
-    <div class="footer-bottom">
-      <div class="footer-bottom-left">
-        <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
-        <span>Contenido bajo licencia Creative Commons BY-ND 4.0 (se permite compartir sin modificaciones y con atribución).</span>
-      </div>
-      <div class="footer-bottom-right">
-        © <span id="anio-footer"></span> Federación de Enseñanza de CCOO de Extremadura
-      </div>
-    </div>
-
-    <script>
-      document.getElementById('anio-footer').textContent = new Date().getFullYear();
-    </script>
-  </footer>
+  <!-- FOOTER CENTRAL -->
+  <div id="site-footer"></div>
+  <script src="assets/footer.js"></script>
 
 </body>
 </html>
