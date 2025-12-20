@@ -5,282 +5,336 @@
   <title>Herramientas FECCOOEx</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- FOOTER CENTRALIZADO -->
-  <link rel="stylesheet" href="assets/footer.css" />
-
   <style>
     * { box-sizing: border-box; }
 
-    body {
-      margin: 0;
+    body{
+      margin:0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f3f4f6;
-      color: #222;
+      background:#f3f4f6;
+      color:#222;
     }
 
     /* HEADER */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 24px;
-      background: #d60000;
-      color: #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-      position: sticky;
-      top: 0;
-      z-index: 10;
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 24px;
+      background:#d60000;
+      color:#fff;
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    header img{ height:52px; }
+
+    .titles h1{
+      margin:0;
+      font-size:1.6rem;
+      font-weight:700;
+    }
+    .titles p{
+      margin:2px 0 0;
+      font-size:0.9rem;
+      opacity:0.95;
     }
 
-    header img { height: 52px; }
-
-    .titles h1 {
-      margin: 0;
-      font-size: 1.6rem;
-      font-weight: 700;
+    nav a{
+      color:white;
+      text-decoration:none;
+      font-weight:600;
+      padding:6px 12px;
+      border:1px solid rgba(255,255,255,0.7);
+      border-radius:999px;
+      transition:0.2s ease;
     }
-
-    .titles p {
-      margin: 2px 0 0;
-      font-size: 0.9rem;
-      opacity: 0.95;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 6px 12px;
-      border: 1px solid rgba(255,255,255,0.7);
-      border-radius: 999px;
-      transition: 0.2s ease;
-    }
-
-    nav a:hover {
-      background: rgba(255,255,255,0.18);
+    nav a:hover{
+      background:rgba(255,255,255,0.18);
       transform: translateY(-1px);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
     }
 
     /* MAIN */
-    main {
-      max-width: 1300px;
+    main{
+      max-width: 1200px;
       margin: 26px auto 40px;
       padding: 0 16px 40px;
     }
 
+    .page-title{
+      margin:0 0 6px;
+      font-size:1.8rem;
+    }
+    .page-subtitle{
+      margin:0 0 18px;
+      color:#444;
+      font-size:1rem;
+    }
+
     /* GRID */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 18px;
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:14px;
+    }
+    @media (max-width: 1100px){
+      .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 700px){
+      .grid{ grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 1100px) {
-      .grid { grid-template-columns: repeat(3, 1fr); }
+    .card{
+      background:#fff;
+      border:1px solid #e1e4ea;
+      border-radius:14px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.10);
+      padding:16px 16px 18px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      min-height: 210px;
     }
-
-    @media (max-width: 700px) {
-      .grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 500px) {
-      .grid { grid-template-columns: 1fr; }
-    }
-
-    /* TARJETAS */
-    .card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 12px;
-      border: 1px solid #e1e4ea;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.10);
-      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card:hover {
+    .card:hover{
       transform: translateY(-2px);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.18);
-      border-color: #d60000;
+      box-shadow:0 10px 22px rgba(0,0,0,0.14);
     }
 
-    .card-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .card h3{
+      margin:0;
+      font-size:1.15rem;
+      color:#d60000;
+    }
+    .card p{
+      margin:0;
+      font-size:0.95rem;
+      color:#374151;
+      line-height:1.3rem;
+      flex:1;
     }
 
-    .card-header img { height: 24px; }
-
-    .card-header h2 {
-      font-size: 1.0rem;
-      margin: 0;
-      color: #d60000;
+    .actions{
+      margin-top:6px;
     }
 
-    .card-image {
-      width: 100%;
-      border-radius: 6px;
-      margin: 6px 0;
-      max-height: 80px;
-      object-fit: contain;
+    .btn{
+      display:inline-block;
+      padding:9px 14px;
+      border-radius:10px;
+      font-weight:800;
+      text-decoration:none;
+      background:#d60000;
+      color:white;
+      transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
     }
-
-    .card p {
-      flex-grow: 1;
-      font-size: 0.88rem;
-      color: #444;
-      margin: 0 0 2px;
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 6px;
-      padding: 7px 9px;
-      text-align: center;
-      border-radius: 6px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      background: #d60000;
-      color: #fff;
-      text-decoration: none;
-      transition: background 0.15s, transform 0.12s ease, box-shadow 0.12s ease;
-      box-shadow: 0 2px 5px rgba(214,0,0,0.3);
-    }
-
-    .btn:hover {
-      background: #b40000;
+    .btn:hover{
+      background:#b40000;
       transform: translateY(-1px);
-      box-shadow: 0 4px 9px rgba(180,0,0,0.35);
+      box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    }
+
+    /* FOOTER */
+    footer{
+      background:#222;
+      color:#f2f2f2;
+      padding:18px 20px 10px;
+      border-top:3px solid #d60000;
+      font-size:0.85rem;
+      margin-top: 10px;
+    }
+
+    .footer-inner{
+      max-width:1300px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr;
+      gap:16px;
+    }
+    @media (max-width: 900px){
+      .footer-inner{ grid-template-columns: 1fr; }
+    }
+
+    .footer-col h3{
+      margin:0 0 6px;
+      font-size:0.95rem;
+      text-transform:uppercase;
+      letter-spacing:0.03em;
+      color:#fff;
+    }
+    .footer-col p{
+      margin:0 0 4px;
+      font-size:0.82rem;
+      color:#e0e0e0;
+      line-height:1.2rem;
+    }
+    .footer-col a{
+      color:#ffdddd;
+      text-decoration:none;
+      font-size:0.82rem;
+    }
+    .footer-col a:hover{ text-decoration:underline; }
+
+    .footer-bottom{
+      max-width:1300px;
+      margin:10px auto 0;
+      border-top:1px solid #444;
+      padding-top:6px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .footer-bottom-left{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:0.78rem;
+      color:#e0e0e0;
+    }
+    .footer-bottom-left img{ height:18px; }
+
+    .footer-bottom-right{
+      font-size:0.78rem;
+      color:#bbbbbb;
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div style="display:flex; align-items:center; gap:16px;">
-      <img src="img/feccooex.png" alt="FECCOOEx">
-      <div class="titles">
-        <h1>Herramientas FECCOOEx</h1>
-        <p>Recursos públicos y sindicales para la comunidad educativa</p>
+
+<header>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <img src="img/feccooex.png" alt="FECCOOEx">
+    <div class="titles">
+      <h1>Herramientas FECCOOEx</h1>
+      <p>Recursos públicos y sindicales para la comunidad educativa</p>
+    </div>
+  </div>
+
+  <nav>
+    <a href="delegados.html">Área delegados/as</a>
+  </nav>
+</header>
+
+<main>
+  <h1 class="page-title">Herramientas sindicales</h1>
+  <p class="page-subtitle">
+    Recursos digitales de apoyo para el personal del ámbito educativo en Extremadura.
+  </p>
+
+  <section class="grid">
+
+    <article class="card">
+      <h3>Consultas sindicales</h3>
+      <p>Formulario privado para consultas laborales, administrativas o sindicales.</p>
+      <div class="actions">
+        <a class="btn" href="consultas.html">Abrir formulario</a>
       </div>
+    </article>
+
+    <article class="card">
+      <h3>Chat público</h3>
+      <p>Espacio abierto para consultas breves y orientación general (no inmediato).</p>
+      <div class="actions">
+        <a class="btn" href="chat.html">Entrar al chat</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>Guías prácticas</h3>
+      <p>Documentos orientativos sobre permisos, jornada, interinos y derechos laborales.</p>
+      <div class="actions">
+        <a class="btn" href="guias.html">Ver guías</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>Publicaciones sindicales</h3>
+      <p>Comunicados, informes y materiales elaborados por la Federación.</p>
+      <div class="actions">
+        <a class="btn" href="publicaciones.html">Ver publicaciones</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>Normativa</h3>
+      <p>Acceso organizado a normativa educativa y laboral relevante.</p>
+      <div class="actions">
+        <a class="btn" href="normativa.html">Consultar normativa</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>Calendarios</h3>
+      <p>Calendario escolar y laboral de Extremadura con festivos locales.</p>
+      <div class="actions">
+        <a class="btn" href="calendarios.html">Ver calendarios</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>Calculadoras</h3>
+      <p>Herramientas de cálculo: baremo de interinos, traslados, retribuciones, jubilación.</p>
+      <div class="actions">
+        <a class="btn" href="calculadoras.html">Abrir calculadoras</a>
+      </div>
+    </article>
+
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h3>Contacto</h3>
+      <p><strong>Dirección:</strong><br>
+        Avenida Juan Carlos I, nº 47<br>
+        CP 06800 · Mérida (Extremadura)
+      </p>
+      <p><strong>Correo:</strong>
+        <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a>
+      </p>
     </div>
-    <nav>
-      <a href="delegados.html">Área delegados/as</a>
-    </nav>
-  </header>
 
-  <main>
-    <div class="grid">
-
-      <article class="card">
-        <div class="card-header">
-          <img src="img/herramientas.png" alt="icono">
-          <h2>Centros educativos</h2>
-        </div>
-        <img class="card-image" src="img/tarjetas/centros.png" alt="Centros">
-        <p>Consulta interactiva de todos los centros educativos de Extremadura con mapa, filtros y buscador.</p>
-        <a class="btn" href="centros.html">Abrir herramienta</a>
-      </article>
-
-      <article class="card">
-        <div class="card-header">
-          <img src="img/herramientas.png" alt="icono">
-          <h2>Normativa</h2>
-        </div>
-        <img class="card-image" src="img/tarjetas/normativa.png" alt="Normativa">
-        <p>Buscador de leyes, decretos, órdenes e instrucciones por niveles, temática y palabras clave.</p>
-        <a class="btn" href="normativa.html">Abrir herramienta</a>
-      </article>
-
-      <article class="card">
-        <div class="card-header">
-          <img src="img/herramientas.png" alt="icono">
-          <h2>Calendarios</h2>
-        </div>
-        <img class="card-image" src="img/tarjetas/calendario.png" alt="Calendarios">
-        <p>Calendario escolar, laboral y celebraciones pedagógicas en formato interactivo.</p>
-        <a class="btn" href="calendario.html">Abrir herramienta</a>
-      </article>
-
-      <article class="card">
-        <div class="card-header">
-          <img src="img/herramientas.png" alt="icono">
-          <h2>Consultas</h2>
-        </div>
-        <img class="card-image" src="img/tarjetas/consultas.png" alt="Consultas">
-        <p>Canal para enviar consultas formales o incidencias al sindicato.</p>
-        <a class="btn" href="consultas.html">Abrir herramienta</a>
-      </article>
-
-      <article class="card">
-        <div class="card-header">
-          <img src="img/herramientas.png" alt="icono">
-          <h2>Chat en línea</h2>
-        </div>
-        <img class="card-image" src="img/tarjetas/chats.png" alt="Chat">
-        <p>Chat público para resolver dudas rápidas en directo.</p>
-        <a class="btn" href="chat.html">Abrir herramienta</a>
-      </article>
-
-      <article class="card">
-        <div class="card-header">
-          <img src="img/herramientas.png" alt="icono">
-          <h2>Guías sindicales</h2>
-        </div>
-        <img class="card-image" src="img/tarjetas/guias.png" alt="Guías">
-        <p>Guías breves para delegados/as, claustros y equipos directivos.</p>
-        <a class="btn" href="guias.html">Abrir herramienta</a>
-      </article>
-
-      <article class="card">
-        <div class="card-header">
-          <img src="img/herramientas.png" alt="icono">
-          <h2>Publicaciones</h2>
-        </div>
-        <img class="card-image" src="img/tarjetas/publicaciones.png" alt="Publicaciones">
-        <p>Acceso a documentos, informes y boletines de la Federación de Enseñanza.</p>
-        <a class="btn" href="publicaciones.html">Abrir herramienta</a>
-      </article>
-
-      <article class="card">
-        <div class="card-header">
-          <img src="img/herramientas.png" alt="icono">
-          <h2>Calculadora docente</h2>
-        </div>
-        <img class="card-image" src="img/tarjetas/calculadora.png" alt="Calculadora">
-        <p>Herramienta para cálculos rápidos: horas lectivas, cupos, reducciones y más.</p>
-        <a class="btn" href="calculadora.html">Abrir herramienta</a>
-      </article>
-
-      <article class="card">
-        <div class="card-header">
-          <img src="img/herramientas.png" alt="icono">
-          <h2>Contactos</h2>
-        </div>
-        <img class="card-image" src="img/tarjetas/contactos.png" alt="Contactos">
-        <p>Contactos de la Federación, delegados/as de zona y asesoría jurídica.</p>
-        <a class="btn" href="contactos.html">Abrir herramienta</a>
-      </article>
-
-      <article class="card">
-        <div class="card-header">
-          <img src="img/herramientas.png" alt="icono">
-          <h2>Afiliación</h2>
-        </div>
-        <img class="card-image" src="img/tarjetas/afiliacion.png" alt="Afiliación">
-        <p>Información para afiliarse a FECCOOEx y ventajas para la afiliación.</p>
-        <a class="btn" href="afiliacion.html">Abrir herramienta</a>
-      </article>
-
+    <div class="footer-col">
+      <h3>Teléfonos</h3>
+      <p>Badajoz: 924 224 104</p>
+      <p>Cáceres: 927 223 534</p>
+      <p>Mérida: 924 330 018</p>
+      <p>Plasencia: 927 424 086</p>
+      <p>Don Benito: 924 802 080</p>
+      <p>Zafra: 924 553 202</p>
     </div>
-  </main>
 
-  <!-- FOOTER CENTRAL -->
-  <div id="site-footer"></div>
-  <script src="assets/footer.js"></script>
+    <div class="footer-col">
+      <h3>Enlaces rápidos</h3>
+      <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
+      <p><a href="https://www.facebook.com/feccooex" target="_blank">Facebook</a></p>
+      <p><a href="https://x.com/FECCOOex" target="_blank">X (Twitter)</a></p>
+      <p><a href="https://www.instagram.com/feccooex" target="_blank">Instagram</a></p>
+      <p><a href="https://t.me/feccooextremadura" target="_blank">Telegram</a></p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-bottom-left">
+      <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
+      <span>Contenido bajo licencia Creative Commons BY-ND 4.0.</span>
+    </div>
+    <div class="footer-bottom-right">
+      © <span id="anio"></span> Federación de Enseñanza de CCOO de Extremadura
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("anio").textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
