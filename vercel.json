@@ -1,7 +1,12 @@
 {
   "cleanUrls": false,
-  "trailingSlash": false,
+  "trailingSlash": true,
   "routes": [
+    {
+      "src": "/calculadora(.html)?",
+      "status": 308,
+      "headers": { "Location": "/calculadoras/" }
+    },
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
