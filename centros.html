@@ -35,6 +35,7 @@
     h1{margin:0 0 6px;font-size:1.6rem}
     .subtitle{margin:0 0 14px;color:#444;font-size:.95rem;line-height:1.25rem}
 
+    /* NUEVO: layout solo para filtros + mapa */
     .layout{
       display:grid;
       grid-template-columns: 380px 1fr;
@@ -66,11 +67,67 @@
     .btn-secondary{background:#111827;color:#fff}
     .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 
+    /* MAPA */
     #map{height:560px;border-radius:12px;border:1px solid #e1e4ea}
     @media(max-width:1100px){ #map{height:520px} }
 
     .results-meta{margin-top:8px;color:#444;font-size:.9rem}
-    .list{margin-top:10px;display:grid;gap:8px}
+
+    /* NUEVO: cabecera de mapa con leyenda */
+    .map-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .map-head h2{margin:0;font-size:1.05rem;color:#111827}
+    .legend{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px 10px;
+      align-items:center;
+      font-size:0.82rem;
+      color:#374151;
+    }
+    .legend .item{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      padding:3px 8px;
+      border:1px solid #e5e7eb;
+      border-radius:999px;
+      background:#f9fafb;
+    }
+    .legend .dot{
+      width:10px;height:10px;border-radius:999px;display:inline-block;
+    }
+
+    /* NUEVO: listado en módulo inferior a ancho completo */
+    .list-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .list-header h2{margin:0;font-size:1.05rem;color:#111827}
+    .muted{color:#6b7280;font-size:.86rem}
+
+    .grid-list{
+      margin-top:10px;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:10px;
+    }
+    @media (max-width: 1100px){
+      .grid-list{grid-template-columns: repeat(2, minmax(0, 1fr));}
+    }
+    @media (max-width: 700px){
+      .grid-list{grid-template-columns: 1fr;}
+    }
+
     .item{
       border:1px solid #e5e7eb;border-radius:12px;padding:10px 10px;background:#fff
     }
@@ -87,7 +144,7 @@
       max-width:1300px;
       margin:0 auto;
       display:grid;
-      grid-template-columns: 1.2fr 1fr 1fr; /* Contacto(1) | Teléfonos(2) | Enlaces(3) */
+      grid-template-columns: 1.2fr 1fr 1fr;
       gap:16px;
       align-items:start;
     }
@@ -115,7 +172,6 @@
     }
     .phones li strong{color:#fff}
 
-    /* LICENCIA abajo (sin duplicar arriba) */
     .footer-bottom{
       max-width:1300px;margin:10px auto 0;border-top:1px solid #444;padding-top:6px;
       display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap
@@ -146,6 +202,7 @@
     Filtra por municipio, zona, tipo de centro, titularidad, horario y jornada partida. Los resultados se reflejan en el mapa y el listado.
   </p>
 
+  <!-- MÓDULO SUPERIOR: FILTROS + MAPA -->
   <div class="layout">
     <!-- PANEL IZQUIERDO -->
     <section class="card">
@@ -192,23 +249,40 @@
         <button class="btn btn-primary" id="btn_reload" type="button">Recargar CSV</button>
       </div>
 
+      <!-- Solo meta en el panel izquierdo -->
       <div class="results-meta" id="meta"></div>
-      <div class="list" id="list"></div>
+      <div class="muted" style="margin-top:6px;">
+        El listado completo aparece debajo del mapa.
+      </div>
     </section>
 
     <!-- MAPA -->
     <section class="card" style="padding:12px;">
+      <div class="map-head">
+        <h2>Mapa</h2>
+        <div id="legend" class="legend"></div>
+      </div>
+
       <div id="map"></div>
+
       <div class="results-meta" style="margin-top:10px;">
         Si un centro no aparece en el mapa suele ser por falta de lat/lng en el CSV.
       </div>
     </section>
   </div>
+
+  <!-- MÓDULO INFERIOR: LISTADO A ANCHO COMPLETO -->
+  <section class="card">
+    <div class="list-header">
+      <h2>Relación de centros</h2>
+      <div class="muted" id="contador">0 centros</div>
+    </div>
+    <div class="grid-list" id="list"></div>
+  </section>
 </main>
 
 <footer>
   <div class="footer-inner">
-    <!-- Columna 1: Contacto + Dirección + Correo -->
     <div class="footer-col">
       <h3>Contacto</h3>
       <p><strong>Dirección:</strong><br>
@@ -220,7 +294,6 @@
       </p>
     </div>
 
-    <!-- Columna 2: Teléfonos por sede -->
     <div class="footer-col">
       <h3>Teléfonos por sede</h3>
       <ul class="phones">
@@ -233,7 +306,6 @@
       </ul>
     </div>
 
-    <!-- Columna 3: Enlaces rápidos -->
     <div class="footer-col">
       <h3>Enlaces rápidos</h3>
       <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
@@ -323,6 +395,50 @@
       .replaceAll("'","&#039;");
   }
 
+  // ====== COLORES POR TIPO ======
+  const PALETTE = [
+    "#d60000", "#2563eb", "#16a34a", "#f59e0b", "#7c3aed",
+    "#0ea5e9", "#db2777", "#65a30d", "#ea580c", "#64748b"
+  ];
+
+  function buildTipoColorMap(rows){
+    const tipos = Array.from(new Set(
+      rows.map(r => norm(r.tipo_centro)).filter(Boolean)
+    )).sort((a,b)=>a.localeCompare(b,"es",{sensitivity:"base"}));
+
+    const map = new Map();
+    tipos.forEach((t, i) => map.set(t, PALETTE[i % PALETTE.length]));
+    return map;
+  }
+
+  function iconPorColor(color){
+    return L.divIcon({
+      className: "",
+      html: `<span style="
+        display:inline-block;
+        width:14px;height:14px;border-radius:999px;
+        background:${color};
+        border:2px solid #fff;
+        box-shadow:0 2px 6px rgba(0,0,0,0.35);
+      "></span>`,
+      iconSize: [14,14],
+      iconAnchor: [7,7]
+    });
+  }
+
+  function renderLegend(tipoColorMap){
+    const legend = document.getElementById("legend");
+    if (!legend) return;
+    legend.innerHTML = "";
+
+    Array.from(tipoColorMap.entries()).forEach(([tipo, color]) => {
+      const item = document.createElement("div");
+      item.className = "item";
+      item.innerHTML = `<span class="dot" style="background:${color}"></span>${escapeHtml(tipo)}`;
+      legend.appendChild(item);
+    });
+  }
+
   // Map
   const map = L.map("map").setView([39.2, -6.3], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -340,10 +456,12 @@
   const elJor = document.getElementById("f_jornada");
   const elMeta = document.getElementById("meta");
   const elList = document.getElementById("list");
+  const elCont = document.getElementById("contador");
 
   // State
   let raw = [];
   let filtered = [];
+  let tipoColorMap = new Map();
 
   document.getElementById("btn_reset").addEventListener("click", () => {
     elBus.value = "";
@@ -396,6 +514,7 @@
           jornada_partida: norm(row[COL.jornada_partida])
         }));
 
+        // Filtros
         setOptions(elMun, uniqueSorted(raw.map(x => x.municipio)), "(Todos)");
         setOptions(elZona, uniqueSorted(raw.map(x => x.zona)), "(Todas)");
         setOptions(elTipo, uniqueSorted(raw.map(x => x.tipo_centro)), "(Todos)");
@@ -403,11 +522,16 @@
         setOptions(elHor, uniqueSorted(raw.map(x => x.horario)), "(Todos)");
         setOptions(elJor, uniqueSorted(raw.map(x => x.jornada_partida)), "(Todas)");
 
+        // Colores + leyenda (basado en TODOS los tipos del CSV)
+        tipoColorMap = buildTipoColorMap(raw);
+        renderLegend(tipoColorMap);
+
         applyFilters();
       })
       .catch(err => {
         elMeta.textContent = "Error: " + err.message;
         elList.innerHTML = "";
+        elCont.textContent = "0 centros";
         markersLayer.clearLayers();
       });
   }
@@ -441,9 +565,11 @@
 
   function render(){
     elMeta.textContent = `Resultados: ${filtered.length} de ${raw.length}`;
+    elCont.textContent = `${filtered.length} centro${filtered.length !== 1 ? "s" : ""}`;
 
+    // LISTADO (módulo inferior)
     elList.innerHTML = "";
-    filtered.slice(0, 250).forEach(x => {
+    filtered.slice(0, 1000).forEach(x => {
       const div = document.createElement("div");
       div.className = "item";
       div.innerHTML = `
@@ -462,13 +588,17 @@
       elList.appendChild(div);
     });
 
+    // MAPA (coloreado por tipo)
     markersLayer.clearLayers();
     const points = [];
 
     filtered.forEach(x => {
       if (x.lat == null || x.lng == null) return;
 
-      const m = L.marker([x.lat, x.lng]).bindPopup(`
+      const tipo = norm(x.tipo_centro);
+      const color = tipoColorMap.get(tipo) || "#64748b";
+
+      const m = L.marker([x.lat, x.lng], { icon: iconPorColor(color) }).bindPopup(`
         <strong>${escapeHtml(x.nombre || "")}</strong><br>
         ${escapeHtml(x.direccion || "")}<br>
         <strong>Municipio:</strong> ${escapeHtml(x.municipio || "-")}<br>
