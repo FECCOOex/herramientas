@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Área afiliados/as · Herramientas FECCOOEx</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- FOOTER CENTRALIZADO -->
+  <link rel="stylesheet" href="assets/footer.css" />
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f3f4f6;
+      color: #222;
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      background: #d60000;
+      color: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header img { height: 52px; }
+
+    .titles h1 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .titles p {
+      margin: 2px 0 0;
+      font-size: 0.9rem;
+      opacity: 0.95;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,0.7);
+      border-radius: 999px;
+      transition: 0.2s ease;
+      margin-left: 8px;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.18);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1300px;
+      margin: 26px auto 40px;
+      padding: 0 16px 40px;
+    }
+
+    /* BOTÓN VOLVER */
+    .back-home {
+      display: inline-block;
+      margin-bottom: 16px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,0.7);
+      border-radius: 999px;
+      transition: 0.2s ease;
+      background: #d60000;
+      box-shadow: 0 2px 5px rgba(214,0,0,0.3);
+    }
+
+    .back-home:hover {
+      background: #b40000;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 9px rgba(180,0,0,0.35);
+    }
+
+    /* TARJETA */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 18px;
+      border: 1px solid #e1e4ea;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.10);
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      color: #d60000;
+      font-size: 1.4rem;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #444;
+      margin: 0 0 12px;
+    }
+
+    .placeholder {
+      margin-top: 16px;
+      padding: 16px;
+      border: 2px dashed #d9dde6;
+      border-radius: 10px;
+      background: #fafafa;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <a href="index.html">
+        <img src="img/feccooex.png" alt="FECCOOEx">
+      </a>
+      <div class="titles">
+        <h1>Herramientas FECCOOEx</h1>
+        <p>Recursos públicos y sindicales para la comunidad educativa</p>
+      </div>
+    </div>
+    <nav>
+      <a href="delegados.html">Área delegados/as</a>
+      <a href="afiliados.html">Área afiliados/as</a>
+    </nav>
+  </header>
+
+  <main>
+    <a class="back-home" href="index.html">Volver a la portada</a>
+
+    <section class="card">
+      <h2>Área afiliados/as</h2>
+
+      <p>
+        Espacio reservado para contenidos exclusivos para personas afiliadas:
+        información interna, recursos, documentación y servicios del sindicato.
+      </p>
+
+      <div class="placeholder">
+        <strong>Contenido en preparación.</strong><br>
+        Aquí se incorporarán próximamente herramientas y recursos específicos
+        para afiliados/as.
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER CENTRAL -->
+  <div id="site-footer"></div>
+  <script src="assets/footer.js?v=1"></script>
+
+</body>
+</html>
