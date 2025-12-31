@@ -18,7 +18,7 @@
       color: #222;
     }
 
-    /* HEADER (idéntico a index.html) */
+    /* HEADER */
     header {
       display: flex;
       align-items: center;
@@ -69,7 +69,28 @@
       padding: 0 16px 40px;
     }
 
-    /* CONTENEDOR PRINCIPAL */
+    /* BOTÓN VOLVER */
+    .back-home {
+      display: inline-block;
+      margin-bottom: 14px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,0.7);
+      border-radius: 999px;
+      transition: 0.2s ease;
+      background: #d60000;
+      box-shadow: 0 2px 5px rgba(214,0,0,0.3);
+    }
+
+    .back-home:hover {
+      background: #b40000;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 9px rgba(180,0,0,0.35);
+    }
+
+    /* TARJETA PRINCIPAL */
     .card {
       background: #fff;
       border-radius: 10px;
@@ -226,9 +247,15 @@
   </header>
 
   <main>
+    <!-- BOTÓN VOLVER -->
+    <a class="back-home" href="index.html">← Volver a la portada</a>
+
     <section class="card">
       <h2>Contactos</h2>
-      <p>Directorio de contactos de la Administración educativa, otras instituciones y del sindicato.</p>
+      <p>
+        Directorio de contactos de la Administración educativa, otras instituciones
+        y del sindicato.
+      </p>
 
       <div class="filters">
         <input id="q" type="search" placeholder="Buscar por servicio, cargo, persona, email…" autocomplete="off">
@@ -246,9 +273,7 @@
   <div id="site-footer"></div>
   <script src="assets/footer.js?v=1"></script>
 
-  <!-- JS CONTACTOS -->
-  <script src="assets/js/contactos.js"></script>
-  <!-- redeploy -->
+  <!-- JS CONTACTOS (ajusta la ruta si lo tienes en otro sitio) -->
+  <script src="contactos.js"></script>
 </body>
 </html>
-
