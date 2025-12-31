@@ -1,13 +1,16 @@
 {
   "cleanUrls": false,
   "trailingSlash": true,
-  "routes": [
+  "redirects": [
     {
-      "src": "/calculadora(.html)?",
-      "status": 308,
-      "headers": { "Location": "/calculadoras/" }
+      "source": "/calculadora",
+      "destination": "/calculadoras/",
+      "permanent": true
     },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/$1" }
+    {
+      "source": "/calculadora.html",
+      "destination": "/calculadoras/",
+      "permanent": true
+    }
   ]
 }
