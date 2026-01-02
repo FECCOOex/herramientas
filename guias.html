@@ -72,7 +72,7 @@
     .back-home:hover{
       background:#b40000;
       transform:translateY(-1px);
-      box-shadow:0 4px 9px rgba(180,0,0,0.30);
+      box-shadow:0 4px 9px rgba(180,0,0,0,0.30);
     }
 
     /* ===== CARRUSEL (universal) ===== */
@@ -236,8 +236,8 @@
       text-decoration:none;
       transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s;
     }
-    .btn-primary{ background:#d60000; color:#fff; box-shadow:0 2px 5px rgba(214,0,0,0.3); }
-    .btn-primary:hover{ background:#b40000; transform:translateY(-1px); box-shadow:0 4px 9px rgba(180,0,0,0.35); }
+    .btn-primary{ background:#d60000; color:#fff; box-shadow:0 2px 5px rgba(214,0,0,0,0.3); }
+    .btn-primary:hover{ background:#b40000; transform:translateY(-1px); box-shadow:0 4px 9px rgba(180,0,0,0,0.35); }
     .btn-secondary{ background:#111827; color:#fff; }
     .btn-secondary:hover{ transform:translateY(-1px); box-shadow:0 6px 16px rgba(0,0,0,0.18); }
 
@@ -336,7 +336,7 @@
     .btn-enlace:hover{
       background:#b40000;
       transform:translateY(-1px);
-      box-shadow:0 4px 9px rgba(180,0,0,0.30);
+      box-shadow:0 4px 9px rgba(180,0,0,0,0.30);
     }
     .tag{
       font-size:0.74rem;
@@ -423,7 +423,6 @@
 
     <div class="filtros-actions">
       <button class="btn btn-secondary" id="btn-limpiar" type="button">Limpiar filtros</button>
-      <button class="btn btn-primary" id="btn-recargar" type="button">Recargar CSV</button>
       <span style="font-size:0.85rem; color:#555;" id="estado-carga"></span>
     </div>
 
@@ -614,7 +613,6 @@
   const elAmbito   = document.getElementById("f-ambito");
   const elTexto    = document.getElementById("f-texto");
   const btnLimpiar = document.getElementById("btn-limpiar");
-  const btnRecargar = document.getElementById("btn-recargar");
 
   const elLista = document.getElementById("lista");
   const elMsg = document.getElementById("msg");
@@ -693,7 +691,6 @@
   }
 
   function hasAnyFilter(){
-    // OJO: los select con placeholder disabled no dejan value salvo que el usuario elija uno.
     const t = (elTematica.value || "").trim();
     const a = (elAmbito.value || "").trim();
     const x = (elTexto.value || "").trim();
@@ -701,7 +698,6 @@
   }
 
   function resetFilters(){
-    // Volvemos a placeholder (value="")
     elTematica.selectedIndex = 0;
     elAmbito.selectedIndex = 0;
     elTexto.value = "";
@@ -799,7 +795,6 @@
         acciones.appendChild(s);
       }
 
-      // Tag rápido (ámbito si existe)
       if (amb){
         const t = document.createElement("span");
         t.className = "tag";
@@ -814,17 +809,16 @@
     elLista.appendChild(frag);
   }
 
-  async function loadCSV(bust=false){
+  async function loadCSV(){
     elEstadoCarga.textContent = "Cargando guías…";
 
     try{
-      const r = await fetch(CSV_URL + (bust ? ("?v=" + Date.now()) : ""));
+      const r = await fetch(CSV_URL + "?v=" + Date.now());
       if (!r.ok) throw new Error("No se pudo cargar guias.csv (" + r.status + ")");
       const text = await r.text();
 
       const rows = parseCSV(text);
 
-      // Mapeo flexible de columnas
       raw = rows.map(o => ({
         titulo: pick(o, ["titulo","título","nombre","guia","guía"]),
         tematica: pick(o, ["tematica","temática","tema"]),
@@ -835,7 +829,6 @@
         enlace: pick(o, ["enlace","url","link"])
       }));
 
-      // Poblar selects (sin opción "Todos/Todas")
       const tematicas = uniqueSorted(raw.map(x => x.tematica));
       const ambitos = uniqueSorted(raw.map(x => x.ambito));
 
@@ -843,7 +836,7 @@
       fillSelect(elAmbito, ambitos, "Selecciona ámbito…");
 
       elEstadoCarga.textContent = `Guías cargadas: ${raw.length}`;
-      renderEmptyState(); // por defecto NO mostramos nada
+      renderEmptyState();
 
     } catch(e){
       console.error(e);
@@ -861,10 +854,9 @@
   elTexto.addEventListener("input", applyFilters);
 
   btnLimpiar.addEventListener("click", resetFilters);
-  btnRecargar.addEventListener("click", () => loadCSV(true));
 
   // Init
-  loadCSV(true);
+  loadCSV();
 </script>
 
 </body>
