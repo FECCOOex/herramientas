@@ -5,6 +5,9 @@
   <title>Centros de trabajo · Herramientas FECCOOEx</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- FOOTER CENTRALIZADO -->
+  <link rel="stylesheet" href="/assets/footer.css" />
+
   <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -26,16 +29,147 @@
     .titles p{margin:2px 0 0;font-size:.9rem;opacity:.95}
     nav a{color:#fff;text-decoration:none;font-weight:700;padding:6px 12px;border:1px solid rgba(255,255,255,.7);border-radius:999px}
 
-    main{max-width:1300px;margin:26px auto;padding:0 16px 40px}
-    .btn-volver{
-      display:inline-block;margin-bottom:16px;padding:6px 10px;border-radius:6px;
-      background:#d60000;color:#fff;font-size:.9rem;font-weight:800;text-decoration:none
+    /* VOLVER (estilo unificado) */
+    .back-wrap{
+      max-width:1300px;
+      margin:14px auto 0;
+      padding:0 16px;
     }
+    .back-home{
+      display:inline-block;
+      background:#d60000;
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+      padding:8px 12px;
+      border-radius:999px;
+      box-shadow:0 2px 5px rgba(214,0,0,0.25);
+      transition: background 0.15s, transform 0.12s ease, box-shadow 0.12s ease;
+      border:1px solid rgba(255,255,255,0.35);
+      font-size:.9rem;
+    }
+    .back-home:hover{
+      background:#b40000;
+      transform:translateY(-1px);
+      box-shadow:0 4px 9px rgba(180,0,0,0.30);
+    }
+
+    /* ===== CARRUSEL (universal) ===== */
+    .campaign-wrap{
+      max-width:1300px;
+      margin:12px auto 0;
+      padding:0 16px;
+    }
+
+    .carousel{
+      background:#fff;
+      border:1px solid #e1e4ea;
+      border-radius:12px;
+      box-shadow:0 3px 8px rgba(0,0,0,0.08);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .carousel-track{
+      display:flex;
+      transition:transform 350ms ease;
+      will-change: transform;
+    }
+
+    .slide{
+      min-width:100%;
+      position:relative;
+      background:#fff;
+    }
+
+    .slide a{
+      display:block;
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .slide img{
+      display:block;
+      width:100%;
+      height:auto;
+      object-fit:contain;
+      max-height:260px;
+      background:#fff;
+    }
+
+    @media (max-width:700px){
+      .slide img{ max-height:180px; }
+    }
+
+    .carousel-btn{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      border:none;
+      background:rgba(0,0,0,0.35);
+      color:#fff;
+      width:40px;
+      height:40px;
+      border-radius:999px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:background 120ms ease, transform 120ms ease;
+      z-index:2;
+    }
+    .carousel-btn:hover{
+      background:rgba(0,0,0,0.5);
+      transform:translateY(-50%) scale(1.03);
+    }
+    .carousel-btn.prev{ left:10px; }
+    .carousel-btn.next{ right:10px; }
+
+    @media (max-width:700px){
+      .carousel-btn{ width:36px; height:36px; }
+      .carousel-btn.prev{ left:8px; }
+      .carousel-btn.next{ right:8px; }
+    }
+
+    .dots{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:10px;
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      z-index:2;
+      padding:0 10px;
+    }
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.9);
+      background:rgba(0,0,0,0.35);
+      cursor:pointer;
+      transition:transform 120ms ease, background 120ms ease;
+    }
+    .dot.active{
+      background:#d60000;
+      border-color:rgba(255,255,255,0.95);
+      transform:scale(1.12);
+    }
+
+    .carousel-empty{
+      padding:14px 16px;
+      color:#555;
+      font-size:0.95rem;
+    }
+
+    /* MAIN */
+    main{max-width:1300px;margin:14px auto 0;padding:0 16px 40px}
 
     h1{margin:0 0 6px;font-size:1.6rem}
     .subtitle{margin:0 0 14px;color:#444;font-size:.95rem;line-height:1.25rem}
 
-    /* NUEVO: layout solo para filtros + mapa */
+    /* layout solo para filtros + mapa */
     .layout{
       display:grid;
       grid-template-columns: 380px 1fr;
@@ -73,7 +207,7 @@
 
     .results-meta{margin-top:8px;color:#444;font-size:.9rem}
 
-    /* NUEVO: cabecera de mapa con leyenda */
+    /* cabecera de mapa con leyenda */
     .map-head{
       display:flex;
       justify-content:space-between;
@@ -104,7 +238,7 @@
       width:10px;height:10px;border-radius:999px;display:inline-block;
     }
 
-    /* NUEVO: listado en módulo inferior a ancho completo */
+    /* listado en módulo inferior a ancho completo */
     .list-header{
       display:flex;
       justify-content:space-between;
@@ -134,69 +268,38 @@
     .item h3{margin:0 0 4px;font-size:1rem}
     .item .small{font-size:.84rem;color:#555;line-height:1.2rem}
     .tagline{margin-top:4px;font-size:.82rem;color:#666}
-
-    /* FOOTER: Contacto 2 columnas + Enlaces rápidos */
-    footer{
-      background:#222;color:#f2f2f2;padding:18px 20px 10px;border-top:3px solid #d60000;
-      font-size:.85rem;margin-top:10px
-    }
-    .footer-inner{
-      max-width:1300px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns: 1.2fr 1fr 1fr;
-      gap:16px;
-      align-items:start;
-    }
-    @media (max-width:900px){
-      .footer-inner{grid-template-columns:1fr}
-    }
-
-    .footer-col h3{
-      margin:0 0 6px;font-size:.95rem;text-transform:uppercase;letter-spacing:.03em;color:#fff
-    }
-    .footer-col p{
-      margin:0 0 6px;font-size:.82rem;color:#e0e0e0;line-height:1.25rem
-    }
-    .footer-col a{color:#ffdddd;text-decoration:none;font-size:.82rem}
-    .footer-col a:hover{text-decoration:underline}
-
-    .phones{
-      margin:6px 0 0;
-      padding:0;
-      list-style:none;
-      display:grid;
-      gap:4px;
-      font-size:.82rem;
-      color:#e0e0e0;
-    }
-    .phones li strong{color:#fff}
-
-    .footer-bottom{
-      max-width:1300px;margin:10px auto 0;border-top:1px solid #444;padding-top:6px;
-      display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap
-    }
-    .footer-bottom-left{display:flex;align-items:center;gap:6px;font-size:.78rem;color:#e0e0e0}
-    .footer-bottom-left img{height:18px}
-    .footer-bottom-right{font-size:.78rem;color:#bbbbbb}
   </style>
 </head>
 
 <body>
 <header>
   <div style="display:flex; align-items:center; gap:16px;">
-    <img src="img/feccooex.png" alt="FECCOOEx">
+    <img src="/img/feccooex.png" alt="FECCOOEx">
     <div class="titles">
       <h1>Herramientas FECCOOEx</h1>
       <p>Consulta de centros de trabajo (mapa y filtros)</p>
     </div>
   </div>
-  <nav><a href="delegados.html">Área delegados/as</a></nav>
+  <nav><a href="/delegados.html">Área delegados/as</a></nav>
 </header>
 
-<main>
-  <a class="btn-volver" href="index.html">Volver a la portada</a>
+<!-- Volver -->
+<div class="back-wrap">
+  <a class="back-home" href="/index.html">Volver a la portada</a>
+</div>
 
+<!-- Carrusel -->
+<div class="campaign-wrap">
+  <div class="carousel" id="campaignCarousel" aria-label="Campañas">
+    <div class="carousel-empty" id="carouselEmpty">Cargando campañas…</div>
+    <button class="carousel-btn prev" id="carouselPrev" aria-label="Anterior" style="display:none;">‹</button>
+    <button class="carousel-btn next" id="carouselNext" aria-label="Siguiente" style="display:none;">›</button>
+    <div class="carousel-track" id="carouselTrack" style="display:none;"></div>
+    <div class="dots" id="carouselDots" style="display:none;"></div>
+  </div>
+</div>
+
+<main>
   <h1>Centros de trabajo</h1>
   <p class="subtitle">
     Filtra por municipio, zona, tipo de centro, titularidad, horario y jornada partida. Los resultados se reflejan en el mapa y el listado.
@@ -281,54 +384,173 @@
   </section>
 </main>
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-col">
-      <h3>Contacto</h3>
-      <p><strong>Dirección:</strong><br>
-        Avenida Juan Carlos I, núm. 47<br>
-        CP 06800 · Mérida (Extremadura)
-      </p>
-      <p><strong>Correo:</strong>
-        <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a>
-      </p>
-    </div>
-
-    <div class="footer-col">
-      <h3>Teléfonos por sede</h3>
-      <ul class="phones">
-        <li><strong>Badajoz:</strong> 924224104</li>
-        <li><strong>Cáceres:</strong> 927223534</li>
-        <li><strong>Mérida:</strong> 924330018</li>
-        <li><strong>Plasencia:</strong> 927424086</li>
-        <li><strong>Don Benito:</strong> 924802080</li>
-        <li><strong>Zafra:</strong> 924553202</li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h3>Enlaces rápidos</h3>
-      <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
-      <p><a href="https://www.facebook.com/feccooex" target="_blank">Facebook FECCOOEx</a></p>
-      <p><a href="https://x.com/FECCOOex" target="_blank">X (Twitter) FECCOOEx</a></p>
-      <p><a href="https://www.instagram.com/feccooex" target="_blank">Instagram FECCOOEx</a></p>
-      <p><a href="https://t.me/feccooextremadura" target="_blank">Canal de Telegram FECCOOExtremadura</a></p>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <div class="footer-bottom-left">
-      <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
-      <span>Contenido bajo licencia Creative Commons BY-ND 4.0 (se permite compartir sin modificaciones y con atribución).</span>
-    </div>
-    <div class="footer-bottom-right">
-      © <span id="anio-footer"></span> Federación de Enseñanza de CCOO de Extremadura
-    </div>
-  </div>
-</footer>
+<!-- FOOTER CENTRAL -->
+<div id="site-footer"></div>
+<script src="/assets/footer.js?v=1"></script>
 
 <script>
-  document.getElementById("anio-footer").textContent = new Date().getFullYear();
+  /***********************
+   * 1) CARRUSEL UNIVERSAL
+   ***********************/
+  (function initCarousel(){
+    const BANNERS_CSV = "/banners.csv";
+
+    const elEmpty = document.getElementById("carouselEmpty");
+    const elTrack = document.getElementById("carouselTrack");
+    const elDots  = document.getElementById("carouselDots");
+    const btnPrev = document.getElementById("carouselPrev");
+    const btnNext = document.getElementById("carouselNext");
+    const elCarousel = document.getElementById("campaignCarousel");
+
+    if (!elEmpty || !elTrack || !elDots || !btnPrev || !btnNext || !elCarousel) return;
+
+    let slides = [];
+    let index = 0;
+    let timer = null;
+    const AUTO_MS = 5500;
+
+    function splitCSVLine(line){
+      const out = [];
+      let cur = "";
+      let inQ = false;
+      for (let i=0; i<line.length; i++){
+        const ch = line[i];
+        if (ch === '"' && line[i+1] === '"'){ cur += '"'; i++; continue; }
+        if (ch === '"'){ inQ = !inQ; continue; }
+        if (ch === "," && !inQ){ out.push(cur); cur=""; continue; }
+        cur += ch;
+      }
+      out.push(cur);
+      return out;
+    }
+    function parseCSV(text){
+      const lines = text.replace(/\r/g, "").split("\n").filter(l => l.trim() !== "");
+      if (!lines.length) return [];
+      const headers = splitCSVLine(lines[0]).map(h => h.trim());
+      return lines.slice(1).map(line => {
+        const cols = splitCSVLine(line);
+        const obj = {};
+        headers.forEach((h,i) => obj[h] = (cols[i] ?? "").trim());
+        return obj;
+      });
+    }
+    function normBool(v){
+      return ["1","true","si","sí","x","ok"].includes((v||"").toLowerCase().trim());
+    }
+
+    function apply(){
+      elTrack.style.transform = `translateX(${-index * 100}%)`;
+      [...elDots.children].forEach((d, i) => d.classList.toggle("active", i === index));
+    }
+    function goTo(i, userAction=false){
+      index = (i + slides.length) % slides.length;
+      apply();
+      if (userAction) restartAuto();
+    }
+    function next(user=false){ goTo(index + 1, user); }
+    function prev(user=false){ goTo(index - 1, user); }
+
+    function startAuto(){
+      stopAuto();
+      timer = setInterval(() => next(false), AUTO_MS);
+    }
+    function stopAuto(){
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+    function restartAuto(){
+      stopAuto();
+      startAuto();
+    }
+
+    function buildCarousel(items){
+      slides = items;
+      elTrack.innerHTML = "";
+      elDots.innerHTML = "";
+
+      slides.forEach((s, i) => {
+        const slide = document.createElement("div");
+        slide.className = "slide";
+
+        const imgSrc = s.imagen;
+        const alt = s.alt || "Campaña FECCOOEx";
+        const href = (s.enlace || "").trim();
+
+        const img = `<img src="${imgSrc}" alt="${alt}" loading="lazy">`;
+        slide.innerHTML = href ? `<a href="${href}" aria-label="${alt}">${img}</a>` : img;
+
+        elTrack.appendChild(slide);
+
+        const dot = document.createElement("button");
+        dot.className = "dot" + (i === 0 ? " active" : "");
+        dot.setAttribute("aria-label", "Ir a campaña " + (i+1));
+        dot.addEventListener("click", () => goTo(i, true));
+        elDots.appendChild(dot);
+      });
+
+      const multi = slides.length > 1;
+      elEmpty.style.display = "none";
+      elTrack.style.display = "flex";
+      elDots.style.display = multi ? "flex" : "none";
+      btnPrev.style.display = multi ? "flex" : "none";
+      btnNext.style.display = multi ? "flex" : "none";
+
+      index = 0;
+      apply();
+      if (multi) startAuto();
+    }
+
+    elCarousel.addEventListener("mouseenter", stopAuto);
+    elCarousel.addEventListener("mouseleave", () => { if (slides.length > 1) startAuto(); });
+
+    btnNext.addEventListener("click", () => next(true));
+    btnPrev.addEventListener("click", () => prev(true));
+
+    let touchX = null;
+    elCarousel.addEventListener("touchstart", (e) => {
+      if (!e.touches || e.touches.length !== 1) return;
+      touchX = e.touches[0].clientX;
+      stopAuto();
+    }, {passive:true});
+
+    elCarousel.addEventListener("touchend", (e) => {
+      if (touchX === null) return;
+      const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : touchX;
+      const dx = endX - touchX;
+      touchX = null;
+
+      if (Math.abs(dx) > 40){
+        dx < 0 ? next(true) : prev(true);
+      } else {
+        restartAuto();
+      }
+    }, {passive:true});
+
+    fetch(BANNERS_CSV + "?v=" + Date.now())
+      .then(r => { if (!r.ok) throw new Error("No se pudo cargar banners.csv"); return r.text(); })
+      .then(text => {
+        const rows = parseCSV(text);
+        const items = rows
+          .filter(r => normBool(r.activo))
+          .sort((a,b) => (parseInt(a.orden||"999",10) - parseInt(b.orden||"999",10)));
+
+        if (!items.length){
+          elEmpty.textContent = "No hay campañas activas.";
+          return;
+        }
+        buildCarousel(items);
+      })
+      .catch(err => {
+        console.error(err);
+        elEmpty.textContent = "No se ha podido cargar el banner de campañas.";
+      });
+  })();
+</script>
+
+<script>
+  /***********************
+   * 2) TU CÓDIGO DE CENTROS
+   * (solo se han cambiado rutas a absolutas)
+   ***********************/
 
   // Columnas exactas del CSV:
   // id, nombre, codigo_centro, titularidad, tipo_centro, etapas, lat, lng, zona,
@@ -482,7 +704,7 @@
   });
 
   function loadCSV(bustCache=false){
-    const url = "centros.csv" + (bustCache ? ("?v=" + Date.now()) : "");
+    const url = "/centros.csv" + (bustCache ? ("?v=" + Date.now()) : "");
     fetch(url)
       .then(r => {
         if(!r.ok) throw new Error("No se pudo cargar centros.csv (" + r.status + ")");
