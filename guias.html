@@ -5,8 +5,11 @@
   <title>Guías prácticas · Herramientas FECCOOEx</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- FOOTER CENTRALIZADO -->
+  <link rel="stylesheet" href="/assets/footer.css" />
+
   <style>
-    * { box-sizing: border-box; }
+    *{ box-sizing:border-box; }
     body{
       margin:0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -14,7 +17,7 @@
       color:#222;
     }
 
-    /* HEADER */
+    /* HEADER (unificado) */
     header{
       display:flex;
       align-items:center;
@@ -26,548 +29,842 @@
       position:sticky;
       top:0;
       z-index:10;
+      gap:16px;
     }
     header img{ height:52px; }
     .titles h1{ margin:0; font-size:1.6rem; font-weight:700; }
     .titles p{ margin:2px 0 0; font-size:0.9rem; opacity:0.95; }
     nav a{
-      color:#fff; text-decoration:none; font-weight:600;
-      padding:6px 12px; border:1px solid rgba(255,255,255,0.7);
-      border-radius:999px; transition:0.2s ease;
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      padding:6px 12px;
+      border:1px solid rgba(255,255,255,0.7);
+      border-radius:999px;
+      transition:0.2s ease;
+      white-space:nowrap;
     }
     nav a:hover{
-      background:rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.18);
       transform: translateY(-1px);
       box-shadow:0 2px 6px rgba(0,0,0,0.25);
     }
 
-    /* MAIN */
-    main{
-      max-width: 1180px;
-      margin: 26px auto 40px;
-      padding: 0 16px 40px;
+    /* VOLVER (unificado) */
+    .back-wrap{
+      max-width:1100px;
+      margin:14px auto 0;
+      padding:0 16px;
     }
-
-    .btn-volver{
+    .back-home{
       display:inline-block;
-      margin-bottom:16px;
-      padding:6px 10px;
-      border-radius:6px;
       background:#d60000;
       color:#fff;
-      font-size:0.9rem;
-      font-weight:600;
       text-decoration:none;
-      transition: background 0.15s;
+      font-weight:800;
+      padding:8px 12px;
+      border-radius:999px;
+      box-shadow:0 2px 5px rgba(214,0,0,0,0.25);
+      transition: background 0.15s, transform 0.12s ease, box-shadow 0.12s ease;
+      border:1px solid rgba(255,255,255,0.35);
+      font-size:.9rem;
     }
-    .btn-volver:hover{ background:#b40000; }
+    .back-home:hover{
+      background:#b40000;
+      transform:translateY(-1px);
+      box-shadow:0 4px 9px rgba(180,0,0,0.30);
+    }
+
+    /* ===== CARRUSEL (universal) ===== */
+    .campaign-wrap{
+      max-width:1100px;
+      margin:12px auto 0;
+      padding:0 16px;
+    }
+    .carousel{
+      background:#fff;
+      border:1px solid #e1e4ea;
+      border-radius:12px;
+      box-shadow:0 3px 8px rgba(0,0,0,0.08);
+      overflow:hidden;
+      position:relative;
+    }
+    .carousel-track{
+      display:flex;
+      transition:transform 350ms ease;
+      will-change: transform;
+    }
+    .slide{ min-width:100%; position:relative; background:#fff; }
+    .slide a{ display:block; text-decoration:none; color:inherit; }
+    .slide img{
+      display:block;
+      width:100%;
+      height:auto;
+      object-fit:contain;
+      max-height:260px;
+      background:#fff;
+    }
+    @media (max-width:700px){
+      .slide img{ max-height:180px; }
+    }
+    .carousel-btn{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      border:none;
+      background:rgba(0,0,0,0.35);
+      color:#fff;
+      width:40px;
+      height:40px;
+      border-radius:999px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:background 120ms ease, transform 120ms ease;
+      z-index:2;
+    }
+    .carousel-btn:hover{
+      background:rgba(0,0,0,0.5);
+      transform:translateY(-50%) scale(1.03);
+    }
+    .carousel-btn.prev{ left:10px; }
+    .carousel-btn.next{ right:10px; }
+    @media (max-width:700px){
+      .carousel-btn{ width:36px; height:36px; }
+      .carousel-btn.prev{ left:8px; }
+      .carousel-btn.next{ right:8px; }
+    }
+    .dots{
+      position:absolute;
+      left:0; right:0;
+      bottom:10px;
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      z-index:2;
+      padding:0 10px;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,0.9);
+      background:rgba(0,0,0,0.35);
+      cursor:pointer;
+      transition:transform 120ms ease, background 120ms ease;
+    }
+    .dot.active{
+      background:#d60000;
+      border-color:rgba(255,255,255,0.95);
+      transform:scale(1.12);
+    }
+    .carousel-empty{
+      padding:14px 16px;
+      color:#555;
+      font-size:0.95rem;
+    }
+
+    /* MAIN */
+    main{
+      max-width:1100px;
+      margin:14px auto 40px;
+      padding:0 16px 40px;
+    }
 
     .page-title{ margin: 0 0 6px; font-size:1.6rem; }
-    .page-subtitle{ margin:0 0 14px; color:#444; font-size:0.95rem; }
+    .page-subtitle{
+      margin:0 0 14px;
+      color:#444;
+      font-size:0.95rem;
+      line-height:1.25rem;
+    }
 
     .card{
       background:#fff;
       border:1px solid #e1e4ea;
-      border-radius: 12px;
+      border-radius:12px;
       box-shadow:0 3px 10px rgba(0,0,0,0.10);
-      padding: 14px 16px 16px;
-      margin-bottom: 14px;
+      padding:14px 16px 16px;
+      margin-bottom:14px;
     }
 
-    /* filtros */
-    .filters{
+    /* Filtros */
+    .filtros-grid{
       display:grid;
-      grid-template-columns: 1.2fr 1.2fr 1fr;
-      gap: 10px;
-      align-items:end;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:12px;
     }
-    @media (max-width: 980px){
-      .filters{ grid-template-columns: 1fr; }
+    @media (max-width: 900px){
+      .filtros-grid{ grid-template-columns: 1fr; }
     }
 
-    label{
-      font-size:0.82rem;
-      font-weight:800;
-      color:#555;
+    .filtro-item label{
       display:block;
+      font-size:0.82rem;
+      font-weight:900;
+      color:#555;
       margin-bottom:4px;
     }
-    select, input{
+    .filtro-item select, .filtro-item input{
       width:100%;
-      font-family: inherit;
-      font-size:0.95rem;
-      padding: 8px 10px;
-      border-radius: 8px;
+      padding:9px 10px;
+      border-radius:10px;
       border:1px solid #cbd5e1;
+      font-size:0.95rem;
       background:#fff;
+      font-family:inherit;
+    }
+    .filtro-item select:focus, .filtro-item input:focus{
+      border-color:#d60000;
+      box-shadow:0 0 0 1px rgba(214,0,0,0.15);
+      outline:none;
     }
 
-    .hint{
-      margin-top: 10px;
-      font-size: 0.83rem;
-      color:#555;
-      background:#f9fafb;
-      border: 1px dashed #e5e7eb;
-      border-radius: 10px;
-      padding: 10px 12px;
-    }
-
-    /* grid de guías */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
-    @media (max-width: 1080px){
-      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 700px){
-      .grid{ grid-template-columns: 1fr; }
-    }
-
-    .guide{
-      background:#fff;
-      border:1px solid #e1e4ea;
-      border-radius: 14px;
-      box-shadow:0 3px 10px rgba(0,0,0,0.10);
-      padding: 14px 14px 12px;
-      display:flex;
-      flex-direction:column;
-      gap: 8px;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-      min-height: 210px;
-    }
-    .guide:hover{
-      transform: translateY(-2px);
-      box-shadow:0 10px 22px rgba(0,0,0,0.14);
-    }
-
-    .guide-top{
+    .filtros-actions{
       display:flex;
       gap:10px;
-      align-items:flex-start;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:12px;
     }
-    .badge{
-      font-size:0.75rem;
-      font-weight:900;
-      padding: 3px 10px;
-      border-radius: 999px;
-      background:#f3f4f6;
-      color:#374151;
-      border: 1px solid #e5e7eb;
-      white-space: nowrap;
-    }
-
-    .title{
-      margin:0;
-      font-size:1.05rem;
-      font-weight:900;
-      color:#111827;
-      line-height: 1.2rem;
-    }
-    .desc{
-      margin:0;
-      color:#374151;
-      font-size:0.92rem;
-      line-height: 1.25rem;
-      flex: 1;
-    }
-
-    .meta{
-      font-size:0.82rem;
-      color:#555;
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-    }
-
-    .actions{
-      display:flex;
-      gap:10px;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
-
     .btn{
       border:none;
-      border-radius: 10px;
-      padding: 9px 12px;
+      border-radius:10px;
+      padding:10px 14px;
       font-weight:900;
       cursor:pointer;
-      text-decoration:none;
       display:inline-block;
-      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
-    }
-    .btn-primary{
-      background:#d60000;
-      color:#fff;
-    }
-    .btn-primary:hover{
-      background:#b40000;
-      transform: translateY(-1px);
-      box-shadow:0 6px 16px rgba(0,0,0,0.18);
-    }
-    .btn-secondary{
-      background:#111827;
-      color:#fff;
-    }
-    .btn-secondary:hover{
-      transform: translateY(-1px);
-      box-shadow:0 6px 16px rgba(0,0,0,0.18);
-    }
-
-    .muted{ color:#6b7280; font-size:0.82rem; }
-
-    /* FOOTER (nuevo unificado sin logo arriba) */
-    footer{
-      background:#222;
-      color:#f2f2f2;
-      padding:18px 20px 10px;
-      border-top:3px solid #d60000;
-      font-size:0.85rem;
-      margin-top: 10px;
-    }
-
-    .footer-inner{
-      max-width:1300px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns: 1.35fr 1fr 1fr;
-      gap:16px;
-    }
-
-    @media (max-width: 900px){
-      .footer-inner{ grid-template-columns: 1fr; }
-    }
-
-    .footer-col h3{
-      margin:0 0 6px;
-      font-size:0.95rem;
-      text-transform:uppercase;
-      letter-spacing:0.03em;
-      color:#fff;
-    }
-
-    .footer-col p{
-      margin:0 0 6px;
-      font-size:0.82rem;
-      color:#e0e0e0;
-      line-height:1.25rem;
-    }
-
-    .footer-col a{
-      color:#ffdddd;
       text-decoration:none;
-      font-size:0.82rem;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s;
     }
+    .btn-primary{ background:#d60000; color:#fff; box-shadow:0 2px 5px rgba(214,0,0,0.3); }
+    .btn-primary:hover{ background:#b40000; transform:translateY(-1px); box-shadow:0 4px 9px rgba(180,0,0,0.35); }
+    .btn-secondary{ background:#111827; color:#fff; }
+    .btn-secondary:hover{ transform:translateY(-1px); box-shadow:0 6px 16px rgba(0,0,0,0.18); }
 
-    .footer-col a:hover{ text-decoration:underline; }
-
-    .footer-phones{
-      margin:0;
-      padding-left:18px;
-      font-size:0.82rem;
+    .note{
+      margin-top:8px;
+      font-size:0.88rem;
+      color:#555;
+      background:#f9fafb;
+      border:1px dashed #e5e7eb;
+      border-radius:12px;
+      padding:10px 12px;
       line-height:1.25rem;
-      color:#e0e0e0;
     }
 
-    .footer-bottom{
-      max-width:1300px;
-      margin:10px auto 0;
-      border-top:1px solid #444;
-      padding-top:6px;
+    /* Resultados */
+    .resultados-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .resultados-header h2{
+      margin:0;
+      font-size:1.1rem;
+      color:#111827;
+    }
+    .resultados-header small{
+      font-size:0.85rem;
+      color:#555;
+    }
+
+    .lista{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+
+    .item{
+      border-radius:12px;
+      border:1px solid #e5e7eb;
+      background:#fff;
+      padding:10px 12px;
+      box-shadow:0 1px 3px rgba(0,0,0,0.04);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+    }
+    .item:hover{
+      transform:translateY(-1px);
+      box-shadow:0 2px 6px rgba(0,0,0,0.12);
+      border-color:#d60000;
+    }
+    .item h3{
+      margin:0 0 6px;
+      font-size:1.02rem;
+      color:#c10000;
+      line-height:1.25rem;
+    }
+    .meta{
+      font-size:0.82rem;
+      color:#666;
+      margin-bottom:6px;
+    }
+    .desc{
+      font-size:0.92rem;
+      color:#333;
+      margin-bottom:8px;
+      line-height:1.25rem;
+    }
+    .keywords{
+      font-size:0.78rem;
+      color:#777;
+      margin-bottom:8px;
+    }
+    .keywords span{ font-weight:800; color:#555; }
+
+    .acciones{
       display:flex;
       justify-content:space-between;
       align-items:center;
-      gap:8px;
       flex-wrap:wrap;
+      gap:8px;
+    }
+    .btn-enlace{
+      display:inline-block;
+      padding:7px 10px;
+      border-radius:10px;
+      background:#d60000;
+      color:#fff;
+      font-size:0.85rem;
+      text-decoration:none;
+      font-weight:800;
+      box-shadow:0 2px 5px rgba(214,0,0,0,0.25);
+      transition: background 0.15s, transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    .btn-enlace:hover{
+      background:#b40000;
+      transform:translateY(-1px);
+      box-shadow:0 4px 9px rgba(180,0,0,0.30);
+    }
+    .tag{
+      font-size:0.74rem;
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid #e5e7eb;
+      background:#f9fafb;
+      color:#374151;
+      font-weight:800;
     }
 
-    .footer-bottom-left{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      font-size:0.78rem;
-      color:#e0e0e0;
-    }
-    .footer-bottom-left img{ height:18px; }
-
-    .footer-bottom-right{
-      font-size:0.78rem;
-      color:#bbbbbb;
-      text-align:right;
-    }
-    @media (max-width: 600px){
-      .footer-bottom{ flex-direction:column; align-items:flex-start; }
-      .footer-bottom-right{ text-align:left; }
+    .muted{
+      font-size:0.9rem;
+      color:#555;
+      font-style:italic;
+      margin-top:8px;
     }
   </style>
 </head>
 
 <body>
+
 <header>
   <div style="display:flex; align-items:center; gap:16px;">
-    <img src="img/feccooex.png" alt="FECCOOEx">
+    <img src="/img/feccooex.png" alt="FECCOOEx">
     <div class="titles">
       <h1>Herramientas FECCOOEx</h1>
       <p>Recursos públicos y sindicales para la comunidad educativa</p>
     </div>
   </div>
   <nav>
-    <a href="delegados.html">Área delegados/as</a>
+    <a href="/delegados.html">Área delegados/as</a>
   </nav>
 </header>
 
-<main>
-  <a class="btn-volver" href="index.html">Volver a la portada</a>
+<!-- Volver -->
+<div class="back-wrap">
+  <a class="back-home" href="/index.html">Volver a la portada</a>
+</div>
 
+<!-- Carrusel -->
+<div class="campaign-wrap">
+  <div class="carousel" id="campaignCarousel" aria-label="Campañas">
+    <div class="carousel-empty" id="carouselEmpty">Cargando campañas…</div>
+    <button class="carousel-btn prev" id="carouselPrev" aria-label="Anterior" style="display:none;">‹</button>
+    <button class="carousel-btn next" id="carouselNext" aria-label="Siguiente" style="display:none;">›</button>
+    <div class="carousel-track" id="carouselTrack" style="display:none;"></div>
+    <div class="dots" id="carouselDots" style="display:none;"></div>
+  </div>
+</div>
+
+<main>
   <h1 class="page-title">Guías prácticas</h1>
   <p class="page-subtitle">
-    Guías orientativas y recursos de apoyo para el personal del ámbito educativo. Para casos concretos, utiliza <a href="consultas.html">Consultas sindicales</a>.
+    Filtra por temática y ámbito, o busca por texto/palabras clave. Por defecto no se muestran resultados hasta aplicar algún filtro.
   </p>
 
+  <!-- Filtros -->
   <section class="card">
-    <div class="filters">
-      <div>
-        <label for="f-tema">Temática</label>
-        <select id="f-tema">
-          <option value="">Todas</option>
+    <h2 style="margin:0 0 8px; font-size:1.1rem; color:#111827;">Filtros de búsqueda</h2>
+
+    <div class="filtros-grid">
+      <div class="filtro-item">
+        <label for="f-tematica">Temática</label>
+        <select id="f-tematica">
+          <!-- Sin "Todas": dejamos solo placeholder -->
+          <option value="" disabled selected>Selecciona temática…</option>
         </select>
       </div>
 
-      <div>
-        <label for="f-texto">Buscar</label>
-        <input id="f-texto" type="text" placeholder="Título, descripción, destinatarios…">
-      </div>
-
-      <div>
+      <div class="filtro-item">
         <label for="f-ambito">Ámbito</label>
         <select id="f-ambito">
-          <option value="">Todos</option>
-          <option value="docente">Docente</option>
-          <option value="laboral">Laboral</option>
-          <option value="ambos">Ambos</option>
+          <!-- Sin "Todos": dejamos solo placeholder -->
+          <option value="" disabled selected>Selecciona ámbito…</option>
         </select>
+      </div>
+
+      <div class="filtro-item" style="grid-column: 1 / -1;">
+        <label for="f-texto">Texto (título, descripción, palabras clave)</label>
+        <input id="f-texto" type="text" placeholder="Ej.: permisos, jornada, sustituciones…" />
       </div>
     </div>
 
-    <div class="hint">
-      Consejo: empieza por elegir una <strong>temática</strong> y luego usa el buscador para afinar.
+    <div class="filtros-actions">
+      <button class="btn btn-secondary" id="btn-limpiar" type="button">Limpiar filtros</button>
+      <button class="btn btn-primary" id="btn-recargar" type="button">Recargar CSV</button>
+      <span style="font-size:0.85rem; color:#555;" id="estado-carga"></span>
+    </div>
+
+    <div class="note">
+      Consejo: si seleccionas temática y ámbito puedes afinar mucho. También puedes usar solo la caja de texto.
     </div>
   </section>
 
+  <!-- Resultados -->
   <section class="card">
-    <div id="status" class="muted">Cargando guías…</div>
-    <div id="grid" class="grid" style="margin-top:12px;"></div>
+    <div class="resultados-header">
+      <h2>Resultados</h2>
+      <small id="contador">Aplica al menos un filtro.</small>
+    </div>
+
+    <div id="lista" class="lista"></div>
+    <p id="msg" class="muted" style="display:none;"></p>
   </section>
 </main>
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-col">
-      <h3>Contacto</h3>
-      <p><strong>Dirección:</strong><br>
-        Avenida Juan Carlos I, núm. 47<br>
-        CP 06800 · Mérida (Extremadura)
-      </p>
-      <p><strong>Correo:</strong>
-        <a href="mailto:educacion@extremadura.ccoo.es">educacion@extremadura.ccoo.es</a>
-      </p>
-    </div>
+<!-- FOOTER CENTRAL -->
+<div id="site-footer"></div>
+<script src="/assets/footer.js?v=1"></script>
 
-    <div class="footer-col">
-      <h3>Teléfonos por sede</h3>
-      <ul class="footer-phones">
-        <li><strong>Badajoz:</strong> 924224104</li>
-        <li><strong>Cáceres:</strong> 927223534</li>
-        <li><strong>Mérida:</strong> 924330018</li>
-        <li><strong>Plasencia:</strong> 927424086</li>
-        <li><strong>Don Benito:</strong> 924802080</li>
-        <li><strong>Zafra:</strong> 924553202</li>
-      </ul>
-    </div>
+<script type="module">
+  /***********************
+   * 1) CARRUSEL UNIVERSAL
+   ***********************/
+  (function initCarousel(){
+    const BANNERS_CSV = "/banners.csv";
 
-    <div class="footer-col">
-      <h3>Enlaces rápidos</h3>
-      <p><a href="https://extremadura.fe.ccoo.es/" target="_blank" rel="noopener noreferrer">Web FECCOOExtremadura</a></p>
-      <p><a href="https://www.facebook.com/feccooex" target="_blank" rel="noopener noreferrer">Facebook FECCOOEx</a></p>
-      <p><a href="https://x.com/FECCOOex" target="_blank" rel="noopener noreferrer">X (Twitter) FECCOOEx</a></p>
-      <p><a href="https://www.instagram.com/feccooex" target="_blank" rel="noopener noreferrer">Instagram FECCOOEx</a></p>
-      <p><a href="https://t.me/feccooextremadura" target="_blank" rel="noopener noreferrer">Canal de Telegram FECCOOExtremadura</a></p>
-    </div>
-  </div>
+    const elEmpty = document.getElementById("carouselEmpty");
+    const elTrack = document.getElementById("carouselTrack");
+    const elDots  = document.getElementById("carouselDots");
+    const btnPrev = document.getElementById("carouselPrev");
+    const btnNext = document.getElementById("carouselNext");
+    const elCarousel = document.getElementById("campaignCarousel");
 
-  <div class="footer-bottom">
-    <div class="footer-bottom-left">
-      <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
-      <span>Contenido bajo licencia Creative Commons BY-ND 4.0 (se permite compartir sin modificaciones y con atribución).</span>
-    </div>
-    <div class="footer-bottom-right">
-      © <span id="anio-footer"></span> Federación de Enseñanza de CCOO de Extremadura
-    </div>
-  </div>
+    if (!elEmpty || !elTrack || !elDots || !btnPrev || !btnNext || !elCarousel) return;
 
-  <script>
-    document.getElementById('anio-footer').textContent = new Date().getFullYear();
-  </script>
-</footer>
+    let slides = [];
+    let index = 0;
+    let timer = null;
+    const AUTO_MS = 5500;
 
-<script>
-  const CSV_TEMAS = "temas_guias.csv";
-  const CSV_GUIAS = "guias.csv";
+    function splitCSVLine(line){
+      const out = [];
+      let cur = "";
+      let inQ = false;
+      for (let i=0; i<line.length; i++){
+        const ch = line[i];
+        if (ch === '"' && inQ && line[i+1] === '"'){ cur += '"'; i++; continue; }
+        if (ch === '"'){ inQ = !inQ; continue; }
+        if (ch === "," && !inQ){ out.push(cur); cur=""; continue; }
+        cur += ch;
+      }
+      out.push(cur);
+      return out;
+    }
+    function parseCSV(text){
+      const lines = text.replace(/\r/g, "").split("\n").filter(l => l.trim() !== "");
+      if (!lines.length) return [];
+      const headers = splitCSVLine(lines[0]).map(h => h.trim());
+      return lines.slice(1).map(line => {
+        const cols = splitCSVLine(line);
+        const obj = {};
+        headers.forEach((h,i) => obj[h] = (cols[i] ?? "").trim());
+        return obj;
+      });
+    }
+    function normBool(v){
+      return ["1","true","si","sí","x","ok"].includes((v||"").toLowerCase().trim());
+    }
 
-  const fTema = document.getElementById("f-tema");
-  const fTexto = document.getElementById("f-texto");
-  const fAmbito = document.getElementById("f-ambito");
-  const grid = document.getElementById("grid");
-  const statusEl = document.getElementById("status");
+    function apply(){
+      elTrack.style.transform = `translateX(${-index * 100}%)`;
+      [...elDots.children].forEach((d, i) => d.classList.toggle("active", i === index));
+    }
+    function goTo(i, userAction=false){
+      index = (i + slides.length) % slides.length;
+      apply();
+      if (userAction) restartAuto();
+    }
+    function next(user=false){ goTo(index + 1, user); }
+    function prev(user=false){ goTo(index - 1, user); }
 
-  let temas = [];
-  let guias = [];
+    function startAuto(){
+      stopAuto();
+      timer = setInterval(() => next(false), AUTO_MS);
+    }
+    function stopAuto(){
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+    function restartAuto(){
+      stopAuto();
+      startAuto();
+    }
+
+    function buildCarousel(items){
+      slides = items;
+      elTrack.innerHTML = "";
+      elDots.innerHTML = "";
+
+      slides.forEach((s, i) => {
+        const slide = document.createElement("div");
+        slide.className = "slide";
+
+        const imgSrc = s.imagen;
+        const alt = s.alt || "Campaña FECCOOEx";
+        const href = (s.enlace || "").trim();
+
+        const img = `<img src="${imgSrc}" alt="${alt}" loading="lazy">`;
+        slide.innerHTML = href ? `<a href="${href}" aria-label="${alt}">${img}</a>` : img;
+
+        elTrack.appendChild(slide);
+
+        const dot = document.createElement("button");
+        dot.className = "dot" + (i === 0 ? " active" : "");
+        dot.setAttribute("aria-label", "Ir a campaña " + (i+1));
+        dot.addEventListener("click", () => goTo(i, true));
+        elDots.appendChild(dot);
+      });
+
+      const multi = slides.length > 1;
+      elEmpty.style.display = "none";
+      elTrack.style.display = "flex";
+      elDots.style.display = multi ? "flex" : "none";
+      btnPrev.style.display = multi ? "flex" : "none";
+      btnNext.style.display = multi ? "flex" : "none";
+
+      index = 0;
+      apply();
+      if (multi) startAuto();
+    }
+
+    elCarousel.addEventListener("mouseenter", stopAuto);
+    elCarousel.addEventListener("mouseleave", () => { if (slides.length > 1) startAuto(); });
+
+    btnNext.addEventListener("click", () => next(true));
+    btnPrev.addEventListener("click", () => prev(true));
+
+    let touchX = null;
+    elCarousel.addEventListener("touchstart", (e) => {
+      if (!e.touches || e.touches.length !== 1) return;
+      touchX = e.touches[0].clientX;
+      stopAuto();
+    }, {passive:true});
+
+    elCarousel.addEventListener("touchend", (e) => {
+      if (touchX === null) return;
+      const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : touchX;
+      const dx = endX - touchX;
+      touchX = null;
+
+      if (Math.abs(dx) > 40){
+        dx < 0 ? next(true) : prev(true);
+      } else {
+        restartAuto();
+      }
+    }, {passive:true});
+
+    fetch(BANNERS_CSV + "?v=" + Date.now())
+      .then(r => { if (!r.ok) throw new Error("No se pudo cargar banners.csv"); return r.text(); })
+      .then(text => {
+        const rows = parseCSV(text);
+        const items = rows
+          .filter(r => normBool(r.activo))
+          .sort((a,b) => (parseInt(a.orden||"999",10) - parseInt(b.orden||"999",10)));
+
+        if (!items.length){
+          elEmpty.textContent = "No hay campañas activas.";
+          return;
+        }
+        buildCarousel(items);
+      })
+      .catch(err => {
+        console.error(err);
+        elEmpty.textContent = "No se ha podido cargar el banner de campañas.";
+      });
+  })();
+
+  /***********************
+   * 2) GUÍAS (filtros tipo Normativa: no mostrar por defecto)
+   ***********************/
+  const CSV_URL = "/guias.csv"; // (mantenemos como en vuestro repo: guias.html + guias.csv en raíz)
+
+  const elTematica = document.getElementById("f-tematica");
+  const elAmbito   = document.getElementById("f-ambito");
+  const elTexto    = document.getElementById("f-texto");
+  const btnLimpiar = document.getElementById("btn-limpiar");
+  const btnRecargar = document.getElementById("btn-recargar");
+
+  const elLista = document.getElementById("lista");
+  const elMsg = document.getElementById("msg");
+  const elCont = document.getElementById("contador");
+  const elEstadoCarga = document.getElementById("estado-carga");
+
+  let raw = [];
+
+  function splitCSVLine(line){
+    const out = [];
+    let cur = "";
+    let inQ = false;
+    for (let i=0; i<line.length; i++){
+      const ch = line[i];
+      if (ch === '"' && inQ && line[i+1] === '"'){ cur += '"'; i++; continue; }
+      if (ch === '"'){ inQ = !inQ; continue; }
+      if (ch === "," && !inQ){ out.push(cur); cur=""; continue; }
+      cur += ch;
+    }
+    out.push(cur);
+    return out;
+  }
 
   function parseCSV(text){
-    const lines = text.trim().split(/\r?\n/);
+    const lines = text.replace(/\r/g, "").split("\n").filter(l => l.trim() !== "");
     if (!lines.length) return [];
-    const delimiter = lines[0].includes(";") ? ";" : ",";
-    const headers = lines[0].split(delimiter).map(h => h.trim());
-
-    return lines.slice(1).filter(l => l.trim()).map(line => {
-      const cols = line.split(delimiter).map(c => c.trim());
+    const headers = splitCSVLine(lines[0]).map(h => h.trim());
+    return lines.slice(1).map(line => {
+      const cols = splitCSVLine(line);
       const obj = {};
-      headers.forEach((h,i) => obj[h] = cols[i] ?? "");
+      headers.forEach((h,i) => obj[h] = (cols[i] ?? "").trim());
       return obj;
     });
   }
 
-  async function loadCSV(path){
-    const resp = await fetch(path, { cache: "no-store" });
-    if (!resp.ok) throw new Error("No se pudo cargar " + path);
-    return await resp.text();
+  function esc(s){
+    return (s ?? "").toString()
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
   }
 
-  function normalize(s){ return (s || "").toLowerCase().trim(); }
+  function key(v){ return (v ?? "").toString().trim().toLowerCase(); }
 
-  function buildTemaMap(){
-    const map = new Map();
-    temas.forEach(t => map.set(t.id_tema, t));
-    return map;
+  // Normaliza nombres de columna (por si el CSV varía ligeramente)
+  function pick(obj, keys){
+    for (const k of keys){
+      if (obj[k] != null && String(obj[k]).trim() !== "") return String(obj[k]).trim();
+    }
+    return "";
   }
 
-  function render(){
-    const temaVal = normalize(fTema.value);
-    const textVal = normalize(fTexto.value);
-    const ambVal  = normalize(fAmbito.value);
+  function uniqueSorted(arr){
+    const set = new Set(arr.map(v => (v||"").trim()).filter(Boolean));
+    return [...set].sort((a,b) => a.localeCompare(b, "es", {sensitivity:"base"}));
+  }
 
-    const temaMap = buildTemaMap();
+  function fillSelect(selectEl, values, placeholder){
+    // conservamos el placeholder como disabled selected, sin "Todos/Todas"
+    selectEl.innerHTML = "";
+    const optPh = document.createElement("option");
+    optPh.value = "";
+    optPh.textContent = placeholder;
+    optPh.disabled = true;
+    optPh.selected = true;
+    selectEl.appendChild(optPh);
 
-    const filtered = guias.filter(g => {
-      if (normalize(g.activa) === "0") return false;
+    values.forEach(v => {
+      const o = document.createElement("option");
+      o.value = v;
+      o.textContent = v;
+      selectEl.appendChild(o);
+    });
+  }
 
-      // filtro tema
-      if (temaVal && normalize(g.tema) !== temaVal) return false;
+  function hasAnyFilter(){
+    // OJO: los select con placeholder disabled no dejan value salvo que el usuario elija uno.
+    const t = (elTematica.value || "").trim();
+    const a = (elAmbito.value || "").trim();
+    const x = (elTexto.value || "").trim();
+    return Boolean(t || a || x);
+  }
 
-      // filtro ámbito
-      if (ambVal && normalize(g.ambito) !== ambVal) return false;
+  function resetFilters(){
+    // Volvemos a placeholder (value="")
+    elTematica.selectedIndex = 0;
+    elAmbito.selectedIndex = 0;
+    elTexto.value = "";
+    renderEmptyState();
+  }
 
-      // filtro texto
-      if (textVal){
-        const hay = [
-          g.titulo, g.descripcion, g.destinatarios, g.tema
-        ].map(normalize).join(" ");
-        if (!hay.includes(textVal)) return false;
+  function renderEmptyState(){
+    elLista.innerHTML = "";
+    elMsg.style.display = "block";
+    elMsg.textContent = "Aplica al menos un filtro para ver guías.";
+    elCont.textContent = "Aplica al menos un filtro.";
+  }
+
+  function applyFilters(){
+    if (!raw.length) return;
+
+    if (!hasAnyFilter()){
+      renderEmptyState();
+      return;
+    }
+
+    const tem = key(elTematica.value);
+    const amb = key(elAmbito.value);
+    const txt = key(elTexto.value);
+
+    const filtered = raw.filter(g => {
+      const gTem = key(g.tematica);
+      const gAmb = key(g.ambito);
+
+      if (tem && gTem !== tem) return false;
+      if (amb && gAmb !== amb) return false;
+
+      if (txt){
+        const blob = [
+          g.titulo, g.descripcion, g.palabras_clave, g.tematica, g.ambito
+        ].join(" ").toLowerCase();
+        if (!blob.includes(txt)) return false;
       }
-
       return true;
     });
 
-    statusEl.textContent = filtered.length
-      ? `Mostrando ${filtered.length} guía(s).`
-      : "No hay resultados con los filtros actuales.";
-
-    grid.innerHTML = "";
-
-    filtered.forEach(g => {
-      const t = temaMap.get(g.tema);
-      const temaLabel = t ? t.tema : (g.tema || "Sin tema");
-
-      const el = document.createElement("article");
-      el.className = "guide";
-
-      const badge = document.createElement("span");
-      badge.className = "badge";
-      badge.textContent = temaLabel;
-
-      const title = document.createElement("h3");
-      title.className = "title";
-      title.textContent = g.titulo || "Guía";
-
-      const desc = document.createElement("p");
-      desc.className = "desc";
-      desc.textContent = g.descripcion || "";
-
-      const meta = document.createElement("div");
-      meta.className = "meta";
-      meta.innerHTML = `
-        <div><strong>Destinatarios:</strong> ${g.destinatarios || "-"}</div>
-        <div><strong>Actualización:</strong> ${g.ultima_actualizacion || "-"}</div>
-        <div><strong>Tipo:</strong> ${(g.tipo || "-").toUpperCase()}</div>
-      `;
-
-      const actions = document.createElement("div");
-      actions.className = "actions";
-
-      const url = (g.url || "").trim();
-
-      const btn = document.createElement("a");
-      btn.className = "btn btn-primary";
-      btn.href = url || "#";
-      btn.textContent = (normalize(g.tipo) === "pdf") ? "Descargar" : "Abrir guía";
-      if (!url) btn.style.opacity = "0.5";
-      if (!url) btn.style.pointerEvents = "none";
-
-      actions.appendChild(btn);
-
-      el.appendChild(badge);
-      el.appendChild(title);
-      el.appendChild(desc);
-      el.appendChild(meta);
-      el.appendChild(actions);
-
-      grid.appendChild(el);
-    });
+    renderList(filtered);
   }
 
-  async function init(){
+  function renderList(list){
+    elLista.innerHTML = "";
+
+    if (!list.length){
+      elMsg.style.display = "block";
+      elMsg.textContent = "No se han encontrado guías que coincidan con los criterios seleccionados.";
+      elCont.textContent = "0 guías encontradas.";
+      return;
+    }
+
+    elMsg.style.display = "none";
+    elCont.textContent = `${list.length} guía${list.length !== 1 ? "s" : ""} encontrada${list.length !== 1 ? "s" : ""}.`;
+
+    const frag = document.createDocumentFragment();
+
+    list.forEach(g => {
+      const titulo = g.titulo || "(Sin título)";
+      const tem = g.tematica || "";
+      const amb = g.ambito || "";
+      const fecha = g.fecha || "";
+      const desc = g.descripcion || "";
+      const kw = g.palabras_clave || "";
+      const enlace = g.enlace || g.url || "";
+
+      const meta = [tem, amb, fecha].filter(Boolean).join(" · ");
+
+      const card = document.createElement("article");
+      card.className = "item";
+      card.innerHTML = `
+        <h3>${esc(titulo)}</h3>
+        ${meta ? `<div class="meta">${esc(meta)}</div>` : ""}
+        ${desc ? `<div class="desc">${esc(desc)}</div>` : ""}
+        ${kw ? `<div class="keywords"><span>Palabras clave:</span> ${esc(kw)}</div>` : ""}
+      `;
+
+      const acciones = document.createElement("div");
+      acciones.className = "acciones";
+
+      if (enlace){
+        const a = document.createElement("a");
+        a.className = "btn-enlace";
+        a.href = enlace;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = "Abrir guía";
+        acciones.appendChild(a);
+      } else {
+        const s = document.createElement("span");
+        s.className = "tag";
+        s.textContent = "Sin enlace";
+        acciones.appendChild(s);
+      }
+
+      // Tag rápido (ámbito si existe)
+      if (amb){
+        const t = document.createElement("span");
+        t.className = "tag";
+        t.textContent = amb;
+        acciones.appendChild(t);
+      }
+
+      card.appendChild(acciones);
+      frag.appendChild(card);
+    });
+
+    elLista.appendChild(frag);
+  }
+
+  async function loadCSV(bust=false){
+    elEstadoCarga.textContent = "Cargando guías…";
+
     try{
-      const temasText = await loadCSV(CSV_TEMAS);
-      temas = parseCSV(temasText)
-        .filter(t => (t.activo ?? "1").trim() !== "0")
-        .sort((a,b) => Number(a.orden || 9999) - Number(b.orden || 9999));
+      const r = await fetch(CSV_URL + (bust ? ("?v=" + Date.now()) : ""));
+      if (!r.ok) throw new Error("No se pudo cargar guias.csv (" + r.status + ")");
+      const text = await r.text();
 
-      // poblar selector de temas
-      fTema.innerHTML = '<option value="">Todas</option>';
-      temas.forEach(t => {
-        const opt = document.createElement("option");
-        opt.value = (t.id_tema || "").trim();
-        opt.textContent = (t.tema || "").trim();
-        fTema.appendChild(opt);
-      });
+      const rows = parseCSV(text);
 
-      const guiasText = await loadCSV(CSV_GUIAS);
-      guias = parseCSV(guiasText);
+      // Mapeo flexible de columnas
+      raw = rows.map(o => ({
+        titulo: pick(o, ["titulo","título","nombre","guia","guía"]),
+        tematica: pick(o, ["tematica","temática","tema"]),
+        ambito: pick(o, ["ambito","ámbito","amb"]),
+        fecha: pick(o, ["fecha","anio","año"]),
+        descripcion: pick(o, ["descripcion","descripción","resumen"]),
+        palabras_clave: pick(o, ["palabras_clave","palabras clave","keywords","etiquetas"]),
+        enlace: pick(o, ["enlace","url","link"])
+      }));
 
-      render();
-    }catch(e){
+      // Poblar selects (sin opción "Todos/Todas")
+      const tematicas = uniqueSorted(raw.map(x => x.tematica));
+      const ambitos = uniqueSorted(raw.map(x => x.ambito));
+
+      fillSelect(elTematica, tematicas, "Selecciona temática…");
+      fillSelect(elAmbito, ambitos, "Selecciona ámbito…");
+
+      elEstadoCarga.textContent = `Guías cargadas: ${raw.length}`;
+      renderEmptyState(); // por defecto NO mostramos nada
+
+    } catch(e){
       console.error(e);
-      statusEl.textContent = "No se pudieron cargar los datos. Revisa que temas_guias.csv y guias.csv estén en la misma carpeta que guias.html.";
+      elEstadoCarga.textContent = "Error al cargar guías.";
+      elLista.innerHTML = "";
+      elMsg.style.display = "block";
+      elMsg.textContent = "No se han podido cargar las guías (revisa guias.csv en la raíz del repo).";
+      elCont.textContent = "Error";
     }
   }
 
-  fTema.addEventListener("change", render);
-  fAmbito.addEventListener("change", render);
-  fTexto.addEventListener("input", () => { render(); });
+  // Eventos
+  elTematica.addEventListener("change", applyFilters);
+  elAmbito.addEventListener("change", applyFilters);
+  elTexto.addEventListener("input", applyFilters);
 
-  init();
+  btnLimpiar.addEventListener("click", resetFilters);
+  btnRecargar.addEventListener("click", () => loadCSV(true));
+
+  // Init
+  loadCSV(true);
 </script>
 
 </body>
