@@ -5,6 +5,9 @@
   <title>Publicaciones · Herramientas FECCOOEx</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- FOOTER CENTRALIZADO (como en el resto) -->
+  <link rel="stylesheet" href="/assets/footer.css" />
+
   <style>
     *{ box-sizing:border-box; }
     body{
@@ -14,7 +17,7 @@
       color:#222;
     }
 
-    /* HEADER */
+    /* HEADER (unificado) */
     header{
       display:flex;
       align-items:center;
@@ -26,6 +29,7 @@
       position:sticky;
       top:0;
       z-index:10;
+      gap:16px;
     }
     header img{ height:52px; }
     .titles h1{ margin:0; font-size:1.6rem; font-weight:700; }
@@ -37,29 +41,137 @@
       padding:6px 12px;
       border:1px solid rgba(255,255,255,0.7);
       border-radius:999px;
+      transition:0.2s ease;
+      white-space:nowrap;
+    }
+    nav a:hover{
+      background:rgba(255,255,255,0.18);
+      transform: translateY(-1px);
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    /* VOLVER (unificado) */
+    .back-wrap{
+      max-width:1180px;
+      margin:14px auto 0;
+      padding:0 16px;
+    }
+    .back-home{
+      display:inline-block;
+      background:#d60000;
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+      padding:8px 12px;
+      border-radius:999px;
+      box-shadow:0 2px 5px rgba(214,0,0,0,0.25);
+      transition: background 0.15s, transform 0.12s ease, box-shadow 0.12s ease;
+      border:1px solid rgba(255,255,255,0.35);
+      font-size:.9rem;
+    }
+    .back-home:hover{
+      background:#b40000;
+      transform:translateY(-1px);
+      box-shadow:0 4px 9px rgba(180,0,0,0.30);
+    }
+
+    /* ===== CARRUSEL (universal) ===== */
+    .campaign-wrap{
+      max-width:1180px;
+      margin:12px auto 0;
+      padding:0 16px;
+    }
+    .carousel{
+      background:#fff;
+      border:1px solid #e1e4ea;
+      border-radius:12px;
+      box-shadow:0 3px 8px rgba(0,0,0,0.08);
+      overflow:hidden;
+      position:relative;
+    }
+    .carousel-track{
+      display:flex;
+      transition:transform 350ms ease;
+      will-change: transform;
+    }
+    .slide{ min-width:100%; position:relative; background:#fff; }
+    .slide a{ display:block; text-decoration:none; color:inherit; }
+    .slide img{
+      display:block;
+      width:100%;
+      height:auto;
+      object-fit:contain;
+      max-height:260px;
+      background:#fff;
+    }
+    @media (max-width:700px){
+      .slide img{ max-height:180px; }
+    }
+    .carousel-btn{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      border:none;
+      background:rgba(0,0,0,0.35);
+      color:#fff;
+      width:40px;
+      height:40px;
+      border-radius:999px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:background 120ms ease, transform 120ms ease;
+      z-index:2;
+    }
+    .carousel-btn:hover{
+      background:rgba(0,0,0,0.5);
+      transform:translateY(-50%) scale(1.03);
+    }
+    .carousel-btn.prev{ left:10px; }
+    .carousel-btn.next{ right:10px; }
+    @media (max-width:700px){
+      .carousel-btn{ width:36px; height:36px; }
+      .carousel-btn.prev{ left:8px; }
+      .carousel-btn.next{ right:8px; }
+    }
+    .dots{
+      position:absolute;
+      left:0; right:0;
+      bottom:10px;
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      z-index:2;
+      padding:0 10px;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,0.9);
+      background:rgba(0,0,0,0.35);
+      cursor:pointer;
+      transition:transform 120ms ease, background 120ms ease;
+    }
+    .dot.active{
+      background:#d60000;
+      border-color:rgba(255,255,255,0.95);
+      transform:scale(1.12);
+    }
+    .carousel-empty{
+      padding:14px 16px;
+      color:#555;
+      font-size:0.95rem;
     }
 
     /* MAIN */
     main{
       max-width:1180px;
-      margin:26px auto 40px;
+      margin:14px auto 40px;
       padding:0 16px 40px;
     }
 
-    .btn-volver{
-      display:inline-block;
-      margin-bottom:16px;
-      padding:6px 10px;
-      border-radius:6px;
-      background:#d60000;
-      color:#fff;
-      font-size:0.9rem;
-      font-weight:600;
-      text-decoration:none;
-    }
-
     .page-title{ margin:0 0 6px; font-size:1.6rem; }
-    .page-subtitle{ margin:0 0 14px; color:#444; font-size:0.95rem; }
+    .page-subtitle{ margin:0 0 14px; color:#444; font-size:0.95rem; line-height:1.25rem; }
 
     .card{
       background:#fff;
@@ -73,7 +185,7 @@
     /* FILTROS */
     .filters{
       display:grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
       gap:10px;
       align-items:end;
     }
@@ -83,7 +195,7 @@
 
     label{
       font-size:0.82rem;
-      font-weight:800;
+      font-weight:900;
       color:#555;
       display:block;
       margin-bottom:4px;
@@ -93,48 +205,65 @@
       width:100%;
       font-family:inherit;
       font-size:0.95rem;
-      padding:8px 10px;
-      border-radius:8px;
+      padding:9px 10px;
+      border-radius:10px;
       border:1px solid #cbd5e1;
       background:#fff;
+      outline:none;
+    }
+    select:focus, input:focus{
+      border-color:#d60000;
+      box-shadow:0 0 0 2px rgba(214,0,0,0,0.10);
     }
 
-    .actions-filters{
+    .filters-actions{
       display:flex;
-      gap:12px;
-      margin-top:12px;
+      gap:10px;
       flex-wrap:wrap;
       align-items:center;
+      margin-top:12px;
     }
 
     .btn{
       border:none;
-      border-radius:8px;
-      padding:8px 12px;
-      font-weight:800;
+      border-radius:10px;
+      padding:10px 14px;
+      font-weight:900;
       cursor:pointer;
-      background:#d60000;
-      color:#fff;
+      text-decoration:none;
+      display:inline-block;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s;
+      font-size:0.9rem;
     }
-    .btn.secondary{
-      background:#444;
+    .btn-secondary{ background:#111827; color:#fff; }
+    .btn-secondary:hover{ transform:translateY(-1px); box-shadow:0 6px 16px rgba(0,0,0,0.18); }
+
+    .hint{
+      margin-top:10px;
+      font-size:0.88rem;
+      color:#555;
+      background:#f9fafb;
+      border:1px dashed #e5e7eb;
+      border-radius:12px;
+      padding:10px 12px;
+      line-height:1.25rem;
     }
 
     .status{
-      font-size:0.85rem;
+      font-size:0.88rem;
       color:#555;
-      margin-top:6px;
+      font-style:italic;
     }
 
-    /* GRID */
+    /* GRID RESULTADOS */
     .grid{
       margin-top:12px;
       display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap:12px;
     }
     @media (max-width: 1080px){
-      .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 700px){
       .grid{ grid-template-columns: 1fr; }
@@ -145,10 +274,24 @@
       border:1px solid #e1e4ea;
       border-radius:14px;
       box-shadow:0 3px 10px rgba(0,0,0,0.10);
-      padding:14px;
+      padding:14px 14px 12px;
       display:flex;
       flex-direction:column;
       gap:8px;
+      transition:transform 0.15s ease, box-shadow 0.15s ease;
+      min-height: 220px;
+    }
+    .pub:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 22px rgba(0,0,0,0.14);
+    }
+
+    .pub-top{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:flex-start;
+      justify-content:space-between;
     }
 
     .badge{
@@ -157,14 +300,17 @@
       padding:3px 10px;
       border-radius:999px;
       background:#f3f4f6;
+      color:#374151;
       border:1px solid #e5e7eb;
-      display:inline-block;
+      white-space:nowrap;
     }
 
     .title{
       margin:0;
       font-size:1.05rem;
       font-weight:900;
+      color:#111827;
+      line-height:1.2rem;
     }
 
     .meta{
@@ -172,23 +318,46 @@
       color:#555;
       display:flex;
       flex-direction:column;
-      gap:3px;
+      gap:4px;
     }
 
     .desc{
-      font-size:0.92rem;
+      margin:0;
       color:#374151;
+      font-size:0.92rem;
+      line-height:1.25rem;
       flex:1;
     }
 
+    .tags{
+      font-size:0.8rem;
+      color:#6b7280;
+      line-height:1.15rem;
+    }
+    .tags span{ font-weight:800; color:#4b5563; }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:4px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
     .btn-primary{
-      align-self:flex-start;
       background:#d60000;
       color:#fff;
-      text-decoration:none;
-      padding:8px 12px;
-      border-radius:8px;
-      font-weight:900;
+    }
+    .btn-primary:hover{
+      background:#b40000;
+      transform: translateY(-1px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    }
+
+    .muted{
+      color:#6b7280;
+      font-size:0.82rem;
     }
   </style>
 </head>
@@ -196,185 +365,547 @@
 <body>
 
 <header>
-  <div style="display:flex; gap:16px; align-items:center;">
-    <img src="img/feccooex.png" alt="FECCOOEx">
+  <div style="display:flex; align-items:center; gap:16px;">
+    <img src="/img/feccooex.png" alt="FECCOOEx">
     <div class="titles">
       <h1>Herramientas FECCOOEx</h1>
       <p>Recursos públicos y sindicales para la comunidad educativa</p>
     </div>
   </div>
+
   <nav>
-    <a href="delegados.html">Área delegados/as</a>
+    <a href="/delegados.html">Área delegados/as</a>
   </nav>
 </header>
 
-<main>
-  <a class="btn-volver" href="index.html">Volver a la portada</a>
+<!-- Volver -->
+<div class="back-wrap">
+  <a class="back-home" href="/index.html">Volver a la portada</a>
+</div>
 
+<!-- Carrusel -->
+<div class="campaign-wrap">
+  <div class="carousel" id="campaignCarousel" aria-label="Campañas">
+    <div class="carousel-empty" id="carouselEmpty">Cargando campañas…</div>
+    <button class="carousel-btn prev" id="carouselPrev" aria-label="Anterior" style="display:none;">‹</button>
+    <button class="carousel-btn next" id="carouselNext" aria-label="Siguiente" style="display:none;">›</button>
+    <div class="carousel-track" id="carouselTrack" style="display:none;"></div>
+    <div class="dots" id="carouselDots" style="display:none;"></div>
+  </div>
+</div>
+
+<main>
   <h1 class="page-title">Publicaciones sindicales</h1>
   <p class="page-subtitle">
-    Filtra por temática, tipo, ámbito o año para consultar las publicaciones disponibles.
+    Comunicados, notas, informes y materiales de interés. Filtra por temática, tipo, ámbito y año, o busca por palabras.
+    Por defecto no se muestran resultados hasta aplicar algún filtro.
   </p>
 
-  <!-- FILTROS -->
+  <!-- Filtros -->
   <section class="card">
     <div class="filters">
       <div>
-        <label>Temática</label>
-        <select id="f-tema"></select>
+        <label for="f-tema">Temática</label>
+        <select id="f-tema">
+          <option value="" disabled selected>Selecciona temática…</option>
+        </select>
       </div>
+
       <div>
-        <label>Tipo</label>
-        <select id="f-tipo"></select>
+        <label for="f-tipo">Tipo</label>
+        <select id="f-tipo">
+          <option value="" disabled selected>Selecciona tipo…</option>
+        </select>
       </div>
+
       <div>
-        <label>Ámbito</label>
-        <select id="f-ambito"></select>
+        <label for="f-ambito">Ámbito</label>
+        <select id="f-ambito">
+          <option value="" disabled selected>Selecciona ámbito…</option>
+        </select>
       </div>
+
       <div>
-        <label>Año</label>
-        <select id="f-anio"></select>
+        <label for="f-anio">Año</label>
+        <select id="f-anio">
+          <option value="" disabled selected>Selecciona año…</option>
+        </select>
       </div>
     </div>
 
     <div style="margin-top:10px;">
-      <label>Buscar texto</label>
-      <input id="f-texto" placeholder="Título, resumen, palabras clave…" />
+      <label for="f-texto">Buscar</label>
+      <input id="f-texto" type="text" placeholder="Título, resumen, palabras clave, destinatarios…" />
     </div>
 
-    <div class="actions-filters">
-      <button class="btn secondary" id="btn-limpiar">Limpiar filtros</button>
+    <div class="filters-actions">
+      <button class="btn btn-secondary" id="btn-limpiar" type="button">Limpiar filtros</button>
+      <span class="status" id="status">Cargando publicaciones…</span>
+    </div>
+
+    <div class="hint">
+      Consejo: usa primero <strong>Temática</strong> o <strong>Año</strong> y luego el buscador para afinar.
     </div>
   </section>
 
-  <!-- RESULTADOS -->
+  <!-- Resultados -->
   <section class="card">
-    <div id="status" class="status">
-      Selecciona algún filtro para mostrar publicaciones.
-    </div>
     <div id="grid" class="grid"></div>
+    <p id="msg" class="status" style="display:none;"></p>
   </section>
 </main>
 
-<script>
-const CSV_PATH = "publicaciones.csv";
+<!-- FOOTER CENTRAL -->
+<div id="site-footer"></div>
+<script src="/assets/footer.js?v=1"></script>
 
-const fTema  = document.getElementById("f-tema");
-const fTipo  = document.getElementById("f-tipo");
-const fAmb   = document.getElementById("f-ambito");
-const fAnio  = document.getElementById("f-anio");
-const fTexto = document.getElementById("f-texto");
-const btnLimpiar = document.getElementById("btn-limpiar");
+<script type="module">
+  /***********************
+   * 1) CARRUSEL UNIVERSAL
+   ***********************/
+  (function initCarousel(){
+    const BANNERS_CSV = "/banners.csv";
 
-const grid = document.getElementById("grid");
-const statusEl = document.getElementById("status");
+    const elEmpty = document.getElementById("carouselEmpty");
+    const elTrack = document.getElementById("carouselTrack");
+    const elDots  = document.getElementById("carouselDots");
+    const btnPrev = document.getElementById("carouselPrev");
+    const btnNext = document.getElementById("carouselNext");
+    const elCarousel = document.getElementById("campaignCarousel");
 
-let publicaciones = [];
+    if (!elEmpty || !elTrack || !elDots || !btnPrev || !btnNext || !elCarousel) return;
 
-function parseCSV(text){
-  const rows = [];
-  let row=[], val="", inQ=false;
-  const first = text.split(/\r?\n/).find(l=>l.trim());
-  const d = first && first.includes(";") ? ";" : ",";
-  for(let i=0;i<text.length;i++){
-    const c=text[i], n=text[i+1];
-    if(c=='"'&&inQ&&n=='"'){ val+='"'; i++; }
-    else if(c=='"'){ inQ=!inQ; }
-    else if(c==d&&!inQ){ row.push(val); val=""; }
-    else if((c=="\n"||c=="\r")&&!inQ){
-      if(val||row.length){ row.push(val); rows.push(row); row=[]; val=""; }
-    } else val+=c;
-  }
-  if(val||row.length){ row.push(val); rows.push(row); }
-  return rows.map(r=>r.map(x=>(x||"").trim()));
-}
+    let slides = [];
+    let index = 0;
+    let timer = null;
+    const AUTO_MS = 5500;
 
-function unique(arr){
-  return Array.from(new Set(arr.filter(Boolean))).sort((a,b)=>a.localeCompare(b,"es"));
-}
-function year(fecha){
-  const m=(fecha||"").match(/^(\d{4})/); return m?m[1]:"";
-}
-
-function filtrosActivos(){
-  return fTema.value || fTipo.value || fAmb.value || fAnio.value || fTexto.value.trim();
-}
-
-function applyFilters(){
-  grid.innerHTML="";
-  if(!filtrosActivos()){
-    statusEl.textContent="Selecciona algún filtro para mostrar publicaciones.";
-    return;
-  }
-
-  const res = publicaciones.filter(p=>{
-    if(p.activo==="0") return false;
-    if(fTema.value && p.tema!==fTema.value) return false;
-    if(fTipo.value && p.tipo!==fTipo.value) return false;
-    if(fAmb.value && p.ambito!==fAmb.value) return false;
-    if(fAnio.value && year(p.fecha)!==fAnio.value) return false;
-    if(fTexto.value){
-      const blob=Object.values(p).join(" ").toLowerCase();
-      if(!blob.includes(fTexto.value.toLowerCase())) return false;
+    function splitCSVLine(line){
+      const out = [];
+      let cur = "";
+      let inQ = false;
+      for (let i=0; i<line.length; i++){
+        const ch = line[i];
+        if (ch === '"' && inQ && line[i+1] === '"'){ cur += '"'; i++; continue; }
+        if (ch === '"'){ inQ = !inQ; continue; }
+        if (ch === "," && !inQ){ out.push(cur); cur=""; continue; }
+        cur += ch;
+      }
+      out.push(cur);
+      return out;
     }
-    return true;
-  });
+    function parseCSV(text){
+      const lines = text.replace(/\r/g, "").split("\n").filter(l => l.trim() !== "");
+      if (!lines.length) return [];
+      const headers = splitCSVLine(lines[0]).map(h => h.trim());
+      return lines.slice(1).map(line => {
+        const cols = splitCSVLine(line);
+        const obj = {};
+        headers.forEach((h,i) => obj[h] = (cols[i] ?? "").trim());
+        return obj;
+      });
+    }
+    function normBool(v){
+      return ["1","true","si","sí","x","ok"].includes((v||"").toLowerCase().trim());
+    }
 
-  statusEl.textContent = res.length
-    ? `Mostrando ${res.length} publicación(es).`
-    : "No hay resultados con los filtros seleccionados.";
+    function apply(){
+      elTrack.style.transform = `translateX(${-index * 100}%)`;
+      [...elDots.children].forEach((d, i) => d.classList.toggle("active", i === index));
+    }
+    function goTo(i, userAction=false){
+      index = (i + slides.length) % slides.length;
+      apply();
+      if (userAction) restartAuto();
+    }
+    function next(user=false){ goTo(index + 1, user); }
+    function prev(user=false){ goTo(index - 1, user); }
 
-  res.forEach(p=>{
-    const el=document.createElement("article");
-    el.className="pub";
-    el.innerHTML=`
-      <span class="badge">${p.tema||"Sin temática"}</span>
-      <h3 class="title">${p.titulo||"Publicación"}</h3>
-      <div class="meta">
-        <div><strong>Fecha:</strong> ${p.fecha||"-"}</div>
-        <div><strong>Ámbito:</strong> ${p.ambito||"-"}</div>
-        <div><strong>Tipo:</strong> ${p.tipo||"-"}</div>
-      </div>
-      <p class="desc">${p.resumen||""}</p>
-      ${p.url ? `<a class="btn-primary" href="${p.url}" target="_blank">Abrir publicación</a>` : ""}
-    `;
-    grid.appendChild(el);
-  });
-}
+    function startAuto(){
+      stopAuto();
+      timer = setInterval(() => next(false), AUTO_MS);
+    }
+    function stopAuto(){
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+    function restartAuto(){
+      stopAuto();
+      startAuto();
+    }
 
-async function init(){
-  const r=await fetch(CSV_PATH,{cache:"no-store"});
-  const t=await r.text();
-  const rows=parseCSV(t);
-  const h=rows[0];
-  publicaciones=rows.slice(1).map(r=>{
-    const o={}; h.forEach((k,i)=>o[k]=r[i]||""); return o;
-  });
+    function buildCarousel(items){
+      slides = items;
+      elTrack.innerHTML = "";
+      elDots.innerHTML = "";
 
-  fTema.innerHTML = '<option value="">Selecciona temática…</option>';
-  unique(publicaciones.map(p=>p.tema)).forEach(v=>fTema.add(new Option(v,v)));
+      slides.forEach((s, i) => {
+        const slide = document.createElement("div");
+        slide.className = "slide";
 
-  fTipo.innerHTML = '<option value="">Selecciona tipo…</option>';
-  unique(publicaciones.map(p=>p.tipo)).forEach(v=>fTipo.add(new Option(v,v)));
+        const imgSrc = s.imagen;
+        const alt = s.alt || "Campaña FECCOOEx";
+        const href = (s.enlace || "").trim();
 
-  fAmb.innerHTML = '<option value="">Selecciona ámbito…</option>';
-  unique(publicaciones.map(p=>p.ambito)).forEach(v=>fAmb.add(new Option(v,v)));
+        const img = `<img src="${imgSrc}" alt="${alt}" loading="lazy">`;
+        slide.innerHTML = href ? `<a href="${href}" aria-label="${alt}">${img}</a>` : img;
 
-  fAnio.innerHTML = '<option value="">Selecciona año…</option>';
-  unique(publicaciones.map(p=>year(p.fecha))).sort((a,b)=>b-a)
-    .forEach(v=>fAnio.add(new Option(v,v)));
+        elTrack.appendChild(slide);
 
-  [fTema,fTipo,fAmb,fAnio].forEach(s=>s.addEventListener("change",applyFilters));
-  fTexto.addEventListener("input",applyFilters);
+        const dot = document.createElement("button");
+        dot.className = "dot" + (i === 0 ? " active" : "");
+        dot.setAttribute("aria-label", "Ir a campaña " + (i+1));
+        dot.addEventListener("click", () => goTo(i, true));
+        elDots.appendChild(dot);
+      });
 
-  btnLimpiar.addEventListener("click",()=>{
-    [fTema,fTipo,fAmb,fAnio,fTexto].forEach(x=>x.value="");
-    grid.innerHTML="";
-    statusEl.textContent="Selecciona algún filtro para mostrar publicaciones.";
-  });
-}
+      const multi = slides.length > 1;
+      elEmpty.style.display = "none";
+      elTrack.style.display = "flex";
+      elDots.style.display = multi ? "flex" : "none";
+      btnPrev.style.display = multi ? "flex" : "none";
+      btnNext.style.display = multi ? "flex" : "none";
 
-init();
+      index = 0;
+      apply();
+      if (multi) startAuto();
+    }
+
+    elCarousel.addEventListener("mouseenter", stopAuto);
+    elCarousel.addEventListener("mouseleave", () => { if (slides.length > 1) startAuto(); });
+
+    btnNext.addEventListener("click", () => next(true));
+    btnPrev.addEventListener("click", () => prev(true));
+
+    let touchX = null;
+    elCarousel.addEventListener("touchstart", (e) => {
+      if (!e.touches || e.touches.length !== 1) return;
+      touchX = e.touches[0].clientX;
+      stopAuto();
+    }, {passive:true});
+
+    elCarousel.addEventListener("touchend", (e) => {
+      if (touchX === null) return;
+      const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : touchX;
+      const dx = endX - touchX;
+      touchX = null;
+
+      if (Math.abs(dx) > 40){
+        dx < 0 ? next(true) : prev(true);
+      } else {
+        restartAuto();
+      }
+    }, {passive:true});
+
+    fetch(BANNERS_CSV + "?v=" + Date.now())
+      .then(r => { if (!r.ok) throw new Error("No se pudo cargar banners.csv"); return r.text(); })
+      .then(text => {
+        const rows = parseCSV(text);
+        const items = rows
+          .filter(r => normBool(r.activo))
+          .sort((a,b) => (parseInt(a.orden||"999",10) - parseInt(b.orden||"999",10)));
+
+        if (!items.length){
+          elEmpty.textContent = "No hay campañas activas.";
+          return;
+        }
+        buildCarousel(items);
+      })
+      .catch(err => {
+        console.error(err);
+        elEmpty.textContent = "No se ha podido cargar el banner de campañas.";
+      });
+  })();
+
+  /***********************
+   * 2) PUBLICACIONES (no mostrar por defecto + sin "Todos/Todas")
+   ***********************/
+  const CSV_PATH = "/publicaciones.csv";
+
+  const fTema  = document.getElementById("f-tema");
+  const fTipo  = document.getElementById("f-tipo");
+  const fAmb   = document.getElementById("f-ambito");
+  const fAnio  = document.getElementById("f-anio");
+  const fTexto = document.getElementById("f-texto");
+  const btnLimpiar = document.getElementById("btn-limpiar");
+
+  const grid = document.getElementById("grid");
+  const statusEl = document.getElementById("status");
+  const msgEl = document.getElementById("msg");
+
+  let publicaciones = [];
+
+  // CSV robusto (comillas, comas, saltos)
+  function parseCSV2(text) {
+    const rows = [];
+    let row = [];
+    let val = "";
+    let inQuotes = false;
+
+    const firstLine = text.split(/\r?\n/).find(l => l.trim().length);
+    const delimiter = (firstLine && firstLine.includes(";") && !firstLine.includes(",")) ? ";" : ",";
+
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      const next = text[i + 1];
+
+      if (c === '"' && inQuotes && next === '"') {
+        val += '"'; i++;
+      } else if (c === '"') {
+        inQuotes = !inQuotes;
+      } else if (c === delimiter && !inQuotes) {
+        row.push(val); val = "";
+      } else if ((c === "\n" || c === "\r") && !inQuotes) {
+        if (val !== "" || row.length) {
+          row.push(val); rows.push(row);
+          row = []; val = "";
+        }
+      } else {
+        val += c;
+      }
+    }
+    if (val !== "" || row.length) {
+      row.push(val); rows.push(row);
+    }
+
+    return rows.map(r => r.map(x => (x ?? "").trim()));
+  }
+
+  function norm(s){ return (s || "").toString().trim(); }
+  function normLow(s){ return norm(s).toLowerCase(); }
+
+  function uniqueSorted(arr){
+    return Array.from(new Set(arr.map(x => norm(x)).filter(Boolean)))
+      .sort((a,b) => a.localeCompare(b, "es", { sensitivity:"base" }));
+  }
+
+  function getYear(fecha){
+    const f = norm(fecha);
+    const m = f.match(/^(\d{4})/);
+    return m ? m[1] : "";
+  }
+
+  function fillSelect(select, values, placeholder){
+    select.innerHTML = "";
+    const ph = document.createElement("option");
+    ph.value = "";
+    ph.textContent = placeholder;
+    ph.disabled = true;
+    ph.selected = true;
+    select.appendChild(ph);
+
+    values.forEach(v => {
+      const opt = document.createElement("option");
+      opt.value = v;
+      opt.textContent = v;
+      select.appendChild(opt);
+    });
+  }
+
+  function hasAnyFilter(){
+    return Boolean(
+      norm(fTema.value) || norm(fTipo.value) || norm(fAmb.value) || norm(fAnio.value) || norm(fTexto.value)
+    );
+  }
+
+  function renderEmptyState(){
+    grid.innerHTML = "";
+    msgEl.style.display = "block";
+    msgEl.textContent = "Aplica al menos un filtro para ver publicaciones.";
+    statusEl.textContent = "Aplica al menos un filtro.";
+  }
+
+  function render(list){
+    grid.innerHTML = "";
+
+    if (!list.length){
+      msgEl.style.display = "block";
+      msgEl.textContent = "No hay resultados con los filtros actuales.";
+      statusEl.textContent = "0 resultados.";
+      return;
+    }
+
+    msgEl.style.display = "none";
+    statusEl.textContent = `Mostrando ${list.length} publicación(es).`;
+
+    list.forEach(p => {
+      const el = document.createElement("article");
+      el.className = "pub";
+
+      const top = document.createElement("div");
+      top.className = "pub-top";
+
+      const bTema = document.createElement("span");
+      bTema.className = "badge";
+      bTema.textContent = norm(p.tema) || "Sin temática";
+
+      const bTipo = document.createElement("span");
+      bTipo.className = "badge";
+      bTipo.textContent = (norm(p.tipo) || "Publicación").toUpperCase();
+
+      top.appendChild(bTema);
+      top.appendChild(bTipo);
+
+      const title = document.createElement("h3");
+      title.className = "title";
+      title.textContent = norm(p.titulo) || "Publicación";
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.innerHTML = `
+        <div><strong>Fecha:</strong> ${norm(p.fecha) || "-"}</div>
+        <div><strong>Ámbito:</strong> ${norm(p.ambito) || "-"}</div>
+        <div><strong>Destinatarios:</strong> ${norm(p.destinatarios) || "-"}</div>
+        <div><strong>Fuente:</strong> ${norm(p.fuente) || "-"}</div>
+      `;
+
+      const desc = document.createElement("p");
+      desc.className = "desc";
+      desc.textContent = norm(p.resumen) || "";
+
+      const tags = document.createElement("div");
+      tags.className = "tags";
+      const pk = norm(p.palabras_clave);
+      tags.innerHTML = pk ? `<span>Palabras clave:</span> ${pk}` : `<span>Palabras clave:</span> -`;
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+
+      const url = norm(p.url);
+
+      const btn = document.createElement("a");
+      btn.className = "btn btn-primary";
+      btn.textContent = "Abrir publicación";
+      if (url){
+        btn.href = url;
+        btn.target = "_blank";
+        btn.rel = "noopener noreferrer";
+      } else {
+        btn.href = "#";
+        btn.style.opacity = "0.5";
+        btn.style.pointerEvents = "none";
+      }
+
+      const rightInfo = document.createElement("span");
+      rightInfo.className = "muted";
+      rightInfo.textContent = norm(p.ambito) ? `· ${norm(p.ambito)}` : "";
+
+      actions.appendChild(btn);
+      actions.appendChild(rightInfo);
+
+      el.appendChild(top);
+      el.appendChild(title);
+      el.appendChild(meta);
+      el.appendChild(desc);
+      el.appendChild(tags);
+      el.appendChild(actions);
+
+      grid.appendChild(el);
+    });
+  }
+
+  function applyFilters(){
+    if (!publicaciones.length) return;
+
+    if (!hasAnyFilter()){
+      renderEmptyState();
+      return;
+    }
+
+    const tema = normLow(fTema.value);
+    const tipo = normLow(fTipo.value);
+    const amb  = normLow(fAmb.value);
+    const anio = norm(fAnio.value);
+    const txt  = normLow(fTexto.value);
+
+    const filtered = publicaciones.filter(p => {
+      if (norm(p.activo) === "0") return false;
+
+      if (tema && normLow(p.tema) !== tema) return false;
+      if (tipo && normLow(p.tipo) !== tipo) return false;
+      if (amb  && normLow(p.ambito) !== amb) return false;
+
+      if (anio){
+        const y = getYear(p.fecha);
+        if (y !== anio) return false;
+      }
+
+      if (txt){
+        const hay = [
+          p.titulo, p.resumen, p.palabras_clave, p.destinatarios, p.tema, p.tipo, p.ambito, p.fuente
+        ].map(normLow).join(" ");
+        if (!hay.includes(txt)) return false;
+      }
+
+      return true;
+    });
+
+    filtered.sort((a,b) => {
+      const oa = Number(norm(a.orden) || 999999);
+      const ob = Number(norm(b.orden) || 999999);
+      if (oa !== ob) return oa - ob;
+      return norm(b.fecha).localeCompare(norm(a.fecha), "es");
+    });
+
+    render(filtered);
+  }
+
+  function resetFilters(){
+    fTema.selectedIndex = 0;
+    fTipo.selectedIndex = 0;
+    fAmb.selectedIndex = 0;
+    fAnio.selectedIndex = 0;
+    fTexto.value = "";
+    renderEmptyState();
+  }
+
+  async function init(){
+    statusEl.textContent = "Cargando publicaciones…";
+
+    try{
+      const resp = await fetch(CSV_PATH, { cache: "no-store" });
+      if (!resp.ok) throw new Error("No se pudo cargar " + CSV_PATH);
+      const text = await resp.text();
+
+      const rows = parseCSV2(text).filter(r => r.length > 1);
+      if (rows.length < 2){
+        statusEl.textContent = "publicaciones.csv está vacío o no tiene cabecera.";
+        renderEmptyState();
+        return;
+      }
+
+      const headers = rows[0].map(h => norm(h));
+      publicaciones = rows.slice(1).map(r => {
+        const obj = {};
+        headers.forEach((h,i) => obj[h] = norm(r[i] || ""));
+        return obj;
+      });
+
+      const temas = uniqueSorted(publicaciones.map(p => norm(p.tema)));
+      const tipos = uniqueSorted(publicaciones.map(p => norm(p.tipo)));
+      const ambs  = uniqueSorted(publicaciones.map(p => norm(p.ambito)));
+      const anios = uniqueSorted(publicaciones.map(p => getYear(p.fecha))).sort((a,b) => Number(b) - Number(a));
+
+      fillSelect(fTema, temas, "Selecciona temática…");
+      fillSelect(fTipo, tipos, "Selecciona tipo…");
+      fillSelect(fAmb,  ambs,  "Selecciona ámbito…");
+      fillSelect(fAnio, anios, "Selecciona año…");
+
+      // Eventos
+      [fTema, fTipo, fAmb, fAnio].forEach(s => s.addEventListener("change", applyFilters));
+      fTexto.addEventListener("input", applyFilters);
+      btnLimpiar.addEventListener("click", resetFilters);
+
+      // Estado inicial
+      renderEmptyState();
+
+    }catch(e){
+      console.error(e);
+      statusEl.textContent = "No se pudieron cargar las publicaciones. Revisa que publicaciones.csv esté en la raíz junto a publicaciones.html.";
+      renderEmptyState();
+    }
+  }
+
+  init();
 </script>
 
 </body>
