@@ -26,6 +26,7 @@
       position:sticky;
       top:0;
       z-index:10;
+      gap:16px;
     }
     header img{ height:52px; }
     .titles h1{ margin:0; font-size:1.6rem; font-weight:700; }
@@ -37,6 +38,13 @@
       padding:6px 12px;
       border:1px solid rgba(255,255,255,0.7);
       border-radius:999px;
+      transition:0.2s ease;
+      white-space:nowrap;
+    }
+    nav a:hover{
+      background:rgba(255,255,255,0.18);
+      transform: translateY(-1px);
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
     }
 
     main{
@@ -55,34 +63,84 @@
       font-size:0.9rem;
       font-weight:600;
       text-decoration:none;
+      transition: background 0.15s;
     }
+    .btn-volver:hover{ background:#b40000; }
 
     h1.page-title{ margin:0 0 6px; font-size:1.6rem; }
     .page-subtitle{ margin:0 0 14px; color:#444; font-size:0.95rem; }
 
-    /* FILTROS */
+    .card{
+      background:#fff;
+      border:1px solid #e1e4ea;
+      border-radius:12px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.10);
+      padding:14px 16px 16px;
+      margin-bottom:14px;
+    }
+
+    /* FILTROS: sin "Todos" y sin resultados por defecto */
     .filters{
       display:grid;
       grid-template-columns: 1fr 1fr 2fr;
       gap:10px;
-      margin-bottom:16px;
+      align-items:end;
     }
     @media(max-width:900px){
       .filters{ grid-template-columns:1fr; }
     }
     label{
       font-size:0.8rem;
-      font-weight:700;
+      font-weight:800;
       color:#555;
       display:block;
       margin-bottom:3px;
     }
     select,input{
       width:100%;
-      padding:7px 9px;
-      border-radius:6px;
+      padding:8px 10px;
+      border-radius:8px;
       border:1px solid #cbd5e1;
+      font-size:0.95rem;
+      font-family:inherit;
+      background:#fff;
+      outline:none;
+    }
+    select:focus,input:focus{
+      border-color:#d60000;
+      box-shadow:0 0 0 2px rgba(214,0,0,0,0.10);
+    }
+
+    .filtros-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:12px;
+    }
+    .btn{
+      border:none;
+      border-radius:10px;
+      padding:10px 14px;
+      font-weight:900;
+      cursor:pointer;
+      display:inline-block;
+      text-decoration:none;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s;
       font-size:0.9rem;
+    }
+    .btn-secondary{ background:#111827; color:#fff; }
+    .btn-secondary:hover{ transform:translateY(-1px); box-shadow:0 6px 16px rgba(0,0,0,0.18); }
+
+    .hint{
+      margin-top:10px;
+      font-size:0.83rem;
+      color:#555;
+      background:#f9fafb;
+      border:1px dashed #e5e7eb;
+      border-radius:10px;
+      padding:10px 12px;
+      line-height:1.25rem;
     }
 
     /* GRID */
@@ -94,7 +152,7 @@
     @media(max-width:1100px){ .grid{ grid-template-columns:repeat(2,1fr); } }
     @media(max-width:700px){ .grid{ grid-template-columns:1fr; } }
 
-    .card{
+    .calc{
       background:#fff;
       border:1px solid #e1e4ea;
       border-radius:14px;
@@ -103,6 +161,12 @@
       display:flex;
       flex-direction:column;
       gap:8px;
+      transition:transform 0.15s ease, box-shadow 0.15s ease;
+      min-height: 220px;
+    }
+    .calc:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 22px rgba(0,0,0,0.14);
     }
 
     .badges{
@@ -112,50 +176,79 @@
     }
     .badge{
       font-size:0.75rem;
-      padding:2px 8px;
+      padding:2px 10px;
       border-radius:999px;
       background:#f3f4f6;
       border:1px solid #e5e7eb;
-      font-weight:700;
+      font-weight:900;
+      color:#374151;
+      white-space:nowrap;
     }
 
-    .card h3{
+    .calc h3{
       margin:0;
       font-size:1.05rem;
       color:#111827;
+      line-height:1.2rem;
+      font-weight:900;
     }
 
     .desc{
-      font-size:0.9rem;
+      font-size:0.92rem;
       color:#374151;
+      line-height:1.25rem;
       flex:1;
+      margin:0;
     }
 
     .normativa{
-      font-size:0.8rem;
+      font-size:0.82rem;
       color:#555;
     }
     .normativa ul{
-      margin:4px 0 0;
+      margin:6px 0 0;
       padding-left:16px;
     }
+    .normativa a{
+      color:#d60000;
+      font-weight:800;
+      text-decoration:none;
+    }
+    .normativa a:hover{ text-decoration:underline; }
 
     .actions{
       margin-top:6px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
     }
-    .btn{
+    .btn-open{
       display:inline-block;
-      padding:7px 12px;
-      border-radius:8px;
-      font-weight:800;
+      padding:9px 12px;
+      border-radius:10px;
+      font-weight:900;
       text-decoration:none;
       font-size:0.9rem;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
     }
     .btn-primary{ background:#d60000; color:#fff; }
+    .btn-primary:hover{
+      background:#b40000;
+      transform: translateY(-1px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    }
     .btn-disabled{
       background:#9ca3af;
       color:#fff;
       cursor:not-allowed;
+    }
+
+    .status{
+      font-size:0.88rem;
+      color:#555;
+      font-style:italic;
     }
 
     /* FOOTER */
@@ -165,6 +258,7 @@
       padding:18px 20px 10px;
       border-top:3px solid #d60000;
       font-size:0.85rem;
+      margin-top:10px;
     }
     .footer-inner{
       max-width:1300px;
@@ -174,9 +268,11 @@
       gap:16px;
     }
     @media(max-width:900px){ .footer-inner{ grid-template-columns:1fr; } }
-    .footer-col h3{ margin:0 0 6px; font-size:0.95rem; text-transform:uppercase; }
-    .footer-col p{ margin:0 0 4px; font-size:0.82rem; color:#e0e0e0; }
+    .footer-col h3{ margin:0 0 6px; font-size:0.95rem; text-transform:uppercase; color:#fff; }
+    .footer-col p{ margin:0 0 4px; font-size:0.82rem; color:#e0e0e0; line-height:1.25rem; }
     .footer-col a{ color:#ffdddd; text-decoration:none; font-size:0.82rem; }
+    .footer-col a:hover{ text-decoration:underline; }
+
     .footer-bottom{
       max-width:1300px;
       margin:10px auto 0;
@@ -185,12 +281,14 @@
       display:flex;
       justify-content:space-between;
       flex-wrap:wrap;
+      gap:8px;
     }
     .footer-bottom-left{
       display:flex;
       align-items:center;
       gap:6px;
       font-size:0.78rem;
+      color:#e0e0e0;
     }
     .footer-bottom-left img{ height:18px; }
     .footer-bottom-right{ font-size:0.78rem; color:#bbb; }
@@ -220,27 +318,47 @@
     siempre basadas en la normativa vigente.
   </p>
 
-  <div class="filters">
-    <div>
-      <label>Proceso</label>
-      <select id="f-proceso"><option value="">Todos</option></select>
-    </div>
-    <div>
-      <label>Colectivo</label>
-      <select id="f-colectivo">
-        <option value="">Todos</option>
-        <option value="docente">Docente</option>
-        <option value="laboral">Laboral</option>
-        <option value="ambos">Ambos</option>
-      </select>
-    </div>
-    <div>
-      <label>Buscar</label>
-      <input id="f-texto" placeholder="Baremo, jubilación, retribuciones…">
-    </div>
-  </div>
+  <!-- Filtros -->
+  <section class="card">
+    <div class="filters">
+      <div>
+        <label for="f-proceso">Proceso</label>
+        <select id="f-proceso">
+          <option value="" disabled selected>Selecciona proceso…</option>
+        </select>
+      </div>
 
-  <div id="grid" class="grid"></div>
+      <div>
+        <label for="f-colectivo">Colectivo</label>
+        <select id="f-colectivo">
+          <option value="" disabled selected>Selecciona colectivo…</option>
+          <option value="docente">Docente</option>
+          <option value="laboral">Laboral</option>
+          <option value="ambos">Ambos</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="f-texto">Buscar</label>
+        <input id="f-texto" placeholder="Jubilación, retribuciones, permisos…" />
+      </div>
+    </div>
+
+    <div class="filtros-actions">
+      <button class="btn btn-secondary" id="btn-limpiar" type="button">Limpiar filtros</button>
+      <span class="status" id="status">Cargando calculadoras…</span>
+    </div>
+
+    <div class="hint">
+      Por defecto no se muestran resultados. Aplica al menos un filtro (Proceso, Colectivo o búsqueda).
+    </div>
+  </section>
+
+  <!-- Resultados -->
+  <section class="card">
+    <div id="grid" class="grid"></div>
+    <p id="msg" class="status" style="display:none;"></p>
+  </section>
 </main>
 
 <footer>
@@ -256,13 +374,13 @@
     </div>
     <div class="footer-col">
       <h3>Enlaces</h3>
-      <p><a href="https://extremadura.fe.ccoo.es/" target="_blank">Web FECCOOExtremadura</a></p>
+      <p><a href="https://extremadura.fe.ccoo.es/" target="_blank" rel="noopener noreferrer">Web FECCOOExtremadura</a></p>
     </div>
   </div>
 
   <div class="footer-bottom">
     <div class="footer-bottom-left">
-      <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png">
+      <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" alt="Licencia CC BY-ND">
       <span>Creative Commons BY-ND 4.0</span>
     </div>
     <div class="footer-bottom-right">
@@ -272,85 +390,295 @@
 </footer>
 
 <script>
-document.getElementById("anio").textContent = new Date().getFullYear();
+  document.getElementById("anio").textContent = new Date().getFullYear();
 
-function parseCSV(t){
-  const l=t.trim().split(/\r?\n/); if(!l.length) return [];
-  const d=l[0].includes(";")?";":",";
-  const h=l[0].split(d).map(x=>x.trim());
-  return l.slice(1).filter(x=>x.trim()).map(r=>{
-    const c=r.split(d); const o={};
-    h.forEach((k,i)=>o[k]=(c[i]||"").trim());
-    return o;
-  });
-}
+  /***************
+   * CSV robusto
+   ***************/
+  function parseCSV(text){
+    const rows = [];
+    let row = [];
+    let val = "";
+    let inQuotes = false;
 
-const grid=document.getElementById("grid");
-const fProceso=document.getElementById("f-proceso");
-const fColectivo=document.getElementById("f-colectivo");
-const fTexto=document.getElementById("f-texto");
+    const firstLine = text.split(/\r?\n/).find(l => l.trim().length);
+    const delimiter = (firstLine && firstLine.includes(";") && !firstLine.includes(",")) ? ";" : ",";
 
-let calcs=[], normas=[];
+    for (let i = 0; i < text.length; i++){
+      const c = text[i];
+      const next = text[i + 1];
 
-Promise.all([
-  fetch("calculadoras.csv").then(r=>r.text()),
-  fetch("normativa_calculadoras.csv").then(r=>r.text())
-]).then(([c,n])=>{
-  calcs=parseCSV(c).filter(x=>x.activo==="1");
-  normas=parseCSV(n);
+      if (c === '"' && inQuotes && next === '"') { val += '"'; i++; }
+      else if (c === '"') { inQuotes = !inQuotes; }
+      else if (c === delimiter && !inQuotes) { row.push(val); val = ""; }
+      else if ((c === "\n" || c === "\r") && !inQuotes) {
+        if (val !== "" || row.length) { row.push(val); rows.push(row); row = []; val = ""; }
+      } else { val += c; }
+    }
+    if (val !== "" || row.length) { row.push(val); rows.push(row); }
 
-  [...new Set(calcs.map(c=>c.proceso))].forEach(p=>{
-    const o=document.createElement("option");
-    o.value=p; o.textContent=p;
-    fProceso.appendChild(o);
-  });
+    return rows.map(r => r.map(x => (x ?? "").trim()));
+  }
 
-  render();
-});
+  function norm(s){ return (s || "").toString().trim(); }
+  function normLow(s){ return norm(s).toLowerCase(); }
+  function uniqueSorted(arr){
+    return Array.from(new Set(arr.map(x => norm(x)).filter(Boolean)))
+      .sort((a,b) => a.localeCompare(b, "es", { sensitivity:"base" }));
+  }
+  function safeNum(v, def=999999){ const n = Number(v); return Number.isFinite(n) ? n : def; }
+  function esc(s){
+    return (s ?? "").toString()
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
 
-function render(){
-  const p=fProceso.value.toLowerCase();
-  const c=fColectivo.value.toLowerCase();
-  const t=fTexto.value.toLowerCase();
+  // "Eliminar todos los baremos de la vista":
+  // filtramos todo lo que sea proceso = "Baremo" o que incluya "baremo" en proceso/título (robusto).
+  function isBaremo(calc){
+    const p = normLow(calc.proceso);
+    const t = normLow(calc.titulo);
+    return p === "baremo" || p.includes("baremo") || t.includes("baremo");
+  }
 
-  grid.innerHTML="";
+  const grid = document.getElementById("grid");
+  const fProceso = document.getElementById("f-proceso");
+  const fColectivo = document.getElementById("f-colectivo");
+  const fTexto = document.getElementById("f-texto");
+  const btnLimpiar = document.getElementById("btn-limpiar");
+  const statusEl = document.getElementById("status");
+  const msgEl = document.getElementById("msg");
 
-  calcs.filter(x=>{
-    if(p && x.proceso.toLowerCase()!==p) return false;
-    if(c && x.colectivo.toLowerCase()!==c) return false;
-    if(t && !(x.titulo+x.descripcion+x.palabras_clave).toLowerCase().includes(t)) return false;
-    return true;
-  }).sort((a,b)=>a.orden-b.orden).forEach(calc=>{
-    const card=document.createElement("div");
-    card.className="card";
+  let calcs = [];
+  let normas = [];
 
-    const relNorm=normas.filter(n=>n.id_calc===calc.id).sort((a,b)=>a.orden-b.orden);
+  function hasAnyFilter(){
+    const p = norm(fProceso.value);
+    const c = norm(fColectivo.value);
+    const t = norm(fTexto.value);
+    return Boolean(p || c || t);
+  }
 
-    card.innerHTML=`
-      <div class="badges">
-        <span class="badge">${calc.proceso}</span>
-        <span class="badge">${calc.colectivo}</span>
-        <span class="badge">${calc.estado}</span>
-      </div>
-      <h3>${calc.titulo}</h3>
-      <p class="desc">${calc.descripcion}</p>
-      <div class="normativa">
-        <strong>Normativa relacionada:</strong>
-        <ul>${relNorm.slice(0,3).map(n=>`<li><a href="${n.enlace}" target="_blank">${n.titulo_norma}</a></li>`).join("")}</ul>
-      </div>
-      <div class="actions">
-        ${calc.estado==="activa"
-          ? `<a class="btn btn-primary" href="${calc.url}">Abrir calculadora</a>`
-          : `<span class="btn btn-disabled">En desarrollo</span>`
+  function resetFilters(){
+    fProceso.selectedIndex = 0;   // placeholder
+    fColectivo.selectedIndex = 0; // placeholder
+    fTexto.value = "";
+    renderEmptyState();
+  }
+
+  function renderEmptyState(){
+    grid.innerHTML = "";
+    msgEl.style.display = "block";
+    msgEl.textContent = "Aplica al menos un filtro para ver calculadoras.";
+    statusEl.textContent = "Aplica al menos un filtro.";
+  }
+
+  function render(list){
+    grid.innerHTML = "";
+
+    if (!list.length){
+      msgEl.style.display = "block";
+      msgEl.textContent = "No hay resultados con los filtros actuales.";
+      statusEl.textContent = "0 resultados.";
+      return;
+    }
+
+    msgEl.style.display = "none";
+    statusEl.textContent = `Mostrando ${list.length} calculadora(s).`;
+
+    const frag = document.createDocumentFragment();
+
+    list.forEach(calc => {
+      const card = document.createElement("article");
+      card.className = "calc";
+
+      const relNorm = normas
+        .filter(n => norm(n.id_calc) === norm(calc.id))
+        .sort((a,b) => safeNum(a.orden) - safeNum(b.orden))
+        .slice(0, 3);
+
+      const proceso = norm(calc.proceso) || "Proceso";
+      const colectivo = norm(calc.colectivo) || "—";
+      const estado = norm(calc.estado) || "—";
+      const titulo = norm(calc.titulo) || "Calculadora";
+      const desc = norm(calc.descripcion) || "";
+      const url = norm(calc.url);
+
+      card.innerHTML = `
+        <div class="badges">
+          <span class="badge">${esc(proceso)}</span>
+          <span class="badge">${esc(colectivo)}</span>
+          <span class="badge">${esc(estado)}</span>
+        </div>
+        <h3>${esc(titulo)}</h3>
+        ${desc ? `<p class="desc">${esc(desc)}</p>` : `<p class="desc"></p>`}
+        <div class="normativa">
+          <strong>Normativa relacionada:</strong>
+          <ul>
+            ${
+              relNorm.length
+                ? relNorm.map(n =>
+                    `<li><a href="${esc(norm(n.enlace))}" target="_blank" rel="noopener noreferrer">${esc(norm(n.titulo_norma) || "Norma")}</a></li>`
+                  ).join("")
+                : `<li>—</li>`
+            }
+          </ul>
+        </div>
+      `;
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+
+      if (normLow(calc.estado) === "activa" && url){
+        const a = document.createElement("a");
+        a.className = "btn-open btn-primary";
+        a.href = url;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = "Abrir calculadora";
+        actions.appendChild(a);
+      } else {
+        const s = document.createElement("span");
+        s.className = "btn-open btn-disabled";
+        s.textContent = "En desarrollo";
+        actions.appendChild(s);
+      }
+
+      const right = document.createElement("span");
+      right.className = "status";
+      right.textContent = proceso ? `· ${proceso}` : "";
+      actions.appendChild(right);
+
+      card.appendChild(actions);
+      frag.appendChild(card);
+    });
+
+    grid.appendChild(frag);
+  }
+
+  function applyFilters(){
+    if (!calcs.length) return;
+
+    // No mostrar nada si no hay filtros aplicados
+    if (!hasAnyFilter()){
+      renderEmptyState();
+      return;
+    }
+
+    const p = normLow(fProceso.value);
+    const c = normLow(fColectivo.value);
+    const t = normLow(fTexto.value);
+
+    const filtered = calcs
+      .filter(x => {
+        // activos
+        if (norm(x.activo) === "0") return false;
+
+        // eliminar baremos siempre
+        if (isBaremo(x)) return false;
+
+        if (p && normLow(x.proceso) !== p) return false;
+        if (c && normLow(x.colectivo) !== c) return false;
+
+        if (t){
+          const hay = [x.titulo, x.descripcion, x.palabras_clave, x.proceso, x.colectivo]
+            .map(normLow).join(" ");
+          if (!hay.includes(t)) return false;
         }
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-}
+        return true;
+      })
+      .sort((a,b) => safeNum(a.orden) - safeNum(b.orden));
 
-[fProceso,fColectivo].forEach(e=>e.addEventListener("change",render));
-fTexto.addEventListener("input",render);
+    render(filtered);
+  }
+
+  function fillSelect(select, values, placeholder){
+    select.innerHTML = "";
+    const ph = document.createElement("option");
+    ph.value = "";
+    ph.textContent = placeholder;
+    ph.disabled = true;
+    ph.selected = true;
+    select.appendChild(ph);
+
+    values.forEach(v => {
+      const o = document.createElement("option");
+      o.value = v;
+      o.textContent = v;
+      select.appendChild(o);
+    });
+  }
+
+  async function init(){
+    statusEl.textContent = "Cargando calculadoras…";
+
+    try{
+      const [cTxt, nTxt] = await Promise.all([
+        fetch("calculadoras.csv", { cache:"no-store" }).then(r => r.ok ? r.text() : ""),
+        fetch("normativa_calculadoras.csv", { cache:"no-store" }).then(r => r.ok ? r.text() : "")
+      ]);
+
+      if (!cTxt){
+        statusEl.textContent = "No se ha encontrado calculadoras.csv.";
+        renderEmptyState();
+        return;
+      }
+
+      const cRows = parseCSV(cTxt).filter(r => r.length > 1);
+      if (cRows.length < 2){
+        statusEl.textContent = "calculadoras.csv está vacío o no tiene cabecera.";
+        renderEmptyState();
+        return;
+      }
+
+      const cHeaders = cRows[0].map(h => norm(h));
+      calcs = cRows.slice(1).map(r => {
+        const o = {};
+        cHeaders.forEach((h,i) => o[h] = norm(r[i] || ""));
+        return o;
+      });
+
+      // Normativa (si existe)
+      if (nTxt){
+        const nRows = parseCSV(nTxt).filter(r => r.length > 1);
+        if (nRows.length >= 2){
+          const nHeaders = nRows[0].map(h => norm(h));
+          normas = nRows.slice(1).map(r => {
+            const o = {};
+            nHeaders.forEach((h,i) => o[h] = norm(r[i] || ""));
+            return o;
+          });
+        }
+      }
+
+      // Poblar Proceso sin "Todos" y excluyendo "baremo"
+      const procesos = uniqueSorted(
+        calcs
+          .filter(x => norm(x.activo) !== "0")
+          .filter(x => !isBaremo(x))
+          .map(x => norm(x.proceso))
+      );
+      fillSelect(fProceso, procesos, "Selecciona proceso…");
+
+      // Estado inicial: no mostrar resultados
+      renderEmptyState();
+
+    }catch(e){
+      console.error(e);
+      statusEl.textContent = "No se pudieron cargar los archivos CSV (revisa calculadoras.csv y normativa_calculadoras.csv).";
+      renderEmptyState();
+    }
+  }
+
+  // Eventos
+  [fProceso, fColectivo].forEach(el => el.addEventListener("change", applyFilters));
+  fTexto.addEventListener("input", applyFilters);
+  btnLimpiar.addEventListener("click", resetFilters);
+
+  init();
 </script>
 </body>
 </html>
