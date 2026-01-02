@@ -434,9 +434,17 @@
     </form>
   </section>
 
+  <!-- PÁRRAFO ACLARATORIO (nuevo, antes de servicios) -->
+  <section class="card">
+    <p style="margin:0;">
+      Al afiliarte con nosotros pasas a ser afiliado/a de <strong>Comisiones Obreras (CCOO)</strong>, de la
+      <strong>Federación Estatal de Enseñanza de CCOO</strong> y de la <strong>Federación de Enseñanza de CCOO de Extremadura</strong>.
+    </p>
+  </section>
+
   <!-- SERVICIOS FECCOOEx -->
   <section class="card">
-    <h2>Servicios básicos de afiliación (FECCOOEx Extremadura)</h2>
+    <h2>Servicios básicos por ser afiliado/a a la Federación de Enseñanza de Comisiones Obreras de Extremadura</h2>
     <ul class="bullets">
       <li>Atención y orientación sindical ante dudas laborales y administrativas.</li>
       <li>Acompañamiento en incidencias del centro de trabajo y apoyo en la interlocución.</li>
@@ -447,7 +455,7 @@
 
   <!-- SERVICIOS FEDERACIÓN ESTATAL -->
   <section class="card">
-    <h2>Servicios por pertenecer a la Federación Estatal de Enseñanza</h2>
+    <h2>Servicios por pertenecer a la Federación Estatal de Enseñanza de Comisiones Obreras</h2>
     <ul class="bullets">
       <li>Recursos y materiales de apoyo comunes para el sector educativo.</li>
       <li>Coordinación estatal en campañas, negociación y líneas de acción.</li>
@@ -457,7 +465,7 @@
 
   <!-- DESCUENTOS CONFEDERALES -->
   <section class="card">
-    <h2>Descuentos y ventajas por pertenecer a una organización confederal</h2>
+    <h2>Descuentos y ventajas por pertenecer a una organización confederal como Comisiones Obreras</h2>
     <p>
       La afiliación a CCOO puede incluir acceso a ventajas y descuentos en servicios mediante la red confederal.
       Consulta la información actualizada en la página de servicios de CCOO:
@@ -630,7 +638,7 @@
   /***********************
    * 2) ENVÍO AFILIACIÓN
    ***********************/
-  const API_ENDPOINT = "/api/afiliacion"; // reutilizamos /api/... con endpoint que acepte envíos
+  const API_ENDPOINT = "/api/afiliacion";
   const EMAIL_DESTINO = "educacion@extremadura.ccoo.es";
 
   const form = document.getElementById("form-afiliacion");
