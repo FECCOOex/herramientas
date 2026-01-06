@@ -44,21 +44,6 @@
       opacity:0.95;
     }
 
-    nav a{
-      color:white;
-      text-decoration:none;
-      font-weight:600;
-      padding:6px 12px;
-      border:1px solid rgba(255,255,255,0.7);
-      border-radius:999px;
-      transition:0.2s ease;
-    }
-    nav a:hover{
-      background:rgba(255,255,255,0.18);
-      transform:translateY(-1px);
-      box-shadow:0 2px 6px rgba(0,0,0,0.25);
-    }
-
     /* RESPONSIVE HEADER */
     @media (max-width:700px){
       header{ padding:12px 14px; }
@@ -270,6 +255,8 @@
       max-width:1300px;
       margin:14px auto 0;
       padding:0 16px;
+      display:flex;              /* centra el contenido */
+      justify-content:center;    /* centrado horizontal */
     }
     .delegados-btn{
       display:inline-block;
@@ -283,6 +270,8 @@
       transition: background 0.15s, transform 0.12s ease, box-shadow 0.12s ease;
       border:1px solid rgba(255,255,255,0.35);
       font-size:.9rem;
+      text-align:center;
+      white-space:nowrap;
     }
     .delegados-btn:hover{
       background:#b40000;
@@ -301,10 +290,7 @@
         <p>Recursos públicos y sindicales para la comunidad educativa</p>
       </div>
     </div>
-    <nav>
-      <!-- Se mantiene por ahora; cuando quieras, lo eliminamos también del header -->
-      <a href="delegados.html">Área delegados/as</a>
-    </nav>
+    <!-- nav eliminado (botón pasa debajo de las tarjetas) -->
   </header>
 
   <!-- CARRUSEL DE CAMPAÑAS (se alimenta desde banners.csv) -->
@@ -423,7 +409,7 @@
 
     </div>
 
-    <!-- NUEVO: Botón Área delegados/as debajo de las tarjetas -->
+    <!-- Botón Área delegados/as centrado debajo de las tarjetas -->
     <div class="delegados-wrap">
       <a class="delegados-btn" href="delegados.html">Área delegados/as</a>
     </div>
