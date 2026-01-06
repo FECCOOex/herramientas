@@ -264,6 +264,31 @@
       transform:translateY(-1px);
       box-shadow:0 4px 9px rgba(180,0,0,0.35);
     }
+
+    /* ===== BOTÓN "ÁREA DE DELEGADOS/AS" BAJO TARJETAS (estética Volver) ===== */
+    .delegados-wrap{
+      max-width:1300px;
+      margin:14px auto 0;
+      padding:0 16px;
+    }
+    .delegados-btn{
+      display:inline-block;
+      background:#d60000;
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+      padding:8px 12px;
+      border-radius:999px;
+      box-shadow:0 2px 5px rgba(214,0,0,0.25);
+      transition: background 0.15s, transform 0.12s ease, box-shadow 0.12s ease;
+      border:1px solid rgba(255,255,255,0.35);
+      font-size:.9rem;
+    }
+    .delegados-btn:hover{
+      background:#b40000;
+      transform:translateY(-1px);
+      box-shadow:0 4px 9px rgba(180,0,0,0.30);
+    }
   </style>
 </head>
 
@@ -277,6 +302,7 @@
       </div>
     </div>
     <nav>
+      <!-- Se mantiene por ahora; cuando quieras, lo eliminamos también del header -->
       <a href="delegados.html">Área delegados/as</a>
     </nav>
   </header>
@@ -396,6 +422,12 @@
       </article>
 
     </div>
+
+    <!-- NUEVO: Botón Área delegados/as debajo de las tarjetas -->
+    <div class="delegados-wrap">
+      <a class="delegados-btn" href="delegados.html">Área delegados/as</a>
+    </div>
+
   </main>
 
   <!-- FOOTER CENTRAL -->
