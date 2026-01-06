@@ -268,6 +268,26 @@
     .item h3{margin:0 0 4px;font-size:1rem}
     .item .small{font-size:.84rem;color:#555;line-height:1.2rem}
     .tagline{margin-top:4px;font-size:.82rem;color:#666}
+
+    /* Clickable cards */
+    .center-card{
+      cursor:pointer;
+      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+    .center-card:hover{
+      transform:translateY(-1px);
+      box-shadow:0 4px 10px rgba(0,0,0,0.10);
+      border-color:#d60000;
+    }
+    .hint{
+      margin-top:10px;
+      padding:10px 12px;
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      border-radius:10px;
+      color:#444;
+      font-size:.92rem;
+    }
   </style>
 </head>
 
@@ -280,7 +300,7 @@
       <p>Consulta de centros de trabajo (mapa y filtros)</p>
     </div>
   </div>
-  <nav><a href="/delegados.html">Área delegados/as</a></nav>
+  <!-- nav eliminado: el botón Área delegados/as ya no está en esta página -->
 </header>
 
 <!-- Volver -->
@@ -354,6 +374,12 @@
 
       <!-- Solo meta en el panel izquierdo -->
       <div class="results-meta" id="meta"></div>
+
+      <!-- NUEVO: hint inicial (no mostrar todo por defecto) -->
+      <div class="hint" id="hintInicial">
+        Usa uno o varios filtros para ver resultados. No se muestra el listado completo por defecto.
+      </div>
+
       <div class="muted" style="margin-top:6px;">
         El listado completo aparece debajo del mapa.
       </div>
@@ -375,7 +401,7 @@
   </div>
 
   <!-- MÓDULO INFERIOR: LISTADO A ANCHO COMPLETO -->
-  <section class="card">
+  <section class="card" id="resultsBlock" style="display:none;">
     <div class="list-header">
       <h2>Relación de centros</h2>
       <div class="muted" id="contador">0 centros</div>
@@ -549,7 +575,10 @@
 <script>
   /***********************
    * 2) TU CÓDIGO DE CENTROS
-   * (solo se han cambiado rutas a absolutas)
+   * Cambios:
+   * - No se muestra listado/markers al inicio (solo con filtros activos)
+   * - Click en tarjeta => centra el mapa en ese centro
+   * - Se elimina botón del header (ya en HTML)
    ***********************/
 
   // Columnas exactas del CSV:
@@ -680,10 +709,16 @@
   const elList = document.getElementById("list");
   const elCont = document.getElementById("contador");
 
+  const elResultsBlock = document.getElementById("resultsBlock");
+  const elHintInicial = document.getElementById("hintInicial");
+
   // State
   let raw = [];
   let filtered = [];
   let tipoColorMap = new Map();
+
+  // NUEVO: mapa de marcadores por id (para abrir popup al clicar en el listado)
+  const markersById = new Map();
 
   document.getElementById("btn_reset").addEventListener("click", () => {
     elBus.value = "";
@@ -702,6 +737,36 @@
     el.addEventListener("input", applyFilters);
     el.addEventListener("change", applyFilters);
   });
+
+  function showResults(){
+    if (elResultsBlock) elResultsBlock.style.display = "block";
+    if (elHintInicial) elHintInicial.style.display = "none";
+  }
+
+  function hideResults(){
+    if (elResultsBlock) elResultsBlock.style.display = "none";
+    if (elHintInicial) elHintInicial.style.display = "block";
+    elMeta.textContent = "";
+    elCont.textContent = "0 centros";
+    elList.innerHTML = "";
+    markersLayer.clearLayers();
+    markersById.clear();
+    // Volvemos a vista general (Extremadura) para no dejar el mapa en un punto "raro"
+    map.setView([39.2, -6.3], 8);
+  }
+
+  function hasActiveFilters(){
+    // Consideramos "filtros activos" si hay algo distinto de vacío en cualquiera
+    return Boolean(
+      norm(elBus.value) ||
+      norm(elMun.value) ||
+      norm(elZona.value) ||
+      norm(elTipo.value) ||
+      norm(elTit.value) ||
+      norm(elHor.value) ||
+      norm(elJor.value)
+    );
+  }
 
   function loadCSV(bustCache=false){
     const url = "/centros.csv" + (bustCache ? ("?v=" + Date.now()) : "");
@@ -748,6 +813,7 @@
         tipoColorMap = buildTipoColorMap(raw);
         renderLegend(tipoColorMap);
 
+        // IMPORTANTE: al cargar por primera vez, NO mostramos todo
         applyFilters();
       })
       .catch(err => {
@@ -755,10 +821,20 @@
         elList.innerHTML = "";
         elCont.textContent = "0 centros";
         markersLayer.clearLayers();
+        markersById.clear();
       });
   }
 
   function applyFilters(){
+    // NUEVO: si no hay filtros activos, no mostramos nada
+    if (!hasActiveFilters()){
+      hideResults();
+      filtered = [];
+      return;
+    }
+
+    showResults();
+
     const q = normKey(elBus.value);
     const municipio = normKey(elMun.value);
     const zona = normKey(elZona.value);
@@ -785,6 +861,17 @@
     render();
   }
 
+  function focusCenter(x){
+    if (x.lat == null || x.lng == null) return;
+
+    const targetZoom = Math.max(map.getZoom(), 15);
+    map.setView([x.lat, x.lng], targetZoom, { animate:true });
+
+    // abrir popup del marcador si existe
+    const m = markersById.get(x.id);
+    if (m) m.openPopup();
+  }
+
   function render(){
     elMeta.textContent = `Resultados: ${filtered.length} de ${raw.length}`;
     elCont.textContent = `${filtered.length} centro${filtered.length !== 1 ? "s" : ""}`;
@@ -793,7 +880,9 @@
     elList.innerHTML = "";
     filtered.slice(0, 1000).forEach(x => {
       const div = document.createElement("div");
-      div.className = "item";
+      div.className = "item center-card";
+      div.setAttribute("role", "button");
+      div.setAttribute("tabindex", "0");
       div.innerHTML = `
         <h3>${escapeHtml(x.nombre || "(Sin nombre)")}</h3>
         <div class="small">
@@ -807,11 +896,22 @@
         </div>
         <div class="tagline">${escapeHtml(x.direccion || "")}</div>
       `;
+
+      div.addEventListener("click", () => focusCenter(x));
+      div.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          focusCenter(x);
+        }
+      });
+
       elList.appendChild(div);
     });
 
     // MAPA (coloreado por tipo)
     markersLayer.clearLayers();
+    markersById.clear();
+
     const points = [];
 
     filtered.forEach(x => {
@@ -831,10 +931,14 @@
         <strong>Jornada partida:</strong> ${escapeHtml(x.jornada_partida || "-")}
       `);
 
+      // NUEVO: guardar marcador por id
+      if (x.id) markersById.set(x.id, m);
+
       m.addTo(markersLayer);
       points.push([x.lat, x.lng]);
     });
 
+    // Fit bounds solo si hay puntos (si no, dejamos la vista donde esté)
     if (points.length) {
       map.fitBounds(L.latLngBounds(points).pad(0.15));
     }
