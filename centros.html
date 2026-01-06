@@ -27,7 +27,6 @@
     header img{height:52px}
     .titles h1{margin:0;font-size:1.6rem;font-weight:700}
     .titles p{margin:2px 0 0;font-size:.9rem;opacity:.95}
-    nav a{color:#fff;text-decoration:none;font-weight:700;padding:6px 12px;border:1px solid rgba(255,255,255,.7);border-radius:999px}
 
     /* VOLVER (estilo unificado) */
     .back-wrap{
@@ -300,7 +299,7 @@
       <p>Consulta de centros de trabajo (mapa y filtros)</p>
     </div>
   </div>
-  <!-- nav eliminado: el botón Área delegados/as ya no está en esta página -->
+  <!-- nav eliminado -->
 </header>
 
 <!-- Volver -->
@@ -322,7 +321,7 @@
 <main>
   <h1>Centros de trabajo</h1>
   <p class="subtitle">
-    Filtra por municipio, zona, tipo de centro, titularidad, horario y jornada partida. Los resultados se reflejan en el mapa y el listado.
+    Filtra por municipio, zona, tipo de centro, titularidad, horario y jornada. Los resultados se reflejan en el mapa y el listado.
   </p>
 
   <!-- MÓDULO SUPERIOR: FILTROS + MAPA -->
@@ -339,32 +338,44 @@
 
       <div class="filter-row">
         <label for="f_municipio">Municipio</label>
-        <select id="f_municipio"><option value="">(Todos)</option></select>
+        <select id="f_municipio">
+          <option value="" disabled selected>Selecciona municipio…</option>
+        </select>
       </div>
 
       <div class="filter-row">
         <label for="f_zona">Zona (1–8)</label>
-        <select id="f_zona"><option value="">(Todas)</option></select>
+        <select id="f_zona">
+          <option value="" disabled selected>Selecciona zona…</option>
+        </select>
       </div>
 
       <div class="filter-row">
         <label for="f_tipo">Tipo de centro</label>
-        <select id="f_tipo"><option value="">(Todos)</option></select>
+        <select id="f_tipo">
+          <option value="" disabled selected>Selecciona tipo…</option>
+        </select>
       </div>
 
       <div class="filter-row">
         <label for="f_titularidad">Titularidad</label>
-        <select id="f_titularidad"><option value="">(Todas)</option></select>
+        <select id="f_titularidad">
+          <option value="" disabled selected>Selecciona titularidad…</option>
+        </select>
       </div>
 
       <div class="filter-row">
         <label for="f_horario">Horario</label>
-        <select id="f_horario"><option value="">(Todos)</option></select>
+        <select id="f_horario">
+          <option value="" disabled selected>Selecciona horario…</option>
+        </select>
       </div>
 
       <div class="filter-row">
-        <label for="f_jornada">Jornada partida</label>
-        <select id="f_jornada"><option value="">(Todas)</option></select>
+        <label for="f_jornada">Jornada</label>
+        <select id="f_jornada">
+          <option value="" disabled selected>Selecciona jornada…</option>
+        </select>
       </div>
 
       <div class="btnrow">
@@ -372,10 +383,8 @@
         <button class="btn btn-primary" id="btn_reload" type="button">Recargar CSV</button>
       </div>
 
-      <!-- Solo meta en el panel izquierdo -->
       <div class="results-meta" id="meta"></div>
 
-      <!-- NUEVO: hint inicial (no mostrar todo por defecto) -->
       <div class="hint" id="hintInicial">
         Usa uno o varios filtros para ver resultados. No se muestra el listado completo por defecto.
       </div>
@@ -393,10 +402,7 @@
       </div>
 
       <div id="map"></div>
-
-      <div class="results-meta" style="margin-top:10px;">
-        Si un centro no aparece en el mapa suele ser por falta de lat/lng en el CSV.
-      </div>
+      <!-- Frase eliminada debajo del mapa -->
     </section>
   </div>
 
@@ -574,16 +580,8 @@
 
 <script>
   /***********************
-   * 2) TU CÓDIGO DE CENTROS
-   * Cambios:
-   * - No se muestra listado/markers al inicio (solo con filtros activos)
-   * - Click en tarjeta => centra el mapa en ese centro
-   * - Se elimina botón del header (ya en HTML)
+   * 2) CENTROS
    ***********************/
-
-  // Columnas exactas del CSV:
-  // id, nombre, codigo_centro, titularidad, tipo_centro, etapas, lat, lng, zona,
-  // direccion, cp, municipio, provincia, telefono, fax, email, web, horario, jornada_partida
 
   const COL = {
     id: "id",
@@ -621,20 +619,29 @@
     return [...set].sort((a,b) => a.localeCompare(b, "es", {sensitivity:"base"}));
   }
 
-  function setOptions(selectEl, values, firstLabel) {
+  function setOptions(selectEl, values, placeholder) {
     const current = selectEl.value;
+
     selectEl.innerHTML = "";
+
     const opt0 = document.createElement("option");
     opt0.value = "";
-    opt0.textContent = firstLabel;
+    opt0.textContent = placeholder;
+    opt0.disabled = true;
+    opt0.selected = true;
     selectEl.appendChild(opt0);
+
     values.forEach(v => {
       const o = document.createElement("option");
       o.value = v;
       o.textContent = v;
       selectEl.appendChild(o);
     });
-    if ([...selectEl.options].some(o => o.value === current)) selectEl.value = current;
+
+    if (current && [...selectEl.options].some(o => o.value === current)) {
+      selectEl.value = current;
+      opt0.selected = false;
+    }
   }
 
   function escapeHtml(s){
@@ -646,7 +653,6 @@
       .replaceAll("'","&#039;");
   }
 
-  // ====== COLORES POR TIPO ======
   const PALETTE = [
     "#d60000", "#2563eb", "#16a34a", "#f59e0b", "#7c3aed",
     "#0ea5e9", "#db2777", "#65a30d", "#ea580c", "#64748b"
@@ -690,14 +696,12 @@
     });
   }
 
-  // Map
   const map = L.map("map").setView([39.2, -6.3], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19, attribution: "&copy; OpenStreetMap"
   }).addTo(map);
   const markersLayer = L.layerGroup().addTo(map);
 
-  // Elements
   const elBus = document.getElementById("f_busqueda");
   const elMun = document.getElementById("f_municipio");
   const elZona = document.getElementById("f_zona");
@@ -712,12 +716,9 @@
   const elResultsBlock = document.getElementById("resultsBlock");
   const elHintInicial = document.getElementById("hintInicial");
 
-  // State
   let raw = [];
   let filtered = [];
   let tipoColorMap = new Map();
-
-  // NUEVO: mapa de marcadores por id (para abrir popup al clicar en el listado)
   const markersById = new Map();
 
   document.getElementById("btn_reset").addEventListener("click", () => {
@@ -751,12 +752,10 @@
     elList.innerHTML = "";
     markersLayer.clearLayers();
     markersById.clear();
-    // Volvemos a vista general (Extremadura) para no dejar el mapa en un punto "raro"
     map.setView([39.2, -6.3], 8);
   }
 
   function hasActiveFilters(){
-    // Consideramos "filtros activos" si hay algo distinto de vacío en cualquiera
     return Boolean(
       norm(elBus.value) ||
       norm(elMun.value) ||
@@ -801,19 +800,16 @@
           jornada_partida: norm(row[COL.jornada_partida])
         }));
 
-        // Filtros
-        setOptions(elMun, uniqueSorted(raw.map(x => x.municipio)), "(Todos)");
-        setOptions(elZona, uniqueSorted(raw.map(x => x.zona)), "(Todas)");
-        setOptions(elTipo, uniqueSorted(raw.map(x => x.tipo_centro)), "(Todos)");
-        setOptions(elTit, uniqueSorted(raw.map(x => x.titularidad)), "(Todas)");
-        setOptions(elHor, uniqueSorted(raw.map(x => x.horario)), "(Todos)");
-        setOptions(elJor, uniqueSorted(raw.map(x => x.jornada_partida)), "(Todas)");
+        setOptions(elMun, uniqueSorted(raw.map(x => x.municipio)), "Selecciona municipio…");
+        setOptions(elZona, uniqueSorted(raw.map(x => x.zona)), "Selecciona zona…");
+        setOptions(elTipo, uniqueSorted(raw.map(x => x.tipo_centro)), "Selecciona tipo…");
+        setOptions(elTit, uniqueSorted(raw.map(x => x.titularidad)), "Selecciona titularidad…");
+        setOptions(elHor, uniqueSorted(raw.map(x => x.horario)), "Selecciona horario…");
+        setOptions(elJor, uniqueSorted(raw.map(x => x.jornada_partida)), "Selecciona jornada…");
 
-        // Colores + leyenda (basado en TODOS los tipos del CSV)
         tipoColorMap = buildTipoColorMap(raw);
         renderLegend(tipoColorMap);
 
-        // IMPORTANTE: al cargar por primera vez, NO mostramos todo
         applyFilters();
       })
       .catch(err => {
@@ -826,7 +822,6 @@
   }
 
   function applyFilters(){
-    // NUEVO: si no hay filtros activos, no mostramos nada
     if (!hasActiveFilters()){
       hideResults();
       filtered = [];
@@ -863,11 +858,8 @@
 
   function focusCenter(x){
     if (x.lat == null || x.lng == null) return;
-
     const targetZoom = Math.max(map.getZoom(), 15);
     map.setView([x.lat, x.lng], targetZoom, { animate:true });
-
-    // abrir popup del marcador si existe
     const m = markersById.get(x.id);
     if (m) m.openPopup();
   }
@@ -876,7 +868,6 @@
     elMeta.textContent = `Resultados: ${filtered.length} de ${raw.length}`;
     elCont.textContent = `${filtered.length} centro${filtered.length !== 1 ? "s" : ""}`;
 
-    // LISTADO (módulo inferior)
     elList.innerHTML = "";
     filtered.slice(0, 1000).forEach(x => {
       const div = document.createElement("div");
@@ -892,7 +883,7 @@
           <strong>Tipo:</strong> ${escapeHtml(x.tipo_centro || "-")} ·
           <strong>Titularidad:</strong> ${escapeHtml(x.titularidad || "-")}<br>
           <strong>Horario:</strong> ${escapeHtml(x.horario || "-")} ·
-          <strong>Jornada partida:</strong> ${escapeHtml(x.jornada_partida || "-")}
+          <strong>Jornada:</strong> ${escapeHtml(x.jornada_partida || "-")}
         </div>
         <div class="tagline">${escapeHtml(x.direccion || "")}</div>
       `;
@@ -908,17 +899,15 @@
       elList.appendChild(div);
     });
 
-    // MAPA (coloreado por tipo)
     markersLayer.clearLayers();
     markersById.clear();
 
     const points = [];
-
     filtered.forEach(x => {
       if (x.lat == null || x.lng == null) return;
 
-      const tipo = norm(x.tipo_centro);
-      const color = tipoColorMap.get(tipo) || "#64748b";
+      const tipoTxt = norm(x.tipo_centro);
+      const color = tipoColorMap.get(tipoTxt) || "#64748b";
 
       const m = L.marker([x.lat, x.lng], { icon: iconPorColor(color) }).bindPopup(`
         <strong>${escapeHtml(x.nombre || "")}</strong><br>
@@ -928,17 +917,15 @@
         <strong>Tipo:</strong> ${escapeHtml(x.tipo_centro || "-")}<br>
         <strong>Titularidad:</strong> ${escapeHtml(x.titularidad || "-")}<br>
         <strong>Horario:</strong> ${escapeHtml(x.horario || "-")}<br>
-        <strong>Jornada partida:</strong> ${escapeHtml(x.jornada_partida || "-")}
+        <strong>Jornada:</strong> ${escapeHtml(x.jornada_partida || "-")}
       `);
 
-      // NUEVO: guardar marcador por id
       if (x.id) markersById.set(x.id, m);
 
       m.addTo(markersLayer);
       points.push([x.lat, x.lng]);
     });
 
-    // Fit bounds solo si hay puntos (si no, dejamos la vista donde esté)
     if (points.length) {
       map.fitBounds(L.latLngBounds(points).pad(0.15));
     }
