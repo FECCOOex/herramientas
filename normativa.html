@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Normativa por temática · Herramientas FECCOOEx</title>
 
   <!-- FOOTER CENTRALIZADO -->
@@ -56,6 +57,25 @@
       background: rgba(255,255,255,0.18);
       transform: translateY(-1px);
       box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    /* ==== FIX MOBILE HEADER + BOTÓN ==== */
+    @media (max-width: 600px){
+      header{
+        padding: 10px 12px;
+        gap: 10px;
+        flex-wrap: wrap;              /* permite 2 filas sin romper layout */
+      }
+      header img{ height: 36px; }     /* logo más pequeño */
+      header .titles h1{ font-size: 1.1rem; }
+      header .titles p{ font-size: 0.82rem; }
+
+      nav{ width: 100%; }             /* nav baja y ocupa el ancho */
+      nav a{
+        width: 100%;
+        text-align: center;
+        white-space: nowrap;          /* evita partir "Área delegados/as" */
+      }
     }
 
     main {
